@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Direction — Ripsime Sargsyan</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+  /* ── White-page overrides ── */
+  body { background: #fff; color: #000; }
+  .site-nav { background: #000; }
+  .site-side-label { display: none; }
+  .cursor-x::before,.cursor-x::after { background: #000; }
+
+  /* ── HERO: 2-column — left text / right photo ── */
+  .sp-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    padding-top: var(--nav-h);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  .sp-hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 64px var(--pad-x) 80px;
+  }
+  .sp-tag {
+    font-size: 11px; font-weight: 400;
+    color: rgba(0,0,0,0.35);
+    letter-spacing: 0.08em;
+    margin-bottom: 36px;
+    display: block;
+  }
+  .sp-title {
+    font-size: clamp(56px, 8vw, 120px);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: #000;
+    margin-bottom: 40px;
+  }
+  .sp-desc {
+    font-size: clamp(15px, 1.5vw, 20px);
+    font-weight: 400;
+    line-height: 1.45;
+    color: rgba(0,0,0,0.5);
+    max-width: 480px;
+  }
+  /* Right: photo area */
+  .sp-hero-photo {
+    background: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+  }
+  .sp-hero-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .sp-hero-photo-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(0,0,0,0.2);
+    font-size: 12px; font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── COVER IMAGE (full-width, after hero) ── */
+  .sp-cover {
+    width: 100%;
+    aspect-ratio: 16/7;
+    overflow: hidden;
+    background: #e8e8e8;
+    position: relative;
+  }
+  .sp-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .sp-cover-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(0,0,0,0.2); font-size: 12px; font-weight: 400; letter-spacing: 0.08em;
+  }
+
+  /* ── SECTION ── */
+  .sp-section {
+    padding: 80px var(--pad-x);
+  }
+  .sp-label {
+    display: block;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.1em;
+    color: rgba(0,0,0,0.35);
+    margin-bottom: 56px;
+  }
+  .sp-intro {
+    font-size: clamp(14px, 1.4vw, 18px); font-weight: 400;
+    color: rgba(0,0,0,0.4); max-width: 500px;
+    line-height: 1.5; margin-bottom: 56px;
+  }
+
+  /* ── PROCESS ── */
+  .sp-step {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 28px;
+    padding: 28px 0;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .sp-step-num {
+    font-size: 12px; font-weight: 400;
+    color: rgba(0,0,0,0.28); padding-top: 3px;
+  }
+  .sp-step-title {
+    font-size: clamp(17px, 1.7vw, 24px);
+    font-weight: 400; letter-spacing: -0.01em;
+    line-height: 1; color: #000; margin-bottom: 12px;
+  }
+  .sp-step-text {
+    font-size: 14px; font-weight: 400;
+    color: rgba(0,0,0,0.5); line-height: 1.5; max-width: 580px;
+  }
+  .sp-step-note {
+    font-size: 13px; font-weight: 400;
+    color: rgba(0,0,0,0.28); margin-top: 8px;
+    line-height: 1.4; max-width: 580px;
+  }
+
+  /* ── ADVANTAGES ── */
+  .sp-adv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .sp-adv-item {
+    padding: 36px 48px 36px 0;
+  }
+  .sp-adv-item:nth-child(even) {
+    padding-left: 48px; padding-right: 0;
+  }
+  .sp-adv-title {
+    font-size: clamp(16px, 1.5vw, 20px);
+    font-weight: 400; letter-spacing: -0.01em;
+    line-height: 1; color: #000; margin-bottom: 10px;
+  }
+  .sp-adv-text {
+    font-size: 14px; font-weight: 400;
+    color: rgba(0,0,0,0.5); line-height: 1.45;
+  }
+
+  /* ── SELECTED WORK ── */
+  .sp-work-item {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    padding: 24px 0;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    align-items: start;
+  }
+
+  .sp-work-client {
+    font-size: 15px; font-weight: 400;
+    line-height: 1; color: #000;
+    display: block; margin-bottom: 5px;
+  }
+  .sp-work-sub {
+    font-size: 11px; font-weight: 400;
+    color: rgba(0,0,0,0.35); line-height: 1;
+  }
+  .sp-work-text {
+    font-size: 14px; font-weight: 400;
+    color: rgba(0,0,0,0.5); line-height: 1.45;
+  }
+
+  /* ── TESTIMONIALS — CARDS ── */
+  .sp-testi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .sp-testi-card {
+    background: #f5f5f5;
+    padding: 40px 36px 36px;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    min-height: 240px;
+  }
+  .sp-quote {
+    font-size: clamp(14px, 1.4vw, 18px);
+    font-weight: 400; line-height: 1.5;
+    color: rgba(0,0,0,0.75); flex: 1;
+    margin-bottom: 32px;
+  }
+  .sp-quote-footer {
+    border-top: 1px solid rgba(0,0,0,0.1);
+    padding-top: 16px;
+  }
+  .sp-quote-attr {
+    font-size: 13px; font-weight: 400;
+    color: rgba(0,0,0,0.5); line-height: 1;
+    display: block;
+  }
+  .sp-quote-co {
+    font-size: 11px; font-weight: 400;
+    color: rgba(0,0,0,0.3); display: block;
+    margin-top: 4px;
+  }
+
+  /* ── CONTACT ── */
+  .sp-contact-section {
+    padding: 80px var(--pad-x);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    background: #fff;
+  }
+  .sp-contact-title {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 400; letter-spacing: -0.03em;
+    line-height: 1; color: #000; align-self: start;
+  }
+  .sp-form { display: flex; flex-direction: column; }
+  .sp-field {
+    border-bottom: 1px solid rgba(0,0,0,0.65);
+    padding: 16px 0; transition: border-color .2s;
+  }
+  .sp-field:focus-within { border-bottom-color: #000; }
+  .sp-field input, .sp-field textarea {
+    width: 100%; background: transparent;
+    border: none; outline: none;
+    color: #000; font-family: var(--font);
+    font-size: 15px; font-weight: 400;
+    resize: none; line-height: 1.5;
+  }
+  .sp-field textarea { min-height: 90px; }
+  .sp-field input::placeholder, .sp-field textarea::placeholder { color: rgba(0,0,0,0.3); }
+  .sp-form-footer {
+    margin-top: 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .sp-privacy { font-size: 11px; font-weight: 400; color: rgba(0,0,0,0.28); }
+  .sp-btn {
+    font-family: var(--font); font-size: 13px; font-weight: 400;
+    color: #000; background: transparent;
+    border: 1px solid rgba(0,0,0,0.3);
+    padding: 11px 26px; cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .sp-btn:hover { background: #000; color: #fff; }
+
+  /* ── FOOTER ── */
+  .site-footer { background: #000; }
+
+  /* ── MOBILE ── */
+  @media(max-width:720px){
+    .sp-hero { grid-template-columns: 1fr; }
+    .sp-hero-photo { min-height: 55vw; }
+    .sp-hero-left { padding: 40px var(--pad-x) 56px; }
+    .sp-cover { aspect-ratio: 4/3; }
+    .sp-step { grid-template-columns: 44px 1fr; gap: 14px; }
+    .sp-adv-grid { grid-template-columns: 1fr; }
+    .sp-adv-item:nth-child(even) { padding-left: 0; border-left: none; }
+    .sp-work-item { grid-template-columns: 1fr; gap: 6px; }
+    .sp-testi-grid { grid-template-columns: 1fr; gap: 12px; }
+    .sp-contact-section { grid-template-columns: 1fr; gap: 36px; padding: 48px var(--pad-x); }
+    .sp-section { padding: 52px var(--pad-x); }
+  }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <div class="nav-service-wrap">
+        <button class="nav-link nav-service-toggle">Service</button>
+        <div class="service-drop">
+          <a href="service-branding.html" class="service-item">Branding</a>
+          <a href="service-uiux.html" class="service-item">UI/UX</a>
+          <a href="service-product-design.html" class="service-item">Product Design</a>
+          <a href="service-art-direction.html" class="service-item">Art Direction</a>
+        </div>
+      </div>
+      <a href="talks.html" class="nav-link">Talks</a>
+      <a href="mailto:sargsyan.std@gmail.com" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- STAIRCASE PANEL -->
+  <div class="staircase-panel" id="staircase-panel"></div>
+
+  <!-- FULL OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+      <div>
+        <div class="overlay-stair-links">
+          <a href="index.html">Work</a>
+          <a href="about.html">About</a>
+          <button class="ol-service-toggle" type="button">Services <span class="ol-toggle-arrow">→</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="service-branding.html">Branding</a>
+            <a href="service-uiux.html">UI/UX</a>
+            <a href="service-product-design.html">Product Design</a>
+            <a href="service-art-direction.html">Art Direction</a>
+          </div>
+          <a href="talks.html">Talks</a>
+          <a href="mailto:sargsyan.std@gmail.com">Contact</a>
+        </div>
+        <div class="overlay-footer-info">
+          <div class="ol-footer-col"><p class="ol-footer-label">Based in Armenia</p></div>
+          <div class="ol-footer-col">
+            <p class="ol-footer-label">work with me:</p>
+            <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">@sargsyan.std</a>
+          </div>
+          <div class="ol-footer-col">
+            <p class="ol-footer-label">more about me:</p>
+            <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+            <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
+          </div>
+        </div>
+      </div>
+      <div class="overlay-form-wrap">
+        <form id="overlay-form" class="ol-form" novalidate>
+          <div class="ol-form-grid">
+            <div class="ol-field"><input type="text" name="ol-name" placeholder="Your name" required></div>
+            <div class="ol-field"><input type="email" name="ol-email" placeholder="your@email.com" required></div>
+          </div>
+          <div class="ol-field"><textarea name="ol-message" placeholder="Tell me about your project..." rows="4" required></textarea></div>
+          <label class="ol-consent">
+            <input type="checkbox" name="ol-consent" required>
+            <span class="ol-consent-text">I agree to the processing of personal data.</span>
+          </label>
+          <button type="submit" class="ol-submit">Send →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="sp-page">
+
+    <!-- HERO: left text / right photo -->
+    <section class="sp-hero">
+      <div class="sp-hero-left">
+        <span class="sp-tag">Service · Art Direction</span>
+        <h1 class="sp-title">Art Direction</h1>
+        <p class="sp-desc">We define the visual tone of brands and products. From campaign imagery to product interfaces, we establish a creative direction that is consistent, distinctive, and aligned with your strategic goals.</p>
+      </div>
+      <div class="sp-hero-photo">
+      </div>
+    </section>
+
+    <!-- COVER IMAGE (full-width) -->
+    <div class="sp-cover">
+    </div>
+
+    <!-- PROCESS -->
+    <section class="sp-section">
+      <span class="sp-label">Our Process</span>
+      <p class="sp-intro">A transparent and structured workflow, built for seamless collaboration with your team.</p>
+          <div class="sp-step">
+            <span class="sp-step-num">01</span>
+            <div>
+              <h3 class="sp-step-title">Creative Briefing</h3>
+              <p class="sp-step-text">We start by understanding the context: brand positioning, audience, channels, and objectives. Through workshops and reference sessions, we align on the creative territory and define the visual ambition for the project.</p>
+            </div>
+          </div>
+          <div class="sp-step">
+            <span class="sp-step-num">02</span>
+            <div>
+              <h3 class="sp-step-title">Moodboarding &amp; Visual Strategy</h3>
+              <p class="sp-step-text">We develop detailed moodboards and visual direction documents covering photography style, color treatment, composition principles, typography usage, illustration approach, and motion language. This becomes the creative compass for the entire project.</p>
+            </div>
+          </div>
+          <div class="sp-step">
+            <span class="sp-step-num">03</span>
+            <div>
+              <h3 class="sp-step-title">Art Direction in Production</h3>
+              <p class="sp-step-text">We oversee the execution of creative assets: directing photo shoots, guiding illustrators, reviewing motion design, and ensuring every piece meets the established standard. We work alongside your internal team or external vendors.</p>
+            </div>
+          </div>
+          <div class="sp-step">
+            <span class="sp-step-num">04</span>
+            <div>
+              <h3 class="sp-step-title">Creative Guidelines &amp; Governance</h3>
+              <p class="sp-step-text">We codify the creative direction into a practical guideline document that empowers your team to produce on-brand work independently. This includes do's and don'ts, reference examples, and quality benchmarks.</p>
+            </div>
+          </div>
+    </section>
+
+    <!-- WHY US -->
+    <section class="sp-section">
+      <span class="sp-label">Why Us</span>
+      <div class="sp-adv-grid">
+          <div class="sp-adv-item">
+            <h3 class="sp-adv-title">Clarity of Vision</h3>
+            <p class="sp-adv-text">We translate abstract brand values into concrete visual rules. Your team gets a clear framework, not a mood. This eliminates guesswork and accelerates content production.</p>
+          </div>
+          <div class="sp-adv-item">
+            <h3 class="sp-adv-title">Cross-Format Consistency</h3>
+            <p class="sp-adv-text">We ensure visual coherence across all formats: digital, print, motion, environmental, social. Every touchpoint feels like it belongs to the same brand.</p>
+          </div>
+          <div class="sp-adv-item">
+            <h3 class="sp-adv-title">Director-Level Involvement</h3>
+            <p class="sp-adv-text">Senior creatives lead every project. Art direction is not delegated to juniors. You get experienced eyes on every decision.</p>
+          </div>
+          <div class="sp-adv-item">
+            <h3 class="sp-adv-title">Practical, Not Precious</h3>
+            <p class="sp-adv-text">Our guidelines are designed to be used, not admired. They are structured for real production workflows, with flexibility built in for different teams and formats.</p>
+          </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section class="sp-section">
+      <span class="sp-label">Selected Work</span>
+      <div class="sp-work-list">
+          <div class="sp-work-item">
+            <div>
+              <span class="sp-work-client">Vantage Media Group</span>
+              <span class="sp-work-sub">Art direction for a corporate rebrand</span>
+            </div>
+            <p class="sp-work-text">Defined the complete visual language for a global media company across digital, print, and event environments. Directed two photo shoots, developed illustration guidelines, and created a motion design framework. Brand consistency score improved from 54% to 93%.</p>
+          </div>
+          <div class="sp-work-item">
+            <div>
+              <span class="sp-work-client">Lumiere Cosmetics</span>
+              <span class="sp-work-sub">Campaign art direction</span>
+            </div>
+            <p class="sp-work-text">Led creative direction for a seasonal campaign spanning e-commerce, social, OOH, and retail POS. Directed a three-day studio shoot and built a reusable content system for the internal marketing team.</p>
+          </div>
+          <div class="sp-work-item">
+            <div>
+              <span class="sp-work-client">Stratos Airlines</span>
+              <span class="sp-work-sub">Digital product art direction</span>
+            </div>
+            <p class="sp-work-text">Established visual standards for a booking platform redesign including iconography, data visualization style, photography treatment, and micro-interaction principles. Design QA rejection rate dropped by 60%.</p>
+          </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="sp-section">
+      <span class="sp-label">What Clients Say</span>
+      <div class="sp-testi-grid">
+          <div class="sp-testi-card">
+            <p class="sp-quote">"Before working with them, our brand looked different on every channel. They gave us a visual system that finally made everything feel connected and intentional."</p>
+            <div class="sp-quote-footer">
+              <span class="sp-quote-attr">Rachel Dunn</span>
+              <span class="sp-quote-co">Brand Director, Vantage Media Group</span>
+            </div>
+          </div>
+          <div class="sp-testi-card">
+            <p class="sp-quote">"They directed our shoot, built our guidelines, and trained our team. Six months later, we are still producing on-brand content without any outside help. That is the real deliverable."</p>
+            <div class="sp-quote-footer">
+              <span class="sp-quote-attr">Tomas Lindgren</span>
+              <span class="sp-quote-co">Head of Marketing, Lumiere Cosmetics</span>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="sp-contact-section">
+      <h2 class="sp-contact-title">Let's Define Your Visual Direction</h2>
+      <form class="sp-form" novalidate>
+        <div class="sp-field"><input type="text" placeholder="Name" required></div>
+        <div class="sp-field"><input type="text" placeholder="Company" required></div>
+        <div class="sp-field"><input type="email" placeholder="Email" required></div>
+        <div class="sp-field"><input type="tel" placeholder="Phone"></div>
+        <div class="sp-field"><textarea placeholder="Describe your project..." rows="4" required></textarea></div>
+        <div class="sp-form-footer">
+          <span class="sp-privacy">By submitting you agree to our Privacy Policy.</span>
+          <button type="submit" class="sp-btn">Submit →</button>
+        </div>
+      </form>
+    </section>
+
+
+    <footer class="site-footer">
+      <div>
+        <p class="footer-col-label">Based in Armenia</p>
+        <nav class="footer-col-links">
+          <a href="index.html">Home</a>
+          <a href="index.html">Works</a>
+          <a href="about.html">About</a>
+          <a href="talks.html">Talks</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-col-label">work with me:</p>
+        <div class="footer-col-links">
+          <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">@sargsyan.std</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-label">more about me:</p>
+        <div class="footer-col-links">
+          <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
+        </div>
+      </div>
+      <div class="footer-col-right">
+        <p class="footer-copyright">All rights reserved</p>
+        <p class="footer-copyright">© 2024 Ripsime Sargsyan</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
