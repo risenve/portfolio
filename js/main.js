@@ -321,37 +321,75 @@ function initQuoteAnim() {
   var words = gsap.utils.toArray('.qw');
   if (!words.length) return;
 
-  // Words at their final CSS positions — start invisible, shifted down
+  var isMobile = window.innerWidth <= 720;
+
+  if (isMobile) {
+    // Mobile: simple per-word opacity reveal as each enters viewport
+    gsap.set(words, { opacity: 0 });
+    words.forEach(function(word) {
+      ScrollTrigger.create({
+        trigger: word,
+        start: 'top 88%',
+        onEnter: function() {
+          gsap.to(word, { opacity: 1, duration: 0.55, ease: 'power1.out' });
+        }
+      });
+    });
+    return;
+  }
+
+  // Desktop: scroll-pinned reveal
   gsap.set(words, { y: 36, opacity: 0 });
-  // Side label: same starting state
   gsap.set('.quote-side-label', { y: 36, opacity: 0 });
-  // Individual cards start off-screen below (clipped by quote-sec overflow:hidden)
-  gsap.set('#quote-projects .qp-card', { y: '80vh', opacity: 0 });
 
   var tl = gsap.timeline({
     scrollTrigger: {
       trigger: sec,
       start: 'top top',
-      end: '+=420%',
+      end: '+=220%',
       pin: true,
       scrub: 1,
       anticipatePin: 1
     }
   });
 
-  // Phase 1 — words + label rise into view
-  tl.to(words, { y: 0, opacity: 1, stagger: 0.1, duration: 0.35, ease: 'none' });
+  tl.to(words, { y: 0, opacity: 1, stagger: 0.1, duration: 0.45, ease: 'none' });
   tl.to('.quote-side-label', { y: 0, opacity: 1, duration: 0.35, ease: 'none' }, '<');
+}
 
-  // Phase 2a — cards 1 and 3 enter together (slight stagger = visual height offset)
-  tl.to('#quote-projects .qp-card:nth-child(1)', { y: 0, opacity: 1, duration: 0.28, ease: 'none' }, '+=0.08');
-  tl.to('#quote-projects .qp-card:nth-child(3)', { y: 0, opacity: 1, duration: 0.28, ease: 'none' }, '<0.05');
+// ── PROJECT SLIDER ──
+function initProjSlider() {
+  var inner = document.getElementById('proj-slider-inner');
+  if (!inner) return;
+  var slides = inner.querySelectorAll('.proj-slide');
+  if (!slides.length) return;
+  var counter = document.getElementById('proj-counter');
+  var prevBtn = document.getElementById('proj-prev');
+  var nextBtn = document.getElementById('proj-next');
+  var current = 0;
+  var total = slides.length;
 
-  // Phase 2b — card 2 (middle) enters shortly after
-  tl.to('#quote-projects .qp-card:nth-child(2)', { y: 0, opacity: 1, duration: 0.28, ease: 'none' }, '<0.12');
+  function goTo(n) {
+    current = ((n % total) + total) % total;
+    inner.style.transform = 'translateX(-' + (current * 100) + '%)';
+    if (counter) counter.textContent = (current + 1) + ' / ' + total;
+  }
 
-  // Phase 3 — all cards sweep upward through the text
-  tl.to('#quote-projects', { y: '-55vh', duration: 0.65, ease: 'none' }, '+=0.1');
+  if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+  // Swipe support
+  var touchStartX = 0;
+  var wrap = inner.parentElement;
+  if (wrap) {
+    wrap.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    wrap.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+    }, { passive: true });
+  }
 }
 
 // ── OVERLAY OPEN / CLOSE ──
@@ -433,6 +471,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initOverlay();
   initServiceDrop();
   initQuoteAnim();
+  initProjSlider();
   if (document.getElementById('projects-container')) {
     renderProjects('all');
     initFilter();
