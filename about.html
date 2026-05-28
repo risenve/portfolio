@@ -67,7 +67,6 @@
       text-align: center;
       z-index: 2;
       pointer-events: none;
-      mix-blend-mode: difference;
       transition: opacity 0.55s ease, transform 0.55s ease;
       display: flex;
       flex-direction: column;
@@ -78,8 +77,13 @@
       opacity: 0;
       transform: translateY(-50%) scale(0.95);
     }
+    /* Blend mode only on the name line, not the role */
+    .ah-name-blend {
+      mix-blend-mode: difference;
+      pointer-events: none;
+    }
     .ah-role-center {
-      font-size: clamp(15px, 1.4vw, 20px);
+      font-size: clamp(18px, 2vw, 28px);
       font-weight: 400;
       color: #fff;
       letter-spacing: 0.06em;
@@ -294,6 +298,9 @@
       font-weight: 400 !important;
     }
 
+    /* Comma between PICTURES and IT'S — visible on mobile only */
+    .qw-comma { display: none; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .allp-desc { text-indent: 0; }
@@ -314,6 +321,8 @@
       .site-side-label { display: none; }
       .ah-label-fixed { font-size: 11px; }
 
+      .ah-role-center { font-size: clamp(20px, 4.5vw, 28px); }
+
       /* Process block: stack vertically, no absolute positioning */
       .ah-process-sticky {
         display: flex;
@@ -332,7 +341,7 @@
       .ah-about-label { margin-bottom: 12px; }
       .ah-big-statement {
         text-indent: 0;
-        font-size: clamp(44px, 12vw, 64px);
+        font-size: clamp(52px, 14vw, 72px);
         line-height: 1;
         margin-bottom: 40px;
       }
@@ -352,22 +361,28 @@
       .ah-stat-unit { align-self: auto; text-align: center; margin-top: 4px; }
       .ah-stat-desc { grid-column: unset; text-align: center; justify-self: auto; max-width: 100%; margin-top: 6px; }
 
-      /* Quote section: static flow instead of absolute positions */
+      /* Quote section: inline text flow on mobile */
       .quote-sec {
         height: auto !important;
         overflow: visible !important;
         padding: 56px var(--pad-x) 56px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 0 !important;
+        display: block !important;
       }
       .qw {
+        display: inline !important;
         position: static !important;
         white-space: normal !important;
         text-align: left !important;
         top: auto !important; left: auto !important; right: auto !important;
-        font-size: clamp(44px, 12vw, 68px) !important;
-        line-height: 1 !important;
+        font-size: clamp(48px, 13vw, 72px) !important;
+        line-height: 1.1 !important;
+      }
+      .qw-comma {
+        display: inline !important;
+        font-size: clamp(48px, 13vw, 72px) !important;
+        font-weight: 400;
+        color: #fff;
+        line-height: 1.1;
       }
       .quote-side-label { display: none !important; }
     }
@@ -471,7 +486,9 @@
 
   <!-- ── CENTERED NAME + ROLE (fixed, above hero) ── -->
   <div class="ah-name-center" id="ah-name-center">
-    <p><span class="ah-name-str" id="ah-typed"></span><span class="ah-cursor" id="ah-cursor"></span></p>
+    <div class="ah-name-blend">
+      <p><span class="ah-name-str" id="ah-typed"></span><span class="ah-cursor" id="ah-cursor"></span></p>
+    </div>
     <p class="ah-role-center" id="ah-role-center">Digital Designer &amp; Art Director</p>
   </div>
 
@@ -538,7 +555,7 @@
     <section class="quote-sec" id="quote-sec">
       <p class="qw qw--design">DESIGN</p>
       <p class="qw qw--isnotjust">IS NOT JUST</p>
-      <p class="qw qw--pictures">PICTURES</p>
+      <p class="qw qw--pictures">PICTURES</p><span class="qw-comma">,</span>
       <p class="qw qw--its">IT'S</p>
       <p class="qw qw--a">A</p>
       <p class="qw qw--mindset">MINDSET</p>
@@ -546,44 +563,50 @@
 
     </section>
 
-    <!-- PROJECT SLIDER -->
-    <section class="proj-slider-sec">
-      <div class="proj-slider-wrap" id="proj-slider-wrap">
-        <div class="proj-slider-inner" id="proj-slider-inner">
-          <a href="project-eburet.html" class="proj-slide">
-            <div class="proj-slide-img">
-              <img src="images/eburet/Eburet 02.png" alt="Eburet" loading="lazy">
+    <!-- PROJECT GRID -->
+    <section class="ab-proj-sec">
+      <div class="ab-proj-grid">
+        <a href="project-eburet.html" class="project-card">
+          <div class="card-img-wrap">
+            <img src="images/eburet/Eburet 02.png" alt="Eburet" loading="lazy">
+          </div>
+          <div class="card-info">
+            <span class="card-title">Eburet</span>
+            <span class="card-cat">UI/UX Design</span>
+          </div>
+        </a>
+        <a href="project-match.html" class="project-card">
+          <div class="card-img-wrap">
+            <img src="images/match/photo 1.png" alt="Match" loading="lazy">
+          </div>
+          <div class="card-info">
+            <span class="card-title">Match</span>
+            <span class="card-cat">Art Direction</span>
+          </div>
+        </a>
+        <a href="project-posters.html" class="project-card">
+          <div class="card-img-wrap">
+            <img src="images/posters/poster.png" alt="Posters Vol.1" loading="lazy">
+          </div>
+          <div class="card-info">
+            <span class="card-title">Posters Vol.1</span>
+            <span class="card-cat">Graphic Design</span>
+          </div>
+        </a>
+        <div class="project-card">
+          <div class="card-img-wrap">
+            <div class="card-placeholder">
+              <span class="ph-num">4</span>
+              <span class="ph-title">AI Creatives</span>
             </div>
-            <div class="proj-slide-info">
-              <span class="proj-slide-title">Eburet</span>
-              <span class="proj-slide-type">UI/UX Design</span>
-            </div>
-          </a>
-          <a href="project-match.html" class="proj-slide">
-            <div class="proj-slide-img">
-              <img src="images/match/photo 1.png" alt="Match" loading="lazy">
-            </div>
-            <div class="proj-slide-info">
-              <span class="proj-slide-title">Match</span>
-              <span class="proj-slide-type">Art Direction</span>
-            </div>
-          </a>
-          <a href="project-posters.html" class="proj-slide">
-            <div class="proj-slide-img">
-              <img src="images/posters/poster.png" alt="Posters Vol.1" loading="lazy">
-            </div>
-            <div class="proj-slide-info">
-              <span class="proj-slide-title">Posters Vol.1</span>
-              <span class="proj-slide-type">Graphic Design</span>
-            </div>
-          </a>
+          </div>
+          <div class="card-info">
+            <span class="card-title">AI Creatives</span>
+            <span class="card-cat">Graphics &amp; AI</span>
+          </div>
         </div>
       </div>
-      <div class="proj-slider-nav">
-        <button class="proj-prev" id="proj-prev">←</button>
-        <span class="proj-counter" id="proj-counter">1 / 3</span>
-        <button class="proj-next" id="proj-next">→</button>
-      </div>
+      <a href="index.html" class="ab-see-all">See all projects →</a>
     </section>
 
 

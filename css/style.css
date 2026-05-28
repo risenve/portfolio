@@ -446,12 +446,12 @@ body.overlay-open{overflow:hidden}
   display:inline-flex;align-items:center;gap:8px;
   background:transparent;color:#fff;
   font-family:var(--font);font-size:13px;font-weight:500;
-  padding:12px 28px;
-  border:1px solid rgba(255,255,255,0.25);
+  padding:12px 0;
+  border:none;
   cursor:pointer;
-  transition:background .2s,color .2s;
+  transition:color .2s;
 }
-.btn-send:hover{background:#fff;color:#000}
+.btn-send:hover{background:transparent;color:rgba(255,255,255,0.55)}
 .form-success{
   display:none;font-size:13px;
   color:var(--accent);
@@ -1425,6 +1425,33 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .proj-prev:hover,.proj-next:hover{ color:#fff; }
 .proj-counter{ font-size:13px; color:rgba(255,255,255,0.35); }
 
+/* ── ABOUT PAGE — PROJECT GRID ── */
+.ab-proj-sec{
+  padding:0 var(--pad-x) 80px;
+  background:#000;
+}
+.ab-proj-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:56px;
+}
+.ab-proj-grid .project-card:nth-child(1) .card-img-wrap{aspect-ratio:4/3}
+.ab-proj-grid .project-card:nth-child(2) .card-img-wrap{aspect-ratio:3/4}
+.ab-proj-grid .project-card:nth-child(3) .card-img-wrap{aspect-ratio:16/9}
+.ab-proj-grid .project-card:nth-child(4) .card-img-wrap{aspect-ratio:3/4}
+.ab-see-all{
+  display:block;
+  font-size:clamp(32px,5vw,72px);
+  font-weight:400;
+  color:rgba(255,255,255,0.65);
+  letter-spacing:-0.02em;
+  line-height:1.1;
+  transition:color .2s;
+  text-decoration:none;
+}
+.ab-see-all:hover{color:#fff}
+
 /* ── MOBILE OVERRIDES (must come last to win cascade) ── */
 @media(max-width:900px){
   .nav-links{gap:20px}
@@ -1433,7 +1460,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 @media(max-width:720px){
   .nav-links{display:none!important}
   /* Hamburger to the left of logo */
-  .nav-toggle{display:flex!important;order:-1;margin-left:0;margin-right:12px}
+  .nav-toggle{display:flex!important;margin-left:auto}
   .service-drop{display:none!important}
   .talks-cards-grid{grid-template-columns:1fr!important}
   /* Controls: filters scroll horizontally, Grid/List stays right */
@@ -1443,4 +1470,6 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .view-toggle{flex-shrink:0;margin-left:16px}
   .filter-btn{font-size:15px;padding:4px 10px 4px 0;white-space:nowrap}
   .filters{gap:0}
+  .ab-proj-grid{grid-template-columns:1fr;gap:12px;margin-bottom:40px}
+  .ab-proj-grid .project-card .card-img-wrap{aspect-ratio:3/2!important}
 }

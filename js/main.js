@@ -472,6 +472,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initServiceDrop();
   initQuoteAnim();
   initProjSlider();
+  setTimeout(initCardReveal, 30);
   if (document.getElementById('projects-container')) {
     renderProjects('all');
     initFilter();
