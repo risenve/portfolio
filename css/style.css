@@ -50,6 +50,7 @@ body{
   position:fixed;
   top:0;left:0;right:0;
   z-index:200;
+  background:var(--bg);
   height:var(--nav-h);
   display:flex;
   align-items:center;
@@ -1451,6 +1452,132 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   text-decoration:none;
 }
 .ab-see-all:hover{color:#fff}
+
+/* ── СКАЗ ПО КРАЮ — PROJECT PAGE ── */
+.skp-main{background:#fff}
+
+.skp-hero{height:700px;overflow:hidden;position:relative}
+.skp-hero img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+
+.skp-text{
+  background:#fff;
+  display:flex;flex-direction:column;
+  align-items:flex-end;justify-content:center;
+  padding:60px 90px;overflow:hidden;
+}
+.skp-text p{
+  font-size:20px;font-weight:400;line-height:1.2;
+  color:#000;margin:0;font-family:var(--font);
+}
+.skp-inner-492{width:492px}
+.skp-inner-512{width:512px}
+
+.skp-fullimg{overflow:hidden;background:#fff}
+.skp-fullimg img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.skp-fh700{height:700px}
+.skp-fh780{height:780px}
+
+.skp-pair{display:flex;background:#fff}
+.skp-pair.skp-py60{padding:60px 0}
+.skp-pair.skp-pt60{padding-top:60px}
+.skp-pcol{height:700px;position:relative;overflow:hidden;flex-shrink:0}
+.skp-pcol-720{width:720px}
+.skp-pcol-flex{flex:1;min-width:0}
+.skp-cover{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  display:block;max-width:none;
+}
+
+.skp-red{
+  background:#D22332;
+  display:flex;align-items:flex-start;justify-content:flex-start;
+}
+.skp-mark{
+  position:absolute;
+  width:105px;height:168px;
+  top:245px;left:328px;
+  display:block;
+}
+
+.skp-logo-sec{
+  height:900px;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.skp-logo-full{
+  width:430px;height:256px;
+  background:#000;
+  -webkit-mask-image:url('../images/skazpokrayu/logo-full-mask.svg');
+  -webkit-mask-size:430px 256px;
+  -webkit-mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-image:url('../images/skazpokrayu/logo-full-mask.svg');
+  mask-size:430px 256px;
+  mask-repeat:no-repeat;
+  mask-position:center;
+}
+
+.skp-gray-bg{background:#f1f1f1}
+.skp-gray-img{
+  position:absolute;top:0;left:0;
+  width:100%;height:123.08%;
+  object-fit:cover;object-position:top center;
+  display:block;max-width:none;
+}
+
+.skp-tall-inner{
+  position:absolute;top:0;left:0;
+  width:100%;height:780px;
+}
+.skp-tall-inner img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center;display:block;
+}
+
+.skp-credits{
+  background:#fff;
+  display:flex;justify-content:center;
+  padding:60px 375px;
+}
+.skp-credits-wrap{display:flex;gap:30px;align-items:flex-start}
+.skp-cred-roles{display:flex;flex-direction:column;gap:20px;align-items:flex-end}
+.skp-cred-names{display:flex;flex-direction:column;gap:20px;align-items:flex-start;width:182px}
+.skp-credits p{
+  font-size:20px;font-weight:400;line-height:1.2;
+  color:#000;white-space:nowrap;margin:0;font-family:var(--font);
+}
+.skp-cred-line{width:100%;height:1px;background:#eee;flex-shrink:0}
+
+.skp-img-outer-py{background:#fff;padding:60px 0}
+
+@media(max-width:1100px){
+  .skp-credits{padding:60px 5vw}
+}
+@media(max-width:900px){
+  .skp-hero{height:56vw;min-height:200px}
+  .skp-text{padding:36px 24px}
+  .skp-text p{font-size:16px}
+  .skp-inner-492,.skp-inner-512{width:100%}
+  .skp-fullimg{height:56vw!important}
+  .skp-pair{flex-direction:column}
+  .skp-pair.skp-py60,.skp-pair.skp-pt60{padding:0}
+  .skp-pcol{width:100%!important;height:56vw;flex-shrink:unset}
+  .skp-logo-sec{height:auto;padding:60px 24px}
+  .skp-logo-full{
+    width:80%;max-width:300px;height:auto;
+    aspect-ratio:430/256;
+    -webkit-mask-size:contain;mask-size:contain;
+  }
+  .skp-red{align-items:center;justify-content:center}
+  .skp-mark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:auto}
+  .skp-credits{padding:40px 24px}
+  .skp-credits-wrap{flex-direction:column;gap:0;width:100%}
+  .skp-cred-roles,.skp-cred-names{align-items:flex-start;width:100%}
+  .skp-cred-names{width:100%}
+  .skp-credits p{font-size:14px}
+  .skp-tall-inner{height:100%}
+}
 
 /* ── MOBILE OVERRIDES (must come last to win cascade) ── */
 @media(max-width:900px){
