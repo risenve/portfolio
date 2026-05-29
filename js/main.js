@@ -6,8 +6,8 @@ const PROJECTS = [
     type: 'UI/UX Design',
     role: 'UI/UX Designer',
     year: '2024',
-    cover: 'images/eburet/Eburet 02.png',
-    imgs: ['images/eburet/Eburet 02.png','images/eburet/проект.png','images/eburet/мобилки.png','images/eburet/проект-1.png'],
+    cover: 'images/Works_Covers/eburet.png',
+    imgs: ['images/Works_Covers/eburet.png','images/eburet/проект.png','images/eburet/мобилки.png','images/eburet/проект-1.png'],
     href: 'project-eburet.html'
   },
   {
@@ -17,8 +17,8 @@ const PROJECTS = [
     type: 'Art Direction',
     role: 'Art Director',
     year: '2024',
-    cover: 'images/match/photo 1.png',
-    imgs: ['images/match/photo 1.png','images/match/photo 2.png','images/match/photo 3.png','images/match/photo 4.png'],
+    cover: 'images/Works_Covers/match.png',
+    imgs: ['images/Works_Covers/match.png','images/match/photo 2.png','images/match/photo 3.png','images/match/photo 4.png'],
     href: 'project-match.html'
   },
   {
@@ -28,8 +28,8 @@ const PROJECTS = [
     type: 'Art Direction',
     role: 'Art Director',
     year: '2024',
-    cover: null, imgs: [],
-    href: '#'
+    cover: 'images/Works_Covers/skazpokrayu_cover.png', imgs: ['images/Works_Covers/skazpokrayu_cover.png'],
+    href: 'project-skazpokrayu.html'
   },
   {
     id: 4, slug: 'premiumization',
@@ -48,8 +48,8 @@ const PROJECTS = [
     type: 'Brand + UI/UX',
     role: 'Brand Designer',
     year: '2023',
-    cover: null, imgs: [],
-    href: '#'
+    cover: 'images/Works_Covers/Re_Bank_cover.png', imgs: ['images/Works_Covers/Re_Bank_cover.png'],
+    href: 'project-rebank.html'
   },
   {
     id: 6, slug: 'empty-date',
@@ -58,7 +58,7 @@ const PROJECTS = [
     type: 'UI/UX Design',
     role: 'Product Designer',
     year: '2023',
-    cover: null, imgs: [],
+    cover: 'images/Works_Covers/empty date.png', imgs: ['images/Works_Covers/empty date.png'],
     href: '#'
   },
   {
@@ -68,7 +68,7 @@ const PROJECTS = [
     type: 'UI/UX Design',
     role: 'UI/UX Designer',
     year: '2023',
-    cover: null, imgs: [],
+    cover: 'images/Works_Covers/here creative.png', imgs: ['images/Works_Covers/here creative.png'],
     href: '#'
   },
   {
@@ -78,7 +78,7 @@ const PROJECTS = [
     type: 'Brand Design',
     role: 'Brand Designer',
     year: '2023',
-    cover: null, imgs: [],
+    cover: 'images/Works_Covers/in hub.png', imgs: ['images/Works_Covers/in hub.png'],
     href: '#'
   },
   {
@@ -108,8 +108,8 @@ const PROJECTS = [
     type: 'Graphic Design',
     role: 'Graphic Designer',
     year: '2023',
-    cover: 'images/posters/poster.png',
-    imgs: ['images/posters/poster.png','images/posters/poster-1.png','images/posters/poster-2.png','images/posters/poster-3.png'],
+    cover: 'images/Works_Covers/posters.png',
+    imgs: ['images/Works_Covers/posters.png','images/posters/poster-1.png','images/posters/poster-2.png','images/posters/poster-3.png'],
     href: 'project-posters.html'
   }
 ];
