@@ -128,12 +128,12 @@ body.overlay-open{overflow:hidden}
 }
 .overlay-stair-links a{
   display:block;
-  font-size:16px;
+  font-size:clamp(22px,2.4vw,30px);
   font-weight:400;
   color:rgba(255,255,255,0.8);
   opacity:0;transform:translateY(10px);
   transition:opacity .3s,transform .3s,color .18s;
-  line-height:1.5;
+  line-height:1.45;
 }
 /* child 1=Work, 2=About, 3=button, 4=service-sub div, 5=Talks, 6=Contact */
 .overlay-stair-links a:nth-child(1){transition-delay:.04s}
@@ -146,13 +146,14 @@ body.overlay-open{overflow:hidden}
 /* ── OVERLAY SERVICE DROPDOWN ── */
 .ol-service-toggle{
   display:flex;align-items:center;gap:8px;
-  font-size:16px;
+  font-size:clamp(22px,2.4vw,30px);
   font-weight:400;
   color:rgba(255,255,255,0.8);
   padding:0;text-align:left;
   opacity:0;transform:translateY(10px);
   transition:opacity .3s,transform .3s,color .18s;
   transition-delay:.12s;
+  line-height:1.45;
 }
 .nav-overlay.open .ol-service-toggle{opacity:1;transform:translateY(0)}
 .ol-service-toggle:hover{color:#fff}
@@ -160,8 +161,9 @@ body.overlay-open{overflow:hidden}
   transition:transform .22s ease;
   display:inline-block;
   line-height:1;
+  font-size:0.75em;
 }
-.ol-service-toggle.open .ol-toggle-arrow{transform:rotate(90deg)}
+.ol-service-toggle.open .ol-toggle-arrow{transform:rotate(180deg)}
 .ol-service-sub{
   display:none;
   flex-direction:column;
