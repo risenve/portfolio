@@ -81,11 +81,18 @@
       </div>
       <div class="overlay-form-wrap">
         <form id="overlay-form" class="ol-form" novalidate>
-          <div class="ol-form-grid">
-            <div class="ol-field"><input type="text" name="ol-name" placeholder="Your name" required></div>
-            <div class="ol-field"><input type="email" name="ol-email" placeholder="your@email.com" required></div>
+          <div class="ol-field">
+            <label class="ol-label">Name</label>
+            <input type="text" name="ol-name" required>
           </div>
-          <div class="ol-field"><textarea name="ol-message" placeholder="Tell me about your project..." rows="4" required></textarea></div>
+          <div class="ol-field">
+            <label class="ol-label">Email</label>
+            <input type="email" name="ol-email" required>
+          </div>
+          <div class="ol-field">
+            <label class="ol-label">About project</label>
+            <input type="text" name="ol-message" required>
+          </div>
           <label class="ol-consent">
             <input type="checkbox" name="ol-consent" required>
             <span class="ol-consent-text">I agree to the processing of personal data.</span>

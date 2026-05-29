@@ -121,20 +121,19 @@ body.overlay-open{overflow:hidden}
   padding:40px var(--pad-x) 64px;
 }
 
-/* Nav links in overlay — footer style */
+/* Nav links in overlay — match footer link style */
 .overlay-stair-links{
   display:flex;flex-direction:column;
-  gap:4px;padding-bottom:40px;
+  gap:10px;padding-bottom:40px;
 }
 .overlay-stair-links a{
   display:block;
-  font-size:clamp(24px,3vw,36px);
+  font-size:16px;
   font-weight:400;
-  letter-spacing:-0.01em;
-  line-height:1.4;
-  color:rgba(255,255,255,0.5);
-  opacity:0;transform:translateY(12px);
-  transition:opacity .35s,transform .35s,color .18s;
+  color:rgba(255,255,255,0.8);
+  opacity:0;transform:translateY(10px);
+  transition:opacity .3s,transform .3s,color .18s;
+  line-height:1.5;
 }
 /* child 1=Work, 2=About, 3=button, 4=service-sub div, 5=Talks, 6=Contact */
 .overlay-stair-links a:nth-child(1){transition-delay:.04s}
@@ -147,14 +146,12 @@ body.overlay-open{overflow:hidden}
 /* ── OVERLAY SERVICE DROPDOWN ── */
 .ol-service-toggle{
   display:flex;align-items:center;gap:8px;
-  font-size:clamp(24px,3vw,36px);
+  font-size:16px;
   font-weight:400;
-  letter-spacing:-0.01em;
-  line-height:1.4;
-  color:rgba(255,255,255,0.5);
+  color:rgba(255,255,255,0.8);
   padding:0;text-align:left;
-  opacity:0;transform:translateY(12px);
-  transition:opacity .35s,transform .35s,color .18s;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .3s,transform .3s,color .18s;
   transition-delay:.12s;
 }
 .nav-overlay.open .ol-service-toggle{opacity:1;transform:translateY(0)}
@@ -173,8 +170,8 @@ body.overlay-open{overflow:hidden}
 }
 .ol-service-sub.open{display:flex}
 .ol-service-sub a{
-  font-size:clamp(17px,1.9vw,24px)!important;
-  color:rgba(255,255,255,0.35)!important;
+  font-size:14px!important;
+  color:rgba(255,255,255,0.55)!important;
   opacity:1!important;
   transform:none!important;
   transition-delay:0s!important;
@@ -202,33 +199,28 @@ body.overlay-open{overflow:hidden}
   padding-left:56px;
 }
 .ol-form{display:flex;flex-direction:column}
-.ol-form-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:0 40px;
-}
 .ol-field{
-  padding:20px 0 0;
+  padding-top:44px;
   border-bottom:1px solid rgba(255,255,255,0.7);
 }
+.ol-field:first-child{padding-top:0}
 .ol-label{
-  display:block;font-size:11px;
-  letter-spacing:.08em;
-  color:rgba(255,255,255,0.4);margin-bottom:10px;
+  display:block;
+  font-size:13px;
+  font-weight:400;
+  color:rgba(255,255,255,0.45);
+  margin-bottom:10px;
 }
-.ol-field input,.ol-field textarea{
+.ol-field input{
   width:100%;background:transparent;
   border:none;outline:none;
   color:#fff;font-family:var(--font);
   font-size:15px;font-weight:400;
-  padding-bottom:12px;
-  resize:none;line-height:1.5;
+  padding-bottom:14px;
+  line-height:1.5;
+  display:block;
 }
-.ol-field textarea{min-height:80px}
-.ol-field input::placeholder,.ol-field textarea::placeholder{color:rgba(255,255,255,0.25)}
-.ol-field input:focus,.ol-field textarea:focus{
-  border-bottom-color:#fff;
-  margin-bottom:-1px;
-}
+.ol-field input::placeholder{color:rgba(255,255,255,0.15)}
 
 .ol-consent{
   display:flex;align-items:flex-start;gap:12px;
@@ -423,21 +415,27 @@ body.overlay-open{overflow:hidden}
 .contact-form{display:flex;flex-direction:column}
 .form-group{
   border-bottom:1px solid rgba(255,255,255,0.7);
-  padding:16px 0;
+  padding-top:44px;
   transition:border-color .2s;
 }
-.form-group:first-child{border-top:none}
+.form-group:first-child{padding-top:0}
 .form-group.focused{border-bottom-color:#fff}
-.form-group input,
-.form-group textarea{
+.form-label{
+  display:block;
+  font-size:13px;
+  font-weight:400;
+  color:rgba(255,255,255,0.45);
+  margin-bottom:10px;
+}
+.form-group input{
   width:100%;background:transparent;
   border:none;outline:none;
   color:#fff;font-family:var(--font);
-  font-size:15px;font-weight:400;resize:none;line-height:1.5;
+  font-size:15px;font-weight:400;
+  padding-bottom:14px;
+  line-height:1.5;display:block;
 }
-.form-group textarea{min-height:100px}
-.form-group input::placeholder,
-.form-group textarea::placeholder{color:rgba(255,255,255,0.35)}
+.form-group input::placeholder{color:rgba(255,255,255,0.15)}
 .form-submit{
   margin-top:28px;
   display:flex;align-items:center;justify-content:space-between;
@@ -744,15 +742,15 @@ body.overlay-open{overflow:hidden}
   .talks-page-header{padding:calc(var(--nav-h)+24px) var(--pad-x) 32px}
   /* Work heading */
   .work-heading{padding:calc(var(--nav-h)+20px) var(--pad-x) 24px}
-  /* Controls */
-  .controls{padding:12px var(--pad-x);flex-wrap:wrap;gap:10px}
-  .filters{gap:2px}
-  .filter-btn{font-size:16px;padding:4px 10px 4px 0}
-  /* Overlay mobile */
+  /* Controls: filters row 1, grid/list row 2 */
+  .controls{padding:12px var(--pad-x) 0;flex-wrap:wrap;gap:0;align-items:flex-start}
+  .filters{width:100%;order:1;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:8px}
+  .view-toggle{width:100%;order:2;justify-content:space-between;flex-shrink:unset;margin-left:0;padding:8px 0 12px}
+  .filter-btn{font-size:17px;padding:4px 10px 4px 0}
+  /* Overlay mobile: form first, links after */
   .overlay-body{grid-template-columns:1fr;gap:0;padding:28px var(--pad-x) 48px}
-  .overlay-form-wrap{padding-left:0;padding-top:32px;border-top:1px solid rgba(255,255,255,0.08)}
-  .ol-form-grid{grid-template-columns:1fr}
-  .overlay-stair-links a{font-size:clamp(22px,6vw,32px)}
+  .overlay-form-wrap{order:-1;padding-left:0;padding-top:0;padding-bottom:40px;border-top:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .overlay-body>div{padding-top:32px}
   /* Cursor */
   .cursor-x{display:none}
   *{cursor:auto!important}
@@ -1463,12 +1461,12 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .nav-toggle{display:flex!important;margin-left:auto}
   .service-drop{display:none!important}
   .talks-cards-grid{grid-template-columns:1fr!important}
-  /* Controls: filters scroll horizontally, Grid/List stays right */
-  .controls{flex-wrap:nowrap;align-items:center;overflow:hidden}
-  .filters{flex:1;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  /* Controls: filters row 1, Grid/List row 2 spread */
+  .controls{flex-wrap:wrap!important;align-items:flex-start!important;overflow:visible!important;padding-bottom:0}
+  .filters{width:100%!important;flex:none!important;order:1;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:8px}
   .filters::-webkit-scrollbar{display:none}
-  .view-toggle{flex-shrink:0;margin-left:16px}
-  .filter-btn{font-size:15px;padding:4px 10px 4px 0;white-space:nowrap}
+  .view-toggle{width:100%!important;flex-shrink:unset!important;margin-left:0!important;order:2;justify-content:space-between;padding:8px 0 12px}
+  .filter-btn{font-size:17px!important;white-space:nowrap}
   .filters{gap:0}
   .ab-proj-grid{grid-template-columns:1fr;gap:12px;margin-bottom:40px}
   .ab-proj-grid .project-card .card-img-wrap{aspect-ratio:3/2!important}
