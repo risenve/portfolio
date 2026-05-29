@@ -68,16 +68,16 @@
       <div class="overlay-form-wrap">
         <form id="overlay-form" class="ol-form" novalidate>
           <div class="ol-field">
+            <input type="text" name="ol-name" required placeholder=" ">
             <label class="ol-label">Name</label>
-            <input type="text" name="ol-name" required>
           </div>
           <div class="ol-field">
+            <input type="email" name="ol-email" required placeholder=" ">
             <label class="ol-label">Email</label>
-            <input type="email" name="ol-email" required>
           </div>
           <div class="ol-field">
+            <input type="text" name="ol-message" required placeholder=" ">
             <label class="ol-label">About project</label>
-            <input type="text" name="ol-message" required>
           </div>
           <label class="ol-consent">
             <input type="checkbox" name="ol-consent" required>
@@ -89,13 +89,23 @@
     </div>
   </div>
 
+  <!-- Language toggle -->
+  <div class="lang-toggle">
+    <span class="lang-btn lang-btn--active">RU</span>
+    <a href="project-skazpokrayu-en.html" class="lang-btn">EN</a>
+  </div>
+
   <!-- PAGE CONTENT -->
   <div class="page-wrap hero-top">
   <main class="skp-main">
 
     <!-- 1. Hero image -->
     <section class="skp-hero">
-      <img src="images/skazpokrayu/interior_photo1.jpg" alt="Сказ по краю — брендовая фотосессия">
+      <img src="images/skazpokrayu/cover.png" alt="Сказ по краю — брендовая фотосессия">
+      <div class="skp-hero-caption">
+        <h1>Сказ по Краю</h1>
+        <p>Brand Design &amp; Art Direction</p>
+      </div>
     </section>
 
     <!-- 2. Brand description -->
@@ -125,6 +135,13 @@
       </div>
     </section>
 
+    <!-- 4b. Logo animation video -->
+    <section class="skp-video-full skp-vh700">
+      <video autoplay loop muted playsinline>
+        <source src="images/skazpokrayu/logo%20animation.mp4" type="video/mp4">
+      </video>
+    </section>
+
     <!-- 5. Full-width photo -->
     <section class="skp-fullimg skp-fh780">
       <img src="images/skazpokrayu/interior_photo3.jpg" alt="">
@@ -135,6 +152,13 @@
       <div class="skp-inner-512">
         <p>Графический знак собран из трёх ласточек. Три как одно из ключевых чисел русской культуры: три богатыря, три испытания, три желания. Ласточка как символ возвращения домой и пробуждения.</p>
       </div>
+    </section>
+
+    <!-- 6b. Window video -->
+    <section class="skp-video-full skp-vh700">
+      <video autoplay loop muted playsinline>
+        <source src="images/skazpokrayu/window_video.mp4" type="video/mp4">
+      </video>
     </section>
 
     <!-- 7. Logo on white -->
@@ -199,12 +223,22 @@
       </div>
     </section>
 
-    <!-- 14. Final full-width photo (py-60) -->
-    <div class="skp-img-outer-py">
-      <section class="skp-fullimg skp-fh700">
-        <img src="images/skazpokrayu/pink.png" alt="">
-      </section>
-    </div>
+    <!-- 14. Final split photo: pink + blue -->
+    <section class="skp-pair skp-py60">
+      <div class="skp-pcol skp-pcol-flex">
+        <img src="images/skazpokrayu/pink.png" class="skp-cover" alt="">
+      </div>
+      <div class="skp-pcol skp-pcol-flex">
+        <img src="images/skazpokrayu/blue.png" class="skp-cover" alt="">
+      </div>
+    </section>
+
+    <!-- 14b. Ending video -->
+    <section class="skp-video-full skp-vh700">
+      <video autoplay loop muted playsinline>
+        <source src="images/skazpokrayu/ending%20video.mp4" type="video/mp4">
+      </video>
+    </section>
 
     <!-- 15. Credits -->
     <section class="skp-credits">

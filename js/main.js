@@ -462,6 +462,31 @@ function initServiceDrop() {
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') serviceDrop.classList.remove('show'); });
 }
 
+// ── SCROLL-HIDE NAV ──
+function initScrollNav() {
+  var nav = document.querySelector('.site-nav');
+  if (!nav) return;
+  var lastY = 0;
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY;
+      // Only hide after scrolling past nav height; always show near top
+      if (y < 80) {
+        nav.classList.remove('nav-hidden');
+      } else if (y > lastY) {
+        nav.classList.add('nav-hidden');
+      } else {
+        nav.classList.remove('nav-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+}
+
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', function () {
   initReveal();
@@ -470,6 +495,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initFeatHover();
   initOverlay();
   initServiceDrop();
+  initScrollNav();
   initQuoteAnim();
   initProjSlider();
   setTimeout(initCardReveal, 30);

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReBank DS — Ripsime Sargsyan</title>
+  <meta name="description" content="Token-based design system for a mobile banking product. Figma Tokens → Style Dictionary → Storybook. Case study by Ripsime Sargsyan.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <div class="nav-service-wrap">
+        <button class="nav-link nav-service-toggle">Service</button>
+        <div class="service-drop">
+          <a href="service-branding.html" class="service-item">Branding</a>
+          <a href="service-uiux.html" class="service-item">UI/UX</a>
+          <a href="service-product-design.html" class="service-item">Product Design</a>
+          <a href="service-art-direction.html" class="service-item">Art Direction</a>
+        </div>
+      </div>
+      <a href="talks.html" class="nav-link">Talks</a>
+      <a href="mailto:sargsyan.std@gmail.com" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- STAIRCASE HOVER PANEL -->
+  <div class="staircase-panel" id="staircase-panel">
+    <a href="index.html" class="stair-link">Work</a>
+    <a href="about.html" class="stair-link">About</a>
+    <a href="talks.html" class="stair-link">Talks</a>
+    <a href="mailto:sargsyan.std@gmail.com" class="stair-link">Contact</a>
+  </div>
+
+  <!-- FULL OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+      <div>
+        <div class="overlay-stair-links">
+          <a href="index.html">Work</a>
+          <a href="about.html">About</a>
+          <button class="ol-service-toggle" type="button">Services <span class="ol-toggle-arrow">▾</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="service-branding.html">Branding</a>
+            <a href="service-uiux.html">UI/UX</a>
+            <a href="service-product-design.html">Product Design</a>
+            <a href="service-art-direction.html">Art Direction</a>
+          </div>
+          <a href="talks.html">Talks</a>
+          <a href="mailto:sargsyan.std@gmail.com">Contact</a>
+        </div>
+      </div>
+      <div class="overlay-form-wrap">
+        <form id="overlay-form" class="ol-form" novalidate>
+          <div class="ol-field">
+            <input type="text" name="ol-name" required placeholder=" ">
+            <label class="ol-label">Name</label>
+          </div>
+          <div class="ol-field">
+            <input type="email" name="ol-email" required placeholder=" ">
+            <label class="ol-label">Email</label>
+          </div>
+          <div class="ol-field">
+            <input type="text" name="ol-message" required placeholder=" ">
+            <label class="ol-label">About project</label>
+          </div>
+          <label class="ol-consent">
+            <input type="checkbox" name="ol-consent" required>
+            <span class="ol-consent-text">I agree to the processing of personal data.</span>
+          </label>
+          <button type="submit" class="ol-submit">Send →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-wrap hero-top">
+  <main class="rb-main">
+
+    <!-- HERO -->
+    <section class="rb-hero">
+      <p class="rb-hero-cat">Product Design · Design System</p>
+      <h1>ReBank DS</h1>
+      <p class="rb-hero-tag">Token-based design system —<br>from Figma to production code</p>
+      <p class="rb-nda-note">NDA notice: The original product is under NDA. This case reflects the real architecture, process, and design decisions — product name and visuals have been adapted for public sharing.</p>
+      <dl class="rb-meta-row">
+        <div class="rb-meta-cell">
+          <dt>Role</dt>
+          <dd>Product Designer (solo)</dd>
+        </div>
+        <div class="rb-meta-cell">
+          <dt>Stack</dt>
+          <dd>Figma · Figma Tokens · Style Dictionary v5 · Storybook 10 · React · CSS</dd>
+        </div>
+        <div class="rb-meta-cell">
+          <dt>Scope</dt>
+          <dd>Design system + 5 screen flows · Light &amp; Dark themes</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="rb-sec rb-overview">
+      <div class="rb-inner rb-prose">
+        <p>Most design systems stop at Figma. This one doesn't.</p>
+        <p>ReBank DS is a token-based design system built for a mobile banking product — from raw color values in JSON all the way to documented React components in Storybook. Every visual decision in the product UI traces back to a token. Every token compiles into a CSS variable that lives in code.</p>
+        <p>The goal was to close the gap between design and development: one source of truth, no manual handoff of color values, no "which blue is this?" conversations.</p>
+      </div>
+    </section>
+
+    <!-- 01 TOKEN ARCHITECTURE -->
+    <section class="rb-sec rb-sec--gray">
+      <div class="rb-inner">
+        <span class="rb-sec-num">01</span>
+        <h2 class="rb-sec-h">Token Architecture</h2>
+        <h3 class="rb-sec-h2">Three-layer token model</h3>
+        <div class="rb-prose">
+          <p>Tokens are structured in three layers. This is not cosmetic — it determines how the system scales and how theming works.</p>
+        </div>
+        <div class="rb-code">
+<pre>Primitives   →   raw values, no meaning attached
+             color.blue.500 = #1A6BFF
+             spacing.4     = 16px
+
+Semantic     →   intent-based aliases
+             color.background.primary = {color.blue.500}
+             color.text.danger        = {color.red.400}
+
+Component    →   scoped overrides per component
+             button.background.default = {color.background.primary}</pre>
+        </div>
+        <div class="rb-prose">
+          <p>When the brand color changes, you update one primitive. Every semantic token that references it updates automatically across the entire product.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- image_01: Figma tokens page — Primitives, Semantic, Typography structure -->
+    <div class="rb-img rb-img--bg-white">
+      <img src="images/rebank/image_01.jpg" alt="Figma tokens page — Primitives, Semantic, and Typography token structure">
+    </div>
+
+    <!-- Themes text -->
+    <section class="rb-sec rb-sec--gray">
+      <div class="rb-inner">
+        <h3 class="rb-sec-h2">Themes</h3>
+        <div class="rb-prose">
+          <p><code>$themes.json</code> defines Light and Dark as separate theme configurations, both referencing the same semantic layer. Switching themes doesn't require changing component code — only the active theme variable changes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- image_02: Dark and Light theme comparison — same screen, two themes side by side -->
+    <div class="rb-img rb-img--bg-dark">
+      <img src="images/rebank/image_02.jpg" alt="Dark and Light theme — same screen, two theme configurations">
+    </div>
+
+    <!-- 02 BUILD PIPELINE -->
+    <section class="rb-sec">
+      <div class="rb-inner">
+        <span class="rb-sec-num">02</span>
+        <h2 class="rb-sec-h">Build Pipeline</h2>
+        <div class="rb-prose">
+          <p>Tokens are not static — they compile.</p>
+          <p>Style Dictionary reads JSON sources from <code>Primitives/</code>, <code>Semantic/</code>, and <code>Typography/</code>, and outputs CSS custom properties and JS variables into <code>build/</code>. A watch script rebuilds on every file change.</p>
+        </div>
+        <div class="rb-code">
+<pre>Figma Tokens (JSON)
+      ↓
+Style Dictionary config
+      ↓
+build/
+  ├── variables.css    ← CSS custom properties
+  └── tokens.js        ← JS object for runtime use</pre>
+        </div>
+        <div class="rb-prose">
+          <p>This means the design token file IS the codebase. There's no intermediate step where a developer copies values from a Figma spec. The CSS is generated.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- image_03: Figma component usage rules — do/don't, annotations, spacing rules -->
+    <div class="rb-img rb-img--bg-white">
+      <img src="images/rebank/image_03.jpg" alt="Figma component usage rules — do/don't annotations and spacing documentation">
+    </div>
+
+    <!-- 03 STORYBOOK -->
+    <section class="rb-sec rb-sec--gray">
+      <div class="rb-inner">
+        <span class="rb-sec-num">03</span>
+        <h2 class="rb-sec-h">Storybook</h2>
+        <div class="rb-prose">
+          <p>Components are documented in Storybook using MDX stories. The setup uses <code>@storybook/react-vite</code> and <code>@storybook/addon-docs</code> for rich documentation pages — not just a component sandbox, but a living spec.</p>
+          <p>Each story imports CSS variables from <code>build/variables.css</code>, so what renders in Storybook uses the same token values as the product.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- image_04: Storybook — component page with controls, MDX docs, state variants -->
+    <div class="rb-img rb-img--bg-white">
+      <img src="images/rebank/image_04.jpg" alt="Storybook — component documentation with controls, MDX docs, and state variants">
+    </div>
+
+    <!-- 04 COMPONENT LIBRARY -->
+    <section class="rb-sec">
+      <div class="rb-inner">
+        <span class="rb-sec-num">04</span>
+        <h2 class="rb-sec-h">Component Library in Figma</h2>
+        <div class="rb-prose">
+          <p>In Figma, components are organized by page with usage rules: when to use, when not to use, spacing behavior, state variations, and token references. This documentation lives alongside the components themselves, not in a separate spec file.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- image_05: Figma component library — button/input/card variants with annotations -->
+    <div class="rb-img rb-img--bg-white">
+      <img src="images/rebank/image_05.jpg" alt="Figma component library — button, input, and card variants with usage annotations">
+    </div>
+
+    <!-- 05 PRODUCT SCREENS -->
+    <div class="rb-pscreens">
+
+      <!-- Section header -->
+      <div class="rb-pscreens-hdr">
+        <div class="rb-inner">
+          <span class="rb-sec-num">05</span>
+          <h2 class="rb-sec-h">Product Screens</h2>
+          <div class="rb-prose">
+            <p>The system was validated by building five real screen flows on top of it. Every color, spacing value, and typography style in these screens comes from a token — nothing is hardcoded.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auth -->
+      <div class="rb-fi">
+        <span class="rb-fi-lbl">Auth</span>
+        <h3 class="rb-fi-h">Sign In &amp; Registration</h3>
+        <p class="rb-fi-p">Standard entry point. Two states: returning user (sign in) and new user (registration). Phone number input, OTP confirmation.</p>
+      </div>
+      <!-- image_06: Auth flow — 3–4 Login screens in a row (Dark) -->
+      <div class="rb-strip">
+        <img src="images/rebank/image_06.jpg" alt="Auth flow — Sign In and Registration screens">
+      </div>
+
+      <!-- Onboarding -->
+      <div class="rb-fi">
+        <span class="rb-fi-lbl">Onboarding</span>
+        <h3 class="rb-fi-h">Product Walkthrough</h3>
+        <p class="rb-fi-p">Guided introduction to product features before the user commits to registration. 3–4 slides with illustration and CTA.</p>
+      </div>
+      <!-- image_07: Onboarding — 2–3 Splash/Onboarding screens -->
+      <div class="rb-strip">
+        <img src="images/rebank/image_07.jpg" alt="Onboarding — product walkthrough screens">
+      </div>
+
+      <!-- KYC header -->
+      <div class="rb-fi">
+        <span class="rb-fi-lbl">KYC</span>
+        <h3 class="rb-fi-h">Identity Verification</h3>
+        <p class="rb-fi-p">The most complex flow in the product. Multi-step verification requiring document scan and face recognition — common in regulated fintech products, rare in design portfolios.</p>
+      </div>
+
+      <!-- KYC Documents -->
+      <div class="rb-fi" style="padding-top:0">
+        <span class="rb-fi-lbl">Document Verification</span>
+        <p class="rb-fi-p">User photographs their passport or ID card. The flow handles: instructions screen → active scanning → processing → success/error states.</p>
+      </div>
+      <!-- image_08: KYC — 5 document scan screens in a row (instructions, scan, ID, processing, result) -->
+      <div class="rb-strip">
+        <img src="images/rebank/image_08.jpg" alt="KYC document verification — all 5 screens: instruction, passport scan, ID card, processing, result">
+      </div>
+
+      <!-- Face scan -->
+      <div class="rb-fi">
+        <span class="rb-fi-lbl">Face Scan</span>
+        <p class="rb-fi-p">Liveness check via front camera. Five distinct states designed: idle, aligning, scanning (oval active), failure, success.</p>
+      </div>
+      <!-- image_09: Face scan — 5 screens in a row on dark/black background -->
+      <div class="rb-strip rb-strip--black">
+        <img src="images/rebank/image_09.jpg" alt="Face scan — 5 states: idle, aligning, scanning, failure, success">
+      </div>
+
+      <!-- Verification -->
+      <div class="rb-fi">
+        <span class="rb-fi-lbl">Verification Confirmation</span>
+        <p class="rb-fi-p">Three-step confirmation after document and face check pass. Transition to account activation.</p>
+      </div>
+      <!-- image_10: Verification — 3 screens in a row -->
+      <div class="rb-strip">
+        <img src="images/rebank/image_10.jpg" alt="Verification confirmation — 3 screens">
+      </div>
+
+      <!-- Add -->
+      <div class="rb-fi">
+        <span class="rb-fi-lbl">Add</span>
+        <h3 class="rb-fi-h">Account Setup</h3>
+        <p class="rb-fi-p">Post-verification steps: adding a bank card or device to the account.</p>
+      </div>
+      <!-- image_11: Account Add — 2 screens -->
+      <div class="rb-strip">
+        <img src="images/rebank/image_11.jpg" alt="Account setup — add card and device screens">
+      </div>
+
+      <!-- Home -->
+      <div class="rb-fi">
+        <span class="rb-fi-lbl">Home</span>
+        <h3 class="rb-fi-h">Banking Dashboard</h3>
+        <p class="rb-fi-p">The main product screen. Two theme variants (Light / Dark) + detailed widget view. This screen shows the full density and maturity of the system.</p>
+      </div>
+      <!-- image_12: Home — Light and Dark side by side -->
+      <div class="rb-strip">
+        <img src="images/rebank/image_12.jpg" alt="Home screen — Light and Dark theme side by side">
+      </div>
+      <!-- image_13: Home — detailed view with cards, transactions, and widgets -->
+      <div class="rb-strip" style="padding-top:0">
+        <img src="images/rebank/image_13.jpg" alt="Home screen — detailed view with cards, transactions, and widgets">
+      </div>
+
+    </div><!-- /rb-pscreens -->
+
+    <!-- 06 DESIGN DECISIONS -->
+    <section class="rb-sec">
+      <div class="rb-inner" style="max-width:880px">
+        <span class="rb-sec-num">06</span>
+        <h2 class="rb-sec-h">Design Decisions</h2>
+        <div class="rb-qa-list">
+          <div class="rb-qa">
+            <p class="rb-qa-q">Why not use an existing design system — MUI, Tailwind?</p>
+            <p class="rb-qa-a">Banking products have strict visual requirements: specific color contrast ratios for accessibility, precise touch targets, state coverage for every interactive element. A custom token-based system gives full control without fighting against someone else's opinions.</p>
+          </div>
+          <div class="rb-qa">
+            <p class="rb-qa-q">Why Style Dictionary over manual CSS?</p>
+            <p class="rb-qa-a">Tokens edited in JSON and compiled automatically are harder to break than tokens copied manually into a stylesheet. The pipeline makes consistency enforced, not voluntary.</p>
+          </div>
+          <div class="rb-qa">
+            <p class="rb-qa-q">Why document in both Figma and Storybook?</p>
+            <p class="rb-qa-a">Designers work in Figma. Developers work in code. Storybook bridges them — a developer can see a component rendered with real tokens, with documented props, without opening Figma. This reduces the "what did the designer mean?" loop.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="rb-sec rb-sec--gray">
+      <div class="rb-inner" style="max-width:880px">
+        <span class="rb-sec-num">Results</span>
+        <h2 class="rb-sec-h">By the numbers</h2>
+        <div class="rb-metrics">
+          <div class="rb-metric">
+            <p class="rb-metric-n">3</p>
+            <p class="rb-metric-l">Token layers<br>(Primitives → Semantic → Component)</p>
+          </div>
+          <div class="rb-metric">
+            <p class="rb-metric-n">2</p>
+            <p class="rb-metric-l">Themes<br>(Light + Dark)</p>
+          </div>
+          <div class="rb-metric">
+            <p class="rb-metric-n">5</p>
+            <p class="rb-metric-l">Screen flows<br>(Auth, Onboarding, KYC, Add, Home)</p>
+          </div>
+          <div class="rb-metric">
+            <p class="rb-metric-n">10+</p>
+            <p class="rb-metric-l">KYC states<br>(document + face, all error/success paths)</p>
+          </div>
+          <div class="rb-metric">
+            <p class="rb-metric-n">1</p>
+            <p class="rb-metric-l">Source of truth<br>(JSON → CSS/JS → Storybook)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT I'D DO DIFFERENTLY -->
+    <section class="rb-sec">
+      <div class="rb-inner">
+        <span class="rb-sec-num">Retrospective</span>
+        <h2 class="rb-sec-h">What I'd do differently</h2>
+        <ul class="rb-retro-ul">
+          <li>Set up Chromatic for visual regression testing — right now there's no automated way to catch if a token change breaks a component visually.</li>
+          <li>Add a changelog to the token files so the team can track what changed between builds.</li>
+          <li>Deploy Storybook to a public URL (GitHub Pages or Chromatic) so it's shareable without cloning the repo.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- LINKS -->
+    <div class="rb-links-bar">
+      <span class="rb-links-lbl">Links</span>
+      <a href="https://github.com/risenve/RE_DS" target="_blank" rel="noopener" class="rb-link-tag">GitHub — RE_DS</a>
+      <a href="#" class="rb-link-tag">Figma — available on request</a>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <nav class="footer-col-links">
+        <a href="index.html">Home</a>
+        <a href="index.html">Works</a>
+        <a href="about.html">About</a>
+        <a href="talks.html">Talks</a>
+      </nav>
+    </div>
+    <div>
+      <p class="footer-col-label">work with me:</p>
+      <div class="footer-col-links">
+        <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">@sargsyan.std</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-label">more about me:</p>
+      <div class="footer-col-links">
+        <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+        <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
+      </div>
+    </div>
+    <div class="footer-col-right">
+      <p class="footer-copyright">All rights reserved</p>
+      <p class="footer-copyright">&copy; 2026 Ripsime Sargsyan</p>
+    </div>
+  </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
