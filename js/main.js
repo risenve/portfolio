@@ -2,7 +2,7 @@ const PROJECTS = [
   {
     id: 1, slug: 'skazpokrayu',
     title: 'Skaz po krayu',
-    categories: ['art-direction', 'brand-design'],
+    categories: ['art-direction', 'ui-ux', 'brand-design'],
     type: 'Art Direction',
     role: 'Art Director',
     year: '2024',
@@ -24,8 +24,8 @@ const PROJECTS = [
     id: 3, slug: 'rebank',
     title: 'ReBank',
     categories: ['ui-ux', 'brand-design'],
-    type: 'Brand + UI/UX',
-    role: 'Brand Designer',
+    type: 'Product Design',
+    role: 'Product Designer',
     year: '2023',
     cover: 'images/Works_Covers/Re_Bank_cover.png', imgs: ['images/Works_Covers/Re_Bank_cover.png'],
     href: 'project-rebank.html'
@@ -33,7 +33,7 @@ const PROJECTS = [
   {
     id: 4, slug: 'premiumization',
     title: 'Premiumization',
-    categories: ['art-direction'],
+    categories: ['art-direction', 'ui-ux', 'graphics-ai'],
     type: 'Art Direction',
     role: 'Art Director',
     year: '2023',
@@ -53,7 +53,7 @@ const PROJECTS = [
   {
     id: 6, slug: 'match',
     title: 'Match',
-    categories: ['art-direction', 'graphics-ai'],
+    categories: ['art-direction', 'brand-design'],
     type: 'Art Direction',
     role: 'Art Director',
     year: '2024',
@@ -95,7 +95,7 @@ const PROJECTS = [
   {
     id: 10, slug: 'inhub',
     title: 'InHub',
-    categories: ['brand-design'],
+    categories: ['art-direction', 'brand-design'],
     type: 'Brand Design',
     role: 'Brand Designer',
     year: '2023',
@@ -105,7 +105,7 @@ const PROJECTS = [
   {
     id: 11, slug: 'drawstory',
     title: 'Drawstory',
-    categories: ['ui-ux', 'graphics-ai'],
+    categories: ['ui-ux', 'art-direction'],
     type: 'Product Design',
     role: 'Product Designer',
     year: '2024',
