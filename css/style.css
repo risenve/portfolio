@@ -1631,10 +1631,18 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .rds-hero-right{flex:1;position:relative;overflow:hidden}
 .rds-title{font-size:56px;font-weight:400;color:#fff;line-height:1;margin-bottom:16px;font-family:var(--font)}
 .rds-subtitle{font-size:20px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.4;max-width:432px;font-family:var(--font)}
-.rds-label{font-size:14px;font-weight:400;letter-spacing:.05em;color:rgba(0,0,0,0.4);margin-bottom:12px;font-family:var(--font)}
+.rds-label{font-size:14px;font-weight:400;letter-spacing:.05em;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font)}
 .rds-fh858{height:858px}
-.rds-text-right{display:flex;align-items:center;justify-content:flex-start;padding:60px 48px;background:#fff;flex:1;min-width:0}
-.rds-text-right p{font-size:20px;font-weight:400;line-height:1.4;color:#000;max-width:350px;font-family:var(--font)}
+.rds-text-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;padding:60px 90px;background:#000;flex:1;min-width:0}
+.rds-text-right p{font-size:20px;font-weight:400;line-height:1.4;color:#fff;font-family:var(--font)}
+
+/* ── SKP DARK VARIANT (ReBank page) ── */
+.skp-main-dark{background:#000}
+.skp-main-dark .skp-text{background:#000}
+.skp-main-dark .skp-text p{color:#fff}
+.skp-main-dark .skp-fullimg{background:#000}
+.skp-main-dark .skp-pair{background:#000}
+.skp-main-dark .skp-pcol{background:#000}
 
 .skp-video-full{overflow:hidden;background:#000;position:relative}
 .skp-video-full video{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
@@ -1671,7 +1679,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .rds-hero{flex-direction:column;height:auto}
   .rds-hero-left{width:100%;min-height:280px;padding:32px 24px}
   .rds-hero-right{height:56vw;min-height:200px;flex:none;width:100%}
-  .rds-text-right{padding:36px 24px}
+  .rds-text-right{padding:36px 24px;align-items:flex-start}
   .rds-text-right p{font-size:16px}
   .rds-title{font-size:clamp(32px,8vw,48px)}
   .rds-subtitle{font-size:16px}

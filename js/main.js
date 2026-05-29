@@ -1,6 +1,16 @@
 const PROJECTS = [
   {
-    id: 1, slug: 'eburet',
+    id: 1, slug: 'skazpokrayu',
+    title: 'Skaz po krayu',
+    categories: ['art-direction', 'brand-design'],
+    type: 'Art Direction',
+    role: 'Art Director',
+    year: '2024',
+    cover: 'images/Works_Covers/skazpokrayu_cover.png', imgs: ['images/Works_Covers/skazpokrayu_cover.png'],
+    href: 'project-skazpokrayu.html'
+  },
+  {
+    id: 2, slug: 'eburet',
     title: 'Eburet',
     categories: ['ui-ux'],
     type: 'UI/UX Design',
@@ -11,25 +21,14 @@ const PROJECTS = [
     href: 'project-eburet.html'
   },
   {
-    id: 2, slug: 'match',
-    title: 'Match',
-    categories: ['art-direction', 'graphics-ai'],
-    type: 'Art Direction',
-    role: 'Art Director',
-    year: '2024',
-    cover: 'images/Works_Covers/match.png',
-    imgs: ['images/Works_Covers/match.png','images/match/photo 2.png','images/match/photo 3.png','images/match/photo 4.png'],
-    href: 'project-match.html'
-  },
-  {
-    id: 3, slug: 'skazpokrayu',
-    title: 'Skaz po krayu',
-    categories: ['art-direction', 'brand-design'],
-    type: 'Art Direction',
-    role: 'Art Director',
-    year: '2024',
-    cover: 'images/Works_Covers/skazpokrayu_cover.png', imgs: ['images/Works_Covers/skazpokrayu_cover.png'],
-    href: 'project-skazpokrayu.html'
+    id: 3, slug: 'rebank',
+    title: 'ReBank',
+    categories: ['ui-ux', 'brand-design'],
+    type: 'Brand + UI/UX',
+    role: 'Brand Designer',
+    year: '2023',
+    cover: 'images/Works_Covers/Re_Bank_cover.png', imgs: ['images/Works_Covers/Re_Bank_cover.png'],
+    href: 'project-rebank.html'
   },
   {
     id: 4, slug: 'premiumization',
@@ -42,17 +41,39 @@ const PROJECTS = [
     href: '#'
   },
   {
-    id: 5, slug: 'rebank',
-    title: 'ReBank',
-    categories: ['ui-ux', 'brand-design'],
-    type: 'Brand + UI/UX',
-    role: 'Brand Designer',
-    year: '2023',
-    cover: 'images/Works_Covers/Re_Bank_cover.png', imgs: ['images/Works_Covers/Re_Bank_cover.png'],
-    href: 'project-rebank.html'
+    id: 5, slug: 'unicorn-embassy',
+    title: 'Unicorn Embassy',
+    categories: ['art-direction', 'brand-design'],
+    type: 'Brand Design',
+    role: 'Art Director',
+    year: '2024',
+    cover: 'images/Works_Covers/Unicorn Embassy.png', imgs: ['images/Works_Covers/Unicorn Embassy.png'],
+    href: 'project-unicorn.html'
   },
   {
-    id: 6, slug: 'empty-date',
+    id: 6, slug: 'match',
+    title: 'Match',
+    categories: ['art-direction', 'graphics-ai'],
+    type: 'Art Direction',
+    role: 'Art Director',
+    year: '2024',
+    cover: 'images/Works_Covers/match.png',
+    imgs: ['images/Works_Covers/match.png','images/match/photo 2.png','images/match/photo 3.png','images/match/photo 4.png'],
+    href: 'project-match.html'
+  },
+  {
+    id: 7, slug: 'posters',
+    title: 'Posters Vol.1',
+    categories: ['graphics-ai', 'art-direction'],
+    type: 'Graphic Design',
+    role: 'Graphic Designer',
+    year: '2023',
+    cover: 'images/Works_Covers/posters.png',
+    imgs: ['images/Works_Covers/posters.png','images/posters/poster-1.png','images/posters/poster-2.png','images/posters/poster-3.png'],
+    href: 'project-posters.html'
+  },
+  {
+    id: 8, slug: 'empty-date',
     title: 'Empty Date',
     categories: ['ui-ux'],
     type: 'UI/UX Design',
@@ -62,7 +83,7 @@ const PROJECTS = [
     href: '#'
   },
   {
-    id: 7, slug: 'here-creative',
+    id: 9, slug: 'here-creative',
     title: 'Here Creative',
     categories: ['ui-ux'],
     type: 'UI/UX Design',
@@ -72,7 +93,7 @@ const PROJECTS = [
     href: '#'
   },
   {
-    id: 8, slug: 'inhub',
+    id: 10, slug: 'inhub',
     title: 'InHub',
     categories: ['brand-design'],
     type: 'Brand Design',
@@ -82,7 +103,7 @@ const PROJECTS = [
     href: '#'
   },
   {
-    id: 9, slug: 'drawstory',
+    id: 11, slug: 'drawstory',
     title: 'Drawstory',
     categories: ['ui-ux', 'graphics-ai'],
     type: 'Product Design',
@@ -90,27 +111,6 @@ const PROJECTS = [
     year: '2024',
     cover: null, imgs: [],
     href: '#'
-  },
-  {
-    id: 10, slug: 'ai-creatives',
-    title: 'AI Creatives',
-    categories: ['graphics-ai'],
-    type: 'Graphics & AI',
-    role: 'Creative Director',
-    year: '2024',
-    cover: null, imgs: [],
-    href: '#'
-  },
-  {
-    id: 11, slug: 'posters',
-    title: 'Posters Vol.1',
-    categories: ['graphics-ai', 'art-direction'],
-    type: 'Graphic Design',
-    role: 'Graphic Designer',
-    year: '2023',
-    cover: 'images/Works_Covers/posters.png',
-    imgs: ['images/Works_Covers/posters.png','images/posters/poster-1.png','images/posters/poster-2.png','images/posters/poster-3.png'],
-    href: 'project-posters.html'
   }
 ];
 
