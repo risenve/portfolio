@@ -1673,27 +1673,30 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   padding:60px 90px;
   display:flex;
   gap:60px;
+  align-items:flex-end;
 }
 .skp-project-info-left{
   width:492px;
   flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+  align-items:flex-start;
 }
-.skp-project-info-left p{
-  font-size:20px;
-  font-weight:400;
-  color:#000;
-  margin:0 0 20px;
-  line-height:1.2;
-  font-family:var(--font);
-}
-.skp-project-info-left p:last-child{margin:0}
 .skp-project-info-right{
   flex:1;
   min-width:0;
   display:flex;
   flex-direction:column;
-  gap:30px;
-  align-items:flex-start;
+  gap:20px;
+}
+.skp-project-info-right p{
+  font-size:20px;
+  font-weight:400;
+  color:#000;
+  margin:0;
+  line-height:1.2;
+  font-family:var(--font);
 }
 .skp-project-services p{
   font-size:20px;
@@ -1709,10 +1712,22 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   font-weight:300;
   color:#000;
   font-family:var(--font);
-  text-decoration:underline;
+  text-decoration:none;
   line-height:1.2;
+  position:relative;
+  padding-bottom:3px;
 }
-.skp-project-link:hover{opacity:0.6}
+.skp-project-link::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:1px;
+  background:#000;
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .22s ease;
+}
+.skp-project-link:hover::after{transform:scaleX(1)}
 
 /* ── SEE ALSO (ReBank end section) ── */
 .rds-see-also{background:#fff;padding:80px 90px}
@@ -1766,7 +1781,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .skp-project-header p{font-size:16px;max-width:100%}
   .skp-project-info{flex-direction:column;padding:36px 24px;gap:32px}
   .skp-project-info-left{width:100%}
-  .skp-project-info-left p{font-size:16px}
+  .skp-project-info-right p{font-size:16px}
   .skp-project-services p{font-size:16px}
   .skp-project-link{font-size:16px}
 }
