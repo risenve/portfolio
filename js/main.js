@@ -27,7 +27,7 @@ const PROJECTS = [
     type: 'Product Design',
     role: 'Product Designer',
     year: '2023',
-    cover: 'images/re_ds/image_new1.png', imgs: ['images/re_ds/image_new1.png'],
+    cover: 'images/Works_Covers/Re_Bank_cover.png', imgs: ['images/Works_Covers/Re_Bank_cover.png'],
     href: 'project-rebank.html'
   },
   {
