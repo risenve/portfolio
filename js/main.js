@@ -445,6 +445,23 @@ function initOverlay() {
       overlayForm.reset();
     });
   }
+
+  // Contact section form submit
+  var contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name    = contactForm.querySelector('[name="name"]').value.trim();
+      var email   = contactForm.querySelector('[name="email"]').value.trim();
+      var message = contactForm.querySelector('[name="message"]').value.trim();
+      var consent = contactForm.querySelector('[name="consent"]').checked;
+      if (!name || !email || !message || !consent) return;
+      var subject = encodeURIComponent('Portfolio contact from ' + name);
+      var body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message);
+      window.location.href = 'mailto:sargsyan.std@gmail.com?subject=' + subject + '&body=' + body;
+      contactForm.reset();
+    });
+  }
 }
 
 // ── SERVICE DROPDOWN ──

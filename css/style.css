@@ -443,48 +443,6 @@ body.overlay-open{overflow:hidden}
   max-width:360px;
 }
 
-.contact-form{display:flex;flex-direction:column}
-.form-group{
-  border-bottom:1px solid rgba(255,255,255,0.7);
-  padding-top:44px;
-  transition:border-color .2s;
-}
-.form-group:first-child{padding-top:0}
-.form-group.focused{border-bottom-color:#fff}
-.form-label{
-  display:block;
-  font-size:13px;
-  font-weight:400;
-  color:rgba(255,255,255,0.45);
-  margin-bottom:10px;
-}
-.form-group input{
-  width:100%;background:transparent;
-  border:none;outline:none;
-  color:#fff;font-family:var(--font);
-  font-size:15px;font-weight:400;
-  padding-bottom:14px;
-  line-height:1.5;display:block;
-}
-.form-group input::placeholder{color:rgba(255,255,255,0.15)}
-.form-submit{
-  margin-top:28px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.btn-send{
-  display:inline-flex;align-items:center;gap:8px;
-  background:transparent;color:#fff;
-  font-family:var(--font);font-size:13px;font-weight:500;
-  padding:12px 0;
-  border:none;
-  cursor:pointer;
-  transition:color .2s;
-}
-.btn-send:hover{background:transparent;color:rgba(255,255,255,0.55)}
-.form-success{
-  display:none;font-size:13px;
-  color:var(--accent);
-}
 
 /* ── FOOTER BAR ── */
 .site-footer{
@@ -500,11 +458,6 @@ body.overlay-open{overflow:hidden}
   grid-template-columns:repeat(4,1fr);
   gap:32px;
   flex:1;
-}
-.footer-form-wrap{
-  width:340px;
-  flex-shrink:0;
-  padding-top:4px;
 }
 .footer-col-label{
   font-size:11px;color:rgba(255,255,255,0.65);margin-bottom:14px;
@@ -779,7 +732,6 @@ body.overlay-open{overflow:hidden}
   .contact-form-section{grid-template-columns:1fr;gap:40px;padding:48px var(--pad-x)}
   .site-footer{flex-direction:column;gap:40px;padding:32px var(--pad-x)}
   .footer-links-col{grid-template-columns:1fr 1fr;gap:24px}
-  .footer-form-wrap{width:100%}
   .footer-col-right{text-align:left}
   /* Talks */
   .talks-cards-grid{grid-template-columns:1fr;gap:28px}
