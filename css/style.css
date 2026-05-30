@@ -797,9 +797,9 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   pointer-events:none;z-index:99999;
   transform:translate(-50%,-50%);
   transition:opacity .12s;
+  mix-blend-mode:difference;
 }
 .cursor-x.hidden{opacity:0}
-.cursor-x.link-hover{opacity:0}
 .cursor-x::before,.cursor-x::after{
   content:'';position:absolute;background:#fff;
 }
