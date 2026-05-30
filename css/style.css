@@ -1745,10 +1745,10 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .skp-red{align-items:center;justify-content:center}
   .skp-mark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:auto}
   .skp-credits{padding:40px 24px}
-  .skp-credits-wrap{flex-direction:column;gap:0;width:100%}
-  .skp-cred-roles,.skp-cred-names{align-items:flex-start;width:100%}
-  .skp-cred-names{width:100%}
-  .skp-credits p{font-size:14px}
+  .skp-credits-wrap{gap:16px;width:100%}
+  .skp-cred-roles{align-items:flex-end;flex:1}
+  .skp-cred-names{align-items:flex-start;width:auto;flex:1}
+  .skp-credits p{font-size:13px;white-space:normal}
   .skp-tall-inner{height:100%}
   .rds-hero{flex-direction:column;height:auto}
   .rds-hero-left{width:100%;min-height:280px;padding:32px 24px}
