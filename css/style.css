@@ -488,12 +488,23 @@ body.overlay-open{overflow:hidden}
 
 /* ── FOOTER BAR ── */
 .site-footer{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:32px;
+  display:flex;
+  align-items:flex-start;
+  gap:80px;
   padding:44px var(--pad-x);
   border-top:1px solid rgba(255,255,255,0.07);
   background:var(--bg);
+}
+.footer-links-col{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:32px;
+  flex:1;
+}
+.footer-form-wrap{
+  width:340px;
+  flex-shrink:0;
+  padding-top:4px;
 }
 .footer-col-label{
   font-size:11px;color:rgba(255,255,255,0.65);margin-bottom:14px;
@@ -766,7 +777,9 @@ body.overlay-open{overflow:hidden}
   .pnav-link.next{align-items:flex-start;text-align:left;border-top:1px solid rgba(255,255,255,0.07)}
   /* CTA + footer */
   .contact-form-section{grid-template-columns:1fr;gap:40px;padding:48px var(--pad-x)}
-  .site-footer{grid-template-columns:1fr 1fr;gap:24px;padding:32px var(--pad-x)}
+  .site-footer{flex-direction:column;gap:40px;padding:32px var(--pad-x)}
+  .footer-links-col{grid-template-columns:1fr 1fr;gap:24px}
+  .footer-form-wrap{width:100%}
   .footer-col-right{text-align:left}
   /* Talks */
   .talks-cards-grid{grid-template-columns:1fr;gap:28px}
@@ -1481,19 +1494,18 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   gap:16px;
   margin-bottom:56px;
 }
-.ab-proj-grid .project-card:nth-child(1) .card-img-wrap{aspect-ratio:4/3}
-.ab-proj-grid .project-card:nth-child(2) .card-img-wrap{aspect-ratio:3/4}
-.ab-proj-grid .project-card:nth-child(3) .card-img-wrap{aspect-ratio:16/9}
-.ab-proj-grid .project-card:nth-child(4) .card-img-wrap{aspect-ratio:3/4}
+.ab-proj-grid .project-card .card-img-wrap{aspect-ratio:4/3}
 .ab-see-all{
   display:block;
-  font-size:clamp(32px,5vw,72px);
+  font-size:16px;
   font-weight:400;
   color:rgba(255,255,255,0.65);
-  letter-spacing:-0.02em;
+  letter-spacing:.04em;
   line-height:1.1;
   transition:color .2s;
   text-decoration:none;
+  text-align:center;
+  margin-top:40px;
 }
 .ab-see-all:hover{color:#fff}
 
@@ -1734,7 +1746,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 
 /* ── SEE ALSO (ReBank end section) ── */
 .rds-see-also{background:#fff;padding:80px 90px}
-.rds-see-also-label{font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,0.4);margin-bottom:40px;font-family:var(--font)}
+.rds-see-also-label{font-size:40px;font-weight:400;color:#000;margin-bottom:40px;font-family:var(--font);line-height:1.1;letter-spacing:-.01em}
 .rds-see-also-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .rds-see-also-item{display:block;text-decoration:none}
 .rds-see-also-img{aspect-ratio:4/3;overflow:hidden;position:relative;margin-bottom:16px;background:#0d0d0d}
