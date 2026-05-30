@@ -1673,30 +1673,33 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   padding:60px 90px;
   display:flex;
   gap:60px;
-  align-items:flex-end;
-}
-.skp-project-info-left{
-  width:492px;
-  flex-shrink:0;
-  display:flex;
-  flex-direction:column;
-  gap:30px;
   align-items:flex-start;
 }
-.skp-project-info-right{
+.skp-project-info-left{
   flex:1;
   min-width:0;
   display:flex;
   flex-direction:column;
   gap:20px;
 }
-.skp-project-info-right p{
+.skp-project-info-left p{
   font-size:20px;
   font-weight:400;
   color:#000;
   margin:0;
   line-height:1.2;
   font-family:var(--font);
+}
+.skp-project-info-right{
+  width:512px;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:0;
+}
+.skp-project-services{
+  margin-bottom:40px;
 }
 .skp-project-services p{
   font-size:20px;
@@ -1781,7 +1784,8 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .skp-project-header p{font-size:16px;max-width:100%}
   .skp-project-info{flex-direction:column;padding:36px 24px;gap:32px}
   .skp-project-info-left{width:100%}
-  .skp-project-info-right p{font-size:16px}
+  .skp-project-info-left p{font-size:16px}
+  .skp-project-info-right{width:100%}
   .skp-project-services p{font-size:16px}
   .skp-project-link{font-size:16px}
 }
