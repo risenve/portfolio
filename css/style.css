@@ -1620,6 +1620,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 
 .skp-video-full{overflow:hidden;background:#000;position:relative}
 .skp-video-full video{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.skp-video-full.skp-video-contain video{object-fit:contain}
 .skp-vh700{height:700px}
 
 /* ── PROJECT HEADER + INFO (Skazpokrayu) ── */
@@ -1733,6 +1734,8 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .skp-text p{font-size:16px}
   .skp-inner-492,.skp-inner-512{width:100%}
   .skp-fullimg{height:56vw!important}
+  .skp-vh700{height:56vw}
+  .skp-video-full.skp-video-contain{height:56vw}
   .skp-pair{flex-direction:column}
   .skp-pair.skp-py60,.skp-pair.skp-pt60{padding:0}
   .skp-pcol{width:100%!important;height:56vw;flex-shrink:unset}
