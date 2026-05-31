@@ -81,7 +81,7 @@ const PROJECTS = [
     role: 'Product Designer',
     year: '2023',
     cover: 'images/Works_Covers/empty date.webp', imgs: ['images/Works_Covers/empty date.webp'],
-    href: '#'
+    href: 'https://emptydate.com/'
   },
   {
     id: 9, slug: 'here-creative',
