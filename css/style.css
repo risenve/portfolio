@@ -1574,10 +1574,8 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .spk-slider{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#000}
 .spk-slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:spk-frame 11s linear infinite}
 @keyframes spk-frame{
-  0%{opacity:0}
-  3%{opacity:1}
-  6%{opacity:1}
-  9.09%,100%{opacity:0}
+  0%,9.09%{opacity:1}
+  9.1%,100%{opacity:0}
 }
 .spk-slide-img:nth-child(1){animation-delay:0s}
 .spk-slide-img:nth-child(2){animation-delay:1s}
