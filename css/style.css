@@ -1973,15 +1973,15 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   font-family:var(--font);white-space:nowrap;line-height:15px;
 }
 
-.ebr-see-also{background:#fff;padding:80px 30px}
+.ebr-see-also{background:#fff;padding:80px 90px}
 .ebr-see-also-label{
   font-size:40px;font-weight:400;color:#000;
-  margin:0 0 40px;font-family:var(--font);line-height:1.1;
+  margin:0 0 40px;font-family:var(--font);line-height:1.1;letter-spacing:-.01em;
 }
-.ebr-see-also-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ebr-see-also-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .ebr-see-also-item{display:block;text-decoration:none}
 .ebr-see-also-thumb{
-  height:600px;overflow:hidden;position:relative;margin-bottom:16px;background:#f4f4f4;
+  aspect-ratio:4/3;overflow:hidden;position:relative;margin-bottom:16px;background:#f4f4f4;
 }
 .ebr-see-also-thumb img{
   width:100%;height:100%;object-fit:cover;display:block;
@@ -1990,7 +1990,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .ebr-see-also-item:hover .ebr-see-also-thumb img{transform:scale(1.04)}
 .ebr-see-also-name{
   font-size:20px;font-weight:400;color:#000;
-  font-family:var(--font);line-height:1.2;text-align:center;
+  font-family:var(--font);line-height:1.2;
 }
 
 @media(max-width:900px){
