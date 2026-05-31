@@ -1933,6 +1933,9 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 
 /* ── EBURET PROJECT PAGE ── */
 
+.ebr-img-sec{background:#fff;line-height:0}
+.ebr-img-sec img{width:100%;height:auto;display:block}
+
 .ebr-hero{
   height:700px;background:#f4f4f4;
   display:flex;align-items:center;justify-content:center;
