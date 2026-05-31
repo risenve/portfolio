@@ -1572,22 +1572,24 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 
 /* ── SPK ILLUSTRATION SLIDER ── */
 .spk-slider{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#000}
-.spk-slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:spk-frame 6.6s linear infinite}
+.spk-slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:spk-frame 11s linear infinite}
 @keyframes spk-frame{
-  0%,9.09%{opacity:1}
-  9.1%,100%{opacity:0}
+  0%{opacity:0}
+  3%{opacity:1}
+  6%{opacity:1}
+  9.09%,100%{opacity:0}
 }
 .spk-slide-img:nth-child(1){animation-delay:0s}
-.spk-slide-img:nth-child(2){animation-delay:0.6s}
-.spk-slide-img:nth-child(3){animation-delay:1.2s}
-.spk-slide-img:nth-child(4){animation-delay:1.8s}
-.spk-slide-img:nth-child(5){animation-delay:2.4s}
-.spk-slide-img:nth-child(6){animation-delay:3.0s}
-.spk-slide-img:nth-child(7){animation-delay:3.6s}
-.spk-slide-img:nth-child(8){animation-delay:4.2s}
-.spk-slide-img:nth-child(9){animation-delay:4.8s}
-.spk-slide-img:nth-child(10){animation-delay:5.4s}
-.spk-slide-img:nth-child(11){animation-delay:6.0s}
+.spk-slide-img:nth-child(2){animation-delay:1s}
+.spk-slide-img:nth-child(3){animation-delay:2s}
+.spk-slide-img:nth-child(4){animation-delay:3s}
+.spk-slide-img:nth-child(5){animation-delay:4s}
+.spk-slide-img:nth-child(6){animation-delay:5s}
+.spk-slide-img:nth-child(7){animation-delay:6s}
+.spk-slide-img:nth-child(8){animation-delay:7s}
+.spk-slide-img:nth-child(9){animation-delay:8s}
+.spk-slide-img:nth-child(10){animation-delay:9s}
+.spk-slide-img:nth-child(11){animation-delay:10s}
 .skp-bg-white{background:#fff!important}
 
 .skp-credits{
@@ -1603,7 +1605,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   color:#000;white-space:nowrap;margin:0;font-family:var(--font);
 }
 .skp-cred-line{width:100%;height:1px;background:#eee;flex-shrink:0}
-.skp-cred-names a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.25);}
+.skp-cred-names a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.4);transition:border-color .2s}
 .skp-cred-names a:hover{border-bottom-color:#000;}
 
 .skp-img-outer-py{background:#fff;padding:60px 0}
