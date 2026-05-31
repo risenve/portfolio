@@ -1602,6 +1602,8 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   color:#000;white-space:nowrap;margin:0;font-family:var(--font);
 }
 .skp-cred-line{width:100%;height:1px;background:#eee;flex-shrink:0}
+.skp-cred-names a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.25);}
+.skp-cred-names a:hover{border-bottom-color:#000;}
 
 .skp-img-outer-py{background:#fff;padding:60px 0}
 /* ── RE_DS — PROJECT PAGE ── */
