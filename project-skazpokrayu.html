@@ -196,16 +196,14 @@
       <img src="images/skazpokrayu/spk_slider_photos/slider_photo11.webp" class="spk-slide-img" alt="">
     </section>
 
-    <!-- 9. Photo left + gray+photo right (py-60) with Lottie overlay -->
-    <section class="skp-pair skp-py60" style="position:relative">
+    <!-- 9. Photo left + gray+photo right (py-60) -->
+    <section class="skp-pair skp-py60">
       <div class="skp-pcol skp-pcol-720">
         <img src="images/skazpokrayu/interior_photo4.webp" class="skp-cover" alt="">
       </div>
       <div class="skp-pcol skp-pcol-flex skp-gray-bg">
         <img src="images/skazpokrayu/interior_photo5.webp" class="skp-gray-img" alt="">
       </div>
-      <div id="lottie-bird" style="position:absolute;top:0;left:0;width:300px;height:300px;z-index:5;pointer-events:none"></div>
-      <div id="lottie-hedgehog" style="position:absolute;bottom:0;left:0;width:280px;height:280px;z-index:5;pointer-events:none"></div>
     </section>
 
     <!-- 11. Photo left + candle video right -->
@@ -295,6 +293,25 @@
       </div>
     </section>
 
+    <!-- See also -->
+    <section class="ebr-see-also">
+      <p class="ebr-see-also-label">Смотрите также</p>
+      <div class="ebr-see-also-grid">
+        <a href="project-rebank.html" class="ebr-see-also-item">
+          <div class="ebr-see-also-thumb">
+            <img src="images/Works_Covers/Re_Bank_cover.webp" alt="ReBank" loading="lazy">
+          </div>
+          <p class="ebr-see-also-name">ReBank</p>
+        </a>
+        <a href="project-eburet.html" class="ebr-see-also-item">
+          <div class="ebr-see-also-thumb">
+            <img src="images/Works_Covers/eburet.webp" alt="Eburet" loading="lazy">
+          </div>
+          <p class="ebr-see-also-name">Eburet</p>
+        </a>
+      </div>
+    </section>
+
   </main>
 
   <footer class="site-footer">
@@ -332,12 +349,5 @@
   </div>
 
   <script src="js/main.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-  <script>
-    var _bird = document.getElementById('lottie-bird');
-    if (_bird) lottie.loadAnimation({container:_bird,renderer:'svg',loop:true,autoplay:true,path:'images/skazpokrayu/lottie%20animations/bird.json'});
-    var _hog = document.getElementById('lottie-hedgehog');
-    if (_hog) lottie.loadAnimation({container:_hog,renderer:'svg',loop:true,autoplay:true,path:'images/skazpokrayu/lottie%20animations/%D0%B5%D0%B6%D0%B8%D0%BA%20%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0/%D0%B5%D0%B6%D0%B8%D0%BA.json'});
-  </script>
 </body>
 </html>
