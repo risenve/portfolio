@@ -7,7 +7,7 @@ const PROJECTS = [
     role: 'Art Director',
     year: '2024',
     cover: 'images/Works_Covers/skazpokrayu_cover.webp', imgs: ['images/Works_Covers/skazpokrayu_cover.webp'],
-    href: 'project-skazpokrayu.html'
+    href: '/skazpokrayu'
   },
   {
     id: 2, slug: 'eburet',
@@ -19,7 +19,7 @@ const PROJECTS = [
     cover: 'images/Works_Covers/eburet.webp',
     video: 'images/eburet/eburet final 2.mp4',
     imgs: ['images/Works_Covers/eburet.webp','images/eburet/проект.png','images/eburet/мобилки.png','images/eburet/проект-1.png'],
-    href: 'project-eburet.html'
+    href: '/eburet'
   },
   {
     id: 3, slug: 'rebank',
@@ -29,7 +29,7 @@ const PROJECTS = [
     role: 'Product Designer',
     year: '2023',
     cover: 'images/Works_Covers/Re_Bank_cover.webp', imgs: ['images/Works_Covers/Re_Bank_cover.webp'],
-    href: 'project-rebank.html'
+    href: '/rebank'
   },
   {
     id: 4, slug: 'premiumization',
@@ -49,7 +49,7 @@ const PROJECTS = [
     role: 'Art Director',
     year: '2024',
     cover: 'images/Works_Covers/Unicorn Embassy.webp', imgs: ['images/Works_Covers/Unicorn Embassy.webp'],
-    href: 'project-unicorn.html'
+    href: '/unicorn'
   },
   {
     id: 6, slug: 'match',
@@ -60,7 +60,7 @@ const PROJECTS = [
     year: '2024',
     cover: 'images/Works_Covers/match.webp',
     imgs: ['images/Works_Covers/match.webp','images/match/m_pair1a.webp','images/match/m_full1.webp','images/match/m_full2.webp'],
-    href: 'project-match.html'
+    href: '/match'
   },
   {
     id: 7, slug: 'posters',
@@ -71,7 +71,7 @@ const PROJECTS = [
     year: '2023',
     cover: 'images/Works_Covers/posters.webp',
     imgs: ['images/Works_Covers/posters.webp','images/posters/poster-1.webp','images/posters/poster-2.webp','images/posters/poster-3.webp'],
-    href: 'project-posters.html'
+    href: '/posters'
   },
   {
     id: 8, slug: 'empty-date',
