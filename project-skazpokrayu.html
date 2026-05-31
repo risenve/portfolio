@@ -149,7 +149,7 @@
     </section>
 
     <!-- 4b. Logo animation video -->
-    <section class="skp-video-full skp-vh700 skp-video-contain">
+    <section class="skp-video-full skp-vh700 skp-video-contain skp-bg-white">
       <video autoplay loop muted playsinline>
         <source src="images/skazpokrayu/logo%20animation.mp4" type="video/mp4">
       </video>
@@ -167,16 +167,16 @@
       </div>
     </section>
 
-    <!-- 6b. Window video -->
-    <section class="skp-video-full skp-vh700 skp-video-contain">
-      <video autoplay loop muted playsinline>
-        <source src="images/skazpokrayu/window_video.mp4" type="video/mp4">
-      </video>
-    </section>
-
-    <!-- 7. Logo on white -->
-    <section class="skp-logo-sec">
-      <div class="skp-logo-full" role="img" aria-label="Сказ по краю — полный логотип"></div>
+    <!-- 6b. Photo + bird video pair -->
+    <section class="skp-pair">
+      <div class="skp-pcol skp-pcol-flex">
+        <img src="images/skazpokrayu/interior_photo3.webp" class="skp-cover" alt="">
+      </div>
+      <div class="skp-pcol skp-pcol-720">
+        <video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block">
+          <source src="images/skazpokrayu/window_video.mp4" type="video/mp4">
+        </video>
+      </div>
     </section>
 
     <!-- 8. Illustrations text -->
@@ -201,14 +201,16 @@
       <img src="images/skazpokrayu/spk_slider_photos/slider_photo11.webp" class="spk-slide-img" alt="">
     </section>
 
-    <!-- 9. Photo left + gray+photo right (py-60) -->
-    <section class="skp-pair skp-py60">
+    <!-- 9. Photo left + gray+photo right (py-60) with Lottie overlay -->
+    <section class="skp-pair skp-py60" style="position:relative">
       <div class="skp-pcol skp-pcol-720">
         <img src="images/skazpokrayu/interior_photo4.webp" class="skp-cover" alt="">
       </div>
       <div class="skp-pcol skp-pcol-flex skp-gray-bg">
         <img src="images/skazpokrayu/interior_photo5.webp" class="skp-gray-img" alt="">
       </div>
+      <lottie-player src="images/skazpokrayu/lottie%20animations/bird.json" background="transparent" speed="1" loop autoplay style="position:absolute;top:0;left:0;width:300px;height:300px;z-index:5;pointer-events:none"></lottie-player>
+      <lottie-player src="images/skazpokrayu/lottie%20animations/%D0%B5%D0%B6%D0%B8%D0%BA%20%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0/%D0%B5%D0%B6%D0%B8%D0%BA.json" background="transparent" speed="1" loop autoplay style="position:absolute;bottom:0;left:0;width:280px;height:280px;z-index:5;pointer-events:none"></lottie-player>
     </section>
 
     <!-- 10. Photo left + photo right (py-60) -->
@@ -221,13 +223,15 @@
       </div>
     </section>
 
-    <!-- 11. Photo left + photo right -->
+    <!-- 11. Photo left + candle video right -->
     <section class="skp-pair">
       <div class="skp-pcol skp-pcol-720">
         <img src="images/skazpokrayu/interior_photo1.webp" class="skp-cover" alt="">
       </div>
       <div class="skp-pcol skp-pcol-flex">
-        <img src="images/skazpokrayu/transparent_bg_photo5.webp" class="skp-cover" alt="">
+        <video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block">
+          <source src="images/skazpokrayu/podvechnicki%20.mp4" type="video/mp4">
+        </video>
       </div>
     </section>
 
@@ -333,5 +337,6 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
 </body>
 </html>
