@@ -1931,6 +1931,74 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .rb-links-bar{padding:40px 24px}
 }
 
+/* ── EBURET PROJECT PAGE ── */
+
+.ebr-hero{
+  height:700px;background:#f4f4f4;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.ebr-hero-frame{
+  width:860px;height:484px;
+  border:1px solid #c3c3c3;border-radius:40px;
+  overflow:hidden;position:relative;flex-shrink:0;
+}
+.ebr-hero-frame video{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+
+.ebr-gray-full{overflow:hidden}
+.ebr-gray-full img{width:100%;height:100%;object-fit:contain;display:block}
+.ebr-h870{height:870px}
+.ebr-h1200{height:1200px}
+
+.ebr-colors{
+  display:flex;height:526px;overflow:hidden;background:#fff;
+}
+.ebr-swatch{
+  flex:1;display:flex;flex-direction:column;
+  justify-content:flex-start;padding:24px 20px;
+}
+.ebr-swatch-label{
+  font-size:13.5px;font-weight:500;color:#282828;
+  font-family:var(--font);white-space:nowrap;line-height:15px;
+}
+
+.ebr-see-also{background:#fff;padding:80px 30px}
+.ebr-see-also-label{
+  font-size:40px;font-weight:400;color:#000;
+  margin:0 0 40px;font-family:var(--font);line-height:1.1;
+}
+.ebr-see-also-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ebr-see-also-item{display:block;text-decoration:none}
+.ebr-see-also-thumb{
+  height:600px;overflow:hidden;position:relative;margin-bottom:16px;background:#f4f4f4;
+}
+.ebr-see-also-thumb img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s var(--ease);
+}
+.ebr-see-also-item:hover .ebr-see-also-thumb img{transform:scale(1.04)}
+.ebr-see-also-name{
+  font-size:20px;font-weight:400;color:#000;
+  font-family:var(--font);line-height:1.2;text-align:center;
+}
+
+@media(max-width:900px){
+  .ebr-hero{height:56vw;min-height:240px}
+  .ebr-hero-frame{width:90%;height:auto;aspect-ratio:860/484}
+  .ebr-gray-full{height:60vw!important}
+  .ebr-colors{height:auto;flex-wrap:wrap}
+  .ebr-swatch{flex:0 0 33.333%;min-height:120px}
+  .ebr-see-also-thumb{height:56vw}
+  .ebr-see-also-label{font-size:28px}
+}
+@media(max-width:720px){
+  .ebr-hero-frame{width:95%;border-radius:20px}
+  .ebr-see-also-grid{grid-template-columns:1fr;gap:32px}
+  .ebr-swatch{flex:0 0 50%}
+}
+
 /* Language toggle — case study pages */
 .lang-toggle{position:fixed;top:calc(var(--nav-h) + 8px);right:var(--pad-x);z-index:99;display:flex;border:1px solid #242424;border-radius:4px;overflow:hidden;background:#0d0d0d}
 .lang-btn{font-family:var(--font);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#3a3a3a;padding:6px 10px;background:transparent;transition:color .15s;line-height:1;display:block}
