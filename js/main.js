@@ -17,6 +17,7 @@ const PROJECTS = [
     role: 'UI/UX Designer',
     year: '2024',
     cover: 'images/Works_Covers/eburet.webp',
+    video: 'images/eburet/eburet final 2.mp4',
     imgs: ['images/Works_Covers/eburet.webp','images/eburet/проект.png','images/eburet/мобилки.png','images/eburet/проект-1.png'],
     href: 'project-eburet.html'
   },
@@ -226,7 +227,9 @@ function renderProjects(filter) {
     container.innerHTML = list.map(function (p) {
       var tag = p.href !== '#' ? 'a' : 'div';
       var href = p.href !== '#' ? ' href="' + p.href + '"' : '';
-      var inner = p.cover
+      var inner = p.video
+        ? '<video autoplay loop muted playsinline><source src="' + p.video + '" type="video/mp4"></video>'
+        : p.cover
         ? '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">'
         : '<div class="card-placeholder"><span class="ph-num">' + p.id + '</span><span class="ph-title">' + p.title + '</span></div>';
       return '<' + tag + href + ' class="project-card"><div class="card-img-wrap">' + inner +
