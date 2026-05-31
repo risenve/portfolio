@@ -6,7 +6,7 @@ const PROJECTS = [
     type: 'Art Direction',
     role: 'Art Director',
     year: '2024',
-    cover: 'images/Works_Covers/skazpokrayu_cover.webp', imgs: ['images/Works_Covers/skazpokrayu_cover.webp'],
+    cover: '/images/Works_Covers/skazpokrayu_cover.webp', imgs: ['/images/Works_Covers/skazpokrayu_cover.webp'],
     href: '/skazpokrayu'
   },
   {
@@ -16,9 +16,9 @@ const PROJECTS = [
     type: 'UI/UX Design',
     role: 'UI/UX Designer',
     year: '2024',
-    cover: 'images/Works_Covers/eburet.webp',
-    video: 'images/eburet/eburet final 2.mp4',
-    imgs: ['images/Works_Covers/eburet.webp','images/eburet/проект.png','images/eburet/мобилки.png','images/eburet/проект-1.png'],
+    cover: '/images/Works_Covers/eburet.webp',
+    video: '/images/eburet/eburet final 2.mp4',
+    imgs: ['/images/Works_Covers/eburet.webp','/images/eburet/проект.png','/images/eburet/мобилки.png','/images/eburet/проект-1.png'],
     href: '/eburet'
   },
   {
@@ -28,7 +28,7 @@ const PROJECTS = [
     type: 'Product Design',
     role: 'Product Designer',
     year: '2023',
-    cover: 'images/Works_Covers/Re_Bank_cover.webp', imgs: ['images/Works_Covers/Re_Bank_cover.webp'],
+    cover: '/images/Works_Covers/Re_Bank_cover.webp', imgs: ['/images/Works_Covers/Re_Bank_cover.webp'],
     href: '/rebank'
   },
   {
@@ -38,7 +38,7 @@ const PROJECTS = [
     type: 'Art Direction',
     role: 'Art Director',
     year: '2023',
-    cover: 'images/Works_Covers/premiumization.webp', imgs: ['images/Works_Covers/premiumization.webp'],
+    cover: '/images/Works_Covers/premiumization.webp', imgs: ['/images/Works_Covers/premiumization.webp'],
     href: '#'
   },
   {
@@ -48,7 +48,7 @@ const PROJECTS = [
     type: 'Brand Design',
     role: 'Art Director',
     year: '2024',
-    cover: 'images/Works_Covers/Unicorn Embassy.webp', imgs: ['images/Works_Covers/Unicorn Embassy.webp'],
+    cover: '/images/Works_Covers/Unicorn Embassy.webp', imgs: ['/images/Works_Covers/Unicorn Embassy.webp'],
     href: '/unicorn'
   },
   {
@@ -58,8 +58,8 @@ const PROJECTS = [
     type: 'Art Direction',
     role: 'Art Director',
     year: '2024',
-    cover: 'images/Works_Covers/match.webp',
-    imgs: ['images/Works_Covers/match.webp','images/match/m_pair1a.webp','images/match/m_full1.webp','images/match/m_full2.webp'],
+    cover: '/images/Works_Covers/match.webp',
+    imgs: ['/images/Works_Covers/match.webp','/images/match/m_pair1a.webp','/images/match/m_full1.webp','/images/match/m_full2.webp'],
     href: '/match'
   },
   {
@@ -69,8 +69,8 @@ const PROJECTS = [
     type: 'Graphic Design',
     role: 'Graphic Designer',
     year: '2023',
-    cover: 'images/Works_Covers/posters.webp',
-    imgs: ['images/Works_Covers/posters.webp','images/posters/poster-1.webp','images/posters/poster-2.webp','images/posters/poster-3.webp'],
+    cover: '/images/Works_Covers/posters.webp',
+    imgs: ['/images/Works_Covers/posters.webp','/images/posters/poster-1.webp','/images/posters/poster-2.webp','/images/posters/poster-3.webp'],
     href: '/posters'
   },
   {
@@ -80,7 +80,7 @@ const PROJECTS = [
     type: 'UI/UX Design',
     role: 'Product Designer',
     year: '2023',
-    cover: 'images/Works_Covers/empty date.webp', imgs: ['images/Works_Covers/empty date.webp'],
+    cover: '/images/Works_Covers/empty date.webp', imgs: ['/images/Works_Covers/empty date.webp'],
     href: 'https://emptydate.com/'
   },
   {
@@ -90,7 +90,7 @@ const PROJECTS = [
     type: 'UI/UX Design',
     role: 'UI/UX Designer',
     year: '2023',
-    cover: 'images/Works_Covers/here creative.webp', imgs: ['images/Works_Covers/here creative.webp'],
+    cover: '/images/Works_Covers/here creative.webp', imgs: ['/images/Works_Covers/here creative.webp'],
     href: '#'
   },
   {
@@ -100,7 +100,7 @@ const PROJECTS = [
     type: 'Brand Design',
     role: 'Brand Designer',
     year: '2023',
-    cover: 'images/Works_Covers/in hub.webp', imgs: ['images/Works_Covers/in hub.webp'],
+    cover: '/images/Works_Covers/in hub.webp', imgs: ['/images/Works_Covers/in hub.webp'],
     href: '#'
   },
   {

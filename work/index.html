@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Talks — Ripsime Sargsyan</title>
-  <meta name="description" content="Talks, lectures, and workshops by Ripsime Sargsyan — designer and art director based in Armenia.">
+  <title>Work — Ripsime Sargsyan</title>
+  <meta name="description" content="Portfolio of Ripsime Sargsyan — UI/UX designer, brand designer, and art director based in Armenia. Selected works in product design, branding, and art direction.">
   <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -17,7 +17,7 @@
     </a>
     <div class="nav-links">
       <a href="/" class="nav-link">Home</a>
-      <a href="/work" class="nav-link">Work</a>
+      <a href="/work" class="nav-link active">Work</a>
       <div class="nav-service-wrap">
         <button class="nav-link nav-service-toggle">Service</button>
         <div class="service-drop">
@@ -27,21 +27,13 @@
           <a href="/service-art-direction" class="service-item">Art Direction</a>
         </div>
       </div>
-      <a href="/talks" class="nav-link active">Talks</a>
+      <a href="/talks" class="nav-link">Talks</a>
       <a href="mailto:sargsyan.std@gmail.com" class="nav-link">Contact</a>
     </div>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
       <span></span><span></span>
     </button>
   </nav>
-
-  <!-- STAIRCASE HOVER PANEL -->
-  <div class="staircase-panel" id="staircase-panel">
-    <a href="/" class="stair-link">Home</a>
-    <a href="/work" class="stair-link">Work</a>
-    <a href="/talks" class="stair-link">Talks</a>
-    <a href="mailto:sargsyan.std@gmail.com" class="stair-link">Contact</a>
-  </div>
 
   <!-- FULL OVERLAY -->
   <div class="nav-overlay" id="nav-overlay">
@@ -90,81 +82,28 @@
     </div>
   </div>
 
-  <div class="page-wrap">
+  <!-- WORK HEADING -->
+  <h1 class="work-heading reveal">Work</h1>
 
-    <header class="talks-page-header">
-      <h1 class="talks-page-title reveal">Talks</h1>
-    </header>
-
-    <div class="talks-cards-grid">
-
-      <!-- Card 1: Portfolio Lecture -->
-      <div class="talk-card-item reveal">
-        <a href="https://t.me/sargsyanstd/258" class="tci-cover-link" target="_blank" rel="noopener">
-          <div class="tci-cover" style="background:#0a0a0a">
-            <img src="/images/Talks/Portfolio lecture.webp" alt="Portfolio lecture">
-          </div>
-        </a>
-        <div class="tci-info">
-          <span class="tci-title">Portfolio Lecture</span>
-          <span class="tci-meta">Lecture · 2026</span>
-        </div>
-      </div>
-
-      <!-- Card 2: Business Card Workshop -->
-      <div class="talk-card-item reveal" style="transition-delay:.08s">
-        <a href="https://www.youtube.com/watch?v=_CAMfvk2770&t" class="tci-cover-link" target="_blank" rel="noopener">
-          <div class="tci-cover" style="background:#0a0a0a">
-            <img src="/images/Talks/Vizitochnaya workshop.webp" alt="Business card workshop">
-          </div>
-        </a>
-        <div class="tci-info">
-          <span class="tci-title">Business Cards Workshop</span>
-          <span class="tci-meta">Workshop · 2026</span>
-        </div>
-      </div>
-
-      <!-- Card 3: TapTop Interview -->
-      <div class="talk-card-item reveal" style="transition-delay:.16s">
-        <a href="https://www.youtube.com/watch?v=_CAMfvk2770&t" class="tci-cover-link" target="_blank" rel="noopener">
-          <div class="tci-cover" style="background:#06080f">
-            <img src="/images/Talks/taptop-interview.webp" alt="TapTop interview">
-          </div>
-        </a>
-        <div class="tci-info">
-          <span class="tci-title">TapTop</span>
-          <span class="tci-meta">Interview · December 2024</span>
-        </div>
-      </div>
-
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ui-ux">UI/UX</button>
+      <button class="filter-btn" data-filter="brand-design">Brand Design</button>
+      <button class="filter-btn" data-filter="art-direction">Art Direction</button>
+      <button class="filter-btn" data-filter="graphics-ai">Graphics & AI</button>
     </div>
+    <div class="view-toggle">
+      <button class="view-btn active" data-view="grid">Grid</button>
+      <button class="view-btn" data-view="list">List</button>
+    </div>
+  </div>
 
-    <section class="contact-form-section">
-      <div>
-        <h2 class="contact-headline">Get in Touch</h2>
-        <p class="contact-body">Have an interesting project or struggling with design? Let's connect! I'm always open to talk, create, and collaborate.</p>
-      </div>
-      <form id="contact-form" class="ol-form" novalidate>
-        <div class="ol-field">
-          <input type="text" name="name" required placeholder=" ">
-          <label class="ol-label">Name</label>
-        </div>
-        <div class="ol-field">
-          <input type="email" name="email" required placeholder=" ">
-          <label class="ol-label">Email</label>
-        </div>
-        <div class="ol-field">
-          <input type="text" name="message" required placeholder=" ">
-          <label class="ol-label">About project</label>
-        </div>
-        <label class="ol-consent">
-          <input type="checkbox" name="consent" required>
-          <span class="ol-consent-text">I agree to the processing of personal data.</span>
-        </label>
-        <button type="submit" class="ol-submit">Send →</button>
-      </form>
-    </section>
+  <!-- PROJECTS CONTAINER -->
+  <div id="projects-container" class="view-grid"></div>
 
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-links-col">
       <div>
@@ -196,8 +135,6 @@
       </div>
     </div>
   </footer>
-
-  </div>
 
   <script src="/js/main.js"></script>
 </body>
