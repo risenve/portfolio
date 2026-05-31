@@ -359,6 +359,7 @@ body.overlay-open{overflow:hidden}
 .card-img-wrap video{
   width:100%;height:100%;object-fit:contain;display:block;
 }
+.card-img-wrap:has(video){background:#f4f4f4;}
 .project-card:hover .card-img-wrap img{transform:scale(1.04)}
 
 .card-placeholder{
