@@ -1937,7 +1937,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 
 /* ── EBURET PROJECT PAGE ── */
 
-.ebr-img-sec{background:#fff;line-height:0}
+.ebr-img-sec{background:#fff;line-height:0;padding:60px 0}
 .ebr-img-sec img{width:100%;height:auto;display:block}
 
 .ebr-hero{
