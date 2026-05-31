@@ -6,7 +6,7 @@ const PROJECTS = [
     type: 'Art Direction',
     role: 'Art Director',
     year: '2024',
-    cover: 'images/Works_Covers/skazpokrayu_cover.png', imgs: ['images/Works_Covers/skazpokrayu_cover.png'],
+    cover: 'images/Works_Covers/skazpokrayu_cover.webp', imgs: ['images/Works_Covers/skazpokrayu_cover.webp'],
     href: 'project-skazpokrayu.html'
   },
   {
@@ -16,8 +16,8 @@ const PROJECTS = [
     type: 'UI/UX Design',
     role: 'UI/UX Designer',
     year: '2024',
-    cover: 'images/Works_Covers/eburet.png',
-    imgs: ['images/Works_Covers/eburet.png','images/eburet/проект.png','images/eburet/мобилки.png','images/eburet/проект-1.png'],
+    cover: 'images/Works_Covers/eburet.webp',
+    imgs: ['images/Works_Covers/eburet.webp','images/eburet/проект.png','images/eburet/мобилки.png','images/eburet/проект-1.png'],
     href: 'project-eburet.html'
   },
   {
@@ -27,7 +27,7 @@ const PROJECTS = [
     type: 'Product Design',
     role: 'Product Designer',
     year: '2023',
-    cover: 'images/Works_Covers/Re_Bank_cover.png', imgs: ['images/Works_Covers/Re_Bank_cover.png'],
+    cover: 'images/Works_Covers/Re_Bank_cover.webp', imgs: ['images/Works_Covers/Re_Bank_cover.webp'],
     href: 'project-rebank.html'
   },
   {
@@ -37,7 +37,7 @@ const PROJECTS = [
     type: 'Art Direction',
     role: 'Art Director',
     year: '2023',
-    cover: null, imgs: [],
+    cover: 'images/Works_Covers/premiumization.webp', imgs: ['images/Works_Covers/premiumization.webp'],
     href: '#'
   },
   {
@@ -47,7 +47,7 @@ const PROJECTS = [
     type: 'Brand Design',
     role: 'Art Director',
     year: '2024',
-    cover: 'images/Works_Covers/Unicorn Embassy.png', imgs: ['images/Works_Covers/Unicorn Embassy.png'],
+    cover: 'images/Works_Covers/Unicorn Embassy.webp', imgs: ['images/Works_Covers/Unicorn Embassy.webp'],
     href: 'project-unicorn.html'
   },
   {
@@ -57,8 +57,8 @@ const PROJECTS = [
     type: 'Art Direction',
     role: 'Art Director',
     year: '2024',
-    cover: 'images/Works_Covers/match.png',
-    imgs: ['images/Works_Covers/match.png','images/match/m_pair1a.webp','images/match/m_full1.webp','images/match/m_full2.webp'],
+    cover: 'images/Works_Covers/match.webp',
+    imgs: ['images/Works_Covers/match.webp','images/match/m_pair1a.webp','images/match/m_full1.webp','images/match/m_full2.webp'],
     href: 'project-match.html'
   },
   {
@@ -68,8 +68,8 @@ const PROJECTS = [
     type: 'Graphic Design',
     role: 'Graphic Designer',
     year: '2023',
-    cover: 'images/Works_Covers/posters.png',
-    imgs: ['images/Works_Covers/posters.png','images/posters/poster-1.webp','images/posters/poster-2.webp','images/posters/poster-3.webp'],
+    cover: 'images/Works_Covers/posters.webp',
+    imgs: ['images/Works_Covers/posters.webp','images/posters/poster-1.webp','images/posters/poster-2.webp','images/posters/poster-3.webp'],
     href: 'project-posters.html'
   },
   {
@@ -79,7 +79,7 @@ const PROJECTS = [
     type: 'UI/UX Design',
     role: 'Product Designer',
     year: '2023',
-    cover: 'images/Works_Covers/empty date.png', imgs: ['images/Works_Covers/empty date.png'],
+    cover: 'images/Works_Covers/empty date.webp', imgs: ['images/Works_Covers/empty date.webp'],
     href: '#'
   },
   {
@@ -89,7 +89,7 @@ const PROJECTS = [
     type: 'UI/UX Design',
     role: 'UI/UX Designer',
     year: '2023',
-    cover: 'images/Works_Covers/here creative.png', imgs: ['images/Works_Covers/here creative.png'],
+    cover: 'images/Works_Covers/here creative.webp', imgs: ['images/Works_Covers/here creative.webp'],
     href: '#'
   },
   {
@@ -99,7 +99,7 @@ const PROJECTS = [
     type: 'Brand Design',
     role: 'Brand Designer',
     year: '2023',
-    cover: 'images/Works_Covers/in hub.png', imgs: ['images/Works_Covers/in hub.png'],
+    cover: 'images/Works_Covers/in hub.webp', imgs: ['images/Works_Covers/in hub.webp'],
     href: '#'
   },
   {
@@ -227,7 +227,7 @@ function renderProjects(filter) {
       var tag = p.href !== '#' ? 'a' : 'div';
       var href = p.href !== '#' ? ' href="' + p.href + '"' : '';
       var inner = p.cover
-        ? '<img src="' + p.cover + '" alt="' + p.title + '">'
+        ? '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">'
         : '<div class="card-placeholder"><span class="ph-num">' + p.id + '</span><span class="ph-title">' + p.title + '</span></div>';
       return '<' + tag + href + ' class="project-card"><div class="card-img-wrap">' + inner +
         '</div><div class="card-info"><span class="card-title">' + p.title +

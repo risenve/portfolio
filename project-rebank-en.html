@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ReBank DS — Ripsime Sargsyan</title>
-  <meta name="description" content="ReBank DS — токен-ориентированная дизайн-система для мобильного банкинг-продукта. Кейс Ripsime Sargsyan.">
+  <meta name="description" content="ReBank DS — a token-driven design system for a mobile banking product. Case study by Ripsime Sargsyan.">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -91,8 +91,8 @@
 
   <!-- Language toggle -->
   <div class="lang-toggle">
-    <span class="lang-btn lang-btn--active">RU</span>
-    <a href="project-rebank-en.html" class="lang-btn">EN</a>
+    <a href="project-rebank.html" class="lang-btn">RU</a>
+    <span class="lang-btn lang-btn--active">EN</span>
   </div>
 
   <!-- PAGE CONTENT -->
@@ -103,17 +103,17 @@
     <section class="rds-hero">
       <div class="rds-hero-left">
         <h1 class="rds-title">ReBank</h1>
-        <p class="rds-subtitle">Дизайн-система на токенах: от Figma до production-кода</p>
+        <p class="rds-subtitle">Token-driven design system: from Figma to production code</p>
       </div>
       <div class="rds-hero-right">
-        <img src="images/re_ds/image%205.png" class="skp-cover" alt="ReBank DS — дизайн-система">
+        <img src="images/re_ds/image%205.png" class="skp-cover" alt="ReBank DS — design system">
       </div>
     </section>
 
     <!-- 2. Description text -->
     <section class="skp-text">
       <div class="skp-inner-512">
-        <p>ReBank DS — токен-ориентированная дизайн-система для мобильного банкинг-продукта. От сырых значений цвета в JSON до задокументированных React-компонентов в Storybook. Каждое визуальное решение в продуктовом UI восходит к токену. Каждый токен компилируется в CSS-переменную, которая живёт в коде.</p>
+        <p>ReBank DS is a token-driven design system for a mobile banking product. From raw color values in JSON to documented React components in Storybook. Every visual decision in the product UI traces back to a token. Every token compiles into a CSS variable that lives in the code.</p>
       </div>
     </section>
 
@@ -125,8 +125,8 @@
     <!-- 4. Three-layer model text -->
     <section class="skp-text">
       <div class="skp-inner-512">
-        <p class="rds-label">Трёхуровневая модель</p>
-        <p>Токены структурированы в три слоя, тем самым если меняется цвет бренда — обновляется один примитив. Все семантические токены, которые на него ссылаются, обновляются автоматически по всему продукту.</p>
+        <p class="rds-label">Three-layer model</p>
+        <p>Tokens are structured in three layers — if the brand color changes, a single primitive is updated. All semantic tokens that reference it are automatically updated across the entire product.</p>
       </div>
     </section>
 
@@ -139,7 +139,7 @@
           </div>
           <div class="rds-card-body">
             <p class="rds-card-title">Button Component</p>
-            <p class="rds-card-desc">Все состояния в одном месте — default, hover, disabled, filled и ghost. Размеры и цвета управляются токенами.</p>
+            <p class="rds-card-desc">All states in one place — default, hover, disabled, filled and ghost. Sizes and colors are controlled by tokens.</p>
           </div>
         </div>
         <div class="rds-card rds-card--wide">
@@ -148,7 +148,7 @@
           </div>
           <div class="rds-card-body">
             <p class="rds-card-title">Card Component</p>
-            <p class="rds-card-desc">Банковская карта как компонент: баланс, платёжная система, градиент из семантических токенов.</p>
+            <p class="rds-card-desc">A bank card as a component: balance, payment system, gradient built from semantic tokens.</p>
           </div>
         </div>
         <div class="rds-card rds-card--narrow">
@@ -157,7 +157,7 @@
           </div>
           <div class="rds-card-body">
             <p class="rds-card-title">Token Pipeline</p>
-            <p class="rds-card-desc">Токены живут в JSON и компилируются через Style Dictionary в CSS и JS — без ручного переноса значений.</p>
+            <p class="rds-card-desc">Tokens live in JSON and are compiled through Style Dictionary into CSS and JS — no manual value transfers.</p>
           </div>
         </div>
         <div class="rds-card rds-card--narrow">
@@ -166,7 +166,7 @@
           </div>
           <div class="rds-card-body">
             <p class="rds-card-title">Storybook Docs</p>
-            <p class="rds-card-desc">Каждый компонент задокументирован в MDX: пропсы, состояния и edge-cases прямо в браузере.</p>
+            <p class="rds-card-desc">Each component is documented in MDX: props, states and edge cases right in the browser.</p>
           </div>
         </div>
         <div class="rds-card rds-card--narrow">
@@ -175,7 +175,7 @@
           </div>
           <div class="rds-card-body">
             <p class="rds-card-title">Comment Component</p>
-            <p class="rds-card-desc">Контекстные уведомления с динамическим контентом — от кэшбека до предупреждений о тратах.</p>
+            <p class="rds-card-desc">Contextual notifications with dynamic content — from cashback to spending warnings.</p>
           </div>
         </div>
       </div>
@@ -184,7 +184,7 @@
     <!-- 6. Compilation text -->
     <section class="skp-text">
       <div class="skp-inner-512">
-        <p>Токены не статичны — они компилируются. Style Dictionary читает JSON из Primitives/, Semantic/ и Typography/, и собирает CSS-переменные и JS-объект в папку build/. Watch-скрипт пересобирает при каждом изменении файла.</p>
+        <p>Tokens are not static — they compile. Style Dictionary reads JSON from Primitives/, Semantic/ and Typography/, and builds CSS variables and a JS object into the build/ folder. A watch script rebuilds on every file change.</p>
       </div>
     </section>
 
@@ -201,7 +201,7 @@
     <!-- 8. Themes text -->
     <section class="skp-text">
       <div class="skp-inner-512">
-        <p>$themes.json определяет Light и Dark как отдельные конфигурации, обе ссылаются на один и тот же семантический слой. Смена темы не требует изменений в коде компонентов — меняется только активная тема.</p>
+        <p>$themes.json defines Light and Dark as separate configurations, both referencing the same semantic layer. Switching themes requires no changes to component code — only the active theme changes.</p>
       </div>
     </section>
 
@@ -211,26 +211,26 @@
         <img src="images/re_ds/image%202.png" class="skp-cover" alt="">
       </div>
       <div class="skp-pcol skp-pcol-flex rds-text-right">
-        <p>Компоненты задокументированы в Storybook с использованием MDX-stories. Конфигурация включает @storybook/react-vite и @storybook/addon-docs — не просто песочница, а живая спецификация. Каждая story импортирует CSS-переменные из build/variables.css — в Storybook рендерятся те же значения токенов, что и в продукте.</p>
+        <p>Components are documented in Storybook using MDX stories. The configuration includes @storybook/react-vite and @storybook/addon-docs — not just a sandbox, but a living specification. Each story imports CSS variables from build/variables.css — Storybook renders the same token values as the product.</p>
       </div>
     </section>
 
     <!-- 10. Summary text -->
     <section class="skp-text">
       <div class="skp-inner-512">
-        <p>Таким образом получилось выстроить полноценный пайплайн от дизайн-токенов до продуктового UI: токены структурированы в три слоя, компилируются через Style Dictionary в CSS-переменные и подключены в Storybook. На основе системы собрано пять экранных флоу с поддержкой Light и Dark тем — Auth, Onboarding, KYC с верификацией документа и скана лица, настройка аккаунта и главный экран банкинга. Все состояния компонентов покрыты, хендофф между дизайном и кодом автоматизирован.</p>
+        <p>The result is a complete pipeline from design tokens to product UI: tokens structured in three layers, compiled through Style Dictionary into CSS variables, and connected in Storybook. Built on the system are five screen flows with Light and Dark theme support — Auth, Onboarding, KYC with document verification and face scan, account setup, and the main banking screen. All component states are covered, and the handoff between design and code is automated.</p>
       </div>
     </section>
 
     <!-- 11. See also -->
     <section class="rds-see-also">
-      <p class="rds-see-also-label">Смотрите также</p>
+      <p class="rds-see-also-label">See also</p>
       <div class="rds-see-also-grid">
-        <a href="project-skazpokrayu.html" class="rds-see-also-item">
+        <a href="project-skazpokrayu-en.html" class="rds-see-also-item">
           <div class="rds-see-also-img">
             <img src="images/Works_Covers/skazpokrayu_cover.webp" alt="Skaz po krayu">
           </div>
-          <p class="rds-see-also-title">Сказ по Краю</p>
+          <p class="rds-see-also-title">Skaz po Krayu</p>
         </a>
         <a href="project-eburet.html" class="rds-see-also-item">
           <div class="rds-see-also-img">

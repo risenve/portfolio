@@ -1,13 +1,11 @@
 /* ── FONTS ── */
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-Thin.ttf')format('truetype');font-weight:100;font-style:normal}
-@font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-ThinItalic.ttf')format('truetype');font-weight:100;font-style:italic}
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-UltraLight.ttf')format('truetype');font-weight:200;font-style:normal}
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-Light.ttf')format('truetype');font-weight:300;font-style:normal}
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-LightItalic.ttf')format('truetype');font-weight:300;font-style:italic}
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-Roman.ttf')format('truetype');font-weight:400;font-style:normal}
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-Italic.ttf')format('truetype');font-weight:400;font-style:italic}
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-Medium.ttf')format('truetype');font-weight:500;font-style:normal}
-@font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-MediumItalic.ttf')format('truetype');font-weight:500;font-style:italic}
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-Bold.ttf')format('truetype');font-weight:700;font-style:normal}
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-Heavy.ttf')format('truetype');font-weight:800;font-style:normal}
 @font-face{font-family:'HN';src:url('../font/HelveticaNeueCyr-Black.ttf')format('truetype');font-weight:900;font-style:normal}
@@ -1568,6 +1566,25 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   object-fit:cover;object-position:center;display:block;
 }
 
+/* ── SPK ILLUSTRATION SLIDER ── */
+.spk-slider{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#000}
+.spk-slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:spk-frame 3.3s linear infinite}
+@keyframes spk-frame{
+  0%,9.09%{opacity:1}
+  9.1%,100%{opacity:0}
+}
+.spk-slide-img:nth-child(1){animation-delay:0s}
+.spk-slide-img:nth-child(2){animation-delay:0.3s}
+.spk-slide-img:nth-child(3){animation-delay:0.6s}
+.spk-slide-img:nth-child(4){animation-delay:0.9s}
+.spk-slide-img:nth-child(5){animation-delay:1.2s}
+.spk-slide-img:nth-child(6){animation-delay:1.5s}
+.spk-slide-img:nth-child(7){animation-delay:1.8s}
+.spk-slide-img:nth-child(8){animation-delay:2.1s}
+.spk-slide-img:nth-child(9){animation-delay:2.4s}
+.spk-slide-img:nth-child(10){animation-delay:2.7s}
+.spk-slide-img:nth-child(11){animation-delay:3.0s}
+
 .skp-credits{
   background:#fff;
   display:flex;justify-content:center;
@@ -1713,6 +1730,18 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 }
 .skp-project-link:hover::after{transform:scaleX(1)}
 
+/* ── COMPONENT SHOWCASE GRID (ReBank) ── */
+.rds-showcase{padding:40px 30px 80px;background:#000}
+.rds-showcase-grid{display:flex;flex-wrap:wrap;gap:10px}
+.rds-card{background:#0c0c0c;border-radius:20px;display:flex;flex-direction:column;gap:20px;padding:10px 10px 24px;flex-shrink:0}
+.rds-card--wide{width:calc(50% - 5px)}
+.rds-card--narrow{width:calc(33.333% - 6.667px)}
+.rds-card-img{background:#06122a;height:250px;border-radius:16px;overflow:hidden}
+.rds-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.rds-card-body{padding:16px 24px 8px;display:flex;flex-direction:column;gap:12px}
+.rds-card-title{font-size:22px;color:#fff;font-weight:400;line-height:1.2;margin:0;font-family:var(--font)}
+.rds-card-desc{font-size:16px;color:rgba(255,255,255,0.65);font-weight:400;line-height:1.5;margin:0;font-family:var(--font)}
+
 /* ── SEE ALSO (ReBank end section) ── */
 .rds-see-also{background:#000;padding:80px 90px}
 .rds-see-also-label{font-size:40px;font-weight:400;color:#fff;margin-bottom:40px;font-family:var(--font);line-height:1.1;letter-spacing:-.01em}
@@ -1763,6 +1792,10 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .match-title{font-size:clamp(48px,12vw,64px)}
   .match-subtitle{font-size:20px}
   .match-credits{padding:40px 24px}
+  .rds-showcase{padding:0 16px 48px}
+  .rds-card--wide,.rds-card--narrow{width:100%}
+  .rds-card-title{font-size:22px}
+  .rds-card-desc{font-size:16px}
   .rds-see-also{padding:48px 24px}
   .rds-see-also-grid{grid-template-columns:1fr;gap:40px}
   .skp-project-header{padding:36px 24px 20px;gap:16px}
