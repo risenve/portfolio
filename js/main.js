@@ -58,7 +58,7 @@ const PROJECTS = [
     role: 'Art Director',
     year: '2024',
     cover: 'images/Works_Covers/match.png',
-    imgs: ['images/Works_Covers/match.png','images/match/m_pair1a.png','images/match/m_full1.png','images/match/m_full2.png'],
+    imgs: ['images/Works_Covers/match.png','images/match/m_pair1a.webp','images/match/m_full1.webp','images/match/m_full2.webp'],
     href: 'project-match.html'
   },
   {
