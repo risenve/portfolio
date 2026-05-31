@@ -69,7 +69,7 @@ const PROJECTS = [
     role: 'Graphic Designer',
     year: '2023',
     cover: 'images/Works_Covers/posters.png',
-    imgs: ['images/Works_Covers/posters.png','images/posters/poster-1.png','images/posters/poster-2.png','images/posters/poster-3.png'],
+    imgs: ['images/Works_Covers/posters.png','images/posters/poster-1.webp','images/posters/poster-2.webp','images/posters/poster-3.webp'],
     href: 'project-posters.html'
   },
   {
