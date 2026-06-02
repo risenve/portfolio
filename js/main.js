@@ -238,13 +238,14 @@ function renderProjects(filter) {
     }).join('');
     setTimeout(initCardReveal, 30);
   } else {
-    container.innerHTML = list.map(function (p, i) {
+    container.innerHTML = list.map(function (p) {
       var tag = p.href !== '#' ? 'a' : 'div';
       var href = p.href !== '#' ? ' href="' + p.href + '"' : '';
-      var num = (i + 1 < 10 ? '0' : '') + (i + 1);
-      return '<' + tag + href + ' class="project-row"><span class="row-num">' + num +
-        '</span><span class="row-title">' + p.title + '</span><span class="row-cat">' +
-        p.type + '</span><span class="row-arrow">→</span></' + tag + '>';
+      var imgs = JSON.stringify(p.imgs || []);
+      return '<' + tag + href + ' class="project-row" data-imgs=\'' + imgs + '\'>' +
+        '<span class="row-title">' + p.title + '</span>' +
+        '<span class="row-cat">' + p.type + '</span>' +
+      '</' + tag + '>';
     }).join('');
   }
 }
@@ -506,6 +507,57 @@ function initScrollNav() {
   }, { passive: true });
 }
 
+// ── LIST HOVER PREVIEW ──
+function initListHover() {
+  var container = document.getElementById('projects-container');
+  if (!container) return;
+
+  var preview = document.createElement('div');
+  preview.className = 'list-preview';
+  var previewImg = document.createElement('img');
+  preview.appendChild(previewImg);
+  document.body.appendChild(preview);
+
+  var currentRow = null;
+  var cycleTimer = null;
+  var cycleIdx = 0;
+
+  function startCycle(imgs) {
+    clearInterval(cycleTimer);
+    if (!imgs.length) return;
+    cycleIdx = 0;
+    previewImg.src = imgs[0];
+    if (imgs.length > 1) {
+      cycleTimer = setInterval(function () {
+        cycleIdx = (cycleIdx + 1) % imgs.length;
+        previewImg.src = imgs[cycleIdx];
+      }, 220);
+    }
+  }
+
+  document.addEventListener('mousemove', function (e) {
+    if (preview.classList.contains('active')) {
+      preview.style.left = e.clientX + 'px';
+      preview.style.top  = e.clientY + 'px';
+    }
+  });
+
+  document.addEventListener('mouseover', function (e) {
+    if (!container.classList.contains('view-list')) return;
+    var row = e.target.closest('.project-row');
+    if (row && row !== currentRow) {
+      currentRow = row;
+      var imgs = [];
+      try { imgs = JSON.parse(row.dataset.imgs || '[]'); } catch (err) { imgs = []; }
+      if (imgs.length) { preview.classList.add('active'); startCycle(imgs); }
+    } else if (!row && currentRow) {
+      currentRow = null;
+      preview.classList.remove('active');
+      clearInterval(cycleTimer);
+    }
+  });
+}
+
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', function () {
   initReveal();
@@ -522,5 +574,6 @@ document.addEventListener('DOMContentLoaded', function () {
     renderProjects('all');
     initFilter();
     initViewToggle();
+    initListHover();
   }
 });
