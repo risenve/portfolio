@@ -244,8 +244,7 @@ function renderProjects(filter) {
       var num = (i + 1 < 10 ? '0' : '') + (i + 1);
       return '<' + tag + href + ' class="project-row"><span class="row-num">' + num +
         '</span><span class="row-title">' + p.title + '</span><span class="row-cat">' +
-        p.type + '</span><span class="row-year">' + p.year +
-        '</span><span class="row-arrow">→</span></' + tag + '>';
+        p.type + '</span><span class="row-arrow">→</span></' + tag + '>';
     }).join('');
   }
 }
