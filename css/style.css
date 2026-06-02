@@ -12,7 +12,7 @@
 
 /* ── RESET ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;scroll-behavior:smooth}
+html{font-size:16px;scroll-behavior:smooth;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 button{background:none;border:none;cursor:pointer;color:inherit;font:inherit}
@@ -1237,6 +1237,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 
 /* ── RESPONSIVE overrides for new sections ── */
 @media(max-width:900px){
+  .hero2-name{ white-space:normal; line-height:1.0; }
   .bio-sec{ grid-template-columns:1fr; }
   .bio-sec-label{ grid-column:1; }
   .bio-sec-headline{ grid-column:1; text-indent:0; }
@@ -1608,9 +1609,9 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .skp-credits{
   background:#fff;
   display:flex;justify-content:center;
-  padding:60px 375px;
+  padding:60px 24px;
 }
-.skp-credits-wrap{display:flex;gap:30px;align-items:flex-start}
+.skp-credits-wrap{display:flex;gap:30px;align-items:flex-start;max-width:700px;width:100%}
 .skp-cred-roles{display:flex;flex-direction:column;gap:20px;align-items:flex-end}
 .skp-cred-names{display:flex;flex-direction:column;gap:20px;align-items:flex-start;width:182px}
 .skp-credits p{
@@ -1774,9 +1775,12 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .rds-see-also-item:hover .rds-see-also-img img{transform:scale(1.04)}
 .rds-see-also-title{font-size:20px;font-weight:400;color:#fff;font-family:var(--font);line-height:1.2}
 
-@media(max-width:1100px){
-  .skp-credits{padding:60px 5vw}
+/* ── TABLET (901–1280px): prevent fixed-width overflow in case studies ── */
+@media(max-width:1280px){
+  .skp-project-info-right{flex-shrink:1;width:auto;min-width:200px}
+  .rds-hero-left{width:50%;min-width:0}
 }
+
 @media(max-width:900px){
   .skp-hero{height:60vw;min-height:280px}
   .skp-hero-caption{top:28px;left:24px}
