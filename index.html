@@ -154,8 +154,18 @@
       height: auto;
       background: #fff;
       color: #000;
-      overflow: hidden;
+      overflow: visible;
       padding: 56px 6.32vw 56px;
+    }
+    /* Extend white below panel so fixed hero never peeks through the bottom */
+    .ah-process-sticky::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      top: 100%;
+      height: 150vh;
+      background: #fff;
+      pointer-events: none;
     }
 
     /* Wrapper keeps About label visually beside the big text indent */

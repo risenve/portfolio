@@ -1095,6 +1095,9 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   background:#fff;
   border-top:1px solid #000;
   padding:40px 60px;
+  position:relative;
+  z-index:5;
+  margin-bottom:80px;
 }
 .rev-grid{
   display:flex;
@@ -1327,7 +1330,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .allp-row{ grid-template-columns:1fr 100px; }
   .allp-row-role{ display:none }
   .qw{ font-size:clamp(32px,9.5vw,56px); }
-  .rev-sec{ padding:40px var(--pad-x); }
+  .rev-sec{ padding:40px var(--pad-x); margin-bottom:48px; }
   .rev-grid{ flex-direction:column; gap:40px; }
   .rev-client{ white-space:normal; }
   .qp-img-wrap   { height:22vh; }

@@ -360,6 +360,51 @@ function initQuoteAnim() {
   tl.to('.quote-side-label', { y: 0, opacity: 1, duration: 0.35, ease: 'none' }, '<');
 }
 
+// ── REVIEW SECTION ANIMATION ──
+function initReviewAnim() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  var revSec = document.querySelector('.rev-sec');
+  if (!revSec) return;
+
+  // Panel slides up from below as it enters the viewport (naezhaet effect)
+  gsap.fromTo(revSec,
+    { y: '30vh' },
+    {
+      y: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: revSec,
+        start: 'top bottom',
+        end: 'top top',
+        scrub: 0.7
+      }
+    }
+  );
+
+  // Columns appear with blur, timed (not scroll-scrubbed), staggered
+  var cols = gsap.utils.toArray('.rev-col');
+  if (!cols.length) return;
+
+  gsap.set(cols, { filter: 'blur(20px)', opacity: 0, y: 24 });
+
+  ScrollTrigger.create({
+    trigger: revSec,
+    start: 'top 65%',
+    once: true,
+    onEnter: function () {
+      gsap.to(cols, {
+        filter: 'blur(0px)',
+        opacity: 1,
+        y: 0,
+        stagger: 0.28,
+        duration: 0.75,
+        ease: 'power2.out'
+      });
+    }
+  });
+}
+
 // ── PROJECT SLIDER ──
 function initProjSlider() {
   var inner = document.getElementById('proj-slider-inner');
@@ -568,6 +613,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initServiceDrop();
   initScrollNav();
   initQuoteAnim();
+  initReviewAnim();
   initProjSlider();
   setTimeout(initCardReveal, 30);
   if (document.getElementById('projects-container')) {
