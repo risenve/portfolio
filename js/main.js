@@ -360,50 +360,9 @@ function initQuoteAnim() {
   tl.to('.quote-side-label', { y: 0, opacity: 1, duration: 0.35, ease: 'none' }, '<');
 }
 
-// ── REVIEW SECTION ANIMATION ──
+// ── REVIEW MARQUEE: CSS animation handles scrolling, no GSAP needed ──
 function initReviewAnim() {
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-  var revOuter = document.querySelector('.rev-sec-outer');
-  var revSec   = document.querySelector('.rev-sec');
-  if (!revOuter || !revSec) return;
-
-  // Naezhaet: rev-sec slides up inside overflow:hidden wrapper — no gap above
-  gsap.fromTo(revSec,
-    { y: '80%' },
-    {
-      y: 0,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: revOuter,
-        start: 'top bottom',
-        end: 'top top',
-        scrub: 0.6
-      }
-    }
-  );
-
-  // Columns appear with blur + fade, timed (not scroll-scrubbed), staggered
-  var cols = gsap.utils.toArray('.rev-col');
-  if (!cols.length) return;
-
-  gsap.set(cols, { filter: 'blur(20px)', opacity: 0, y: 24 });
-
-  ScrollTrigger.create({
-    trigger: revOuter,
-    start: 'top 60%',
-    once: true,
-    onEnter: function () {
-      gsap.to(cols, {
-        filter: 'blur(0px)',
-        opacity: 1,
-        y: 0,
-        stagger: 0.28,
-        duration: 0.75,
-        ease: 'power2.out'
-      });
-    }
-  });
+  // marquee runs via CSS @keyframes rev-scroll — nothing to init
 }
 
 // ── PROJECT SLIDER ──

@@ -151,11 +151,13 @@
     .ah-process-sticky {
       position: sticky;
       top: 0; /* JS sets this to (100vh - panelHeight) */
-      height: auto;
+      min-height: 100vh;
       background: #fff;
       color: #000;
       overflow: hidden;
       padding: 56px 6.32vw 56px;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Wrapper keeps About label visually beside the big text indent */
@@ -194,7 +196,7 @@
       position: static;
       display: block;
       margin-left: 40vw;
-      margin-top: 20px;
+      margin-top: auto; /* push to bottom within flex column */
       margin-bottom: 8px;
       font-size: 12px;
       letter-spacing: -0.24px;
@@ -548,56 +550,99 @@
       </div>
     </section>
 
-    <!-- REVIEWS SECTION -->
-    <div class="rev-sec-outer">
+    <!-- REVIEWS MARQUEE -->
     <section class="rev-sec">
-      <div class="rev-grid">
+      <div class="rev-marquee-inner">
 
-        <!-- Review 1: Skazpokrayu -->
-        <div class="rev-col" id="rev-1">
-          <p class="rev-client">Alexandra and Pavel — CEO <strong>Skazpokrayu</strong></p>
-          <p class="rev-quote">Рипсиме не просто выполняет свою работу как дизайнер — она берет на себя проекты под ключ, грамотно выстраивает процессы, формирует четкие технические задания для команды и помогает каждому участнику эффективно двигаться к общей цели.</p>
-          <div class="rev-body">
-            <div class="rev-body-short">
-              <p>Хотим выразить искреннюю благодарность Рипсиме за её выдающийся профессионализм, ответственность и талант.</p>
-              <p>За время совместной работы она проявила себя как исключительно самодисциплинированный и надежный специалист. Мы редко встречали людей с таким уровнем организованности, вовлеченности и умением доводить любые задачи до безупречного результата.</p>
+        <!-- ── Set 1 (original) ── -->
+        <div class="rev-marquee-set">
+
+          <!-- Card 1: Skazpokrayu -->
+          <div class="rev-card">
+            <div class="rev-card-body">
+              <p class="rev-client-tag">Alexandra and Pavel — CEO&nbsp;<a href="https://skazpokrayu.ru" target="_blank" rel="noopener" class="rev-link">Skazpokrayu</a></p>
+              <p class="rev-headline">Рипсиме берет на себя проекты под ключ, грамотно выстраивает процессы, формирует четкие технические задания для команды и помогает каждому участнику эффективно двигаться к общей цели.</p>
+              <div class="rev-text">
+                <p>Хотим выразить искреннюю благодарность Рипсиме за её выдающийся профессионализм, ответственность и талант.</p>
+                <p>За время совместной работы она проявила себя как исключительно самодисциплинированный и надежный специалист. Мы редко встречали людей с таким уровнем организованности, вовлеченности и умением доводить любые задачи до безупречного результата.</p>
+                <p>Особенно хочется отметить её способность предлагать несколько сильных решений на выбор и давать конструктивные, практичные рекомендации, которые действительно помогают улучшать рабочий процесс.</p>
+              </div>
             </div>
-            <div class="rev-body-full">
-              <p>Хотим выразить искреннюю благодарность Рипсиме за её выдающийся профессионализм, ответственность и талант.</p>
-              <p>За время совместной работы она проявила себя как исключительно самодисциплинированный и надежный специалист. Мы редко встречали людей с таким уровнем организованности, вовлеченности и умением доводить любые задачи до безупречного результата.</p>
-              <p>Рипсиме не просто выполняет свою работу как дизайнер — она берет на себя проекты под ключ, грамотно выстраивает процессы, формирует четкие технические задания для команды и помогает каждому участнику эффективно двигаться к общей цели.</p>
-              <p>Особенно хочется отметить её способность предлагать несколько сильных решений на выбор, учитывать разные сценарии развития проекта и давать конструктивные, практичные рекомендации, которые действительно помогают улучшать рабочий процесс и достигать лучших результатов.</p>
-              <p>Большое спасибо за высокий уровень профессионализма, ответственность и искреннюю заинтересованность в успехе нашего проекта.</p>
-              <p>Со временем Рипсиме стала для нас не просто ценным сотрудником, а настоящим партнером, на которого можно положиться в любой ситуации. Более того, она стала близким человеком, которого мы искренне любим, ценим и уважаем.</p>
-              <p>Мы очень рады нашему сотрудничеству и от всей души желаем больших творческих успехов, в коих мы отчетливо уверены!</p>
+            <div class="rev-card-photo" style="background-image:url('/images/Works_Covers/skazpokrayu_cover.webp')"></div>
+          </div>
+
+          <!-- Card 2: Premiumization -->
+          <div class="rev-card">
+            <div class="rev-card-body">
+              <p class="rev-client-tag">Liudmila Astafyeva — CEO&nbsp;<a href="https://premiumization.ru" target="_blank" rel="noopener" class="rev-link">premiumization.ru</a></p>
+              <p class="rev-headline">Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить</p>
+              <div class="rev-text">
+                <p>Рекомендую работу с Рипсиме, так как девушка очень креативная, нестандартное мышление, главное — вам вместе «нащупать» отклик, который вам визуально откликнется для ваших услуг.</p>
+                <p>Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить.</p>
+              </div>
             </div>
+            <div class="rev-card-photo" style="background-image:url('/premiumization/photo1.webp')"></div>
           </div>
-          <button class="rev-more" onclick="toggleRev(this)">READ ALL</button>
-        </div>
 
-        <!-- Review 2: premiumization.ru -->
-        <div class="rev-col">
-          <p class="rev-client">Liudmila Astafyeva — CEO <strong>premiumization.ru</strong></p>
-          <p class="rev-quote rev-quote--lg">Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить</p>
-          <div class="rev-body rev-body--md">
-            <p>Рекомендую работу с Рипсиме, так как девушка очень креативная, нестандартное мышление, главное — вам вместе «нащупать» отклик, который вам визуально откликнется для ваших услуг.</p>
-            <p>Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить.</p>
+          <!-- Card 3: Drawstory -->
+          <div class="rev-card">
+            <div class="rev-card-body">
+              <p class="rev-client-tag">Narek Ghazaryan — CEO&nbsp;<a href="https://drawstory.com" target="_blank" rel="noopener" class="rev-link">drawstory.com</a></p>
+              <p class="rev-headline">Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces.</p>
+              <div class="rev-text">
+                <p>Worked with Ripsime on an AI B2B SaaS project, and it was a great experience collaborating with her. She's a very talented UI/UX designer with a strong eye for clean design, user experience, and product thinking.</p>
+                <p>Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces. Highly recommend working with her for any SaaS or AI product.</p>
+              </div>
+            </div>
+            <div class="rev-card-photo" style="background-image:url('/images/Works_Covers/drawstory.webp')"></div>
           </div>
-        </div>
 
-        <!-- Review 3: drawstory.com -->
-        <div class="rev-col">
-          <p class="rev-client">Narek Ghazaryan — CEO <strong>drawstory.com</strong></p>
-          <p class="rev-quote rev-quote--lg">Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces.</p>
-          <div class="rev-body rev-body--md">
-            <p>Worked with Ripsime on an AI B2B SaaS project, and it was a great experience collaborating with her. She's a very talented UI/UX designer with a strong eye for clean design, user experience, and product thinking.</p>
-            <p>Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces. Highly recommend working with her for any SaaS or AI product.</p>
+        </div><!-- /.rev-marquee-set -->
+
+        <!-- ── Set 2 (duplicate for seamless loop) ── -->
+        <div class="rev-marquee-set" aria-hidden="true">
+
+          <div class="rev-card">
+            <div class="rev-card-body">
+              <p class="rev-client-tag">Alexandra and Pavel — CEO&nbsp;<a href="https://skazpokrayu.ru" target="_blank" rel="noopener" class="rev-link" tabindex="-1">Skazpokrayu</a></p>
+              <p class="rev-headline">Рипсиме берет на себя проекты под ключ, грамотно выстраивает процессы, формирует четкие технические задания для команды и помогает каждому участнику эффективно двигаться к общей цели.</p>
+              <div class="rev-text">
+                <p>Хотим выразить искреннюю благодарность Рипсиме за её выдающийся профессионализм, ответственность и талант.</p>
+                <p>За время совместной работы она проявила себя как исключительно самодисциплинированный и надежный специалист. Мы редко встречали людей с таким уровнем организованности, вовлеченности и умением доводить любые задачи до безупречного результата.</p>
+                <p>Особенно хочется отметить её способность предлагать несколько сильных решений на выбор и давать конструктивные, практичные рекомендации, которые действительно помогают улучшать рабочий процесс.</p>
+              </div>
+            </div>
+            <div class="rev-card-photo" style="background-image:url('/images/Works_Covers/skazpokrayu_cover.webp')"></div>
           </div>
-        </div>
 
-      </div>
-    </section>
-    </div><!-- /.rev-sec-outer -->
+          <div class="rev-card">
+            <div class="rev-card-body">
+              <p class="rev-client-tag">Liudmila Astafyeva — CEO&nbsp;<a href="https://premiumization.ru" target="_blank" rel="noopener" class="rev-link" tabindex="-1">premiumization.ru</a></p>
+              <p class="rev-headline">Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить</p>
+              <div class="rev-text">
+                <p>Рекомендую работу с Рипсиме, так как девушка очень креативная, нестандартное мышление, главное — вам вместе «нащупать» отклик, который вам визуально откликнется для ваших услуг.</p>
+                <p>Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить.</p>
+              </div>
+            </div>
+            <div class="rev-card-photo" style="background-image:url('/premiumization/photo1.webp')"></div>
+          </div>
+
+          <div class="rev-card">
+            <div class="rev-card-body">
+              <p class="rev-client-tag">Narek Ghazaryan — CEO&nbsp;<a href="https://drawstory.com" target="_blank" rel="noopener" class="rev-link" tabindex="-1">drawstory.com</a></p>
+              <p class="rev-headline">Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces.</p>
+              <div class="rev-text">
+                <p>Worked with Ripsime on an AI B2B SaaS project, and it was a great experience collaborating with her. She's a very talented UI/UX designer with a strong eye for clean design, user experience, and product thinking.</p>
+                <p>Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces. Highly recommend working with her for any SaaS or AI product.</p>
+              </div>
+            </div>
+            <div class="rev-card-photo" style="background-image:url('/images/Works_Covers/drawstory.webp')"></div>
+          </div>
+
+        </div><!-- /.rev-marquee-set (duplicate) -->
+
+      </div><!-- /.rev-marquee-inner -->
+    </section><!-- /.rev-sec -->
 
     <!-- PROJECT GRID -->
     <section class="ab-proj-sec">
@@ -839,11 +884,6 @@
     window.addEventListener('resize', update, { passive: true });
   })();
 
-  function toggleRev(btn) {
-    var col = btn.closest('.rev-col');
-    col.classList.toggle('is-open');
-    btn.textContent = col.classList.contains('is-open') ? 'COLLAPSE' : 'READ ALL';
-  }
   </script>
 </body>
 </html>
