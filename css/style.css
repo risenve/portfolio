@@ -1611,7 +1611,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   display:flex;justify-content:center;
   padding:60px 24px;
 }
-.skp-credits-wrap{display:flex;gap:30px;align-items:flex-start;max-width:700px;width:100%}
+.skp-credits-wrap{display:flex;gap:30px;align-items:flex-start;max-width:700px;width:100%;justify-content:center}
 .skp-cred-roles{display:flex;flex-direction:column;gap:20px;align-items:flex-end}
 .skp-cred-names{display:flex;flex-direction:column;gap:20px;align-items:flex-start;width:182px}
 .skp-credits p{
