@@ -364,33 +364,34 @@ function initQuoteAnim() {
 function initReviewAnim() {
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-  var revSec = document.querySelector('.rev-sec');
-  if (!revSec) return;
+  var revOuter = document.querySelector('.rev-sec-outer');
+  var revSec   = document.querySelector('.rev-sec');
+  if (!revOuter || !revSec) return;
 
-  // Panel slides up from below as it enters the viewport (naezhaet effect)
+  // Naezhaet: rev-sec slides up inside overflow:hidden wrapper — no gap above
   gsap.fromTo(revSec,
-    { y: '30vh' },
+    { y: '80%' },
     {
       y: 0,
       ease: 'none',
       scrollTrigger: {
-        trigger: revSec,
+        trigger: revOuter,
         start: 'top bottom',
         end: 'top top',
-        scrub: 0.7
+        scrub: 0.6
       }
     }
   );
 
-  // Columns appear with blur, timed (not scroll-scrubbed), staggered
+  // Columns appear with blur + fade, timed (not scroll-scrubbed), staggered
   var cols = gsap.utils.toArray('.rev-col');
   if (!cols.length) return;
 
   gsap.set(cols, { filter: 'blur(20px)', opacity: 0, y: 24 });
 
   ScrollTrigger.create({
-    trigger: revSec,
-    start: 'top 65%',
+    trigger: revOuter,
+    start: 'top 60%',
     once: true,
     onEnter: function () {
       gsap.to(cols, {

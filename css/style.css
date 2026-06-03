@@ -1091,13 +1091,15 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 }
 
 /* ── REVIEWS SECTION ── */
+.rev-sec-outer{
+  overflow:hidden;
+  position:relative;
+  z-index:5;
+}
 .rev-sec{
   background:#fff;
   border-top:1px solid #000;
   padding:40px 60px;
-  position:relative;
-  z-index:5;
-  margin-bottom:80px;
 }
 .rev-grid{
   display:flex;
@@ -1330,9 +1332,10 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .allp-row{ grid-template-columns:1fr 100px; }
   .allp-row-role{ display:none }
   .qw{ font-size:clamp(32px,9.5vw,56px); }
-  .rev-sec{ padding:40px var(--pad-x); margin-bottom:48px; }
+  .rev-sec{ padding:40px var(--pad-x); }
   .rev-grid{ flex-direction:column; gap:40px; }
   .rev-client{ white-space:normal; }
+  .ab-proj-sec{ padding-top:48px; }
   .qp-img-wrap   { height:22vh; }
 }
 .hero-mask{
@@ -1515,7 +1518,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 
 /* ── ABOUT PAGE — PROJECT GRID ── */
 .ab-proj-sec{
-  padding:0 var(--pad-x) 80px;
+  padding:80px var(--pad-x) 80px;
   background:#000;
 }
 .ab-proj-grid{
