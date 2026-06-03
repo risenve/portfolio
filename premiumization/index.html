@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Премиумизация — Ripsime Sargsyan</title>
+  <meta name="description" content="UI/UX дизайн и AI art для платформы услуг по премиумизации. Кейс Ripsime Sargsyan.">
+  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* ── PREMIUMIZATION CASE STUDY ── */
+    .prm-main { background: #0a0a0a; color: #fff; }
+
+    /* Hero: full-screen video */
+    .prm-hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 480px;
+      overflow: hidden;
+      background: #000;
+    }
+    .prm-hero video {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .prm-hero-inner {
+      position: absolute;
+      bottom: 48px; left: var(--pad-x);
+    }
+    .prm-hero-title {
+      font-size: clamp(40px, 6.25vw, 90px);
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      text-transform: lowercase;
+      font-family: var(--font);
+    }
+    .prm-hero-sub {
+      font-size: clamp(14px, 1.25vw, 18px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      margin-top: 14px;
+      letter-spacing: -0.01em;
+      font-family: var(--font);
+    }
+
+    /* Project info */
+    .prm-info {
+      display: flex;
+      gap: 0;
+      background: #0a0a0a;
+      padding: 80px var(--pad-x);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .prm-info-left {
+      flex: 1;
+      padding-right: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .prm-info-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .prm-info-headline {
+      font-size: clamp(20px, 1.94vw, 28px);
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      font-family: var(--font);
+    }
+    .prm-services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .prm-service-tag {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 5px 11px;
+      letter-spacing: -0.01em;
+      font-family: var(--font);
+    }
+    .prm-link {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: -0.01em;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-family: var(--font);
+    }
+    .prm-context-block { display: flex; flex-direction: column; gap: 6px; }
+    .prm-context-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      font-family: var(--font);
+    }
+    .prm-context-text {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.55;
+      letter-spacing: -0.02em;
+      font-family: var(--font);
+    }
+
+    /* Full-width image/video */
+    .prm-full {
+      width: 100%;
+      overflow: hidden;
+      background: #000;
+      display: block;
+    }
+    .prm-full img, .prm-full video {
+      width: 100%; height: auto;
+      display: block;
+    }
+    .prm-full--vh {
+      height: 90vh;
+      min-height: 400px;
+    }
+    .prm-full--vh img, .prm-full--vh video {
+      height: 100%; object-fit: cover;
+    }
+
+    /* Pair: 2 columns */
+    .prm-pair {
+      display: flex;
+      gap: 4px;
+      background: #0a0a0a;
+    }
+    .prm-col {
+      flex: 1;
+      overflow: hidden;
+      min-height: 500px;
+      position: relative;
+    }
+    .prm-col img, .prm-col video {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .prm-col--wide { flex: 1.45; }
+    .prm-col--narrow { flex: 0.55; }
+    .prm-col--text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 48px;
+      background: #111;
+      min-height: 400px;
+    }
+    .prm-col-text-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+      font-family: var(--font);
+    }
+    .prm-col-text-body {
+      font-size: clamp(16px, 1.6vw, 22px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+      font-family: var(--font);
+    }
+
+    /* Text paragraph section */
+    .prm-text {
+      padding: 80px var(--pad-x);
+      background: #0a0a0a;
+    }
+    .prm-text p {
+      max-width: 620px;
+      font-size: clamp(17px, 1.6vw, 22px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.55;
+      letter-spacing: -0.02em;
+      font-family: var(--font);
+    }
+    .prm-text p + p { margin-top: 20px; }
+
+    /* Video full-width 16:9 */
+    .prm-video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #000;
+    }
+    .prm-video video {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    /* 3-col photo grid */
+    .prm-grid3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4px;
+      background: #0a0a0a;
+    }
+    .prm-grid3 img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 2-col photo grid */
+    .prm-grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      background: #0a0a0a;
+      margin-top: 4px;
+    }
+    .prm-grid2 img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Credits */
+    .prm-credits {
+      padding: 80px var(--pad-x);
+      background: #0a0a0a;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .prm-credits-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 32px;
+      font-family: var(--font);
+    }
+    .prm-credits-grid {
+      display: flex;
+      gap: 80px;
+    }
+    .prm-cred-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .prm-cred-col p {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      font-family: var(--font);
+    }
+    .prm-cred-col a { color: rgba(255,255,255,0.75); text-decoration: underline; text-underline-offset: 2px; }
+
+    /* See also */
+    .prm-see-also {
+      padding: 60px var(--pad-x) 80px;
+      background: #0a0a0a;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .prm-see-also-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 32px;
+      font-family: var(--font);
+    }
+    .prm-see-also-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 600px;
+    }
+    .prm-see-also-item { display: block; color: #fff; }
+    .prm-see-also-thumb {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: #111;
+      margin-bottom: 10px;
+    }
+    .prm-see-also-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.4s var(--ease);
+    }
+    .prm-see-also-item:hover .prm-see-also-thumb img { transform: scale(1.04); }
+    .prm-see-also-name {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      font-family: var(--font);
+    }
+
+    /* Mobile */
+    @media (max-width: 720px) {
+      .prm-hero-inner { bottom: 32px; }
+      .prm-info { flex-direction: column; gap: 40px; padding: 48px var(--pad-x); }
+      .prm-info-left { padding-right: 0; }
+      .prm-pair { flex-direction: column; gap: 4px; }
+      .prm-col { min-height: 280px; }
+      .prm-col--text { padding: 40px var(--pad-x); min-height: auto; }
+      .prm-grid3 { grid-template-columns: 1fr 1fr; }
+      .prm-grid3 img { aspect-ratio: 1; }
+      .prm-text { padding: 48px var(--pad-x); }
+      .prm-credits { padding: 48px var(--pad-x); }
+      .prm-credits-grid { flex-direction: column; gap: 32px; }
+      .prm-see-also { padding: 48px var(--pad-x); }
+      .prm-see-also-grid { grid-template-columns: 1fr 1fr; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/work" class="nav-link active">Work</a>
+      <div class="nav-service-wrap">
+        <button class="nav-link nav-service-toggle">Service</button>
+        <div class="service-drop">
+          <a href="/service-branding" class="service-item">Branding</a>
+          <a href="/service-uiux" class="service-item">UI/UX</a>
+          <a href="/service-product-design" class="service-item">Product Design</a>
+          <a href="/service-art-direction" class="service-item">Art Direction</a>
+        </div>
+      </div>
+      <a href="/talks" class="nav-link">Talks</a>
+      <a href="mailto:sargsyan.std@gmail.com" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- STAIRCASE HOVER PANEL -->
+  <div class="staircase-panel" id="staircase-panel">
+    <a href="/" class="stair-link">Home</a>
+    <a href="/work" class="stair-link">Work</a>
+    <a href="/talks" class="stair-link">Talks</a>
+    <a href="mailto:sargsyan.std@gmail.com" class="stair-link">Contact</a>
+  </div>
+
+  <!-- FULL OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+      <div>
+        <div class="overlay-stair-links">
+          <a href="/">Home</a>
+          <a href="/work">Work</a>
+          <button class="ol-service-toggle" type="button">Services <span class="ol-toggle-arrow">▾</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="/service-branding">Branding</a>
+            <a href="/service-uiux">UI/UX</a>
+            <a href="/service-product-design">Product Design</a>
+            <a href="/service-art-direction">Art Direction</a>
+          </div>
+          <a href="/talks">Talks</a>
+          <a href="mailto:sargsyan.std@gmail.com">Contact</a>
+        </div>
+      </div>
+      <div class="overlay-form-wrap">
+        <form id="overlay-form" class="ol-form" novalidate>
+          <div class="ol-field">
+            <input type="text" name="ol-name" required placeholder=" ">
+            <label class="ol-label">Name</label>
+          </div>
+          <div class="ol-field">
+            <input type="email" name="ol-email" required placeholder=" ">
+            <label class="ol-label">Email</label>
+          </div>
+          <div class="ol-field">
+            <input type="text" name="ol-message" required placeholder=" ">
+            <label class="ol-label">About project</label>
+          </div>
+          <label class="ol-consent">
+            <input type="checkbox" name="ol-consent" required>
+            <span class="ol-consent-text">I agree to the processing of personal data.</span>
+          </label>
+          <button type="submit" class="ol-submit">Send →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-wrap">
+  <main class="prm-main">
+
+    <!-- 1. Hero: video cover -->
+    <section class="prm-hero">
+      <video autoplay muted loop playsinline>
+        <source src="video_1.mp4" type="video/mp4">
+      </video>
+      <div class="prm-hero-inner">
+        <h1 class="prm-hero-title">Премиумизация</h1>
+        <p class="prm-hero-sub">UI/UX дизайн и AI art для сайта услуг по премиумизации</p>
+      </div>
+    </section>
+
+    <!-- 2. Project info -->
+    <section class="prm-info">
+      <div class="prm-info-left">
+        <p class="prm-info-headline">Premiumization — платформа, которая помогает брендам и личностям переходить в сегмент Premium через визуальную трансформацию и стратегическое позиционирование.</p>
+        <div class="prm-services">
+          <span class="prm-service-tag">UI/UX Design</span>
+          <span class="prm-service-tag">AI Art Direction</span>
+          <span class="prm-service-tag">Brand Visual</span>
+          <span class="prm-service-tag">Motion</span>
+          <span class="prm-service-tag">Web Design</span>
+        </div>
+        <a href="https://premiumization.ru" class="prm-link" target="_blank" rel="noopener">premiumization.ru</a>
+      </div>
+      <div class="prm-info-right">
+        <div class="prm-context-block">
+          <span class="prm-context-label">Задача</span>
+          <p class="prm-context-text">Создать современный визуальный язык для платформы, который передаёт идею трансформации в премиальный сегмент. Сайт должен был вызывать ощущение роскоши, экспертизы и уникальности с первого взгляда.</p>
+        </div>
+        <div class="prm-context-block">
+          <span class="prm-context-label">Решение</span>
+          <p class="prm-context-text">AI-арт директинг как основа визуального кода: генерация ботанических арт-объектов, кинематографические сцены с цветами и природой. UI строится на контрасте тёмного фона и воздушных органических форм.</p>
+        </div>
+        <div class="prm-context-block">
+          <span class="prm-context-label">Результат</span>
+          <p class="prm-context-text">Уникальная визуальная система с AI-арт-директингом, сайт с чёткой структурой услуг, брендовые видео для соцсетей и презентаций.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Hero botanical — full width -->
+    <section class="prm-full prm-full--vh">
+      <img src="flower1.webp" alt="Premiumization — AI botanical art">
+    </section>
+
+    <!-- 4. Text: об AI art direction -->
+    <section class="prm-text">
+      <p>В основе визуального языка — AI-генерация ботанических арт-объектов: полупрозрачные цветы, органические текстуры, кинематографический свет. Каждый кадр — это метафора роста, трансформации и исключительности.</p>
+    </section>
+
+    <!-- 5. Pair: scene1 + scene2 -->
+    <section class="prm-pair">
+      <div class="prm-col">
+        <img src="scene1.webp" alt="Premiumization — Scene 1">
+      </div>
+      <div class="prm-col">
+        <img src="scene2.webp" alt="Premiumization — Scene 2">
+      </div>
+    </section>
+
+    <!-- 6. Pair: photo1 + text block -->
+    <section class="prm-pair" style="margin-top:4px">
+      <div class="prm-col prm-col--wide">
+        <img src="photo1.webp" alt="">
+      </div>
+      <div class="prm-col prm-col--narrow prm-col--text">
+        <p class="prm-col-text-label">UI/UX Design</p>
+        <p class="prm-col-text-body">Сайт спроектирован как погружение — первый экран сразу вводит в атмосферу премиального мира. Навигация интуитивна, контент раскрывается постепенно.</p>
+      </div>
+    </section>
+
+    <!-- 7. Photo2 full width -->
+    <section class="prm-full" style="margin-top:4px">
+      <img src="photo2.webp" alt="">
+    </section>
+
+    <!-- 8. 3-col photo grid -->
+    <section class="prm-grid3" style="margin-top:4px">
+      <img src="photo3.webp" alt="">
+      <img src="photo4.webp" alt="">
+      <img src="photo5.webp" alt="">
+    </section>
+
+    <!-- 9. Text: о результате -->
+    <section class="prm-text">
+      <p>Ботанические арт-объекты, созданные через AI, стали ключевым инструментом дифференциации. Они работают на упаковке, в digital и в видео-коммуникации, создавая единый, узнаваемый мир бренда.</p>
+    </section>
+
+    <!-- 10. flower2 full -->
+    <section class="prm-full">
+      <img src="flower2.webp" alt="Premiumization — AI botanical composition">
+    </section>
+
+    <!-- 11. Video full-width -->
+    <section class="prm-video" style="margin-top:4px">
+      <video autoplay muted loop playsinline>
+        <source src="video_2.mp4" type="video/mp4">
+      </video>
+    </section>
+
+    <!-- 12. 2-col: photo6 + photo7 -->
+    <section class="prm-grid2">
+      <img src="photo6.webp" alt="">
+      <img src="photo7.webp" alt="">
+    </section>
+
+    <!-- 13. scene3 full -->
+    <section class="prm-full prm-full--vh" style="margin-top:4px">
+      <img src="scene3.webp" alt="Premiumization — Scene 3">
+    </section>
+
+    <!-- 14. Text: итог -->
+    <section class="prm-text">
+      <p>Premiumization получила визуальную систему, которая масштабируется от мобильного экрана до офлайн-коммуникаций. AI-генерация как инструмент арт-директора — не замена творчеству, а его усиление.</p>
+    </section>
+
+    <!-- 15. Credits -->
+    <section class="prm-credits">
+      <p class="prm-credits-label">Credits</p>
+      <div class="prm-credits-grid">
+        <div class="prm-cred-col">
+          <p>Art director &amp; UI/UX designer</p>
+          <p>CEO &amp; Client</p>
+        </div>
+        <div class="prm-cred-col">
+          <p><a href="/">Ripsime Sargsyan</a></p>
+          <p>Liudmila Astafyeva</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16. See also -->
+    <section class="prm-see-also">
+      <p class="prm-see-also-label">Смотрите также</p>
+      <div class="prm-see-also-grid">
+        <a href="/skazpokrayu" class="prm-see-also-item">
+          <div class="prm-see-also-thumb">
+            <img src="/images/Works_Covers/skazpokrayu_cover.webp" alt="Skaz po krayu" loading="lazy">
+          </div>
+          <p class="prm-see-also-name">Skaz po krayu</p>
+        </a>
+        <a href="/eburet" class="prm-see-also-item">
+          <div class="prm-see-also-thumb">
+            <img src="/images/Works_Covers/eburet.webp" alt="Eburet" loading="lazy">
+          </div>
+          <p class="prm-see-also-name">Eburet</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links-col">
+      <div>
+        <nav class="footer-col-links">
+          <a href="/">Home</a>
+          <a href="/work">Works</a>
+          <a href="/talks">Talks</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-col-label">work with me:</p>
+        <div class="footer-col-links">
+          <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">@sargsyan.std</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-label">more about me:</p>
+        <div class="footer-col-links">
+          <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://behance.net/ripsime" target="_blank" rel="noopener">Behance</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
+        </div>
+      </div>
+      <div class="footer-col-right">
+        <p class="footer-copyright">All rights reserved</p>
+        <p class="footer-copyright">© 2026 Ripsime Sargsyan</p>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

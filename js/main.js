@@ -39,7 +39,7 @@ const PROJECTS = [
     role: 'Art Director',
     year: '2023',
     cover: '/images/Works_Covers/premiumization.webp', imgs: ['/images/Works_Covers/premiumization.webp'],
-    href: '#'
+    href: '/premiumization'
   },
   {
     id: 5, slug: 'unicorn-embassy',
