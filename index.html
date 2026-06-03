@@ -139,7 +139,7 @@
     .ah-main {
       position: relative;
       z-index: 5;
-      background: #000;
+      /* no background — hero shows through until stats */
     }
 
     /* ── PROCESS: scroll-pinned white zone ── */
@@ -150,35 +150,38 @@
     }
     .ah-process-sticky {
       position: sticky;
-      top: 0;
-      height: 100vh;
+      top: 0; /* JS sets this to (100vh - panelHeight) */
+      height: auto;
       background: #fff;
       color: #000;
       overflow: hidden;
-      /* NO border-radius, NO box-shadow — pixel perfect from Figma */
+      padding: 56px 6.32vw 56px;
     }
 
-    /* "About" label — left:91px, top:69px (Figma exact) */
+    /* Wrapper keeps About label visually beside the big text indent */
+    .ah-stmt-wrap {
+      position: relative;
+    }
+
+    /* "About" label — sits in the gap left by text-indent */
     .ah-about-label {
       position: absolute;
-      left: 6.32vw;   /* 91/1440 */
-      top: 11.1%;     /* 69/621 of section height */
+      left: 0;
+      top: 0;
       font-size: 12px;
       letter-spacing: -0.24px;
       line-height: 1.2;
       color: rgba(0,0,0,0.55);
     }
 
-    /* Big text — same left, same top, but text-indent: 140px for first line */
+    /* Big text — flow layout, text-indent creates space for the About label */
     .ah-big-statement {
-      position: absolute;
-      left: 6.32vw;   /* 91/1440 */
-      top: 11.1%;     /* 69/621 */
-      width: 87.4vw;  /* 1258/1440 */
+      position: static;
+      width: 100%;
       font-size: clamp(44px, 6.25vw, 90px);
       font-weight: 400;
       letter-spacing: -0.02em;
-      text-indent: clamp(70px, 9.72vw, 140px); /* 140/1440 — KEY for layout */
+      text-indent: clamp(70px, 9.72vw, 140px);
       line-height: normal;
     }
 
@@ -186,23 +189,25 @@
     .aw { display: inline; color: rgba(0,0,0,0.12); transition: color 0.2s ease; }
     .aw.lit { color: #000; }
 
-    /* Practice label — left:667px = calc(50%-53px), top:393px = 63.3% */
+    /* Practice label — flow, shifted to right column */
     .ah-prac-label {
-      position: absolute;
-      left: calc(50% - 3.68vw); /* 53/1440 */
-      top: 63.3%;               /* 393/621 */
+      position: static;
+      display: block;
+      margin-left: 40vw;
+      margin-top: 20px;
+      margin-bottom: 8px;
       font-size: 12px;
       letter-spacing: -0.24px;
       line-height: 1.2;
       color: rgba(0,0,0,0.55);
     }
 
-    /* Practice text — 30px, left:667px, top:420px = 67.6%, width:657px */
+    /* Practice text — flow, same right column */
     .ah-prac-text {
-      position: absolute;
-      left: calc(50% - 3.68vw);
-      top: 67.6%;    /* 420/621 */
-      width: 45.6vw; /* 657/1440 */
+      position: static;
+      display: block;
+      margin-left: 40vw;
+      width: 45.6vw;
       font-size: clamp(16px, 2.08vw, 30px);
       font-weight: 400;
       letter-spacing: -0.02em;
@@ -324,30 +329,36 @@
 
       .ah-role-center { font-size: clamp(20px, 4.5vw, 28px); }
 
-      /* Process block: stack vertically, no absolute positioning */
+      /* Process block: stack vertically */
       .ah-process-sticky {
         display: flex;
         flex-direction: column;
         justify-content: center;
         padding: 32px var(--pad-x);
+        top: 0 !important; /* override JS on mobile */
       }
-      .ah-about-label,
-      .ah-big-statement,
-      .ah-prac-label,
-      .ah-prac-text {
+      .ah-stmt-wrap { position: relative; }
+      .ah-about-label {
         position: static;
-        width: 100%;
-        left: auto; top: auto;
+        display: block;
+        margin-bottom: 12px;
       }
-      .ah-about-label { margin-bottom: 12px; }
       .ah-big-statement {
         text-indent: 0;
         font-size: clamp(52px, 14vw, 72px);
         line-height: 1;
         margin-bottom: 40px;
+        width: 100%;
       }
-      .ah-prac-label { margin-bottom: 8px; }
-      .ah-prac-text { width: 100%; }
+      .ah-prac-label {
+        margin-left: 0;
+        margin-top: 0;
+        margin-bottom: 8px;
+      }
+      .ah-prac-text {
+        margin-left: 0;
+        width: 100%;
+      }
 
       /* Stats: number centered, rest on new lines */
       .ah-stat-row {
@@ -496,29 +507,27 @@
   <!-- ── MAIN CONTENT (scrolls over fixed hero) ── -->
   <div class="ah-main">
 
-    <!-- Process: scroll-pinned white zone — pixel perfect from Figma -->
+    <!-- Process: scroll-pinned white zone -->
     <div class="ah-process-zone" id="ah-process-zone">
-      <div class="ah-process-sticky">
+      <div class="ah-process-sticky" id="ah-process-sticky">
 
-        <!-- "About" label: left:91px, top:69px (Figma) -->
-        <span class="ah-about-label">About</span>
-
-        <!-- Big text: same left, same top, text-indent:140px on first line -->
-        <div class="ah-big-statement">
-          <span class="aw">What</span> <span class="aw">I</span> <span class="aw">care</span>
-          <span class="aw">about</span> <span class="aw">most</span> <span class="aw">is</span>
-          <span class="aw">the</span> <span class="aw">thinking</span>
-          <span class="aw">behind</span> <span class="aw">the</span> <span class="aw">design.</span>
-          <span class="aw">Not</span> <span class="aw">just</span> <span class="aw">how</span>
-          <span class="aw">it</span> <span class="aw">looks,</span> <span class="aw">but</span>
-          <span class="aw">why</span> <span class="aw">it</span> <span class="aw">works.</span>
+        <!-- About label + Big text: label sits in the blank space left by text-indent -->
+        <div class="ah-stmt-wrap">
+          <span class="ah-about-label">About</span>
+          <div class="ah-big-statement">
+            <span class="aw">What</span> <span class="aw">I</span> <span class="aw">care</span>
+            <span class="aw">about</span> <span class="aw">most</span> <span class="aw">is</span>
+            <span class="aw">the</span> <span class="aw">thinking</span>
+            <span class="aw">behind</span> <span class="aw">the</span> <span class="aw">design.</span>
+            <span class="aw">Not</span> <span class="aw">just</span> <span class="aw">how</span>
+            <span class="aw">it</span> <span class="aw">looks,</span> <span class="aw">but</span>
+            <span class="aw">why</span> <span class="aw">it</span> <span class="aw">works.</span>
+          </div>
         </div>
 
-        <!-- Practice label: left:667px, top:393px (Figma) -->
+        <!-- Practice label + text: right column via margin-left -->
         <span class="ah-prac-label">Practice</span>
-
-        <!-- Practice text: 30px, left:667px, top:420px, width:657px (Figma) -->
-        <p class="ah-prac-text">3+ years in UI/UX and Brand Design, growing products and shaping design strategy at B2B SaaS startups and agencies.</p>
+        <p class="ah-prac-text">3+ years in UI/UX and Brand Design, growing products and shaping design strategy at B2B SaaS startups and creative agencies.</p>
 
       </div>
     </div>
@@ -780,6 +789,21 @@
       obs.observe(statsEl);
     }
 
+  })();
+
+  // ── STICKY PANEL: pin near viewport bottom so hero peeks above ──
+  (function () {
+    var sticky = document.getElementById('ah-process-sticky');
+    if (!sticky) return;
+    function update() {
+      if (window.innerWidth <= 720) return; // mobile uses top:0 via CSS
+      var h = sticky.offsetHeight;
+      var top = Math.max(0, window.innerHeight - h);
+      sticky.style.top = top + 'px';
+    }
+    // Run after fonts/layout settle
+    requestAnimationFrame(function () { requestAnimationFrame(update); });
+    window.addEventListener('resize', update, { passive: true });
   })();
   </script>
 </body>
