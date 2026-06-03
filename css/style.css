@@ -1066,12 +1066,21 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   height:100vh;
   background:#000;
   overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:0 var(--pad-x);
   will-change:transform;
 }
+.qw-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  width:100%;
+}
 .qw{
-  position:absolute;
   font-family:var(--font);
-  font-size:clamp(40px,10.5vw,152px);
+  font-size:clamp(72px,12.5vw,184px);
   font-weight:400;
   color:#fff;
   letter-spacing:-0.02em;
@@ -1080,25 +1089,76 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   text-transform:uppercase;
   will-change:transform;
 }
-/* Final positions — all words bounded by var(--pad-x) on both sides */
-.qw--design    { top:8%;   left:var(--pad-x); }
-.qw--isnotjust { top:27%;  right:var(--pad-x); }
-.qw--pictures  { top:46%;  right:23%; }
-.qw--its       { top:45%;  right:var(--pad-x); }
-.qw--a         { top:65%;  left:var(--pad-x); }
-.qw--mindset   { top:65%;  right:var(--pad-x); }
 
-.quote-side-label{
-  position:absolute;
-  right:var(--pad-x);
-  top:8%;
-  font-size:clamp(13px,1.1vw,18px);
-  font-weight:300;
-  color:rgba(255,255,255,0.7);
-  line-height:1.4;
-  max-width:220px;
-  text-align:right;
-  opacity:0;
+/* ── REVIEWS SECTION ── */
+.rev-sec{
+  background:#fff;
+  border-top:1px solid #000;
+  padding:40px 60px;
+}
+.rev-grid{
+  display:flex;
+  gap:40px;
+  align-items:flex-start;
+}
+.rev-col{
+  flex:1 0 0;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-width:0;
+}
+.rev-client{
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:-0.02em;
+  text-transform:uppercase;
+  color:#ff00d0;
+  line-height:1;
+  font-family:var(--font);
+  white-space:nowrap;
+}
+.rev-client strong{
+  font-weight:700;
+  text-decoration:underline;
+  text-decoration-skip-ink:none;
+  text-underline-offset:2px;
+}
+.rev-quote{
+  font-size:18px;
+  font-weight:500;
+  color:#000;
+  letter-spacing:-0.02em;
+  line-height:1.05;
+  font-family:var(--font);
+}
+.rev-quote--lg{ font-size:20px; }
+.rev-body{
+  font-size:12px;
+  font-weight:400;
+  color:#000;
+  letter-spacing:-0.02em;
+  line-height:1.05;
+  font-family:var(--font);
+}
+.rev-body--md{ font-size:14px; }
+.rev-body p{ margin-bottom:10px; }
+.rev-body p:last-child{ margin-bottom:0; }
+.rev-body-full{ display:none; }
+.rev-col.is-open .rev-body-short{ display:none; }
+.rev-col.is-open .rev-body-full{ display:block; }
+.rev-more{
+  font-size:14px;
+  font-weight:500;
+  color:#000;
+  letter-spacing:-0.02em;
+  line-height:1.05;
+  text-transform:uppercase;
+  font-family:var(--font);
+  cursor:pointer;
+  background:none;
+  border:none;
+  padding:0;
 }
 
 /* ── FEATURED PROJECTS ── */
@@ -1266,13 +1326,10 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .allp-table-head{ display:none }
   .allp-row{ grid-template-columns:1fr 100px; }
   .allp-row-role{ display:none }
-  .quote-side-label{ font-size:11px; max-width:130px; top:8%; right:var(--pad-x); text-align:right; }
-  .qw{ font-size:clamp(28px,9vw,52px); }
-  .qw--design    { left:var(--pad-x); }
-  .qw--isnotjust { right:var(--pad-x); }
-  .qw--a         { left:var(--pad-x); }
-  .qw--mindset   { right:var(--pad-x); }
-  .qw--its       { right:var(--pad-x); }
+  .qw{ font-size:clamp(32px,9.5vw,56px); }
+  .rev-sec{ padding:40px var(--pad-x); }
+  .rev-grid{ flex-direction:column; gap:40px; }
+  .rev-client{ white-space:normal; }
   .qp-img-wrap   { height:22vh; }
 }
 .hero-mask{

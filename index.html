@@ -304,8 +304,7 @@
       font-weight: 400 !important;
     }
 
-    /* Comma between PICTURES and IT'S — visible on mobile only */
-    .qw-comma { display: none; }
+
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -373,30 +372,12 @@
       .ah-stat-unit { align-self: auto; text-align: center; margin-top: 4px; }
       .ah-stat-desc { grid-column: unset; text-align: center; justify-self: auto; max-width: 100%; margin-top: 6px; }
 
-      /* Quote section: inline text flow on mobile */
+      /* Quote section mobile */
       .quote-sec {
         height: auto !important;
-        overflow: visible !important;
-        padding: 56px var(--pad-x) 56px !important;
-        display: block !important;
+        padding: 56px var(--pad-x) !important;
+        gap: 6px !important;
       }
-      .qw {
-        display: inline !important;
-        position: static !important;
-        white-space: normal !important;
-        text-align: left !important;
-        top: auto !important; left: auto !important; right: auto !important;
-        font-size: clamp(48px, 13vw, 72px) !important;
-        line-height: 1.1 !important;
-      }
-      .qw-comma {
-        display: inline !important;
-        font-size: clamp(48px, 13vw, 72px) !important;
-        font-weight: 400;
-        color: #fff;
-        line-height: 1.1;
-      }
-      .quote-side-label { display: none !important; }
     }
   </style>
 </head>
@@ -556,14 +537,64 @@
 
     <!-- QUOTE ANIMATION (scroll-pinned) -->
     <section class="quote-sec" id="quote-sec">
-      <p class="qw qw--design">DESIGN</p>
-      <p class="qw qw--isnotjust">IS NOT JUST</p>
-      <p class="qw qw--pictures">PICTURES</p><span class="qw-comma">,</span>
-      <p class="qw qw--its">IT'S</p>
-      <p class="qw qw--a">A</p>
-      <p class="qw qw--mindset">MINDSET</p>
-      <p class="quote-side-label">Latest works in branding,<br>UI/UX and product design</p>
+      <div class="qw-row">
+        <p class="qw">SEE</p>
+        <p class="qw">WHAT</p>
+        <p class="qw">MY</p>
+      </div>
+      <div class="qw-row">
+        <p class="qw">CLIENTS</p>
+        <p class="qw">SAY</p>
+      </div>
+    </section>
 
+    <!-- REVIEWS SECTION -->
+    <section class="rev-sec">
+      <div class="rev-grid">
+
+        <!-- Review 1: Skazpokrayu -->
+        <div class="rev-col" id="rev-1">
+          <p class="rev-client">Alexandra and Pavel — CEO <strong>Skazpokrayu</strong></p>
+          <p class="rev-quote">Рипсиме не просто выполняет свою работу как дизайнер — она берет на себя проекты под ключ, грамотно выстраивает процессы, формирует четкие технические задания для команды и помогает каждому участнику эффективно двигаться к общей цели.</p>
+          <div class="rev-body">
+            <div class="rev-body-short">
+              <p>Хотим выразить искреннюю благодарность Рипсиме за её выдающийся профессионализм, ответственность и талант.</p>
+              <p>За время совместной работы она проявила себя как исключительно самодисциплинированный и надежный специалист. Мы редко встречали людей с таким уровнем организованности, вовлеченности и умением доводить любые задачи до безупречного результата.</p>
+            </div>
+            <div class="rev-body-full">
+              <p>Хотим выразить искреннюю благодарность Рипсиме за её выдающийся профессионализм, ответственность и талант.</p>
+              <p>За время совместной работы она проявила себя как исключительно самодисциплинированный и надежный специалист. Мы редко встречали людей с таким уровнем организованности, вовлеченности и умением доводить любые задачи до безупречного результата.</p>
+              <p>Рипсиме не просто выполняет свою работу как дизайнер — она берет на себя проекты под ключ, грамотно выстраивает процессы, формирует четкие технические задания для команды и помогает каждому участнику эффективно двигаться к общей цели.</p>
+              <p>Особенно хочется отметить её способность предлагать несколько сильных решений на выбор, учитывать разные сценарии развития проекта и давать конструктивные, практичные рекомендации, которые действительно помогают улучшать рабочий процесс и достигать лучших результатов.</p>
+              <p>Большое спасибо за высокий уровень профессионализма, ответственность и искреннюю заинтересованность в успехе нашего проекта.</p>
+              <p>Со временем Рипсиме стала для нас не просто ценным сотрудником, а настоящим партнером, на которого можно положиться в любой ситуации. Более того, она стала близким человеком, которого мы искренне любим, ценим и уважаем.</p>
+              <p>Мы очень рады нашему сотрудничеству и от всей души желаем больших творческих успехов, в коих мы отчетливо уверены!</p>
+            </div>
+          </div>
+          <button class="rev-more" onclick="toggleRev(this)">READ ALL</button>
+        </div>
+
+        <!-- Review 2: premiumization.ru -->
+        <div class="rev-col">
+          <p class="rev-client">Liudmila Astafyeva — CEO <strong>premiumization.ru</strong></p>
+          <p class="rev-quote rev-quote--lg">Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить</p>
+          <div class="rev-body rev-body--md">
+            <p>Рекомендую работу с Рипсиме, так как девушка очень креативная, нестандартное мышление, главное — вам вместе «нащупать» отклик, который вам визуально откликнется для ваших услуг.</p>
+            <p>Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить.</p>
+          </div>
+        </div>
+
+        <!-- Review 3: drawstory.com -->
+        <div class="rev-col">
+          <p class="rev-client">Narek Ghazaryan — CEO <strong>drawstory.com</strong></p>
+          <p class="rev-quote rev-quote--lg">Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces.</p>
+          <div class="rev-body rev-body--md">
+            <p>Worked with Ripsime on an AI B2B SaaS project, and it was a great experience collaborating with her. She's a very talented UI/UX designer with a strong eye for clean design, user experience, and product thinking.</p>
+            <p>Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces. Highly recommend working with her for any SaaS or AI product.</p>
+          </div>
+        </div>
+
+      </div>
     </section>
 
     <!-- PROJECT GRID -->
@@ -805,6 +836,12 @@
     requestAnimationFrame(function () { requestAnimationFrame(update); });
     window.addEventListener('resize', update, { passive: true });
   })();
+
+  function toggleRev(btn) {
+    var col = btn.closest('.rev-col');
+    col.classList.toggle('is-open');
+    btn.textContent = col.classList.contains('is-open') ? 'COLLAPSE' : 'READ ALL';
+  }
   </script>
 </body>
 </html>
