@@ -82,7 +82,7 @@
       object-fit: cover; display: block;
     }
 
-    /* Text paragraph section */
+    /* Text paragraph section (left) */
     .prm-text {
       padding: 80px var(--pad-x);
       background: #0a0a0a;
@@ -97,6 +97,35 @@
       font-family: var(--font);
     }
     .prm-text p + p { margin-top: 20px; }
+
+    /* Text paragraph section (right-aligned) */
+    .prm-text-right {
+      padding: 80px var(--pad-x);
+      background: #0a0a0a;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .prm-text-right-inner {
+      max-width: 512px;
+    }
+    .prm-text-right-inner p {
+      font-size: clamp(17px, 1.6vw, 22px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.55;
+      letter-spacing: -0.02em;
+      font-family: var(--font);
+    }
+    .prm-text-right-inner p + p { margin-top: 20px; }
+    .prm-text-intro {
+      font-size: 12px !important;
+      font-weight: 400 !important;
+      text-transform: uppercase;
+      letter-spacing: 0.1em !important;
+      color: rgba(255,255,255,0.35) !important;
+      margin-bottom: 20px !important;
+      line-height: 1.4 !important;
+    }
 
     /* Video full-width 16:9 */
     .prm-video {
@@ -148,6 +177,10 @@
       padding: 80px var(--pad-x);
       background: #0a0a0a;
       border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
     .prm-credits-label {
       font-size: 11px;
@@ -160,6 +193,7 @@
     .prm-credits-grid {
       display: flex;
       gap: 80px;
+      justify-content: center;
     }
     .prm-cred-col {
       display: flex;
@@ -174,56 +208,16 @@
     }
     .prm-cred-col a { color: rgba(255,255,255,0.75); text-decoration: underline; text-underline-offset: 2px; }
 
-    /* See also */
-    .prm-see-also {
-      padding: 60px var(--pad-x) 80px;
-      background: #0a0a0a;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .prm-see-also-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 32px;
-      font-family: var(--font);
-    }
-    .prm-see-also-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      max-width: 600px;
-    }
-    .prm-see-also-item { display: block; color: #fff; }
-    .prm-see-also-thumb {
-      aspect-ratio: 4/3;
-      overflow: hidden;
-      background: #111;
-      margin-bottom: 10px;
-    }
-    .prm-see-also-thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      transition: transform 0.4s var(--ease);
-    }
-    .prm-see-also-item:hover .prm-see-also-thumb img { transform: scale(1.04); }
-    .prm-see-also-name {
-      font-size: 14px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.65);
-      font-family: var(--font);
-    }
-
     /* Mobile */
     @media (max-width: 720px) {
       .prm-hero-inner { bottom: 32px; }
       .prm-split { grid-template-columns: 1fr; gap: 4px; }
       .prm-split-col { min-height: 280px; }
       .prm-text { padding: 48px var(--pad-x); }
+      .prm-text-right { padding: 48px var(--pad-x); justify-content: flex-start; }
+      .prm-text-right-inner { max-width: 100%; }
       .prm-credits { padding: 48px var(--pad-x); }
-      .prm-credits-grid { flex-direction: column; gap: 32px; }
-      .prm-see-also { padding: 48px var(--pad-x); }
-      .prm-see-also-grid { grid-template-columns: 1fr 1fr; max-width: 100%; }
+      .prm-credits-grid { flex-direction: column; gap: 32px; align-items: center; }
       .prm-green-block { padding: 56px var(--pad-x) 64px; }
     }
   </style>
@@ -329,13 +323,11 @@
     <!-- 2. Project info (SKP-style, dark variant) -->
     <section class="skp-project-info">
       <div class="skp-project-info-left">
-        <p class="skp-info-headline">Premiumization — платформа, которая помогает брендам и личностям переходить в сегмент Premium через визуальную трансформацию и стратегическое позиционирование.</p>
+        <p class="skp-info-headline">Разработала дизайн сайта для Людмилы Астафьевой — консультанта с 15-летним опытом в ведущих финансовых организациях России. В портфеле: Citigold, Alfa Only, Газпромбанк Премиум, ДОМ.рф.</p>
         <div class="skp-project-services">
           <p>UI/UX Design</p>
-          <p>AI Art Direction</p>
-          <p>Brand Visual</p>
-          <p>Motion</p>
-          <p>Web Design</p>
+          <p>Design Guide</p>
+          <p>AI ART</p>
         </div>
         <a href="https://premiumization.ru" class="skp-project-link" target="_blank" rel="noopener">premiumization.ru</a>
       </div>
@@ -362,7 +354,22 @@
       <img src="/images/premiumization/photo6.webp" alt="Premiumization">
     </section>
 
-    <!-- 4. Green block (Figma 109-5679) -->
+    <!-- 4a. Text RIGHT: Задача -->
+    <section class="prm-text-right">
+      <div class="prm-text-right-inner">
+        <p>Задача заключалась в создании сайта, который сам по себе ощущается как премиальный продукт. Не просто визитка эксперта, а среда, которая транслирует экспертизу через форму.</p>
+      </div>
+    </section>
+
+    <!-- 4b. Text RIGHT: Аудитория -->
+    <section class="prm-text-right">
+      <div class="prm-text-right-inner">
+        <p class="prm-text-intro">При работе с дизайном я бросила вызов:</p>
+        <p>Аудитория сайта это топ-менеджеры и директора крупных компаний. Для них «дорого» считывается мгновенно, фальшь тоже. Дизайн должен был работать без лишних слов.</p>
+      </div>
+    </section>
+
+    <!-- 5. Green block (Figma 109-5679) -->
     <section class="prm-green-block">
       <span class="prm-green-quote">"</span>
       <h2 class="prm-green-headline">Помогать брендам, предпринимателям и бизнесам как работает премиумизация сегодня, принимать стратегические решения на основе аналитики</h2>
@@ -374,9 +381,11 @@
       <img src="/images/premiumization/img0.webp" alt="Premiumization">
     </section>
 
-    <!-- 6. Text paragraph -->
-    <section class="prm-text">
-      <p>В основе визуального языка — AI-генерация ботанических арт-объектов: полупрозрачные цветы, органические текстуры, кинематографический свет. Каждый кадр — это метафора роста, трансформации и исключительности.</p>
+    <!-- 8. Text RIGHT: AI visuals -->
+    <section class="prm-text-right">
+      <div class="prm-text-right-inner">
+        <p>Отдельным направлением стала генерация AI-визуалов для сайта и видеоконтента. Цветочные макросъёмки, органические текстуры, глубокие тёмные фоны: всё это создавалось с нуля под визуальный язык бренда, без стоковой эстетики.</p>
+      </div>
     </section>
 
     <!-- 7. photo1 + flower2: side by side -->
@@ -409,7 +418,14 @@
       <img src="/images/premiumization/photo2.webp" alt="Premiumization — directions UI">
     </section>
 
-    <!-- 11. Credits -->
+    <!-- 11a. Text RIGHT: Summary -->
+    <section class="prm-text-right">
+      <div class="prm-text-right-inner">
+        <p>Таким образом получилось создать яркий и интересный проект, где человек с высокими ожиданиями может получить всю необходимую информацию, при этом пройдя комфортный и эмоциональный пользовательский путь.</p>
+      </div>
+    </section>
+
+    <!-- 13. Credits -->
     <section class="prm-credits">
       <p class="prm-credits-label">Credits</p>
       <div class="prm-credits-grid">
@@ -424,21 +440,21 @@
       </div>
     </section>
 
-    <!-- 12. See also -->
-    <section class="prm-see-also">
-      <p class="prm-see-also-label">Смотрите также</p>
-      <div class="prm-see-also-grid">
-        <a href="/skazpokrayu" class="prm-see-also-item">
-          <div class="prm-see-also-thumb">
+    <!-- 14. See also -->
+    <section class="rds-see-also">
+      <p class="rds-see-also-label">Смотрите также</p>
+      <div class="rds-see-also-grid">
+        <a href="/skazpokrayu" class="rds-see-also-item">
+          <div class="rds-see-also-img">
             <img src="/images/Works_Covers/skazpokrayu_cover.webp" alt="Skaz po krayu" loading="lazy">
           </div>
-          <p class="prm-see-also-name">Skaz po krayu</p>
+          <p class="rds-see-also-title">Сказ по Краю</p>
         </a>
-        <a href="/eburet" class="prm-see-also-item">
-          <div class="prm-see-also-thumb">
+        <a href="/eburet" class="rds-see-also-item">
+          <div class="rds-see-also-img">
             <img src="/images/Works_Covers/eburet.webp" alt="Eburet" loading="lazy">
           </div>
-          <p class="prm-see-also-name">Eburet</p>
+          <p class="rds-see-also-title">Eburet</p>
         </a>
       </div>
     </section>
