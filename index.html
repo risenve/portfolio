@@ -98,7 +98,7 @@
       font-weight: 400;
       letter-spacing: -0.035em;
       line-height: 1;
-      color: #fff;
+      color: #FF2DC5;
       display: inline;
     }
     /* Typewriter cursor */
@@ -106,7 +106,7 @@
       display: inline-block;
       width: 3px;
       height: 0.85em;
-      background: #fff;
+      background: #FF2DC5;
       vertical-align: middle;
       margin-left: 4px;
       animation: ahblink 0.7s step-end infinite;
@@ -210,7 +210,7 @@
       display: block;
       margin-left: 40vw;
       width: 45.6vw;
-      font-size: clamp(16px, 2.08vw, 30px);
+      font-size: 32px;
       font-weight: 400;
       letter-spacing: -0.02em;
       line-height: 1.2;
@@ -229,7 +229,7 @@
       align-items: center;
     }
     .ah-stats-inner {
-      width: min(900px, calc(100% - 2 * var(--pad-x)));
+      width: calc(100% - 2 * var(--pad-x));
     }
     /* 4 cols: idx | num | unit | desc */
     .ah-stat-row {
@@ -237,9 +237,9 @@
       grid-template-columns: clamp(60px, 7vw, 100px) 22vw 26vw auto;
       align-items: end;
       padding: 16px 0 36px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
-    .ah-stat-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .ah-stat-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.05); }
     .ah-stat-idx {
       font-size: 14px;
       font-weight: 400;
