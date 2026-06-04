@@ -115,7 +115,7 @@
       font-family: var(--font);
     }
 
-    /* Full-width image/video */
+    /* Full-width image / video sections */
     .prm-full {
       width: 100%;
       overflow: hidden;
@@ -134,47 +134,21 @@
       height: 100%; object-fit: cover;
     }
 
-    /* Pair: 2 columns */
-    .prm-pair {
-      display: flex;
+    /* 2-column split */
+    .prm-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 4px;
       background: #0a0a0a;
     }
-    .prm-col {
-      flex: 1;
+    .prm-split-col {
       overflow: hidden;
       min-height: 500px;
       position: relative;
     }
-    .prm-col img, .prm-col video {
+    .prm-split-col img, .prm-split-col video {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
-    }
-    .prm-col--wide { flex: 1.45; }
-    .prm-col--narrow { flex: 0.55; }
-    .prm-col--text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 60px 48px;
-      background: #111;
-      min-height: 400px;
-    }
-    .prm-col-text-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 20px;
-      font-family: var(--font);
-    }
-    .prm-col-text-body {
-      font-size: clamp(16px, 1.6vw, 22px);
-      font-weight: 300;
-      color: rgba(255,255,255,0.85);
-      line-height: 1.45;
-      letter-spacing: -0.02em;
-      font-family: var(--font);
     }
 
     /* Text paragraph section */
@@ -203,35 +177,6 @@
     .prm-video video {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
-    }
-
-    /* 3-col photo grid */
-    .prm-grid3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 4px;
-      background: #0a0a0a;
-    }
-    .prm-grid3 img {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* 2-col photo grid */
-    .prm-grid2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px;
-      background: #0a0a0a;
-      margin-top: 4px;
-    }
-    .prm-grid2 img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      display: block;
     }
 
     /* Credits */
@@ -310,11 +255,8 @@
       .prm-hero-inner { bottom: 32px; }
       .prm-info { flex-direction: column; gap: 40px; padding: 48px var(--pad-x); }
       .prm-info-left { padding-right: 0; }
-      .prm-pair { flex-direction: column; gap: 4px; }
-      .prm-col { min-height: 280px; }
-      .prm-col--text { padding: 40px var(--pad-x); min-height: auto; }
-      .prm-grid3 { grid-template-columns: 1fr 1fr; }
-      .prm-grid3 img { aspect-ratio: 1; }
+      .prm-split { grid-template-columns: 1fr; gap: 4px; }
+      .prm-split-col { min-height: 280px; }
       .prm-text { padding: 48px var(--pad-x); }
       .prm-credits { padding: 48px var(--pad-x); }
       .prm-credits-grid { flex-direction: column; gap: 32px; }
@@ -410,7 +352,7 @@
   <div class="page-wrap">
   <main class="prm-main">
 
-    <!-- 1. Hero: video cover -->
+    <!-- 1. Hero: video cover (scene1 in Figma) -->
     <section class="prm-hero">
       <video autoplay muted loop playsinline>
         <source src="video_1.mp4" type="video/mp4">
@@ -450,80 +392,82 @@
       </div>
     </section>
 
-    <!-- 3. Hero botanical — full width -->
+    <!-- 3. scene2: glass roses — first botanical (Figma "img section" after info) -->
     <section class="prm-full prm-full--vh">
-      <img src="flower1.webp" alt="Premiumization — AI botanical art">
+      <img src="scene2.webp" alt="Premiumization — AI botanical scene">
     </section>
 
-    <!-- 4. Text: об AI art direction -->
+    <!-- 4. Text: AI art direction concept -->
     <section class="prm-text">
       <p>В основе визуального языка — AI-генерация ботанических арт-объектов: полупрозрачные цветы, органические текстуры, кинематографический свет. Каждый кадр — это метафора роста, трансформации и исключительности.</p>
     </section>
 
-    <!-- 5. Pair: scene1 + scene2 -->
-    <section class="prm-pair">
-      <div class="prm-col">
-        <img src="scene1.webp" alt="Premiumization — Scene 1">
+    <!-- 5. scene1: butterfly botanical — second large botanical -->
+    <section class="prm-full prm-full--vh">
+      <img src="scene1.webp" alt="Premiumization — AI botanical composition">
+    </section>
+
+    <!-- 6. photo5: two iPhones on dark (3-phones section in Figma) -->
+    <section class="prm-full">
+      <img src="photo5.webp" alt="Premiumization — mobile UI mockup">
+    </section>
+
+    <!-- 7. Split: photo1 (iPhone on pink bg) + flower2 (Figma confirmed split section) -->
+    <section class="prm-split" style="margin-top:4px">
+      <div class="prm-split-col">
+        <img src="photo1.webp" alt="Premiumization — reports UI on iPhone">
       </div>
-      <div class="prm-col">
-        <img src="scene2.webp" alt="Premiumization — Scene 2">
+      <div class="prm-split-col">
+        <img src="flower2.webp" alt="Premiumization — AI botanical art">
       </div>
     </section>
 
-    <!-- 6. Pair: photo1 + text block -->
-    <section class="prm-pair" style="margin-top:4px">
-      <div class="prm-col prm-col--wide">
-        <img src="photo1.webp" alt="">
-      </div>
-      <div class="prm-col prm-col--narrow prm-col--text">
-        <p class="prm-col-text-label">UI/UX Design</p>
-        <p class="prm-col-text-body">Сайт спроектирован как погружение — первый экран сразу вводит в атмосферу премиального мира. Навигация интуитивна, контент раскрывается постепенно.</p>
-      </div>
-    </section>
-
-    <!-- 7. Photo2 full width -->
+    <!-- 8. photo2: iPad mockup full width -->
     <section class="prm-full" style="margin-top:4px">
-      <img src="photo2.webp" alt="">
+      <img src="photo2.webp" alt="Premiumization — directions UI on iPad">
     </section>
 
-    <!-- 8. 3-col photo grid -->
-    <section class="prm-grid3" style="margin-top:4px">
-      <img src="photo3.webp" alt="">
-      <img src="photo4.webp" alt="">
-      <img src="photo5.webp" alt="">
+    <!-- 9. photo3 + photo4: art photos 2-col grid -->
+    <section class="prm-split" style="margin-top:4px">
+      <div class="prm-split-col">
+        <img src="photo3.webp" alt="Premiumization — AI art">
+      </div>
+      <div class="prm-split-col">
+        <img src="photo4.webp" alt="Premiumization — AI floral art">
+      </div>
     </section>
 
-    <!-- 9. Text: о результате -->
+    <!-- 10. photo6 + photo7: desktop browser screenshots 2-col -->
+    <section class="prm-split" style="margin-top:4px">
+      <div class="prm-split-col">
+        <img src="photo6.webp" alt="Premiumization — website desktop view">
+      </div>
+      <div class="prm-split-col">
+        <img src="photo7.webp" alt="Premiumization — website alternate view">
+      </div>
+    </section>
+
+    <!-- 11. scene3: thorny rose stems botanical full height -->
+    <section class="prm-full prm-full--vh" style="margin-top:4px">
+      <img src="scene3.webp" alt="Premiumization — AI botanical scene">
+    </section>
+
+    <!-- 12. Text: outcome -->
     <section class="prm-text">
       <p>Ботанические арт-объекты, созданные через AI, стали ключевым инструментом дифференциации. Они работают на упаковке, в digital и в видео-коммуникации, создавая единый, узнаваемый мир бренда.</p>
+      <p>Premiumization получила визуальную систему, которая масштабируется от мобильного экрана до офлайн-коммуникаций. AI-генерация как инструмент арт-директора — не замена творчеству, а его усиление.</p>
     </section>
 
-    <!-- 10. flower2 full -->
-    <section class="prm-full">
-      <img src="flower2.webp" alt="Premiumization — AI botanical composition">
-    </section>
-
-    <!-- 11. Video full-width -->
-    <section class="prm-video" style="margin-top:4px">
+    <!-- 13. video_2: brand motion -->
+    <section class="prm-video">
       <video autoplay muted loop playsinline>
         <source src="video_2.mp4" type="video/mp4">
       </video>
     </section>
 
-    <!-- 12. 2-col: photo6 + photo7 -->
-    <section class="prm-grid2">
-      <img src="photo6.webp" alt="">
-      <img src="photo7.webp" alt="">
-    </section>
-
-    <!-- 13. scene3 full -->
+    <!-- 14. flower1: white glass flowers — closing botanical full height -->
     <section class="prm-full prm-full--vh" style="margin-top:4px">
-      <img src="scene3.webp" alt="Premiumization — Scene 3">
-    </section>
-
-    <!-- 14. Text: итог -->
-    <section class="prm-text">
-      <p>Premiumization получила визуальную систему, которая масштабируется от мобильного экрана до офлайн-коммуникаций. AI-генерация как инструмент арт-директора — не замена творчеству, а его усиление.</p>
+      <img src="flower1.webp" alt="Premiumization — AI botanical composition">
     </section>
 
     <!-- 15. Credits -->

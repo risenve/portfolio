@@ -324,45 +324,65 @@ function initQuoteAnim() {
   var words = gsap.utils.toArray('.qw');
   if (!words.length) return;
 
-  var isMobile = window.innerWidth <= 720;
-
-  if (isMobile) {
-    // Mobile: simple per-word opacity reveal as each enters viewport
-    gsap.set(words, { opacity: 0 });
-    words.forEach(function(word) {
-      ScrollTrigger.create({
-        trigger: word,
-        start: 'top 88%',
-        onEnter: function() {
-          gsap.to(word, { opacity: 1, duration: 0.55, ease: 'power1.out' });
-        }
-      });
-    });
-    return;
-  }
-
-  // Desktop: scroll-pinned reveal
-  gsap.set(words, { y: 36, opacity: 0 });
-  gsap.set('.quote-side-label', { y: 36, opacity: 0 });
-
-  var tl = gsap.timeline({
+  // Simple scroll-triggered reveal — no pin (pin caused stats double-overlap)
+  gsap.set(words, { y: 40, opacity: 0 });
+  gsap.to(words, {
+    y: 0, opacity: 1,
+    stagger: 0.07,
+    duration: 0.65,
+    ease: 'power2.out',
     scrollTrigger: {
       trigger: sec,
-      start: 'top top',
-      end: '+=220%',
-      pin: true,
-      scrub: 1,
-      anticipatePin: 1
+      start: 'top 80%',
+      once: true
     }
   });
-
-  tl.to(words, { y: 0, opacity: 1, stagger: 0.1, duration: 0.45, ease: 'none' });
-  tl.to('.quote-side-label', { y: 0, opacity: 1, duration: 0.35, ease: 'none' }, '<');
 }
 
-// ── REVIEW MARQUEE: CSS animation handles scrolling, no GSAP needed ──
+// ── REVIEW SLIDER ──
 function initReviewAnim() {
-  // marquee runs via CSS @keyframes rev-scroll — nothing to init
+  var track = document.getElementById('rev-slider-track');
+  if (!track) return;
+  var slides = track.querySelectorAll('.rev-slide');
+  if (!slides.length) return;
+
+  var total   = slides.length;
+  var current = 0;
+  var prevBtn = document.getElementById('rev-prev');
+  var nextBtn = document.getElementById('rev-next');
+  var dots    = document.querySelectorAll('.rev-dot');
+
+  function goTo(n) {
+    current = ((n % total) + total) % total;
+    var w = slides[0].offsetWidth;
+    track.style.transform = 'translateX(-' + (current * w) + 'px)';
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
+  dots.forEach(function(d, i) { d.addEventListener('click', function() { goTo(i); }); });
+
+  // Re-snap on resize (no animation)
+  window.addEventListener('resize', function() {
+    var w = slides[0].offsetWidth;
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(-' + (current * w) + 'px)';
+    requestAnimationFrame(function() { track.style.transition = ''; });
+  }, { passive: true });
+
+  // Swipe support
+  var startX = 0;
+  var outer = track.parentElement;
+  if (outer) {
+    outer.addEventListener('touchstart', function(e) {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+    outer.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+    }, { passive: true });
+  }
 }
 
 // ── PROJECT SLIDER ──
