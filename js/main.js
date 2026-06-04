@@ -339,114 +339,10 @@ function initQuoteAnim() {
   });
 }
 
-// ── REVIEWS: scroll-pinned card stack (Readymag-style) ──
+// ── REVIEWS: horizontal row — language toggle + READ ALL ──
 function initReviewAnim() {
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-  gsap.registerPlugin(ScrollTrigger);
-
   var revSec  = document.getElementById('rev-sec');
-  var titleEl = document.getElementById('rev-title');
-  var cards   = gsap.utils.toArray('.rev-card');
-  if (!revSec || !titleEl || cards.length < 3) return;
-
-  // ── Rest Y offsets (relative to centered position in flex container) ──
-  // card 0 = back (arrives first, peeks above)
-  // card 2 = front (arrives last, fully visible)
-  var restY     = [-88, -44, 0];
-  var restScale = [0.93, 0.965, 1];
-
-  // All cards start below viewport, title starts invisible
-  gsap.set(cards,   { y: window.innerHeight * 1.05 });
-  gsap.set(titleEl, { opacity: 0, y: 24 });
-
-  // ── Master scrub timeline ──
-  var tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: revSec,
-      start: 'top top',
-      end: '+=340%',
-      pin: true,
-      scrub: 1.4,
-      anticipatePin: 1
-    }
-  });
-
-  // Phase 1 — title fades in
-  tl.to(titleEl, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' });
-  tl.to({}, { duration: 0.25 }); // small hold
-
-  // Phase 2 — card 0 arrives (title fades simultaneously)
-  tl.to(titleEl, { opacity: 0, y: -16, duration: 0.3 }, '+=0');
-  tl.to(cards[0], { y: restY[0], scale: restScale[0], duration: 1.1, ease: 'power3.out' }, '<0.15');
-  tl.to({}, { duration: 0.2 });
-
-  // Phase 3 — card 1 arrives
-  tl.to(cards[1], { y: restY[1], scale: restScale[1], duration: 1.1, ease: 'power3.out' });
-  tl.to({}, { duration: 0.2 });
-
-  // Phase 4 — card 2 arrives (front of deck)
-  tl.to(cards[2], { y: restY[2], scale: restScale[2], duration: 1.1, ease: 'power3.out' });
-  tl.to({}, { duration: 0.9 }); // hold so user can see the stack before unpin
-
-  // ── Interactive: bring any card to front ──
-  var frontIdx = 2; // card[2] starts as front
-
-  function bringToFront(idx) {
-    if (idx === frontIdx) return;
-    var prev = frontIdx;
-    frontIdx = idx;
-
-    // New front card animates to y=0, scale=1, z on top
-    gsap.to(cards[idx], { y: 0, scale: 1, duration: 0.5, ease: 'power2.out', zIndex: 10,
-      onComplete: function() { gsap.set(cards[idx], { zIndex: 3 }); }
-    });
-    // Previous front goes to back position
-    gsap.to(cards[prev], { y: restY[0], scale: restScale[0], duration: 0.4, ease: 'power2.in', zIndex: 1 });
-    // Remaining card goes to middle
-    cards.forEach(function(c, i) {
-      if (i !== idx && i !== prev) {
-        gsap.to(c, { y: restY[1], scale: restScale[1], duration: 0.45, ease: 'power2.out', zIndex: 2 });
-      }
-    });
-  }
-
-  // Click on any non-front card to bring it forward
-  cards.forEach(function(card, i) {
-    card.addEventListener('click', function(e) {
-      if (e.target.classList.contains('rev-read-all')) return;
-      if (i !== frontIdx) bringToFront(i);
-    });
-  });
-
-  // Mouse drag to cycle through cards
-  var dragStartX = 0, isDragging = false;
-  revSec.addEventListener('mousedown', function(e) {
-    if (e.target.classList.contains('rev-read-all') || e.target.closest('.rev-modal')) return;
-    dragStartX = e.clientX;
-    isDragging = true;
-  });
-  document.addEventListener('mouseup', function(e) {
-    if (!isDragging) return;
-    isDragging = false;
-    var dx = e.clientX - dragStartX;
-    if (Math.abs(dx) > 55) {
-      var next = (frontIdx + (dx < 0 ? 1 : cards.length - 1)) % cards.length;
-      bringToFront(next);
-    }
-  });
-
-  // Touch swipe
-  var touchStartX = 0;
-  revSec.addEventListener('touchstart', function(e) {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  revSec.addEventListener('touchend', function(e) {
-    var dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 55) {
-      var next = (frontIdx + (dx < 0 ? 1 : cards.length - 1)) % cards.length;
-      bringToFront(next);
-    }
-  }, { passive: true });
+  if (!revSec) return;
 
   // ── Language toggle ──
   var langBtns = document.querySelectorAll('.rev-lang-btn');
@@ -473,7 +369,6 @@ function initReviewAnim() {
       if (!isExpanded) {
         body.classList.remove('rev-card-body--preview');
         readAllBtn.textContent = 'COLLAPSE';
-        // remove max-height constraint so card can expand
         card.style.maxHeight = 'none';
         card.style.overflowY = 'visible';
       } else {
