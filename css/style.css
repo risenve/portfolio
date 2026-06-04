@@ -1060,59 +1060,22 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .stat-mid{font-size:20px;font-weight:300;color:#fff}
 .stat-desc{font-size:20px;font-weight:300;color:#fff}
 
-/* ── QUOTE SECTION ── */
-.quote-sec{
+/* ── REVIEWS (scroll-pinned card stack) ── */
+.rev-sec{
   position:relative;
-  height:100vh;
   background:#000;
+  height:100vh;
   overflow:hidden;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:0 var(--pad-x);
-  will-change:transform;
-}
-.qw-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:baseline;
-  width:100%;
-}
-.qw{
-  font-family:var(--font);
-  font-size:clamp(72px,12.5vw,184px);
-  font-weight:400;
-  color:#fff;
-  letter-spacing:-0.02em;
-  line-height:1;
-  white-space:nowrap;
-  text-transform:uppercase;
-  will-change:transform;
-}
-
-/* ── REVIEWS SLIDER ── */
-.rev-sec{
-  background:#000;
-  padding:80px 0 100px;
-  position:relative;
-  z-index:10;
-  margin-top:-28vh; /* overlap onto quote section */
-}
-.rev-sec-head{
-  display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding:0 var(--pad-x);
-  margin-bottom:48px;
+  justify-content:center;
 }
-.rev-sec-title{
-  font-size:11px;font-weight:400;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:rgba(255,255,255,0.35);
+/* Language toggle — top-right corner of section */
+.rev-lang-wrap{
+  position:absolute;
+  top:36px;right:var(--pad-x);
+  z-index:20;
 }
-/* Right side: lang toggle + nav */
-.rev-head-right{display:flex;align-items:center;gap:20px;}
-/* Lang toggle — same style as case study pages */
 .rev-lang-toggle{
   display:flex;
   border:1px solid #242424;
@@ -1132,106 +1095,134 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .rev-lang-btn:hover{color:#aaa;}
 .rev-lang-btn--active{color:#fff;background:#1c1c1c;pointer-events:none;}
 /* Language content visibility */
-.rev-sec[data-lang="en"] [data-lang="ru"]{display:none;}
-.rev-sec[data-lang="ru"] [data-lang="en"]{display:none;}
-
-.rev-nav{display:flex;align-items:center;gap:14px;}
-/* Bare arrows — no border, no fill, just the symbol */
-.rev-nav-btn{
-  background:none;border:none;padding:4px 2px;
-  color:rgba(255,255,255,0.4);font-size:22px;
-  cursor:pointer;transition:color .2s;line-height:1;
-  flex-shrink:0;
+.rev-sec[data-lang="en"] .rev-ru{display:none;}
+.rev-sec[data-lang="ru"] .rev-en{display:none;}
+/* Section title */
+.rev-title{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  z-index:2;
+  pointer-events:none;
+  width:100%;
+  opacity:0;
 }
-.rev-nav-btn:hover{color:#fff;}
-.rev-dots{display:flex;align-items:center;gap:8px;}
-.rev-dot{
-  width:5px;height:5px;border-radius:50%;
-  background:rgba(255,255,255,0.22);
-  border:none;cursor:pointer;padding:0;
-  transition:background .2s, transform .2s;
+.rev-title span{
+  display:block;
+  font-size:clamp(36px,5.5vw,80px);
+  font-weight:400;
+  color:#fff;
+  letter-spacing:-0.03em;
+  line-height:1.1;
+  font-family:var(--font);
 }
-.rev-dot.active{background:#fff;transform:scale(1.7);}
-
-/* ── Depth-stack slider ── */
-.rev-slider-outer{overflow:hidden;position:relative;cursor:grab;}
-.rev-slider-outer:active{cursor:grabbing;}
-.rev-slider-track{
+/* Cards container */
+.rev-cards{
+  position:absolute;
+  inset:0;
   display:flex;
-  transition:transform .65s cubic-bezier(.25,.46,.45,.94);
+  align-items:center;
+  justify-content:center;
+}
+/* Individual card */
+.rev-card{
+  position:absolute;
+  width:min(72vw,860px);
+  background:#0a0a0a;
+  padding:44px 52px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
   will-change:transform;
 }
-.rev-slide{
-  flex:0 0 56%;width:56%;
-  padding:0 10px;box-sizing:border-box;
-  transition:transform .65s cubic-bezier(.25,.46,.45,.94), opacity .65s ease;
-  transform-origin:center center;
+.rev-card:active{cursor:grabbing;}
+.rev-card[data-card="0"]{z-index:1;}
+.rev-card[data-card="1"]{z-index:2;}
+.rev-card[data-card="2"]{z-index:3;}
+/* Author line */
+.rev-card-author{
+  font-size:11px;font-weight:400;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+  font-family:var(--font);
 }
-.rev-slide.rev-active{transform:scale(1);opacity:1;}
-.rev-slide.rev-neighbor{transform:scale(0.91);opacity:0.3;}
-.rev-slide.rev-far{transform:scale(0.84);opacity:0.1;}
-
-/* ── Card — dark editorial style ── */
-.rev-card{
-  width:100%;
-  height:clamp(300px,32vw,460px);
-  background:#1a1a1a;
-  border-radius:24px;
-  overflow:hidden;
-  display:flex;flex-direction:column;
-  position:relative;
-  padding:clamp(32px,3.2vw,52px) clamp(36px,4vw,64px) clamp(24px,2.2vw,36px);
+.rev-card-author strong{color:#fff;font-weight:600;}
+/* Quote (large) */
+.rev-card-quote{
+  font-size:clamp(20px,2.3vw,34px);
+  font-weight:400;color:#fff;
+  line-height:1.27;letter-spacing:-0.023em;
+  font-family:var(--font);margin:0;
 }
-/* Decorative watermark quote mark */
-.rev-card::before{
-  content:'\201C';
-  position:absolute;top:2px;left:20px;
-  font-size:240px;font-weight:700;line-height:1;
-  color:rgba(255,255,255,0.03);
-  pointer-events:none;
-  font-family:Georgia,'Times New Roman',serif;
-  user-select:none;
-}
+/* Body (truncated) */
 .rev-card-body{
-  flex:1 1 0;
-  display:flex;flex-direction:column;
-  justify-content:center;gap:14px;
-  position:relative;z-index:1;
-  overflow:hidden;min-height:0;
-}
-.rev-headline{
-  font-size:clamp(15px,1.55vw,22px);
-  font-weight:400;font-style:italic;
-  color:#fff;letter-spacing:-0.02em;line-height:1.38;
-}
-.rev-text{
-  font-size:clamp(12px,0.88vw,13px);
+  font-size:clamp(13px,0.95vw,15px);
   color:rgba(255,255,255,0.4);
-  line-height:1.62;overflow:hidden;
+  line-height:1.68;letter-spacing:-0.01em;
+  font-family:var(--font);
+  overflow:hidden;
   display:-webkit-box;
-  -webkit-line-clamp:3;-webkit-box-orient:vertical;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
 }
-.rev-text p{margin:0;}
-/* Card footer: avatar + name/company */
-.rev-card-footer{
-  display:flex;align-items:center;gap:14px;
-  padding-top:16px;
-  border-top:1px solid rgba(255,255,255,0.08);
-  position:relative;z-index:1;flex-shrink:0;
+.rev-card-body p{margin:0;}
+/* READ ALL */
+.rev-read-all{
+  background:none;border:none;cursor:pointer;
+  font-family:var(--font);
+  font-size:11px;font-weight:500;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+  padding:4px 0;align-self:center;
+  transition:color 0.2s;
 }
-.rev-card-avatar{
-  width:36px;height:36px;border-radius:50%;
-  background:#333;background-size:cover;background-position:center top;
-  flex-shrink:0;
+.rev-read-all:hover{color:#fff;}
+/* ── Modal ── */
+.rev-modal{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.88);
+  z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease;
 }
-.rev-card-credit{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;}
-.rev-credit-name{font-size:13px;font-weight:500;color:#fff;}
-.rev-credit-co{font-size:12px;color:rgba(255,255,255,0.35);}
-.rev-credit-co a{color:#ff00d0;text-decoration:none;}
-.rev-credit-co a:hover{text-decoration:underline;}
-/* legacy */
-.rev-card-photo{display:none;}
-.rev-client-tag{display:none;}
+.rev-modal.open{opacity:1;pointer-events:all;}
+.rev-modal-box{
+  background:#0a0a0a;
+  max-width:640px;width:90vw;
+  max-height:80vh;overflow-y:auto;
+  padding:48px 52px;position:relative;
+}
+.rev-modal-close{
+  position:absolute;top:20px;right:24px;
+  background:none;border:none;
+  font-size:28px;color:rgba(255,255,255,0.4);
+  cursor:pointer;line-height:1;
+  transition:color 0.2s;
+}
+.rev-modal-close:hover{color:#fff;}
+.rev-modal-author{
+  font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+  font-family:var(--font);margin-bottom:28px;
+}
+.rev-modal-author strong{color:#fff;font-weight:600;}
+.rev-modal-quote{
+  font-size:clamp(18px,1.9vw,26px);font-weight:400;
+  color:#fff;line-height:1.3;letter-spacing:-0.02em;
+  font-family:var(--font);margin:0 0 24px;
+}
+.rev-modal-body{
+  font-size:15px;color:rgba(255,255,255,0.5);
+  line-height:1.72;letter-spacing:-0.01em;
+  font-family:var(--font);
+}
+.rev-modal-body p{margin:0 0 14px;}
+.rev-modal-body p:last-child{margin:0;}
 
 /* ── FEATURED PROJECTS ── */
 .feat-sec{
@@ -1398,12 +1389,9 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .allp-table-head{ display:none }
   .allp-row{ grid-template-columns:1fr 100px; }
   .allp-row-role{ display:none }
-  .qw{ font-size:clamp(32px,9.5vw,56px); }
-  .rev-sec{ padding:40px 0 60px; margin-top:-12vh; }
-  .rev-sec-head{ margin-bottom:20px; flex-wrap:wrap; gap:12px; }
-  .rev-slide{ flex:0 0 86%; width:86%; }
-  .rev-card{ height:clamp(260px,72vw,380px); border-radius:16px; padding:24px 24px 20px; }
-  .rev-card::before{ font-size:150px; top:0; left:12px; }
+  .rev-card{ width:88vw; padding:28px 24px; gap:14px; }
+  .rev-card-quote{ font-size:clamp(17px,4.5vw,22px); }
+  .rev-modal-box{ padding:32px 24px; }
   .ab-proj-sec{ padding-top:48px; }
   .qp-img-wrap   { height:22vh; }
 }

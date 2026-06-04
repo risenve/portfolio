@@ -537,105 +537,79 @@
       </div>
     </section>
 
-    <!-- QUOTE ANIMATION (scroll-pinned) -->
-    <section class="quote-sec" id="quote-sec">
-      <div class="qw-row">
-        <p class="qw">SEE</p>
-        <p class="qw">WHAT</p>
-        <p class="qw">MY</p>
-      </div>
-      <div class="qw-row">
-        <p class="qw">CLIENTS</p>
-        <p class="qw">SAY</p>
-      </div>
-    </section>
-
-    <!-- REVIEWS SLIDER -->
+    <!-- REVIEWS: scroll-pinned card stack -->
     <section class="rev-sec" id="rev-sec" data-lang="en">
 
-      <!-- Header: label + lang toggle + nav -->
-      <div class="rev-sec-head">
-        <span class="rev-sec-title">Client Reviews</span>
-        <div class="rev-head-right">
-          <div class="rev-lang-toggle">
-            <button class="rev-lang-btn rev-lang-btn--active" data-lang="en">EN</button>
-            <button class="rev-lang-btn" data-lang="ru">RU</button>
-          </div>
-          <div class="rev-nav">
-            <button class="rev-nav-btn" id="rev-prev" aria-label="Previous review">&#8592;</button>
-            <div class="rev-dots" id="rev-dots">
-              <button class="rev-dot active" aria-label="Review 1"></button>
-              <button class="rev-dot" aria-label="Review 2"></button>
-              <button class="rev-dot" aria-label="Review 3"></button>
-            </div>
-            <button class="rev-nav-btn" id="rev-next" aria-label="Next review">&#8594;</button>
-          </div>
+      <!-- Language toggle: top-right -->
+      <div class="rev-lang-wrap">
+        <div class="rev-lang-toggle">
+          <button class="rev-lang-btn rev-lang-btn--active" data-lang="en">EN</button>
+          <button class="rev-lang-btn" data-lang="ru">RU</button>
         </div>
       </div>
 
-      <!-- Depth-stack slider -->
-      <div class="rev-slider-outer">
-        <div class="rev-slider-track" id="rev-slider-track">
+      <!-- Title (appears first, fades as first card arrives) -->
+      <h2 class="rev-title" id="rev-title">
+        <span>See what</span>
+        <span>my clients say</span>
+      </h2>
 
-          <!-- Slide 1: Skazpokrayu -->
-          <div class="rev-slide rev-active">
-            <div class="rev-card">
-              <div class="rev-card-body">
-                <p class="rev-headline" data-lang="en">"Ripsime takes full ownership of projects, builds efficient workflows, writes clear briefs for the team, and helps everyone move toward a shared goal."</p>
-                <p class="rev-headline" data-lang="ru">"Рипсиме берёт на себя проекты под ключ, грамотно выстраивает процессы, формирует чёткие ТЗ для команды и помогает каждому двигаться к общей цели."</p>
-                <div class="rev-text" data-lang="en"><p>She consistently offers multiple strong solutions and gives practical, constructive guidance that genuinely improves every step of the creative process.</p></div>
-                <div class="rev-text" data-lang="ru"><p>Особенно хочется отметить её способность предлагать несколько сильных решений на выбор и давать конструктивные рекомендации, которые реально улучшают рабочий процесс.</p></div>
-              </div>
-              <div class="rev-card-footer">
-                <div class="rev-card-avatar" style="background-image:url('/images/Works_Covers/skazpokrayu_cover.webp')"></div>
-                <div class="rev-card-credit">
-                  <span class="rev-credit-name">Alexandra &amp; Pavel</span>
-                  <span class="rev-credit-co">CEO · <a href="https://skazpokrayu.ru" target="_blank" rel="noopener">Skazpokrayu</a></span>
-                </div>
-              </div>
-            </div>
+      <!-- Card deck -->
+      <div class="rev-cards" id="rev-cards">
+
+        <!-- Card 0: Skazpokrayu (arrives first → back of deck) -->
+        <article class="rev-card" data-card="0">
+          <div class="rev-card-author">ALEXANDRA AND PAVEL — CEO <strong>SKAZPOKRAYU</strong></div>
+          <blockquote class="rev-card-quote">
+            <span class="rev-en">" Ripsime takes full ownership of projects, builds efficient workflows, writes clear briefs for the team, and helps everyone move toward a shared goal."</span>
+            <span class="rev-ru">" Рипсиме берёт на себя проекты под ключ, грамотно выстраивает процессы, формирует чёткие ТЗ для команды и помогает каждому двигаться к общей цели."</span>
+          </blockquote>
+          <div class="rev-card-body">
+            <p class="rev-en">She consistently offers multiple strong solutions and gives practical, constructive guidance that genuinely improves every step of the creative process. Working with her, you always feel the project is moving forward with intention and clarity.</p>
+            <p class="rev-ru">Хотим выразить искреннюю благодарность Рипсиме за её выдающийся профессионализм, ответственность и талант. За время совместной работы она проявила себя как исключительно самодисциплинированный и надёжный специалист. Особенно хочется отметить её способность предлагать несколько сильных решений на выбор и давать конструктивные рекомендации, которые реально улучшают рабочий процесс.</p>
           </div>
+          <button class="rev-read-all" data-card="0">READ ALL</button>
+        </article>
 
-          <!-- Slide 2: Premiumization -->
-          <div class="rev-slide rev-neighbor">
-            <div class="rev-card">
-              <div class="rev-card-body">
-                <p class="rev-headline" data-lang="en">"Ripsime is genuinely creative, with unconventional thinking. Together you find the visual language that truly clicks for your brand."</p>
-                <p class="rev-headline" data-lang="ru">"Рипсиме очень креативная, с нестандартным мышлением. Главное — вместе нащупать отклик, который визуально откликнется для ваших услуг."</p>
-                <div class="rev-text" data-lang="en"><p>She always offers options and is ready to guide you further along the way. Highly recommend working with her.</p></div>
-                <div class="rev-text" data-lang="ru"><p>Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить. Рекомендую.</p></div>
-              </div>
-              <div class="rev-card-footer">
-                <div class="rev-card-avatar" style="background-image:url('/premiumization/photo1.webp')"></div>
-                <div class="rev-card-credit">
-                  <span class="rev-credit-name">Liudmila Astafyeva</span>
-                  <span class="rev-credit-co">CEO · <a href="https://premiumization.ru" target="_blank" rel="noopener">premiumization.ru</a></span>
-                </div>
-              </div>
-            </div>
+        <!-- Card 1: Premiumization -->
+        <article class="rev-card" data-card="1">
+          <div class="rev-card-author">LIUDMILA ASTAFYEVA — CEO <strong>PREMIUMIZATION</strong></div>
+          <blockquote class="rev-card-quote">
+            <span class="rev-en">" Ripsime is genuinely creative, with unconventional thinking. Together you find the visual language that truly clicks for your brand."</span>
+            <span class="rev-ru">" Рипсиме очень креативная, с нестандартным мышлением. Главное — вместе нащупать отклик, который визуально откликнется для ваших услуг."</span>
+          </blockquote>
+          <div class="rev-card-body">
+            <p class="rev-en">She always offers options and is ready to guide you further along the way. Every direction feels considered and refined. Highly recommend working with her for any creative visual project.</p>
+            <p class="rev-ru">Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить. Каждое направление кажется обдуманным и выверенным. Рекомендую для любого творческого визуального проекта.</p>
           </div>
+          <button class="rev-read-all" data-card="1">READ ALL</button>
+        </article>
 
-          <!-- Slide 3: Drawstory -->
-          <div class="rev-slide rev-far">
-            <div class="rev-card">
-              <div class="rev-card-body">
-                <p class="rev-headline" data-lang="en">"Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive, polished interfaces."</p>
-                <p class="rev-headline" data-lang="ru">"Рипсиме проявляла инициативу на всём протяжении проекта, быстро разобралась в сложных AI-процессах и превратила идеи в понятные интерфейсы."</p>
-                <div class="rev-text" data-lang="en"><p>A talented UI/UX designer with a strong eye for clean design and product thinking. Highly recommend for any SaaS or AI product.</p></div>
-                <div class="rev-text" data-lang="ru"><p>Талантливый UI/UX-дизайнер с чувством чистоты дизайна и продуктового мышления. Рекомендую для SaaS или AI-продуктов.</p></div>
-              </div>
-              <div class="rev-card-footer">
-                <div class="rev-card-avatar" style="background-image:url('/images/Works_Covers/drawstory.webp')"></div>
-                <div class="rev-card-credit">
-                  <span class="rev-credit-name">Narek Ghazaryan</span>
-                  <span class="rev-credit-co">CEO · <a href="https://drawstory.com" target="_blank" rel="noopener">drawstory.com</a></span>
-                </div>
-              </div>
-            </div>
+        <!-- Card 2: Drawstory (arrives last → front of deck) -->
+        <article class="rev-card" data-card="2">
+          <div class="rev-card-author">NAREK GHAZARYAN — CEO <strong>DRAWSTORY</strong></div>
+          <blockquote class="rev-card-quote">
+            <span class="rev-en">" Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive, polished interfaces."</span>
+            <span class="rev-ru">" Рипсиме проявляла инициативу на всём протяжении проекта, быстро разобралась в сложных AI-процессах и превратила идеи в понятные интерфейсы."</span>
+          </blockquote>
+          <div class="rev-card-body">
+            <p class="rev-en">A talented UI/UX designer with a strong eye for clean design and product thinking. She brings structure to complex ideas without losing the visual spark. Highly recommend for any SaaS or AI product.</p>
+            <p class="rev-ru">Талантливый UI/UX-дизайнер с чувством чистоты дизайна и продуктового мышления. Она вносит структуру в сложные идеи, не теряя визуальной искры. Рекомендую для SaaS или AI-продуктов.</p>
           </div>
+          <button class="rev-read-all" data-card="2">READ ALL</button>
+        </article>
 
-        </div><!-- /.rev-slider-track -->
-      </div><!-- /.rev-slider-outer -->
+      </div><!-- /.rev-cards -->
+
+      <!-- READ ALL modal -->
+      <div class="rev-modal" id="rev-modal" aria-hidden="true">
+        <div class="rev-modal-box">
+          <button class="rev-modal-close" id="rev-modal-close" aria-label="Close">×</button>
+          <div class="rev-modal-author" id="rev-modal-author"></div>
+          <blockquote class="rev-modal-quote" id="rev-modal-quote"></blockquote>
+          <div class="rev-modal-body" id="rev-modal-body"></div>
+        </div>
+      </div>
 
     </section><!-- /.rev-sec -->
 
