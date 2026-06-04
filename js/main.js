@@ -460,43 +460,30 @@ function initReviewAnim() {
     });
   });
 
-  // ── READ ALL modal ──
-  var modal      = document.getElementById('rev-modal');
-  var modalAuth  = document.getElementById('rev-modal-author');
-  var modalQuote = document.getElementById('rev-modal-quote');
-  var modalBody  = document.getElementById('rev-modal-body');
-  var modalClose = document.getElementById('rev-modal-close');
-
-  document.querySelectorAll('.rev-read-all').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
+  // ── READ ALL — inline expand (card 0 only, no popup) ──
+  var readAllBtn = document.getElementById('rev-read-all-0');
+  if (readAllBtn) {
+    readAllBtn.addEventListener('click', function(e) {
       e.stopPropagation();
-      var card = btn.closest('.rev-card');
-      if (!card || !modal) return;
-      var lang   = revSec.getAttribute('data-lang') || 'en';
-      var cls    = lang === 'ru' ? '.rev-ru' : '.rev-en';
-      var authEl = card.querySelector('.rev-card-author');
-      var qEl    = card.querySelector('.rev-card-quote ' + cls);
-      var bEl    = card.querySelector('.rev-card-body ' + cls);
-      if (modalAuth)  modalAuth.innerHTML = authEl ? authEl.innerHTML : '';
-      if (modalQuote) modalQuote.textContent = qEl ? qEl.textContent.trim() : '';
-      if (modalBody)  modalBody.innerHTML = bEl ? '<p>' + bEl.innerHTML + '</p>' : '';
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+      var card = readAllBtn.closest('.rev-card');
+      if (!card) return;
+      var body = card.querySelector('.rev-card-body');
+      if (!body) return;
+      var isExpanded = !body.classList.contains('rev-card-body--preview');
+      if (!isExpanded) {
+        body.classList.remove('rev-card-body--preview');
+        readAllBtn.textContent = 'COLLAPSE';
+        // remove max-height constraint so card can expand
+        card.style.maxHeight = 'none';
+        card.style.overflowY = 'visible';
+      } else {
+        body.classList.add('rev-card-body--preview');
+        readAllBtn.textContent = 'READ ALL';
+        card.style.maxHeight = '';
+        card.style.overflowY = '';
+      }
     });
-  });
-
-  function closeModal() {
-    if (!modal) return;
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
   }
-  if (modalClose) modalClose.addEventListener('click', closeModal);
-  if (modal) {
-    modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
-  }
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 }
 
 // ── PROJECT SLIDER ──
@@ -716,4 +703,72 @@ document.addEventListener('DOMContentLoaded', function () {
     initViewToggle();
     initListHover();
   }
+});
+
+// ── CONTACT FORM — Web3Forms async submit ──
+function initContactForms() {
+  document.querySelectorAll('.contact-form-ajax').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var status = form.querySelector('.form-status');
+      var btn    = form.querySelector('.ol-submit');
+      var valid  = true;
+
+      // Clear previous errors
+      form.querySelectorAll('.input-error').forEach(function(el){ el.classList.remove('input-error'); });
+      form.querySelectorAll('.ol-consent').forEach(function(el){ el.classList.remove('consent-error'); });
+      if (status) { status.className = 'form-status'; status.textContent = ''; }
+
+      // Validate text/email inputs
+      form.querySelectorAll('input[required]:not([type=checkbox])').forEach(function(inp) {
+        var empty = !inp.value.trim();
+        var badEmail = inp.type === 'email' && inp.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value);
+        if (empty || badEmail) {
+          inp.classList.add('input-error');
+          valid = false;
+        }
+      });
+
+      // Validate checkbox
+      var consent = form.querySelector('input[type=checkbox][required]');
+      if (consent && !consent.checked) {
+        var label = consent.closest('.ol-consent');
+        if (label) label.classList.add('consent-error');
+        valid = false;
+      }
+
+      if (!valid) {
+        if (status) { status.className = 'form-status error'; status.textContent = 'Please fill in all required fields.'; }
+        return;
+      }
+
+      // Submit
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      var data = new FormData(form);
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(json) {
+        if (json.success) {
+          if (status) { status.className = 'form-status success'; status.textContent = 'Sent! I'll get back to you soon.'; }
+          form.reset();
+          btn.textContent = 'Sent ✓';
+        } else {
+          throw new Error(json.message || 'Error');
+        }
+      })
+      .catch(function(err) {
+        if (status) { status.className = 'form-status error'; status.textContent = 'Something went wrong. Try emailing directly: sargsyan.std@gmail.com'; }
+        btn.disabled = false;
+        btn.textContent = 'Send →';
+      });
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  initContactForms();
 });
