@@ -223,7 +223,13 @@
     .ah-stats {
       background: #000;
       position: relative; z-index: 5;
-      padding: 86px 6.32vw 80px; /* top:86px = 707-621; left:91px=6.32vw */
+      padding: 86px 0 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .ah-stats-inner {
+      width: min(900px, calc(100% - 2 * var(--pad-x)));
     }
     /* 4 cols: idx | num | unit | desc */
     .ah-stat-row {
@@ -519,23 +525,25 @@
 
     <!-- Stats: 4-col grid matching Figma (left:91px pad + 338|261|354|auto cols) -->
     <section class="ah-stats">
-      <div class="ah-stat-row">
-        <span class="ah-stat-idx">[01]</span>
-        <span class="ah-stat-num" data-target="99" data-suffix="%">0%</span>
-        <span class="ah-stat-unit">of companies</span>
-        <p class="ah-stat-desc">Satisfied with the services provided</p>
-      </div>
-      <div class="ah-stat-row">
-        <span class="ah-stat-idx">[02]</span>
-        <span class="ah-stat-num" data-prefix="&gt;" data-target="20">0</span>
-        <span class="ah-stat-unit">people in team</span>
-        <p class="ah-stat-desc">Average successful team members hired per month</p>
-      </div>
-      <div class="ah-stat-row">
-        <span class="ah-stat-idx">[03]</span>
-        <span class="ah-stat-num" data-target="90" data-suffix=" days">0</span>
-        <span class="ah-stat-unit"></span>
-        <p class="ah-stat-desc">Average project delivery time, depending on scope</p>
+      <div class="ah-stats-inner">
+        <div class="ah-stat-row">
+          <span class="ah-stat-idx">[01]</span>
+          <span class="ah-stat-num" data-target="99" data-suffix="%">0%</span>
+          <span class="ah-stat-unit">of companies</span>
+          <p class="ah-stat-desc">Satisfied with the services provided</p>
+        </div>
+        <div class="ah-stat-row">
+          <span class="ah-stat-idx">[02]</span>
+          <span class="ah-stat-num" data-prefix="&gt;" data-target="20">0</span>
+          <span class="ah-stat-unit">people in team</span>
+          <p class="ah-stat-desc">Average successful team members hired per month</p>
+        </div>
+        <div class="ah-stat-row">
+          <span class="ah-stat-idx">[03]</span>
+          <span class="ah-stat-num" data-target="90" data-suffix=" days">0</span>
+          <span class="ah-stat-unit"></span>
+          <p class="ah-stat-desc">Average project delivery time, depending on scope</p>
+        </div>
       </div>
     </section>
 
