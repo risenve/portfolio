@@ -111,7 +111,7 @@ const PROJECTS = [
     role: 'Product Designer',
     year: '2024',
     cover: '/images/Works_Covers/drawstory.webp', imgs: ['/images/Works_Covers/drawstory.webp'],
-    href: '#'
+    href: 'https://drawstory.com'
   }
 ];
 
@@ -225,24 +225,28 @@ function renderProjects(filter) {
 
   if (isGrid) {
     container.innerHTML = list.map(function (p) {
-      var tag = p.href !== '#' ? 'a' : 'div';
-      var href = p.href !== '#' ? ' href="' + p.href + '"' : '';
+      var isExternal = p.href && p.href.indexOf('http') === 0;
+      var tag = p.href && p.href !== '#' ? 'a' : 'div';
+      var href = p.href && p.href !== '#' ? ' href="' + p.href + '"' : '';
+      var targetAttr = isExternal ? ' target="_blank" rel="noopener"' : '';
       var inner = p.video
         ? '<video autoplay loop muted playsinline><source src="' + p.video + '" type="video/mp4"></video>'
         : p.cover
         ? '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">'
         : '<div class="card-placeholder"><span class="ph-num">' + p.id + '</span><span class="ph-title">' + p.title + '</span></div>';
-      return '<' + tag + href + ' class="project-card"><div class="card-img-wrap">' + inner +
+      return '<' + tag + href + targetAttr + ' class="project-card"><div class="card-img-wrap">' + inner +
         '</div><div class="card-info"><span class="card-title">' + p.title +
         '</span><span class="card-cat">' + p.type + '</span></div></' + tag + '>';
     }).join('');
     setTimeout(initCardReveal, 30);
   } else {
     container.innerHTML = list.map(function (p) {
-      var tag = p.href !== '#' ? 'a' : 'div';
-      var href = p.href !== '#' ? ' href="' + p.href + '"' : '';
+      var isExternal = p.href && p.href.indexOf('http') === 0;
+      var tag = p.href && p.href !== '#' ? 'a' : 'div';
+      var href = p.href && p.href !== '#' ? ' href="' + p.href + '"' : '';
+      var targetAttr = isExternal ? ' target="_blank" rel="noopener"' : '';
       var imgs = JSON.stringify(p.imgs || []);
-      return '<' + tag + href + ' class="project-row" data-imgs=\'' + imgs + '\'>' +
+      return '<' + tag + href + targetAttr + ' class="project-row" data-imgs=\'' + imgs + '\'>' +
         '<span class="row-title">' + p.title + '</span>' +
         '<span class="row-cat">' + p.type + '</span>' +
       '</' + tag + '>';
@@ -356,26 +360,20 @@ function initReviewAnim() {
     });
   });
 
-  // ── READ ALL — inline expand (card 0 only, no popup) ──
+  // ── READ ALL — show/hide full review text below the quote ──
   var readAllBtn = document.getElementById('rev-read-all-0');
   if (readAllBtn) {
     readAllBtn.addEventListener('click', function(e) {
       e.stopPropagation();
-      var card = readAllBtn.closest('.rev-card');
-      if (!card) return;
-      var body = card.querySelector('.rev-card-body');
-      if (!body) return;
-      var isExpanded = !body.classList.contains('rev-card-body--preview');
+      var fullBody = document.getElementById('rev-full-body-0');
+      if (!fullBody) return;
+      var isExpanded = fullBody.classList.contains('expanded');
       if (!isExpanded) {
-        body.classList.remove('rev-card-body--preview');
+        fullBody.classList.add('expanded');
         readAllBtn.textContent = 'COLLAPSE';
-        card.style.maxHeight = 'none';
-        card.style.overflowY = 'visible';
       } else {
-        body.classList.add('rev-card-body--preview');
+        fullBody.classList.remove('expanded');
         readAllBtn.textContent = 'READ ALL';
-        card.style.maxHeight = '';
-        card.style.overflowY = '';
       }
     });
   }

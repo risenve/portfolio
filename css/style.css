@@ -1149,12 +1149,12 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   line-height:1;
   font-family:var(--font);
 }
-/* Cards: 3 equal-width columns, stretch height */
+/* Cards: 3 equal-width columns, each self-sized */
 .rev-cards{
   display:flex;
   flex-direction:row;
   gap:10px;
-  align-items:stretch;
+  align-items:flex-start;
   border:none;
 }
 /* Card: white default, yellow on hover, author top + text bottom */
@@ -1173,7 +1173,9 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   border:none;
   cursor:default;
 }
-.rev-card:hover{background:#ffba00;}
+.rev-card:hover{background:#e8e8e8;}
+/* Skazpokrayu card — taller than the other two */
+.rev-card--skaz{ min-height:440px; }
 /* Card header: "Name — CEO CompanyLink", uppercase 14px roman */
 .rev-card-header{
   font-size:14px;
@@ -1218,6 +1220,21 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   display:flex;
   flex-direction:column;
   gap:0;
+}
+/* Full review text (revealed on READ ALL) */
+.rev-full-body{
+  display:none;
+  margin-top:16px;
+}
+.rev-full-body.expanded{ display:block; }
+.rev-full-text{
+  font-size:14px;
+  font-weight:400;
+  color:#000;
+  line-height:1.45;
+  letter-spacing:-0.01em;
+  font-family:var(--font);
+  margin:0;
 }
 /* READ ALL button */
 .rev-card .rev-read-all{
