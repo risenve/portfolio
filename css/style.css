@@ -1129,6 +1129,8 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .rev-card{
   position:absolute;
   width:min(72vw,860px);
+  max-height:72vh;
+  overflow-y:auto;
   background:#f4f4f4;
   padding:44px 52px;
   display:flex;
@@ -1139,49 +1141,53 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   -webkit-user-select:none;
   will-change:transform;
   box-shadow:0 4px 32px rgba(0,0,0,0.07);
+  scrollbar-width:thin;
+  scrollbar-color:rgba(0,0,0,0.2) transparent;
 }
 .rev-card:active{cursor:grabbing;}
 .rev-card[data-card="0"]{z-index:1;}
 .rev-card[data-card="1"]{z-index:2;}
 .rev-card[data-card="2"]{z-index:3;}
-/* Author line */
+/* Author block: two lines + divider */
 .rev-card-author{
-  font-size:11px;font-weight:500;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:#000;
-  font-family:var(--font);
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(0,0,0,0.13);
 }
-.rev-card-author strong{color:#000;font-weight:700;}
-/* Quote (large) */
+.rev-author-name{
+  display:block;
+  font-size:16px;font-weight:400;
+  text-transform:uppercase;letter-spacing:0.07em;
+  color:#000;font-family:var(--font);
+}
+.rev-author-company{
+  display:block;
+  font-size:16px;font-weight:500;
+  text-transform:uppercase;letter-spacing:0.07em;
+  color:#000;font-family:var(--font);
+  text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:1px;
+}
+.rev-author-company:hover{opacity:.6;}
+/* Quote — 24 medium 105% */
 .rev-card-quote{
-  font-size:clamp(20px,2.3vw,34px);
-  font-weight:400;color:#000;
-  line-height:1.25;letter-spacing:-0.023em;
+  font-size:24px;
+  font-weight:500;color:#000;
+  line-height:1.05;letter-spacing:-0.01em;
   font-family:var(--font);margin:0;
 }
-/* Body (truncated) */
+/* Body — 16 roman 105%, full text */
 .rev-card-body{
-  font-size:clamp(13px,0.95vw,15px);
-  color:#000;
-  line-height:1.55;letter-spacing:-0.01em;
+  font-size:16px;font-weight:400;
+  color:#000;line-height:1.05;
   font-family:var(--font);
-  overflow:hidden;
-  display:-webkit-box;
-  -webkit-line-clamp:3;
-  -webkit-box-orient:vertical;
+  overflow:visible;
+  display:block;
 }
-.rev-card-body p{margin:0;}
-/* READ ALL */
-.rev-read-all{
-  background:none;border:none;cursor:pointer;
-  font-family:var(--font);
-  font-size:11px;font-weight:500;
-  letter-spacing:0.15em;text-transform:uppercase;
-  color:#999;
-  padding:4px 0;align-self:center;
-  transition:color 0.2s;
-}
-.rev-read-all:hover{color:#000;}
+.rev-card-body p{margin:0 0 10px;}
+.rev-card-body p:last-child{margin:0;}
 /* ── Modal ── */
 .rev-modal{
   position:fixed;inset:0;
@@ -1207,22 +1213,24 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 }
 .rev-modal-close:hover{color:#000;}
 .rev-modal-author{
-  font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
-  color:#000;font-weight:500;
-  font-family:var(--font);margin-bottom:28px;
+  display:flex;flex-direction:column;gap:3px;
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(0,0,0,0.13);
+  margin-bottom:28px;
 }
-.rev-modal-author strong{color:#000;font-weight:700;}
+.rev-modal-author .rev-author-name{font-size:16px;font-weight:400;}
+.rev-modal-author .rev-author-company{font-size:16px;font-weight:500;}
 .rev-modal-quote{
-  font-size:clamp(18px,1.9vw,26px);font-weight:400;
-  color:#000;line-height:1.28;letter-spacing:-0.02em;
+  font-size:24px;font-weight:500;
+  color:#000;line-height:1.05;letter-spacing:-0.01em;
   font-family:var(--font);margin:0 0 24px;
 }
 .rev-modal-body{
-  font-size:15px;color:#000;
-  line-height:1.6;letter-spacing:-0.01em;
+  font-size:16px;font-weight:400;color:#000;
+  line-height:1.05;
   font-family:var(--font);
 }
-.rev-modal-body p{margin:0 0 14px;}
+.rev-modal-body p{margin:0 0 12px;}
 .rev-modal-body p:last-child{margin:0;}
 
 /* ── FEATURED PROJECTS ── */
@@ -1390,8 +1398,8 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .allp-table-head{ display:none }
   .allp-row{ grid-template-columns:1fr 100px; }
   .allp-row-role{ display:none }
-  .rev-card{ width:88vw; padding:28px 24px; gap:14px; }
-  .rev-card-quote{ font-size:clamp(17px,4.5vw,22px); }
+  .rev-card{ width:92vw; padding:28px 24px; gap:16px; }
+  .rev-card-quote{ font-size:20px; }
   .rev-modal-box{ padding:32px 24px; }
   .ab-proj-sec{ padding-top:48px; }
   .qp-img-wrap   { height:22vh; }

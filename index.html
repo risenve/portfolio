@@ -226,23 +226,20 @@
       padding: 86px 6.32vw 80px; /* top:86px = 707-621; left:91px=6.32vw */
     }
     /* 4 cols: [01]=338px | 99%=261px | unit=354px | desc=auto */
+    /* 3 cols: num | unit | desc (idx removed) */
     .ah-stat-row {
       display: grid;
-      grid-template-columns: 23.47vw 18.13vw 24.58vw auto;
+      grid-template-columns: 22vw 26vw auto;
       align-items: end;
       padding: 16px 0 36px;
       border-top: 1px solid rgba(255,255,255,0.1);
     }
     .ah-stat-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .ah-stat-idx {
-      font-size: clamp(12px, 1.39vw, 20px);
-      font-weight: 300; color: rgba(255,255,255,0.5);
-    }
     .ah-stat-num {
       font-size: clamp(60px, 8.33vw, 120px);
       font-weight: 400; letter-spacing: -0.04em;
       line-height: normal; color: #fff;
-      align-self: start; /* number anchors to top of row */
+      align-self: start;
       white-space: nowrap;
     }
     .ah-stat-unit {
@@ -251,8 +248,18 @@
     }
     .ah-stat-desc {
       font-size: clamp(12px, 1.39vw, 20px);
-      font-weight: 300; color: rgba(255,255,255,0.6);
+      font-weight: 400; color: #fff;
       line-height: 1.2; align-self: center;
+    }
+    /* Gradient fade: stats (black) → reviews (white) */
+    .ah-stats::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 90px;
+      background: linear-gradient(to bottom, transparent, #fff);
+      pointer-events: none;
+      z-index: 6;
     }
 
     /* ── QUOTE OVERLAY PROJECTS ── */
@@ -369,7 +376,6 @@
         text-align: center;
         padding: 20px 0;
       }
-      .ah-stat-idx { align-self: flex-start; margin-bottom: 4px; }
       .ah-stat-num { align-self: center; width: 100%; text-align: center; }
       .ah-stat-unit { align-self: auto; text-align: center; margin-top: 4px; }
       .ah-stat-desc { grid-column: unset; text-align: center; justify-self: auto; max-width: 100%; margin-top: 6px; }
@@ -518,19 +524,16 @@
     <!-- Stats: 4-col grid matching Figma (left:91px pad + 338|261|354|auto cols) -->
     <section class="ah-stats">
       <div class="ah-stat-row">
-        <span class="ah-stat-idx">[01]</span>
         <span class="ah-stat-num" data-target="99" data-suffix="%">0%</span>
         <span class="ah-stat-unit">of companies</span>
         <p class="ah-stat-desc">Satisfied with the services provided</p>
       </div>
       <div class="ah-stat-row">
-        <span class="ah-stat-idx">[02]</span>
         <span class="ah-stat-num" data-prefix="&gt;" data-target="20">0</span>
         <span class="ah-stat-unit">people in team</span>
         <p class="ah-stat-desc">Average successful team members hired per month</p>
       </div>
       <div class="ah-stat-row">
-        <span class="ah-stat-idx">[03]</span>
         <span class="ah-stat-num" data-target="90" data-suffix=" days">0</span>
         <span class="ah-stat-unit"></span>
         <p class="ah-stat-desc">Average project delivery time, depending on scope</p>
@@ -559,44 +562,54 @@
 
         <!-- Card 0: Skazpokrayu (arrives first → back of deck) -->
         <article class="rev-card" data-card="0">
-          <div class="rev-card-author">ALEXANDRA AND PAVEL — CEO <strong>SKAZPOKRAYU</strong></div>
+          <div class="rev-card-author">
+            <span class="rev-author-name">
+              <span class="rev-ru">Александра и Павел</span>
+              <span class="rev-en">Alexandra &amp; Pavel</span>
+            </span>
+            <a href="/skazpokrayu" class="rev-author-company">Skazpokrayu</a>
+          </div>
           <blockquote class="rev-card-quote">
-            <span class="rev-en">" Ripsime takes full ownership of projects, builds efficient workflows, writes clear briefs for the team, and helps everyone move toward a shared goal."</span>
-            <span class="rev-ru">" Рипсиме берёт на себя проекты под ключ, грамотно выстраивает процессы, формирует чёткие ТЗ для команды и помогает каждому двигаться к общей цели."</span>
+            <span class="rev-en">We sincerely thank Ripsime for her outstanding professionalism, reliability, and talent.</span>
+            <span class="rev-ru">Хотим выразить искреннюю благодарность Рипсиме за её выдающийся профессионализм, ответственность и талант.</span>
           </blockquote>
           <div class="rev-card-body">
-            <p class="rev-en">She consistently offers multiple strong solutions and gives practical, constructive guidance that genuinely improves every step of the creative process. Working with her, you always feel the project is moving forward with intention and clarity.</p>
-            <p class="rev-ru">Хотим выразить искреннюю благодарность Рипсиме за её выдающийся профессионализм, ответственность и талант. За время совместной работы она проявила себя как исключительно самодисциплинированный и надёжный специалист. Особенно хочется отметить её способность предлагать несколько сильных решений на выбор и давать конструктивные рекомендации, которые реально улучшают рабочий процесс.</p>
+            <p class="rev-en">Over the course of working together she proved herself an exceptionally self-disciplined and reliable professional. Ripsime doesn't just do design work — she takes full ownership of projects, builds efficient workflows, writes clear briefs for the team, and helps everyone move toward a shared goal. She consistently offers multiple strong solutions, accounts for various project scenarios, and gives practical, constructive guidance that genuinely improves the workflow and results. We are very happy with our collaboration and sincerely wish her continued creative success, of which we are absolutely certain.</p>
+            <p class="rev-ru">За время совместной работы она проявила себя как исключительно самодисциплинированный и надёжный специалист. Мы редко встречали людей с таким уровнем организованности, вовлечённости и умением доводить любые задачи до безупречного результата.<br><br>Рипсиме не просто выполняет работу как дизайнер — она берёт на себя проекты под ключ, грамотно выстраивает процессы, формирует чёткие технические задания для команды и помогает каждому участнику эффективно двигаться к общей цели.<br><br>Особенно хочется отметить её способность предлагать несколько сильных решений на выбор, учитывать разные сценарии развития проекта и давать конструктивные, практичные рекомендации, которые действительно помогают улучшать рабочий процесс и достигать лучших результатов.<br><br>Большое спасибо за высокий уровень профессионализма, ответственность и искреннюю заинтересованность в успехе нашего проекта. Со временем Рипсиме стала для нас не просто ценным сотрудником, а настоящим партнёром, на которого можно положиться в любой ситуации. Мы очень рады нашему сотрудничеству и от всей души желаем больших творческих успехов!</p>
           </div>
-          <button class="rev-read-all" data-card="0">READ ALL</button>
         </article>
 
         <!-- Card 1: Premiumization -->
         <article class="rev-card" data-card="1">
-          <div class="rev-card-author">LIUDMILA ASTAFYEVA — CEO <strong>PREMIUMIZATION</strong></div>
+          <div class="rev-card-author">
+            <span class="rev-author-name">
+              <span class="rev-ru">Людмила Астафьева</span>
+              <span class="rev-en">Liudmila Astafyeva</span>
+            </span>
+            <a href="/premiumization" class="rev-author-company">Premiumization</a>
+          </div>
           <blockquote class="rev-card-quote">
-            <span class="rev-en">" Ripsime is genuinely creative, with unconventional thinking. Together you find the visual language that truly clicks for your brand."</span>
-            <span class="rev-ru">" Рипсиме очень креативная, с нестандартным мышлением. Главное — вместе нащупать отклик, который визуально откликнется для ваших услуг."</span>
+            <span class="rev-en">Ripsime is genuinely creative with unconventional thinking — together you find the visual language that truly resonates for your services.</span>
+            <span class="rev-ru">Рекомендую работу с Рипсиме, так как девушка очень креативная, нестандартное мышление — главное вместе «нащупать» отклик, который визуально откликнется для ваших услуг.</span>
           </blockquote>
           <div class="rev-card-body">
-            <p class="rev-en">She always offers options and is ready to guide you further along the way. Every direction feels considered and refined. Highly recommend working with her for any creative visual project.</p>
-            <p class="rev-ru">Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить. Каждое направление кажется обдуманным и выверенным. Рекомендую для любого творческого визуального проекта.</p>
+            <p class="rev-en">Ripsime offers options and is always ready to guide you further along the way.</p>
+            <p class="rev-ru">Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить.</p>
           </div>
-          <button class="rev-read-all" data-card="1">READ ALL</button>
         </article>
 
         <!-- Card 2: Drawstory (arrives last → front of deck) -->
         <article class="rev-card" data-card="2">
-          <div class="rev-card-author">NAREK GHAZARYAN — CEO <strong>DRAWSTORY</strong></div>
+          <div class="rev-card-author">
+            <span class="rev-author-name">Narek Ghazaryan</span>
+            <a href="#" class="rev-author-company">Drawstory</a>
+          </div>
           <blockquote class="rev-card-quote">
-            <span class="rev-en">" Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive, polished interfaces."</span>
-            <span class="rev-ru">" Рипсиме проявляла инициативу на всём протяжении проекта, быстро разобралась в сложных AI-процессах и превратила идеи в понятные интерфейсы."</span>
+            Worked with Ripsime on an AI B2B SaaS project, and it was a great experience collaborating with her. She's a very talented UI/UX designer with a strong eye for clean design, user experience, and product thinking.
           </blockquote>
           <div class="rev-card-body">
-            <p class="rev-en">A talented UI/UX designer with a strong eye for clean design and product thinking. She brings structure to complex ideas without losing the visual spark. Highly recommend for any SaaS or AI product.</p>
-            <p class="rev-ru">Талантливый UI/UX-дизайнер с чувством чистоты дизайна и продуктового мышления. Она вносит структуру в сложные идеи, не теряя визуальной искры. Рекомендую для SaaS или AI-продуктов.</p>
+            <p>Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces. Highly recommend working with her for any SaaS or AI product.</p>
           </div>
-          <button class="rev-read-all" data-card="2">READ ALL</button>
         </article>
 
       </div><!-- /.rev-cards -->
