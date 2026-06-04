@@ -1098,17 +1098,13 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .stat-mid{font-size:20px;font-weight:300;color:#fff}
 .stat-desc{font-size:20px;font-weight:300;color:#fff}
 
-/* ── REVIEWS (horizontal row) ── */
+/* ── REVIEWS (list / accordion like ref) ── */
 .rev-sec{
   position:relative;
   background:#fff;
-  padding:100px var(--pad-x) 100px;
-  display:grid;
-  grid-template-columns:clamp(160px,18vw,260px) 1fr;
-  gap:60px;
-  align-items:start;
+  padding:100px var(--pad-x) 80px;
 }
-/* Language toggle — top-right corner of section */
+/* Language toggle — top-right */
 .rev-lang-wrap{
   position:absolute;
   top:36px;right:var(--pad-x);
@@ -1135,60 +1131,53 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 /* Language content visibility */
 .rev-sec[data-lang="en"] .rev-ru{display:none;}
 .rev-sec[data-lang="ru"] .rev-en{display:none;}
-/* Section title — left column, stays visible */
+/* Section title — full-width, left-aligned, large */
 .rev-title{
-  position:sticky;
-  top:100px;
+  position:static;
   text-align:left;
   opacity:1;
   pointer-events:auto;
-  width:auto;
+  width:100%;
+  margin-bottom:60px;
 }
 .rev-title span{
   display:block;
-  font-size:clamp(32px,3.6vw,56px);
+  font-size:clamp(48px,7vw,110px);
   font-weight:400;
   color:#000;
   letter-spacing:-0.03em;
   line-height:1.05;
   font-family:var(--font);
 }
-/* Cards container — horizontal scrollable row */
+/* Cards container — vertical list with bottom border */
 .rev-cards{
   display:flex;
-  flex-direction:row;
-  gap:20px;
-  overflow-x:auto;
-  align-items:start;
-  padding-bottom:12px;
-  scroll-snap-type:x proximity;
-  /* hide scrollbar visually but keep functionality */
-  scrollbar-width:none;
-}
-.rev-cards::-webkit-scrollbar{ display:none; }
-/* Individual card */
-.rev-card{
-  flex-shrink:0;
-  width:clamp(280px,30vw,400px);
-  max-height:72vh;
-  overflow-y:auto;
-  background:#f4f4f4;
-  padding:40px 36px;
-  display:flex;
   flex-direction:column;
-  gap:20px;
-  box-shadow:0 4px 32px rgba(0,0,0,0.07);
-  scrollbar-width:thin;
-  scrollbar-color:rgba(0,0,0,0.2) transparent;
-  scroll-snap-align:start;
+  border-bottom:1px solid rgba(0,0,0,0.12);
 }
-/* Author block: two lines + divider */
+/* Each review row: 2-col grid (author left | content right) */
+.rev-card{
+  display:grid;
+  grid-template-columns:clamp(200px,28vw,380px) 1fr;
+  grid-template-rows:auto auto auto;
+  column-gap:60px;
+  padding:44px 0;
+  border-top:1px solid rgba(0,0,0,0.12);
+  background:transparent;
+  box-shadow:none;
+  max-height:none;
+  overflow-y:visible;
+  align-items:start;
+}
+/* Author → left column, spans all rows */
 .rev-card-author{
+  grid-column:1;
+  grid-row:1 / 4;
   display:flex;
   flex-direction:column;
   gap:3px;
-  padding-bottom:20px;
-  border-bottom:1px solid rgba(0,0,0,0.13);
+  padding-bottom:0;
+  border-bottom:none;
 }
 .rev-author-name{
   display:block;
@@ -1205,23 +1194,35 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   text-decoration-thickness:1px;
 }
 .rev-author-company:hover{opacity:.6;}
-/* Quote — 24 medium 105% */
+/* Quote → right column, row 1 */
 .rev-card-quote{
+  grid-column:2;
+  grid-row:1;
   font-size:24px;
   font-weight:500;color:#000;
   line-height:1.05;letter-spacing:-0.01em;
   font-family:var(--font);margin:0;
 }
-/* Body — 16 roman 105%, full text */
+/* Body → right column, row 2 */
 .rev-card-body{
+  grid-column:2;
+  grid-row:2;
   font-size:16px;font-weight:400;
   color:#000;line-height:1.05;
   font-family:var(--font);
   overflow:visible;
   display:block;
+  margin-top:16px;
 }
 .rev-card-body p{margin:0 0 10px;}
 .rev-card-body p:last-child{margin:0;}
+/* READ ALL → right column, row 3 */
+.rev-card .rev-read-all{
+  grid-column:2;
+  grid-row:3;
+  margin-top:12px;
+  justify-self:start;
+}
 /* ── Modal ── */
 .rev-modal{
   position:fixed;inset:0;
@@ -1432,11 +1433,14 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .allp-table-head{ display:none }
   .allp-row{ grid-template-columns:1fr 100px; }
   .allp-row-role{ display:none }
-  .rev-sec{ grid-template-columns:1fr; gap:32px; padding:60px var(--pad-x) 60px; }
-  .rev-title{ position:static; }
-  .rev-title span{ font-size:clamp(32px,8vw,52px); }
-  .rev-card{ width:80vw; padding:28px 24px; gap:16px; }
-  .rev-card-quote{ font-size:20px; }
+  .rev-sec{ padding:60px var(--pad-x) 60px; }
+  .rev-title{ margin-bottom:36px; }
+  .rev-title span{ font-size:clamp(36px,9vw,72px); }
+  .rev-card{ grid-template-columns:1fr; column-gap:0; padding:28px 0; }
+  .rev-card-author{ grid-row:1; margin-bottom:14px; }
+  .rev-card-quote{ grid-column:1; grid-row:2; font-size:20px; }
+  .rev-card-body{ grid-column:1; grid-row:3; }
+  .rev-card .rev-read-all{ grid-column:1; grid-row:4; }
   .rev-modal-box{ padding:32px 24px; }
   .ab-proj-sec{ padding-top:48px; }
   .qp-img-wrap   { height:22vh; }

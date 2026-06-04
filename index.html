@@ -155,7 +155,7 @@
       background: #fff;
       color: #000;
       overflow: hidden;
-      padding: 56px 6.32vw 56px;
+      padding: 100px 6.32vw 56px;
       display: flex;
       flex-direction: column;
     }
@@ -225,16 +225,23 @@
       position: relative; z-index: 5;
       padding: 86px 6.32vw 80px; /* top:86px = 707-621; left:91px=6.32vw */
     }
-    /* 4 cols: [01]=338px | 99%=261px | unit=354px | desc=auto */
-    /* 3 cols: num | unit | desc (idx removed) */
+    /* 4 cols: idx | num | unit | desc */
     .ah-stat-row {
       display: grid;
-      grid-template-columns: 22vw 26vw auto;
+      grid-template-columns: 60px 22vw 26vw auto;
       align-items: end;
       padding: 16px 0 36px;
       border-top: 1px solid rgba(255,255,255,0.1);
     }
     .ah-stat-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .ah-stat-idx {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      align-self: end;
+      padding-bottom: 10px;
+      font-family: var(--font);
+    }
     .ah-stat-num {
       font-size: clamp(60px, 8.33vw, 120px);
       font-weight: 400; letter-spacing: -0.04em;
@@ -513,16 +520,19 @@
     <!-- Stats: 4-col grid matching Figma (left:91px pad + 338|261|354|auto cols) -->
     <section class="ah-stats">
       <div class="ah-stat-row">
+        <span class="ah-stat-idx">[01]</span>
         <span class="ah-stat-num" data-target="99" data-suffix="%">0%</span>
         <span class="ah-stat-unit">of companies</span>
         <p class="ah-stat-desc">Satisfied with the services provided</p>
       </div>
       <div class="ah-stat-row">
+        <span class="ah-stat-idx">[02]</span>
         <span class="ah-stat-num" data-prefix="&gt;" data-target="20">0</span>
         <span class="ah-stat-unit">people in team</span>
         <p class="ah-stat-desc">Average successful team members hired per month</p>
       </div>
       <div class="ah-stat-row">
+        <span class="ah-stat-idx">[03]</span>
         <span class="ah-stat-num" data-target="90" data-suffix=" days">0</span>
         <span class="ah-stat-unit"></span>
         <p class="ah-stat-desc">Average project delivery time, depending on scope</p>
