@@ -1896,6 +1896,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   line-height:1.2;
   position:relative;
   padding-bottom:3px;
+  align-self:flex-start;
 }
 .skp-project-link::after{
   content:'';

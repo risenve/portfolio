@@ -46,75 +46,6 @@
       font-family: var(--font);
     }
 
-    /* Project info */
-    .prm-info {
-      display: flex;
-      gap: 0;
-      background: #0a0a0a;
-      padding: 80px var(--pad-x);
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .prm-info-left {
-      flex: 1;
-      padding-right: 60px;
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-    .prm-info-right {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-    .prm-info-headline {
-      font-size: clamp(20px, 1.94vw, 28px);
-      font-weight: 500;
-      color: #fff;
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-      font-family: var(--font);
-    }
-    .prm-services {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .prm-service-tag {
-      font-size: 11px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.45);
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 5px 11px;
-      letter-spacing: -0.01em;
-      font-family: var(--font);
-    }
-    .prm-link {
-      font-size: 13px;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: -0.01em;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      font-family: var(--font);
-    }
-    .prm-context-block { display: flex; flex-direction: column; gap: 6px; }
-    .prm-context-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      font-family: var(--font);
-    }
-    .prm-context-text {
-      font-size: 16px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.55;
-      letter-spacing: -0.02em;
-      font-family: var(--font);
-    }
-
     /* Full-width image / video sections */
     .prm-full {
       width: 100%;
@@ -177,6 +108,39 @@
     .prm-video video {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
+    }
+
+    /* Green block (Figma node 109-5679) */
+    .prm-green-block {
+      background: #0d1e18;
+      padding: 80px var(--pad-x) 100px;
+    }
+    .prm-green-quote {
+      display: block;
+      font-size: 72px;
+      color: rgba(255,255,255,0.55);
+      line-height: 0.85;
+      margin-bottom: 28px;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+    .prm-green-headline {
+      font-size: clamp(26px, 3.6vw, 52px);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      font-family: var(--font);
+      max-width: 880px;
+      margin: 0 0 48px;
+    }
+    .prm-green-body {
+      font-size: clamp(14px, 1.05vw, 15px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.62;
+      letter-spacing: -0.01em;
+      font-family: var(--font);
+      max-width: 420px;
     }
 
     /* Credits */
@@ -253,8 +217,6 @@
     /* Mobile */
     @media (max-width: 720px) {
       .prm-hero-inner { bottom: 32px; }
-      .prm-info { flex-direction: column; gap: 40px; padding: 48px var(--pad-x); }
-      .prm-info-left { padding-right: 0; }
       .prm-split { grid-template-columns: 1fr; gap: 4px; }
       .prm-split-col { min-height: 280px; }
       .prm-text { padding: 48px var(--pad-x); }
@@ -262,6 +224,7 @@
       .prm-credits-grid { flex-direction: column; gap: 32px; }
       .prm-see-also { padding: 48px var(--pad-x); }
       .prm-see-also-grid { grid-template-columns: 1fr 1fr; max-width: 100%; }
+      .prm-green-block { padding: 56px var(--pad-x) 64px; }
     }
   </style>
 </head>
@@ -350,12 +313,12 @@
 
   <!-- PAGE CONTENT -->
   <div class="page-wrap">
-  <main class="prm-main">
+  <main class="prm-main skp-main-dark">
 
-    <!-- 1. Hero: video cover (scene1 in Figma) -->
+    <!-- 1. Hero: video cover -->
     <section class="prm-hero">
       <video autoplay muted loop playsinline>
-        <source src="video_1.mp4" type="video/mp4">
+        <source src="/images/premiumization/video_1.mp4" type="video/mp4">
       </video>
       <div class="prm-hero-inner">
         <h1 class="prm-hero-title">Премиумизация</h1>
@@ -363,114 +326,90 @@
       </div>
     </section>
 
-    <!-- 2. Project info -->
-    <section class="prm-info">
-      <div class="prm-info-left">
-        <p class="prm-info-headline">Premiumization — платформа, которая помогает брендам и личностям переходить в сегмент Premium через визуальную трансформацию и стратегическое позиционирование.</p>
-        <div class="prm-services">
-          <span class="prm-service-tag">UI/UX Design</span>
-          <span class="prm-service-tag">AI Art Direction</span>
-          <span class="prm-service-tag">Brand Visual</span>
-          <span class="prm-service-tag">Motion</span>
-          <span class="prm-service-tag">Web Design</span>
+    <!-- 2. Project info (SKP-style, dark variant) -->
+    <section class="skp-project-info">
+      <div class="skp-project-info-left">
+        <p class="skp-info-headline">Premiumization — платформа, которая помогает брендам и личностям переходить в сегмент Premium через визуальную трансформацию и стратегическое позиционирование.</p>
+        <div class="skp-project-services">
+          <p>UI/UX Design</p>
+          <p>AI Art Direction</p>
+          <p>Brand Visual</p>
+          <p>Motion</p>
+          <p>Web Design</p>
         </div>
-        <a href="https://premiumization.ru" class="prm-link" target="_blank" rel="noopener">premiumization.ru</a>
+        <a href="https://premiumization.ru" class="skp-project-link" target="_blank" rel="noopener">premiumization.ru</a>
       </div>
-      <div class="prm-info-right">
-        <div class="prm-context-block">
-          <span class="prm-context-label">Задача</span>
-          <p class="prm-context-text">Создать современный визуальный язык для платформы, который передаёт идею трансформации в премиальный сегмент. Сайт должен был вызывать ощущение роскоши, экспертизы и уникальности с первого взгляда.</p>
-        </div>
-        <div class="prm-context-block">
-          <span class="prm-context-label">Решение</span>
-          <p class="prm-context-text">AI-арт директинг как основа визуального кода: генерация ботанических арт-объектов, кинематографические сцены с цветами и природой. UI строится на контрасте тёмного фона и воздушных органических форм.</p>
-        </div>
-        <div class="prm-context-block">
-          <span class="prm-context-label">Результат</span>
-          <p class="prm-context-text">Уникальная визуальная система с AI-арт-директингом, сайт с чёткой структурой услуг, брендовые видео для соцсетей и презентаций.</p>
+      <div class="skp-project-info-right">
+        <div class="skp-context-blocks">
+          <div class="skp-context-block">
+            <span class="skp-context-label">Задача</span>
+            <p class="skp-context-text">Создать современный визуальный язык для платформы, который передаёт идею трансформации в премиальный сегмент. Сайт должен был вызывать ощущение роскоши, экспертизы и уникальности с первого взгляда.</p>
+          </div>
+          <div class="skp-context-block">
+            <span class="skp-context-label">Решение</span>
+            <p class="skp-context-text">AI-арт директинг как основа визуального кода: генерация ботанических арт-объектов, кинематографические сцены с цветами и природой. UI строится на контрасте тёмного фона и воздушных органических форм.</p>
+          </div>
+          <div class="skp-context-block">
+            <span class="skp-context-label">Результат</span>
+            <p class="skp-context-text">Уникальная визуальная система с AI-арт-директингом, сайт с чёткой структурой услуг, брендовые видео для соцсетей и презентаций.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. scene2: glass roses — first botanical (Figma "img section" after info) -->
+    <!-- 3. photo6: full width -->
     <section class="prm-full prm-full--vh">
-      <img src="scene2.webp" alt="Premiumization — AI botanical scene">
+      <img src="/images/premiumization/photo6.webp" alt="Premiumization">
     </section>
 
-    <!-- 4. Text: AI art direction concept -->
+    <!-- 4. Green block (Figma 109-5679) -->
+    <section class="prm-green-block">
+      <span class="prm-green-quote">"</span>
+      <h2 class="prm-green-headline">Помогать брендам, предпринимателям и бизнесам как работает премиумизация сегодня, принимать стратегические решения на основе аналитики</h2>
+      <p class="prm-green-body">Превращаем тренды в структурированные отчёты, чтобы бизнес мог создавать ценность, а не просто повышать цену.</p>
+    </section>
+
+    <!-- 5. img0: full width -->
+    <section class="prm-full">
+      <img src="/images/premiumization/img0.webp" alt="Premiumization">
+    </section>
+
+    <!-- 6. Text paragraph -->
     <section class="prm-text">
       <p>В основе визуального языка — AI-генерация ботанических арт-объектов: полупрозрачные цветы, органические текстуры, кинематографический свет. Каждый кадр — это метафора роста, трансформации и исключительности.</p>
     </section>
 
-    <!-- 5. scene1: butterfly botanical — second large botanical -->
-    <section class="prm-full prm-full--vh">
-      <img src="scene1.webp" alt="Premiumization — AI botanical composition">
+    <!-- 7. photo1 + flower2: side by side -->
+    <section class="prm-split">
+      <div class="prm-split-col">
+        <img src="/images/premiumization/photo1.webp" alt="Premiumization — reports UI">
+      </div>
+      <div class="prm-split-col">
+        <img src="/images/premiumization/flower2.webp" alt="Premiumization — AI botanical">
+      </div>
     </section>
 
-    <!-- 6. photo5: two iPhones on dark (3-phones section in Figma) -->
-    <section class="prm-full">
-      <img src="photo5.webp" alt="Premiumization — mobile UI mockup">
+    <!-- 8. photo6: full width (second appearance) -->
+    <section class="prm-full prm-full--vh" style="margin-top:4px">
+      <img src="/images/premiumization/photo6.webp" alt="Premiumization">
     </section>
 
-    <!-- 7. Split: photo1 (iPhone on pink bg) + flower2 (Figma confirmed split section) -->
+    <!-- 9. photo5 + photo3: side by side -->
     <section class="prm-split" style="margin-top:4px">
       <div class="prm-split-col">
-        <img src="photo1.webp" alt="Premiumization — reports UI on iPhone">
+        <img src="/images/premiumization/photo5.webp" alt="Premiumization">
       </div>
       <div class="prm-split-col">
-        <img src="flower2.webp" alt="Premiumization — AI botanical art">
+        <img src="/images/premiumization/photo3.webp" alt="Premiumization">
       </div>
     </section>
 
-    <!-- 8. photo2: iPad mockup full width -->
+    <!-- 10. photo2: full width -->
     <section class="prm-full" style="margin-top:4px">
-      <img src="photo2.webp" alt="Premiumization — directions UI on iPad">
+      <img src="/images/premiumization/photo2.webp" alt="Premiumization — directions UI">
     </section>
 
-    <!-- 9. photo3 + photo4: art photos 2-col grid -->
-    <section class="prm-split" style="margin-top:4px">
-      <div class="prm-split-col">
-        <img src="photo3.webp" alt="Premiumization — AI art">
-      </div>
-      <div class="prm-split-col">
-        <img src="photo4.webp" alt="Premiumization — AI floral art">
-      </div>
-    </section>
-
-    <!-- 10. photo6 + photo7: desktop browser screenshots 2-col -->
-    <section class="prm-split" style="margin-top:4px">
-      <div class="prm-split-col">
-        <img src="photo6.webp" alt="Premiumization — website desktop view">
-      </div>
-      <div class="prm-split-col">
-        <img src="photo7.webp" alt="Premiumization — website alternate view">
-      </div>
-    </section>
-
-    <!-- 11. scene3: thorny rose stems botanical full height -->
-    <section class="prm-full prm-full--vh" style="margin-top:4px">
-      <img src="scene3.webp" alt="Premiumization — AI botanical scene">
-    </section>
-
-    <!-- 12. Text: outcome -->
-    <section class="prm-text">
-      <p>Ботанические арт-объекты, созданные через AI, стали ключевым инструментом дифференциации. Они работают на упаковке, в digital и в видео-коммуникации, создавая единый, узнаваемый мир бренда.</p>
-      <p>Premiumization получила визуальную систему, которая масштабируется от мобильного экрана до офлайн-коммуникаций. AI-генерация как инструмент арт-директора — не замена творчеству, а его усиление.</p>
-    </section>
-
-    <!-- 13. video_2: brand motion -->
-    <section class="prm-video">
-      <video autoplay muted loop playsinline>
-        <source src="video_2.mp4" type="video/mp4">
-      </video>
-    </section>
-
-    <!-- 14. flower1: white glass flowers — closing botanical full height -->
-    <section class="prm-full prm-full--vh" style="margin-top:4px">
-      <img src="flower1.webp" alt="Premiumization — AI botanical composition">
-    </section>
-
-    <!-- 15. Credits -->
+    <!-- 11. Credits -->
     <section class="prm-credits">
       <p class="prm-credits-label">Credits</p>
       <div class="prm-credits-grid">
@@ -485,7 +424,7 @@
       </div>
     </section>
 
-    <!-- 16. See also -->
+    <!-- 12. See also -->
     <section class="prm-see-also">
       <p class="prm-see-also-label">Смотрите также</p>
       <div class="prm-see-also-grid">
