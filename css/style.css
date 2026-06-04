@@ -499,6 +499,30 @@ body.overlay-open{overflow:hidden}
 .rev-read-all:hover{color:#000;}
 
 
+/* ── SERVICE WIP TOAST ── */
+.wip-toast{
+  position:fixed;
+  bottom:36px;
+  left:50%;
+  transform:translateX(-50%) translateY(12px);
+  background:#fff;
+  color:#000;
+  font-family:var(--font);
+  font-size:13px;
+  font-weight:400;
+  letter-spacing:-0.01em;
+  padding:10px 20px;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .22s ease, transform .22s ease;
+  white-space:nowrap;
+  z-index:99999;
+}
+.wip-toast--show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
 /* ── FOOTER BAR ── */
 .site-footer{
   display:flex;

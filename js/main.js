@@ -577,6 +577,28 @@ function initListHover() {
   });
 }
 
+// ── SERVICE WIP: block navigation, show toast ──
+function initServiceWip() {
+  // Create toast element once
+  var toast = document.createElement('div');
+  toast.className = 'wip-toast';
+  toast.textContent = 'Page under development';
+  document.body.appendChild(toast);
+
+  var hideTimer;
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href^="/service-"]');
+    if (!link) return;
+    e.preventDefault();
+    // show toast
+    clearTimeout(hideTimer);
+    toast.classList.add('wip-toast--show');
+    hideTimer = setTimeout(function() {
+      toast.classList.remove('wip-toast--show');
+    }, 2200);
+  });
+}
+
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', function () {
   initReveal();
@@ -589,6 +611,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initQuoteAnim();
   initReviewAnim();
   initProjSlider();
+  initServiceWip();
   setTimeout(initCardReveal, 30);
   if (document.getElementById('projects-container')) {
     renderProjects('all');
