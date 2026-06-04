@@ -1093,145 +1093,149 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 /* ── REVIEWS SLIDER ── */
 .rev-sec{
   background:#000;
-  padding:60px 0 80px;
+  padding:80px 0 100px;
   position:relative;
   z-index:5;
+  overflow:hidden;
 }
-/* Section header with nav controls */
 .rev-sec-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 var(--pad-x);
-  margin-bottom:32px;
+  margin-bottom:48px;
 }
 .rev-sec-title{
-  font-size:clamp(11px,0.9vw,13px);
+  font-size:11px;
   font-weight:400;
-  letter-spacing:0.08em;
+  letter-spacing:0.1em;
   text-transform:uppercase;
-  color:rgba(255,255,255,0.4);
+  color:rgba(255,255,255,0.35);
 }
-/* Arrow + dot nav */
-.rev-nav{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
+.rev-nav{display:flex;align-items:center;gap:16px;}
 .rev-nav-btn{
-  width:42px;height:42px;
-  border:1px solid rgba(255,255,255,0.2);
+  width:44px;height:44px;
+  border:1px solid rgba(255,255,255,0.18);
   border-radius:50%;
-  color:#fff;
-  font-size:17px;
+  color:#fff;font-size:16px;
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  background:none;
-  transition:background .2s, border-color .2s;
-  font-family:var(--font);
+  cursor:pointer;background:none;
+  transition:background .22s, border-color .22s;
   flex-shrink:0;
-  line-height:1;
 }
-.rev-nav-btn:hover{
-  background:rgba(255,255,255,0.08);
-  border-color:rgba(255,255,255,0.45);
-}
-.rev-dots{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
+.rev-nav-btn:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.4);}
+.rev-dots{display:flex;align-items:center;gap:8px;}
 .rev-dot{
-  width:6px;height:6px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.25);
-  border:none;
-  cursor:pointer;
-  padding:0;
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,0.22);
+  border:none;cursor:pointer;padding:0;
   transition:background .2s, transform .2s;
 }
-.rev-dot.active{
-  background:#fff;
-  transform:scale(1.5);
-}
-/* Slider track */
-.rev-slider-outer{
-  overflow:hidden;
-}
+.rev-dot.active{background:#fff;transform:scale(1.7);}
+
+/* ── Depth-stack slider ── */
+.rev-slider-outer{overflow:hidden;position:relative;}
 .rev-slider-track{
   display:flex;
-  transition:transform .55s cubic-bezier(.25,.46,.45,.94);
+  transition:transform .65s cubic-bezier(.25,.46,.45,.94);
   will-change:transform;
 }
-/* Each slide = full width viewport */
 .rev-slide{
-  flex:0 0 100%;
-  width:100%;
-  padding:0 var(--pad-x);
+  flex:0 0 75%;
+  width:75%;
+  padding:0 12px;
   box-sizing:border-box;
+  transition:transform .65s cubic-bezier(.25,.46,.45,.94), opacity .65s ease;
+  transform-origin:center center;
 }
-/* Card */
+.rev-slide.rev-active{transform:scale(1);opacity:1;}
+.rev-slide.rev-neighbor{transform:scale(0.9);opacity:0.32;}
+.rev-slide.rev-far{transform:scale(0.82);opacity:0.1;}
+
+/* ── Card — editorial style ── */
 .rev-card{
   width:100%;
-  max-width:780px;
-  height:clamp(300px,30vw,480px);
+  height:clamp(300px,32vw,460px);
   background:#fff;
-  border-radius:20px;
+  border-radius:24px;
   overflow:hidden;
   display:flex;
+  flex-direction:column;
+  position:relative;
+  padding:clamp(32px,3.2vw,52px) clamp(36px,4vw,64px) clamp(24px,2.2vw,36px);
+}
+/* Large decorative opening-quote watermark */
+.rev-card::before{
+  content:'\201C';
+  position:absolute;
+  top:2px;left:20px;
+  font-size:240px;
+  font-weight:700;
+  line-height:1;
+  color:rgba(0,0,0,0.045);
+  pointer-events:none;
+  font-family:Georgia,'Times New Roman',serif;
+  user-select:none;
 }
 .rev-card-body{
   flex:1 1 0;
-  padding:clamp(24px,2.5vw,40px);
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:12px;
-  color:#000;
-  min-width:0;
+  gap:14px;
+  position:relative;
+  z-index:1;
   overflow:hidden;
+  min-height:0;
 }
-.rev-card-photo{
-  flex:0 0 38%;
-  background:#111;
-  background-size:cover;
-  background-position:center;
-}
-.rev-client-tag{
-  font-size:clamp(10px,0.9vw,13px);
-  font-weight:400;
-  letter-spacing:-0.02em;
-  text-transform:uppercase;
-  color:#ff00d0;
-  line-height:1.2;
-  white-space:nowrap;
-}
-.rev-link{
-  color:#ff00d0;
-  font-weight:700;
-  text-decoration:underline;
-  text-decoration-skip-ink:none;
-}
-.rev-link:hover{ opacity:0.75; }
 .rev-headline{
-  font-size:clamp(14px,1.5vw,22px);
-  font-weight:500;
+  font-size:clamp(15px,1.55vw,22px);
+  font-weight:400;
+  font-style:italic;
   color:#000;
   letter-spacing:-0.02em;
-  line-height:1.05;
+  line-height:1.38;
 }
 .rev-text{
-  font-size:clamp(11px,0.85vw,13px);
-  color:rgba(0,0,0,0.6);
-  letter-spacing:-0.02em;
-  line-height:1.4;
+  font-size:clamp(12px,0.88vw,13px);
+  color:rgba(0,0,0,0.42);
+  line-height:1.62;
   overflow:hidden;
   display:-webkit-box;
-  -webkit-line-clamp:9;
+  -webkit-line-clamp:3;
   -webkit-box-orient:vertical;
 }
-.rev-text p{ margin-bottom:8px; }
-.rev-text p:last-child{ margin-bottom:0; }
+.rev-text p{margin:0;}
+
+/* Card footer: avatar + name/company */
+.rev-card-footer{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding-top:16px;
+  border-top:1px solid rgba(0,0,0,0.07);
+  position:relative;
+  z-index:1;
+  flex-shrink:0;
+}
+.rev-card-avatar{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:#e0e0e0;
+  background-size:cover;
+  background-position:center top;
+  flex-shrink:0;
+}
+.rev-card-credit{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;}
+.rev-credit-name{font-size:13px;font-weight:500;color:#000;}
+.rev-credit-co{font-size:12px;color:rgba(0,0,0,0.38);}
+.rev-credit-co a{color:#ff00d0;text-decoration:none;}
+.rev-credit-co a:hover{text-decoration:underline;}
+
+/* Legacy classes — hidden in new design */
+.rev-card-photo{display:none;}
+.rev-client-tag{display:none;}
+.rev-link{color:#ff00d0;font-weight:700;text-decoration:underline;}
 
 /* ── FEATURED PROJECTS ── */
 .feat-sec{
@@ -1399,10 +1403,11 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .allp-row{ grid-template-columns:1fr 100px; }
   .allp-row-role{ display:none }
   .qw{ font-size:clamp(32px,9.5vw,56px); }
-  .rev-sec{ padding:40px 0 60px; }
-  .rev-sec-head{ margin-bottom:20px; }
-  .rev-card{ height:clamp(220px,55vw,360px); }
-  .rev-card-photo{ flex:0 0 34%; }
+  .rev-sec{ padding:48px 0 64px; }
+  .rev-sec-head{ margin-bottom:24px; }
+  .rev-slide{ flex:0 0 88%; width:88%; }
+  .rev-card{ height:clamp(280px,68vw,400px); border-radius:16px; padding:28px 28px 22px; }
+  .rev-card::before{ font-size:150px; top:0; left:12px; }
   .ab-proj-sec{ padding-top:48px; }
   .qp-img-wrap   { height:22vh; }
 }

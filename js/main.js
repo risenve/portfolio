@@ -339,7 +339,7 @@ function initQuoteAnim() {
   });
 }
 
-// ── REVIEW SLIDER ──
+// ── REVIEW SLIDER (depth-stack) ──
 function initReviewAnim() {
   var track = document.getElementById('rev-slider-track');
   if (!track) return;
@@ -351,29 +351,54 @@ function initReviewAnim() {
   var prevBtn = document.getElementById('rev-prev');
   var nextBtn = document.getElementById('rev-next');
   var dots    = document.querySelectorAll('.rev-dot');
+  var outer   = track.parentElement;
 
-  function goTo(n) {
+  // Center the active slide: offset = (outerWidth - slideWidth) / 2
+  function centerOffset() {
+    var outerW = outer ? outer.offsetWidth : 0;
+    var slideW = slides[0].offsetWidth;
+    return (outerW - slideW) / 2;
+  }
+
+  // Update per-slide scale/opacity classes
+  function updateClasses() {
+    slides.forEach(function(slide, i) {
+      var dist = Math.abs(i - current);
+      slide.classList.toggle('rev-active',   dist === 0);
+      slide.classList.toggle('rev-neighbor', dist === 1);
+      slide.classList.toggle('rev-far',      dist > 1);
+    });
+  }
+
+  function goTo(n, instant) {
     current = ((n % total) + total) % total;
-    var w = slides[0].offsetWidth;
-    track.style.transform = 'translateX(-' + (current * w) + 'px)';
+    var slideW = slides[0].offsetWidth;
+    var tx = centerOffset() - current * slideW;
+    if (instant) {
+      track.style.transition = 'none';
+      track.style.transform  = 'translateX(' + tx + 'px)';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() { track.style.transition = ''; });
+      });
+    } else {
+      track.style.transform = 'translateX(' + tx + 'px)';
+    }
+    updateClasses();
     dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
   }
+
+  // Init — position without animation
+  goTo(0, true);
 
   if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
   if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
   dots.forEach(function(d, i) { d.addEventListener('click', function() { goTo(i); }); });
 
-  // Re-snap on resize (no animation)
-  window.addEventListener('resize', function() {
-    var w = slides[0].offsetWidth;
-    track.style.transition = 'none';
-    track.style.transform = 'translateX(-' + (current * w) + 'px)';
-    requestAnimationFrame(function() { track.style.transition = ''; });
-  }, { passive: true });
+  // Re-snap on resize (instant)
+  window.addEventListener('resize', function() { goTo(current, true); }, { passive: true });
 
   // Swipe support
   var startX = 0;
-  var outer = track.parentElement;
   if (outer) {
     outer.addEventListener('touchstart', function(e) {
       startX = e.touches[0].clientX;
