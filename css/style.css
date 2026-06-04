@@ -1185,7 +1185,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .rev-card{
   flex:1;
   min-width:0;
-  background:#fff;
+  background:#202020;
   padding:20px;
   display:flex;
   flex-direction:column;
@@ -1197,7 +1197,7 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   border:none;
   cursor:default;
 }
-.rev-card:hover{background:#e8e8e8;}
+.rev-card:hover{ background:#fff; }
 /* Skazpokrayu card — taller than the other two */
 .rev-card--skaz{ min-height:440px; }
 /* Card header: "Name — CEO CompanyLink", uppercase 14px roman */
@@ -1206,22 +1206,26 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   font-weight:400;
   text-transform:uppercase;
   letter-spacing:-0.02em;
-  color:#000;
+  color:#fff;
   font-family:var(--font);
   line-height:1.3;
   margin:0;
+  transition:color .22s ease;
 }
+.rev-card:hover .rev-card-header{ color:#202020; }
 /* Company link: bold + underlined */
 .rev-company-link{
   font-weight:700;
   text-decoration:underline;
   text-underline-offset:2px;
   text-decoration-thickness:1px;
-  color:#000;
+  color:#fff;
   font-family:var(--font);
   text-transform:uppercase;
+  transition:color .22s ease;
 }
-.rev-company-link:hover{opacity:.7;}
+.rev-card:hover .rev-company-link{ color:#202020; }
+.rev-card .rev-company-link:hover{ color:#FF2DC5; }
 /* Card content: review text at the bottom */
 .rev-card-content{
   display:flex;
@@ -1233,12 +1237,14 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .rev-card-text{
   font-size:20px;
   font-weight:500;
-  color:#000;
+  color:#fff;
   line-height:1.05;
   letter-spacing:-0.02em;
   font-family:var(--font);
   margin:0;
+  transition:color .22s ease;
 }
+.rev-card:hover .rev-card-text{ color:#202020; }
 /* Skazpokrayu preview body wrapper */
 .rev-card-body{
   display:flex;
@@ -1254,19 +1260,21 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .rev-full-text{
   font-size:14px;
   font-weight:400;
-  color:#000;
+  color:#fff;
   line-height:1.45;
   letter-spacing:-0.01em;
   font-family:var(--font);
   margin:0;
+  transition:color .22s ease;
 }
+.rev-card:hover .rev-full-text{ color:#202020; }
 /* READ ALL button */
 .rev-card .rev-read-all{
   font-size:14px;
   font-weight:400;
   text-transform:uppercase;
   letter-spacing:-0.02em;
-  color:#000;
+  color:#fff;
   background:none;
   border:none;
   padding:0;
@@ -1277,8 +1285,10 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   grid-column:auto;
   grid-row:auto;
   justify-self:auto;
+  transition:color .22s ease;
 }
-.rev-card .rev-read-all:hover{opacity:.5;}
+.rev-card:hover .rev-read-all{ color:#202020; }
+.rev-card .rev-read-all:hover{ opacity:.5; }
 /* ── Modal ── */
 .rev-modal{
   position:fixed;inset:0;
