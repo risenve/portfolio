@@ -648,7 +648,7 @@ function initContactForms() {
       .then(function(res) { return res.json(); })
       .then(function(json) {
         if (json.success) {
-          if (status) { status.className = 'form-status success'; status.textContent = 'Sent! I'll get back to you soon.'; }
+          if (status) { status.className = 'form-status success'; status.textContent = "Sent! I'll get back to you soon."; }
           form.reset();
           btn.textContent = 'Sent ✓';
         } else {
