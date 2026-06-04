@@ -352,15 +352,14 @@ function initReviewAnim() {
   var nextBtn = document.getElementById('rev-next');
   var dots    = document.querySelectorAll('.rev-dot');
   var outer   = track.parentElement;
+  var revSec  = document.getElementById('rev-sec');
 
-  // Center the active slide: offset = (outerWidth - slideWidth) / 2
   function centerOffset() {
     var outerW = outer ? outer.offsetWidth : 0;
     var slideW = slides[0].offsetWidth;
     return (outerW - slideW) / 2;
   }
 
-  // Update per-slide scale/opacity classes
   function updateClasses() {
     slides.forEach(function(slide, i) {
       var dist = Math.abs(i - current);
@@ -372,8 +371,7 @@ function initReviewAnim() {
 
   function goTo(n, instant) {
     current = ((n % total) + total) % total;
-    var slideW = slides[0].offsetWidth;
-    var tx = centerOffset() - current * slideW;
+    var tx = centerOffset() - current * slides[0].offsetWidth;
     if (instant) {
       track.style.transition = 'none';
       track.style.transform  = 'translateX(' + tx + 'px)';
@@ -387,27 +385,65 @@ function initReviewAnim() {
     dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
   }
 
-  // Init — position without animation
   goTo(0, true);
 
   if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
   if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
   dots.forEach(function(d, i) { d.addEventListener('click', function() { goTo(i); }); });
-
-  // Re-snap on resize (instant)
   window.addEventListener('resize', function() { goTo(current, true); }, { passive: true });
 
-  // Swipe support
-  var startX = 0;
+  // ── Touch swipe ──
+  var touchStartX = 0;
   if (outer) {
-    outer.addEventListener('touchstart', function(e) {
-      startX = e.touches[0].clientX;
-    }, { passive: true });
+    outer.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
     outer.addEventListener('touchend', function(e) {
-      var dx = e.changedTouches[0].clientX - startX;
+      var dx = e.changedTouches[0].clientX - touchStartX;
       if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
     }, { passive: true });
   }
+
+  // ── Mouse drag ──
+  var dragStartX = 0, isDragging = false;
+  if (outer) {
+    outer.addEventListener('mousedown', function(e) {
+      dragStartX = e.clientX;
+      isDragging = true;
+      outer.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+    document.addEventListener('mouseup', function(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      outer.style.cursor = 'grab';
+      var dx = e.clientX - dragStartX;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+    });
+  }
+
+  // ── Mouse wheel (debounced) ──
+  var wheelLock = false;
+  if (outer) {
+    outer.addEventListener('wheel', function(e) {
+      var delta = Math.abs(e.deltaX) >= Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (Math.abs(delta) < 20 || wheelLock) return;
+      e.preventDefault();
+      wheelLock = true;
+      goTo(delta > 0 ? current + 1 : current - 1);
+      setTimeout(function() { wheelLock = false; }, 700);
+    }, { passive: false });
+  }
+
+  // ── Language toggle ──
+  var langBtns = document.querySelectorAll('.rev-lang-btn');
+  langBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var lang = btn.getAttribute('data-lang');
+      if (revSec) revSec.setAttribute('data-lang', lang);
+      langBtns.forEach(function(b) {
+        b.classList.toggle('rev-lang-btn--active', b.getAttribute('data-lang') === lang);
+      });
+    });
+  });
 }
 
 // ── PROJECT SLIDER ──

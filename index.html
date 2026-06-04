@@ -551,19 +551,25 @@
     </section>
 
     <!-- REVIEWS SLIDER -->
-    <section class="rev-sec">
+    <section class="rev-sec" id="rev-sec" data-lang="en">
 
-      <!-- Header: label + navigation -->
+      <!-- Header: label + lang toggle + nav -->
       <div class="rev-sec-head">
         <span class="rev-sec-title">Client Reviews</span>
-        <div class="rev-nav">
-          <button class="rev-nav-btn" id="rev-prev" aria-label="Previous review">&#8592;</button>
-          <div class="rev-dots" id="rev-dots">
-            <button class="rev-dot active" aria-label="Review 1"></button>
-            <button class="rev-dot" aria-label="Review 2"></button>
-            <button class="rev-dot" aria-label="Review 3"></button>
+        <div class="rev-head-right">
+          <div class="rev-lang-toggle">
+            <button class="rev-lang-btn rev-lang-btn--active" data-lang="en">EN</button>
+            <button class="rev-lang-btn" data-lang="ru">RU</button>
           </div>
-          <button class="rev-nav-btn" id="rev-next" aria-label="Next review">&#8594;</button>
+          <div class="rev-nav">
+            <button class="rev-nav-btn" id="rev-prev" aria-label="Previous review">&#8592;</button>
+            <div class="rev-dots" id="rev-dots">
+              <button class="rev-dot active" aria-label="Review 1"></button>
+              <button class="rev-dot" aria-label="Review 2"></button>
+              <button class="rev-dot" aria-label="Review 3"></button>
+            </div>
+            <button class="rev-nav-btn" id="rev-next" aria-label="Next review">&#8594;</button>
+          </div>
         </div>
       </div>
 
@@ -575,10 +581,10 @@
           <div class="rev-slide rev-active">
             <div class="rev-card">
               <div class="rev-card-body">
-                <p class="rev-headline">"Рипсиме берет на себя проекты под ключ, грамотно выстраивает процессы, формирует четкие технические задания для команды и помогает каждому участнику эффективно двигаться к общей цели."</p>
-                <div class="rev-text">
-                  <p>Особенно хочется отметить её способность предлагать несколько сильных решений на выбор и давать конструктивные, практичные рекомендации, которые действительно помогают улучшать рабочий процесс.</p>
-                </div>
+                <p class="rev-headline" data-lang="en">"Ripsime takes full ownership of projects, builds efficient workflows, writes clear briefs for the team, and helps everyone move toward a shared goal."</p>
+                <p class="rev-headline" data-lang="ru">"Рипсиме берёт на себя проекты под ключ, грамотно выстраивает процессы, формирует чёткие ТЗ для команды и помогает каждому двигаться к общей цели."</p>
+                <div class="rev-text" data-lang="en"><p>She consistently offers multiple strong solutions and gives practical, constructive guidance that genuinely improves every step of the creative process.</p></div>
+                <div class="rev-text" data-lang="ru"><p>Особенно хочется отметить её способность предлагать несколько сильных решений на выбор и давать конструктивные рекомендации, которые реально улучшают рабочий процесс.</p></div>
               </div>
               <div class="rev-card-footer">
                 <div class="rev-card-avatar" style="background-image:url('/images/Works_Covers/skazpokrayu_cover.webp')"></div>
@@ -594,10 +600,10 @@
           <div class="rev-slide rev-neighbor">
             <div class="rev-card">
               <div class="rev-card-body">
-                <p class="rev-headline">"Рипсиме очень креативная, с нестандартным мышлением. Главное — вам вместе нащупать отклик, который визуально откликнется для ваших услуг."</p>
-                <div class="rev-text">
-                  <p>Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить.</p>
-                </div>
+                <p class="rev-headline" data-lang="en">"Ripsime is genuinely creative, with unconventional thinking. Together you find the visual language that truly clicks for your brand."</p>
+                <p class="rev-headline" data-lang="ru">"Рипсиме очень креативная, с нестандартным мышлением. Главное — вместе нащупать отклик, который визуально откликнется для ваших услуг."</p>
+                <div class="rev-text" data-lang="en"><p>She always offers options and is ready to guide you further along the way. Highly recommend working with her.</p></div>
+                <div class="rev-text" data-lang="ru"><p>Рипсиме предлагает варианты и всегда готова подсказать и дополнительно направить. Рекомендую.</p></div>
               </div>
               <div class="rev-card-footer">
                 <div class="rev-card-avatar" style="background-image:url('/premiumization/photo1.webp')"></div>
@@ -613,10 +619,10 @@
           <div class="rev-slide rev-far">
             <div class="rev-card">
               <div class="rev-card-body">
-                <p class="rev-headline">"Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive and polished interfaces."</p>
-                <div class="rev-text">
-                  <p>She's a very talented UI/UX designer with a strong eye for clean design, user experience, and product thinking. Highly recommend for any SaaS or AI product.</p>
-                </div>
+                <p class="rev-headline" data-lang="en">"Ripsime was proactive throughout the process, understood complex AI workflows quickly, and turned ideas into intuitive, polished interfaces."</p>
+                <p class="rev-headline" data-lang="ru">"Рипсиме проявляла инициативу на всём протяжении проекта, быстро разобралась в сложных AI-процессах и превратила идеи в понятные интерфейсы."</p>
+                <div class="rev-text" data-lang="en"><p>A talented UI/UX designer with a strong eye for clean design and product thinking. Highly recommend for any SaaS or AI product.</p></div>
+                <div class="rev-text" data-lang="ru"><p>Талантливый UI/UX-дизайнер с чувством чистоты дизайна и продуктового мышления. Рекомендую для SaaS или AI-продуктов.</p></div>
               </div>
               <div class="rev-card-footer">
                 <div class="rev-card-avatar" style="background-image:url('/images/Works_Covers/drawstory.webp')"></div>
