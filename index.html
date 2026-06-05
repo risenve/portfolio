@@ -72,7 +72,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 4px;
     }
     .ah-name-center.hide {
       opacity: 0;
@@ -153,19 +153,43 @@
       top: 0; /* JS sets this to (100vh - panelHeight) */
       min-height: 100vh;
       background: #fff;
-      color: #000;
       overflow: hidden;
       padding: 100px 6.32vw 56px;
       display: flex;
       flex-direction: column;
+      isolation: isolate;
     }
 
-    /* Wrapper keeps About label visually beside the big text indent */
+    /* ── BG photo layer (shown on service card hover) ── */
+    .ah-proc-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      background: #111; /* dark fallback before photo loads */
+    }
+    .ah-proc-bg.active { opacity: 1; }
+    .ah-proc-bg-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .ah-proc-bg-grad {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.55) 100%);
+    }
+
+    /* Wrapper: mix-blend-difference so text appears dark on white, light on photo */
     .ah-stmt-wrap {
       position: relative;
+      z-index: 1;
+      mix-blend-mode: difference;
     }
 
-    /* "About" label — sits in the gap left by text-indent */
+    /* "About" label */
     .ah-about-label {
       position: absolute;
       left: 0;
@@ -173,10 +197,10 @@
       font-size: 12px;
       letter-spacing: -0.24px;
       line-height: 1.2;
-      color: rgba(0,0,0,0.55);
+      color: #fff;
     }
 
-    /* Big text — flow layout, text-indent creates space for the About label */
+    /* Big text */
     .ah-big-statement {
       position: static;
       width: 100%;
@@ -187,35 +211,114 @@
       line-height: normal;
     }
 
-    /* Word reveal */
-    .aw { display: inline; color: rgba(0,0,0,0.12); transition: color 0.2s ease; }
-    .aw.lit { color: #000; }
+    /* Word colors — white → difference on white bg = dark; difference on photo = light */
+    .aw { display: inline; color: #fff; }
+    .aw.lit { color: #fff; }
 
-    /* Practice label — flow, shifted to right column */
-    .ah-prac-label {
-      position: static;
+    /* ── BOTTOM ROW: service cards (left) + practice (right) ── */
+    .ah-proc-bottom {
+      display: flex;
+      align-items: flex-end;
+      margin-top: auto;
+      position: relative;
+      z-index: 1;
+      gap: 8px;
+    }
+
+    /* 4 service cards */
+    .ah-svc-cards {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      flex: 0 0 41vw;
+    }
+    .ah-svc-card {
+      flex: 1;
+      min-width: 0;
+      background: #f6f6f6;
+      padding: 20px 10px;
+      height: 255px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      transition: background 0.25s ease;
+      cursor: default;
+    }
+    .ah-svc-name {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: #000;
+      opacity: 0.8;
+      white-space: nowrap;
+      font-family: var(--font);
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+    .ah-svc-desc {
+      font-size: 12px;
+      line-height: 1.1;
+      letter-spacing: -0.024em;
+      color: #fff;
+      font-family: var(--font);
+      font-weight: 400;
+      margin-top: auto;
+      display: none;
+    }
+
+    /* Ghost state: other cards while one is hovered */
+    .ah-svc-card.ah-svc-inactive {
+      background: rgba(246,246,246,0.08) !important;
+    }
+    .ah-svc-card.ah-svc-inactive .ah-svc-name {
+      color: #fff;
+      opacity: 0.2;
+    }
+    /* Active (hovered) card */
+    .ah-svc-card.ah-svc-active {
+      background: rgba(246,246,246,0.18) !important;
+      justify-content: space-between;
+    }
+    .ah-svc-card.ah-svc-active .ah-svc-name {
+      color: #fff;
+      opacity: 1;
+    }
+    .ah-svc-card.ah-svc-active .ah-svc-desc {
       display: block;
-      margin-left: 40vw;
-      margin-top: auto; /* push to bottom within flex column */
-      margin-bottom: 8px;
+    }
+
+    /* Practice column: fills remaining width */
+    .ah-prac-col {
+      flex: 1;
+      min-width: 0;
+      padding-left: 4vw;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Practice label */
+    .ah-prac-label {
       font-size: 12px;
       letter-spacing: -0.24px;
       line-height: 1.2;
       color: rgba(0,0,0,0.55);
+      margin: 0 0 8px;
+      transition: color 0.35s ease;
     }
-
-    /* Practice text — flow, same right column */
+    /* Practice text */
     .ah-prac-text {
-      position: static;
-      display: block;
-      margin-left: 40vw;
-      width: 45.6vw;
       font-size: 32px;
       font-weight: 400;
       letter-spacing: -0.02em;
       line-height: 1.2;
       color: rgba(0,0,0,0.75);
+      margin: 0 0 10px;
+      transition: color 0.35s ease;
     }
+    .ah-prac-text:last-child { margin-bottom: 0; }
+
+    /* On photo bg: practice text goes white */
+    .ah-proc-bottom.has-hover .ah-prac-label { color: rgba(255,255,255,0.55); }
+    .ah-proc-bottom.has-hover .ah-prac-text  { color: rgba(255,255,255,0.9); }
 
     /* ── STATS: dark, pixel-perfect from Figma ── */
     /* Figma positions (at 1440px): [01]=91px, num=429px, unit=690px, desc=1044px */
@@ -360,15 +463,25 @@
         margin-bottom: 40px;
         width: 100%;
       }
-      .ah-prac-label {
-        margin-left: 0;
-        margin-top: 0;
-        margin-bottom: 8px;
+      /* Bottom row: stack vertically on mobile */
+      .ah-proc-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
       }
-      .ah-prac-text {
-        margin-left: 0;
+      .ah-svc-cards {
+        flex: 0 0 auto;
         width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
       }
+      .ah-svc-card {
+        flex: 0 0 calc(50% - 4px);
+        height: 180px;
+      }
+      .ah-prac-col { padding-left: 0; width: 100%; }
+      .ah-prac-label { margin-bottom: 8px; }
+      .ah-prac-text { font-size: clamp(18px, 4.5vw, 28px); }
 
       /* Stats: number centered, rest on new lines */
       .ah-stat-row {
@@ -502,7 +615,13 @@
     <div class="ah-process-zone" id="ah-process-zone">
       <div class="ah-process-sticky" id="ah-process-sticky">
 
-        <!-- About label + Big text: label sits in the blank space left by text-indent -->
+        <!-- BG photo layer: shown on service card hover -->
+        <div class="ah-proc-bg" id="ah-proc-bg" aria-hidden="true">
+          <img class="ah-proc-bg-img" id="ah-proc-bg-img" src="" alt="">
+          <div class="ah-proc-bg-grad"></div>
+        </div>
+
+        <!-- About label + Big text (mix-blend-difference) -->
         <div class="ah-stmt-wrap">
           <span class="ah-about-label">About</span>
           <div class="ah-big-statement">
@@ -516,9 +635,35 @@
           </div>
         </div>
 
-        <!-- Practice label + text: right column via margin-left -->
-        <span class="ah-prac-label">Practice</span>
-        <p class="ah-prac-text">3+ years in UI/UX and Brand Design, growing products and shaping design strategy at B2B SaaS startups and creative agencies.</p>
+        <!-- Bottom row: 4 service cards (left) + practice text (right) -->
+        <div class="ah-proc-bottom">
+
+          <div class="ah-svc-cards" id="ah-svc-cards">
+            <div class="ah-svc-card" data-service="brand" data-img="">
+              <span class="ah-svc-name">Brand design</span>
+              <p class="ah-svc-desc">End-to-end brand identity — logo, typography, colour system and guidelines that make your product instantly recognizable.</p>
+            </div>
+            <div class="ah-svc-card" data-service="uiux" data-img="">
+              <span class="ah-svc-name">UI/UX design</span>
+              <p class="ah-svc-desc">User research, wireframes and pixel-perfect interfaces that put people first and solve real problems elegantly.</p>
+            </div>
+            <div class="ah-svc-card" data-service="product" data-img="">
+              <span class="ah-svc-name">Product design</span>
+              <p class="ah-svc-desc">From concept to launch — UX flows, design systems, cross-team collaboration and handoff-ready components.</p>
+            </div>
+            <div class="ah-svc-card" data-service="art" data-img="">
+              <span class="ah-svc-name">Art direction</span>
+              <p class="ah-svc-desc">Creative leadership across campaigns, editorial and visual communication with a distinctive aesthetic.</p>
+            </div>
+          </div>
+
+          <div class="ah-prac-col">
+            <span class="ah-prac-label">Practice</span>
+            <p class="ah-prac-text">3+ years in UI/UX and Brand Design, growing products and shaping design strategy at B2B SaaS startups and creative agencies.</p>
+            <p class="ah-prac-text">Working at the intersection of information, visual, and ideas — I create unique experience.</p>
+          </div>
+
+        </div>
 
       </div>
     </div>

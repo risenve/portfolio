@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — Ripsime Sargsyan</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%; width: 100%;
+      background: #f0f0f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .cv-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 48px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+    }
+    .cv-bar a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .cv-bar a:hover { color: #fff; }
+    .cv-bar-title {
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+    }
+    .cv-download {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.55) !important;
+    }
+    .cv-download:hover { color: #fff !important; }
+    iframe {
+      position: fixed;
+      top: 48px; left: 0; right: 0; bottom: 0;
+      width: 100%;
+      height: calc(100% - 48px);
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="cv-bar">
+    <a href="/">← ripsime.me</a>
+    <span class="cv-bar-title">Ripsime Sargsyan — CV</span>
+    <a href="/files/cv.pdf" download class="cv-download">↓ Download</a>
+  </div>
+  <iframe src="/files/cv.pdf" type="application/pdf" title="Ripsime Sargsyan CV"></iframe>
+</body>
+</html>
