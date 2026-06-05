@@ -1499,13 +1499,13 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .allp-table-head{ display:none }
   .allp-row{ grid-template-columns:1fr 100px; }
   .allp-row-role{ display:none }
-  .rev-sec{ padding:48px var(--pad-x) 48px; }
-  .rev-title{ margin-bottom:24px; }
-  .rev-title span{ font-size:clamp(28px,8vw,60px); }
-  .rev-cards{ flex-direction:column; gap:6px; }
-  .rev-card{ min-height:180px; }
+  .rev-sec{ padding:48px var(--pad-x) 60px; }
+  .rev-title{ margin-bottom:44px; }
+  .rev-title span{ font-size:clamp(28px,8vw,60px); white-space:normal; word-break:break-word; }
+  .rev-cards{ flex-direction:column; gap:8px; }
+  .rev-card{ min-height:260px; padding:28px 20px; }
   .rev-card-text{ font-size:18px; }
-  .rev-card-content{ margin-top:24px; }
+  .rev-card-content{ margin-top:36px; }
   .rev-modal-box{ padding:32px 24px; }
   .ab-proj-sec{ padding-top:48px; }
   .qp-img-wrap   { height:22vh; }
