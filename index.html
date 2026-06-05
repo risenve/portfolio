@@ -212,7 +212,7 @@
     }
 
     /* Word colors — white → difference on white bg = dark; difference on photo = light */
-    .aw { display: inline; color: #fff; }
+    .aw { display: inline; color: rgba(255,255,255,0.12); transition: color 0.35s ease; }
     .aw.lit { color: #fff; }
 
     /* ── BOTTOM ROW: service cards (left) + practice (right) ── */
@@ -334,38 +334,40 @@
     .ah-stats-inner {
       width: calc(100% - 2 * var(--pad-x));
     }
-    /* 4 cols: idx | num | unit | desc */
+    /* 3 cols: idx | num (centered on screen) | desc */
     .ah-stat-row {
-      display: grid;
-      grid-template-columns: clamp(60px, 7vw, 100px) 22vw 26vw auto;
-      align-items: end;
-      padding: 16px 0 36px;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 140px;
+      padding: 24px 0;
       border-top: 1px solid rgba(255,255,255,0.05);
     }
     .ah-stat-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.05); }
     .ah-stat-idx {
       font-size: 14px;
       font-weight: 400;
-      color: rgba(255,255,255,0.4);
-      align-self: end;
-      padding-bottom: 10px;
+      color: #fff;
       font-family: var(--font);
+      position: relative; z-index: 1;
     }
     .ah-stat-num {
-      font-size: clamp(60px, 8.33vw, 120px);
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      font-size: clamp(72px, 8.33vw, 120px);
       font-weight: 400; letter-spacing: -0.04em;
-      line-height: normal; color: #fff;
-      align-self: start;
+      line-height: 1; color: #fff;
       white-space: nowrap;
     }
-    .ah-stat-unit {
-      font-size: clamp(12px, 1.39vw, 20px);
-      font-weight: 300; color: rgba(255,255,255,0.6);
-    }
+    .ah-stat-unit { display: none; }
     .ah-stat-desc {
-      font-size: clamp(12px, 1.39vw, 20px);
+      font-size: clamp(14px, 1.39vw, 20px);
       font-weight: 400; color: #fff;
-      line-height: 1.2; align-self: center;
+      line-height: 1.25;
+      max-width: clamp(180px, 22vw, 320px);
+      text-align: right;
+      position: relative; z-index: 1;
     }
     /* ── QUOTE OVERLAY PROJECTS ── */
     .quote-projects {
@@ -469,31 +471,48 @@
         align-items: flex-start;
         gap: 32px;
       }
+      /* Mobile: service cards → plain text list */
       .ah-svc-cards {
-        flex: 0 0 auto;
+        flex-direction: column;
+        overflow-x: visible;
+        gap: 0;
         width: 100%;
-        overflow-x: auto;
-        flex-wrap: nowrap;
       }
       .ah-svc-card {
-        flex: 0 0 calc(50% - 4px);
-        height: 180px;
+        flex: none !important;
+        height: auto !important;
+        background: transparent !important;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
       }
+      .ah-svc-card:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+      .ah-svc-name {
+        font-size: 18px;
+        color: #000 !important;
+        opacity: 0.75 !important;
+        white-space: normal;
+      }
+      .ah-svc-desc { display: none !important; }
       .ah-prac-col { padding-left: 0; width: 100%; }
       .ah-prac-label { margin-bottom: 8px; }
       .ah-prac-text { font-size: clamp(18px, 4.5vw, 28px); }
 
-      /* Stats: number centered, rest on new lines */
+      /* Stats: mobile — stack vertically, number centered */
       .ah-stat-row {
-        display: flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
+        min-height: auto;
         padding: 20px 0;
+        gap: 4px;
       }
-      .ah-stat-num { align-self: center; width: 100%; text-align: center; }
-      .ah-stat-unit { align-self: auto; text-align: center; margin-top: 4px; }
-      .ah-stat-desc { grid-column: unset; text-align: center; justify-self: auto; max-width: 100%; margin-top: 6px; }
+      .ah-stat-num {
+        position: static;
+        transform: none;
+        left: auto;
+        font-size: clamp(64px, 20vw, 100px);
+        text-align: center;
+      }
+      .ah-stat-desc { max-width: 100%; text-align: center; font-size: 15px; }
 
       /* Quote section mobile */
       .quote-sec {
