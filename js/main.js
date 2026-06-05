@@ -577,6 +577,71 @@ function initListHover() {
   });
 }
 
+// ── SERVICE CARDS: hover → full-section photo bg + card states ──
+function initServiceCards() {
+  var procBg   = document.getElementById('ah-proc-bg');
+  var procImg  = document.getElementById('ah-proc-bg-img');
+  var procGrad = procBg && procBg.querySelector('.ah-proc-bg-grad');
+  var wrap     = document.getElementById('ah-svc-cards');
+  var bottom   = wrap && wrap.closest('.ah-proc-bottom');
+  if (!procBg || !wrap) return;
+
+  var cards = Array.prototype.slice.call(wrap.querySelectorAll('.ah-svc-card'));
+
+  // Default gradient (used when card has no custom gradient)
+  var DEFAULT_GRAD = 'linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 70%,rgba(0,0,0,.55) 100%)';
+
+  function activate(activeCard) {
+    var src  = activeCard.getAttribute('data-img')      || '';
+    var fit  = activeCard.getAttribute('data-fit')      || 'cover';
+    var pos  = activeCard.getAttribute('data-position') || 'center center';
+    var bg   = activeCard.getAttribute('data-bg')       || '';
+    var grad = activeCard.getAttribute('data-gradient') || DEFAULT_GRAD;
+
+    // Photo
+    if (src) {
+      procImg.src              = src;
+      procImg.style.display    = '';
+      procImg.style.objectFit      = fit;
+      procImg.style.objectPosition = pos;
+    } else {
+      procImg.style.display = 'none';
+    }
+
+    // Container bg color (for product design's #103E9F)
+    procBg.style.backgroundColor = bg;
+
+    // Gradient overlay
+    if (procGrad) procGrad.style.background = grad;
+
+    procBg.classList.add('active');
+    if (bottom) bottom.classList.add('has-hover');
+
+    // Card states
+    cards.forEach(function(c) {
+      c.classList.remove('ah-svc-active', 'ah-svc-inactive');
+      c.classList.add(c === activeCard ? 'ah-svc-active' : 'ah-svc-inactive');
+    });
+  }
+
+  function deactivate() {
+    procBg.classList.remove('active');
+    procBg.style.backgroundColor = '';
+    if (procGrad) procGrad.style.background = '';
+    procImg.style.objectFit      = '';
+    procImg.style.objectPosition = '';
+    if (bottom) bottom.classList.remove('has-hover');
+    cards.forEach(function(c) {
+      c.classList.remove('ah-svc-active', 'ah-svc-inactive');
+    });
+  }
+
+  cards.forEach(function(card) {
+    card.addEventListener('mouseenter', function() { activate(card); });
+  });
+  wrap.addEventListener('mouseleave', deactivate);
+}
+
 // ── SERVICE WIP: block navigation, show toast ──
 function initServiceWip() {
   // Create toast element once
@@ -611,6 +676,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initQuoteAnim();
   initReviewAnim();
   initProjSlider();
+  initServiceCards();
   initServiceWip();
   setTimeout(initCardReveal, 30);
   if (document.getElementById('projects-container')) {
