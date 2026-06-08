@@ -53,17 +53,28 @@ const PROJECTS = [
     href: '/match'
   },
   {
-    id: 6, slug: 'drawstory',
+    id: 6, slug: 'drawstory-pd',
     title: 'Drawstory',
     categories: ['ui-ux', 'art-direction'],
     type: 'Product Design',
     role: 'Product Designer',
     year: '2024',
     cover: '/images/Works_Covers/drawstory.webp', imgs: ['/images/Works_Covers/drawstory.webp'],
-    href: '/drawstory'
+    href: '/drawstory',
+    worksOnly: true
   },
   {
-    id: 7, slug: 'empty-date',
+    id: 7, slug: 'drawstory',
+    title: 'Drawstory',
+    categories: ['ui-ux', 'art-direction'],
+    type: 'UI/UX Design',
+    role: 'UI/UX Designer',
+    year: '2024',
+    cover: '/images/Works_Covers/drawstory.webp', imgs: ['/images/Works_Covers/drawstory.webp'],
+    href: 'https://drawstory.com'
+  },
+  {
+    id: 8, slug: 'empty-date',
     title: 'Empty Date',
     categories: ['ui-ux'],
     type: 'UI/UX Design',
@@ -73,7 +84,7 @@ const PROJECTS = [
     href: 'https://emptydate.com/'
   },
   {
-    id: 8, slug: 'here-creative',
+    id: 9, slug: 'here-creative',
     title: 'Here Creative',
     categories: ['ui-ux'],
     type: 'UI/UX Design',
@@ -83,7 +94,7 @@ const PROJECTS = [
     href: '#'
   },
   {
-    id: 9, slug: 'unicorn-embassy',
+    id: 10, slug: 'unicorn-embassy',
     title: 'Unicorn Embassy',
     categories: ['art-direction', 'brand-design'],
     type: 'Brand Design',
@@ -93,7 +104,7 @@ const PROJECTS = [
     href: '/unicorn'
   },
   {
-    id: 10, slug: 'open-control',
+    id: 11, slug: 'open-control',
     title: 'Open Control',
     categories: ['ui-ux', 'art-direction'],
     type: 'AR/VR Product Design',
@@ -103,7 +114,7 @@ const PROJECTS = [
     href: '/open-control'
   },
   {
-    id: 11, slug: 'posters',
+    id: 12, slug: 'posters',
     title: 'Posters Vol.1',
     categories: ['graphics-ai', 'art-direction'],
     type: 'Graphic Design',
@@ -114,7 +125,7 @@ const PROJECTS = [
     href: '/posters'
   },
   {
-    id: 12, slug: 'inhub',
+    id: 13, slug: 'inhub',
     title: 'InHub',
     categories: ['art-direction', 'brand-design'],
     type: 'Brand Design',
@@ -159,7 +170,7 @@ function initReveal() {
 function renderAllpList() {
   var container = document.getElementById('allp-list');
   if (!container) return;
-  container.innerHTML = PROJECTS.map(function (p) {
+  container.innerHTML = PROJECTS.filter(function (p) { return !p.worksOnly; }).map(function (p) {
     var tag = p.href === '#' ? 'div' : 'a';
     var href = p.href !== '#' ? ' href="' + p.href + '"' : '';
     var imgs = JSON.stringify(p.imgs || []);
