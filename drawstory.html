@@ -37,56 +37,109 @@
       line-height: 1.4;
       max-width: 180px;
     }
-    /* ── FEATURE CARDS GRID ── */
-    .ds-features {
+    /* ── IMAGE GRIDS ── */
+    .ds-img-grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0;
+      gap: 2px;
       background: #000;
     }
-    .ds-feature {
+    .ds-img-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
       background: #000;
-      padding: 48px;
     }
-    .ds-feature-title {
-      font-size: clamp(18px, 1.8vw, 24px);
+    .ds-img-grid-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 2px;
+      background: #000;
+    }
+    .ds-img-grid-2 img,
+    .ds-img-grid-3 img,
+    .ds-img-grid-4 img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .ds-img-grid-2 + .ds-img-grid-2,
+    .ds-img-grid-3 + .ds-img-grid-3,
+    .ds-img-grid-2 + .ds-img-grid-3,
+    .ds-img-grid-3 + .ds-img-grid-2 { margin-top: 2px; }
+
+    /* ── COLLAPSIBLE SECTIONS ── */
+    .ds-accordion {
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .ds-accordion summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 48px;
+      user-select: none;
+    }
+    .ds-accordion summary::-webkit-details-marker { display: none; }
+    .ds-accordion summary .ds-acc-title {
+      font-size: clamp(18px, 2vw, 24px);
       font-weight: 400;
       color: #fff;
-      margin-bottom: 16px;
       letter-spacing: -0.02em;
-      line-height: 1.2;
     }
-    .ds-feature-desc {
-      font-size: 14px;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.6;
+    .ds-accordion summary .ds-acc-arrow {
+      font-size: 20px;
+      color: rgba(255,255,255,0.4);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
     }
-    /* ── RESEARCH FINDINGS ── */
-    .ds-findings {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      gap: 1px;
-      background: #1a1a1a;
+    .ds-accordion[open] summary .ds-acc-arrow {
+      transform: rotate(45deg);
     }
-    .ds-finding {
+    .ds-accordion summary:hover .ds-acc-title { color: rgba(255,255,255,0.7); }
+    .ds-accordion-body {
+      padding-bottom: 2px;
+    }
+    .ds-acc-text {
+      padding: 0 48px 32px;
+    }
+    .ds-acc-text p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      max-width: 640px;
+    }
+    .ds-img-caption {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      padding: 10px 0 0;
+      line-height: 1.4;
+    }
+    .ds-img-item {
       background: #000;
-      padding: 40px 32px;
     }
-    .ds-finding-icon {
-      font-size: 24px;
-      margin-bottom: 20px;
+    .ds-img-item img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
-    .ds-finding-text {
-      font-size: 14px;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.5;
+    .ds-img-item-inner {
+      padding: 12px 16px 20px;
     }
+
     @media (max-width: 900px) {
       .ds-stats { grid-template-columns: 1fr; }
-      .ds-features { grid-template-columns: 1fr; }
-      .ds-findings { grid-template-columns: 1fr 1fr; }
       .ds-stat { padding: 36px 24px; }
-      .ds-feature { padding: 32px 24px; }
+      .ds-img-grid-3 { grid-template-columns: 1fr 1fr; }
+      .ds-img-grid-4 { grid-template-columns: 1fr 1fr; }
+      .ds-accordion summary { padding: 24px 20px; }
+      .ds-acc-text { padding: 0 20px 24px; }
+    }
+    @media (max-width: 560px) {
+      .ds-img-grid-2 { grid-template-columns: 1fr; }
+      .ds-img-grid-3 { grid-template-columns: 1fr; }
+      .ds-img-grid-4 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -180,7 +233,7 @@
       </div>
     </section>
 
-    <!-- 2. Project overview -->
+    <!-- 2. Project info -->
     <section class="skp-project-info">
       <div class="skp-project-info-left">
         <p class="skp-info-headline">AI-powered platform for instant storyboard generation, real-time collaboration, and client presentation.</p>
@@ -196,9 +249,9 @@
       </div>
     </section>
 
-    <!-- 3. Full-width hero image -->
-    <section class="skp-fullimg skp-fh700">
-      <img src="/images/Works_Covers/drawstory.webp" alt="Drawstory product overview">
+    <!-- 3. Project overview full-width -->
+    <section class="skp-fullimg">
+      <img src="/images/drawstory/project-overview.png" alt="Drawstory — project overview" loading="lazy">
     </section>
 
     <!-- 4. The problem -->
@@ -209,75 +262,167 @@
       </div>
     </section>
 
-    <!-- 5. Research findings -->
-    <div class="ds-findings">
-      <div class="ds-finding">
-        <div class="ds-finding-icon">◐</div>
-        <p class="ds-finding-text">Users strongly preferred dark interfaces — less cognitive load during long working sessions</p>
-      </div>
-      <div class="ds-finding">
-        <div class="ds-finding-icon">○</div>
-        <p class="ds-finding-text">Rounded UI elements tested as more approachable and trustworthy in user sessions</p>
-      </div>
-      <div class="ds-finding">
-        <div class="ds-finding-icon">◎</div>
-        <p class="ds-finding-text">Real-time team collaboration was a hard blocker — without it, adoption stalled</p>
-      </div>
-      <div class="ds-finding">
-        <div class="ds-finding-icon">◷</div>
-        <p class="ds-finding-text">Version history was expected as table stakes — users needed to revert without anxiety</p>
-      </div>
-      <div class="ds-finding">
-        <div class="ds-finding-icon">◈</div>
-        <p class="ds-finding-text">Inline comments and notifications were the most-requested collaboration feature</p>
-      </div>
+    <!-- 5. Product screens -->
+    <div class="ds-img-grid-2">
+      <img src="/images/drawstory/screen-1.png" alt="Drawstory — product screen 1" loading="lazy">
+      <img src="/images/drawstory/screen-2.png" alt="Drawstory — product screen 2" loading="lazy">
     </div>
 
-    <!-- 6. Research text -->
-    <section class="skp-text">
-      <div class="skp-inner-512">
-        <p class="rds-label">Research</p>
-        <p>I mapped the user journey from scratch, identified three competing AI model approaches, and ran interviews and observational sessions to understand how creative teams actually work. The findings above didn't just inform the UI — they defined the product priorities for the next two quarters.</p>
+    <!-- 6. COLLAPSIBLE: Research & Discovery -->
+    <details class="ds-accordion">
+      <summary>
+        <span class="ds-acc-title">Research & Discovery</span>
+        <span class="ds-acc-arrow">+</span>
+      </summary>
+      <div class="ds-accordion-body">
+        <div class="ds-acc-text">
+          <p>I started by mapping out competing AI model approaches and running observational sessions to understand how creative teams actually work. Four AI generation models were evaluated side by side — each with different trade-offs in speed, control, and output quality.</p>
+        </div>
+
+        <!-- AI models 1–4 -->
+        <div class="ds-img-grid-2">
+          <div class="ds-img-item">
+            <img src="/images/drawstory/research-01.png" alt="AI model — Script Upload" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">AI model 1 — Script Upload: generate frames from a written screenplay</p>
+            </div>
+          </div>
+          <div class="ds-img-item">
+            <img src="/images/drawstory/research-02.png" alt="AI model — Text to Image" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">AI model 2 — Text-to-Image: direct prompt-to-frame generation</p>
+            </div>
+          </div>
+        </div>
+        <div class="ds-img-grid-2" style="margin-top:2px;">
+          <div class="ds-img-item">
+            <img src="/images/drawstory/research-03.png" alt="AI model — SAM API editing" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">AI model 3 — SAM API: segment-aware image editing for precise frame control</p>
+            </div>
+          </div>
+          <div class="ds-img-item">
+            <img src="/images/drawstory/research-04.png" alt="AI model — Object Generator" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">AI model 4 — Object Generator: add or replace elements within existing frames</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Initial user flow -->
+        <div class="ds-img-grid-2" style="margin-top:2px;">
+          <div class="ds-img-item">
+            <img src="/images/drawstory/research-05.png" alt="Initial user flow" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Initial user flow — mapping the end-to-end journey from brief to final delivery</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-acc-text" style="padding-top:32px;">
+          <p>I ran interviews and mapped user behavior across three key areas: how people gather references, how they work in teams, and where existing tools broke down. The patterns shaped the entire product roadmap for the next two quarters.</p>
+        </div>
+
+        <!-- Behavior research -->
+        <div class="ds-img-grid-3">
+          <div class="ds-img-item">
+            <img src="/images/drawstory/behavior-01.png" alt="User interview findings" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">User interview notes — pain points and mental models from 8 creative professionals</p>
+            </div>
+          </div>
+          <div class="ds-img-item">
+            <img src="/images/drawstory/behavior-02.png" alt="Market analysis" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Market analysis — competitor feature matrix and positioning gaps</p>
+            </div>
+          </div>
+          <div class="ds-img-item">
+            <img src="/images/drawstory/behavior-03.png" alt="Basic prototype" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Early prototype — first lo-fi flows tested with users before any visual design</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </details>
 
-    <!-- 7. What I shipped -->
-    <div class="ds-features">
-      <div class="ds-feature">
+    <!-- 7. COLLAPSIBLE: Hypotheses & Design Process -->
+    <details class="ds-accordion">
+      <summary>
+        <span class="ds-acc-title">Hypotheses & Design Process</span>
+        <span class="ds-acc-arrow">+</span>
+      </summary>
+      <div class="ds-accordion-body">
+        <div class="ds-acc-text">
+          <p>Every major feature started as a hypothesis — tested against real user sessions before being committed to the product. Here are the most significant design decisions and what drove them.</p>
+        </div>
 
-        <p class="ds-feature-title">Tab navigation for projects</p>
-        <p class="ds-feature-desc">Quick switching between open projects without losing context — modelled on the mental model users already had from browser tabs and code editors.</p>
+        <!-- References + side panel -->
+        <div class="ds-img-grid-2">
+          <div class="ds-img-item">
+            <img src="/images/drawstory/hypothesis-01.png" alt="Reference collection" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Reference collection — organising visual mood boards directly inside the project</p>
+            </div>
+          </div>
+          <div class="ds-img-item">
+            <img src="/images/drawstory/hypothesis-02.png" alt="Side panel variation" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Side panel layout — keeping tools accessible without crowding the canvas</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="ds-img-grid-2" style="margin-top:2px;">
+          <div class="ds-img-item">
+            <img src="/images/drawstory/hypothesis-05.png" alt="Smart comments system" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Smart comments — threaded inline feedback, first iteration with auto-grouping</p>
+            </div>
+          </div>
+          <div class="ds-img-item">
+            <img src="/images/drawstory/hypothesis-06.png" alt="Comments — final implementation" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Comments final — simplified to frame-level anchoring; shipped without friction</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project type + presentation views -->
+        <div class="ds-img-grid-4" style="margin-top:2px;">
+          <div class="ds-img-item">
+            <img src="/images/drawstory/hypothesis-09.png" alt="Project type selection" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Project type onboarding — film, animation, game, e-learning</p>
+            </div>
+          </div>
+          <div class="ds-img-item">
+            <img src="/images/drawstory/hypothesis-10.png" alt="List view" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">List view — for detailed review and export</p>
+            </div>
+          </div>
+          <div class="ds-img-item">
+            <img src="/images/drawstory/hypothesis-11.png" alt="Grid view" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Grid view — default for internal team review</p>
+            </div>
+          </div>
+          <div class="ds-img-item">
+            <img src="/images/drawstory/hypothesis-12.png" alt="Animation view" loading="lazy">
+            <div class="ds-img-item-inner">
+              <p class="ds-img-caption">Animation preview — for client presentations</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="ds-feature">
+    </details>
 
-        <p class="ds-feature-title">Commenting system</p>
-        <p class="ds-feature-desc">Contextual inline comments on specific frames, iterated from a smart threading model down to a clean, focused implementation that shipped without friction.</p>
-      </div>
-      <div class="ds-feature">
-
-        <p class="ds-feature-title">Scene Break with angle selection</p>
-        <p class="ds-feature-desc">A dedicated tool for splitting scenes with a camera-angle dropdown — giving directors precise control over AI generation without breaking the creative flow.</p>
-      </div>
-      <div class="ds-feature">
-
-        <p class="ds-feature-title">Project type onboarding</p>
-        <p class="ds-feature-desc">A structured selection page at the start of each project — film, animation, game, e-learning — so the AI model and default settings matched the user's actual context from the first frame.</p>
-      </div>
-      <div class="ds-feature">
-
-        <p class="ds-feature-title">Presentation modes</p>
-        <p class="ds-feature-desc">Three output formats — grid, list, and animation preview — designed for different audiences: grid for internal review, animation for client presentations.</p>
-      </div>
-      <div class="ds-feature">
-
-        <p class="ds-feature-title">Design system & UI Kit</p>
-        <p class="ds-feature-desc">A full component library built from the ground up — tokens, states, dark-mode defaults — to keep design and development in sync as the team scaled.</p>
-      </div>
-    </div>
-
-    <!-- 8. Image placeholder — replace with product screens -->
-    <section class="skp-fullimg skp-fh700">
-      <img src="/images/Works_Covers/drawstory.webp" alt="Drawstory — product screens">
+    <!-- 8. Design system block -->
+    <section class="skp-fullimg">
+      <img src="/images/drawstory/ds-block.png" alt="Drawstory — design system" loading="lazy">
     </section>
 
     <!-- 9. Results / impact -->
