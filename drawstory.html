@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawstory — Ripsime Sargsyan</title>
+  <meta name="description" content="Drawstory — AI-powered storyboard generation platform. Product & UI/UX design case study by Ripsime Sargsyan.">
+  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* ── DRAWSTORY STATS ROW ── */
+    .ds-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: #1a1a1a;
+      margin: 0;
+    }
+    .ds-stat {
+      background: #000;
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ds-stat-num {
+      font-size: clamp(48px, 5vw, 72px);
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: -0.035em;
+      line-height: 1;
+    }
+    .ds-stat-label {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.4;
+      max-width: 180px;
+    }
+    /* ── FEATURE CARDS GRID ── */
+    .ds-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: #1a1a1a;
+    }
+    .ds-feature {
+      background: #000;
+      padding: 48px;
+    }
+    .ds-feature-num {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+      letter-spacing: 0.08em;
+    }
+    .ds-feature-title {
+      font-size: clamp(18px, 1.8vw, 24px);
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .ds-feature-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+    /* ── RESEARCH FINDINGS ── */
+    .ds-findings {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      gap: 1px;
+      background: #1a1a1a;
+    }
+    .ds-finding {
+      background: #000;
+      padding: 40px 32px;
+    }
+    .ds-finding-icon {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .ds-finding-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
+    @media (max-width: 900px) {
+      .ds-stats { grid-template-columns: 1fr; }
+      .ds-features { grid-template-columns: 1fr; }
+      .ds-findings { grid-template-columns: 1fr 1fr; }
+      .ds-stat { padding: 36px 24px; }
+      .ds-feature { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/work" class="nav-link active">Work</a>
+      <div class="nav-service-wrap">
+        <button class="nav-link nav-service-toggle">Service</button>
+        <div class="service-drop">
+          <a href="/service-branding" class="service-item">Branding</a>
+          <a href="/service-uiux" class="service-item">UI/UX</a>
+          <a href="/service-product-design" class="service-item">Product Design</a>
+          <a href="/service-art-direction" class="service-item">Art Direction</a>
+        </div>
+      </div>
+      <a href="/talks" class="nav-link">Talks</a>
+      <a href="mailto:sargsyan.std@gmail.com" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- FULL OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+      <div>
+        <div class="overlay-stair-links">
+          <a href="/">Home</a>
+          <a href="/work">Work</a>
+          <button class="ol-service-toggle" type="button">Services <span class="ol-toggle-arrow">▾</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="/service-branding">Branding</a>
+            <a href="/service-uiux">UI/UX</a>
+            <a href="/service-product-design">Product Design</a>
+            <a href="/service-art-direction">Art Direction</a>
+          </div>
+          <a href="/talks">Talks</a>
+          <a href="mailto:sargsyan.std@gmail.com">Contact</a>
+        </div>
+      </div>
+      <div class="overlay-form-wrap">
+        <form id="overlay-form" class="ol-form" novalidate>
+          <div class="ol-field">
+            <input type="text" name="ol-name" required placeholder=" ">
+            <label class="ol-label">Name</label>
+          </div>
+          <div class="ol-field">
+            <input type="email" name="ol-email" required placeholder=" ">
+            <label class="ol-label">Email</label>
+          </div>
+          <div class="ol-field">
+            <input type="text" name="ol-message" required placeholder=" ">
+            <label class="ol-label">About project</label>
+          </div>
+          <label class="ol-consent">
+            <input type="checkbox" name="ol-consent" required>
+            <span class="ol-consent-text">I agree to the processing of personal data.</span>
+          </label>
+          <button type="submit" class="ol-submit">Send →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-wrap hero-top">
+  <main class="skp-main skp-main-dark">
+
+    <!-- 1. Hero -->
+    <section class="rds-hero">
+      <div class="rds-hero-left">
+        <h1 class="rds-title">Drawstory</h1>
+        <p class="rds-subtitle">Product & UI/UX design for an AI storyboard platform</p>
+      </div>
+      <div class="rds-hero-right">
+        <img src="/images/Works_Covers/drawstory.webp" class="skp-cover" alt="Drawstory — AI storyboard platform">
+      </div>
+    </section>
+
+    <!-- 2. Project overview -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>Drawstory is an AI-powered platform that lets artists and creative teams generate storyboards instantly, edit frames, collaborate in real time, and present directly to clients — all in one place.</p>
+        <p>I joined at the early MVP stage as Product Designer and took full ownership of the design: from competitor research and user interviews through to shipped features, a complete design system, and the product's web presence.</p>
+      </div>
+    </section>
+
+    <!-- 3. Full-width hero image -->
+    <section class="skp-fullimg skp-fh700">
+      <img src="/images/Works_Covers/drawstory.webp" alt="Drawstory product overview">
+    </section>
+
+    <!-- 4. The problem -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p class="rds-label">The problem</p>
+        <p>Traditional storyboarding is slow, manual, and siloed. Existing digital tools are either too complex for creative teams or too limited for production-grade work. There was no single environment where generation, editing, collaboration, and client presentation could happen together.</p>
+      </div>
+    </section>
+
+    <!-- 5. Research findings -->
+    <div class="ds-findings">
+      <div class="ds-finding">
+        <div class="ds-finding-icon">◐</div>
+        <p class="ds-finding-text">Users strongly preferred dark interfaces — less cognitive load during long working sessions</p>
+      </div>
+      <div class="ds-finding">
+        <div class="ds-finding-icon">○</div>
+        <p class="ds-finding-text">Rounded UI elements tested as more approachable and trustworthy in user sessions</p>
+      </div>
+      <div class="ds-finding">
+        <div class="ds-finding-icon">◎</div>
+        <p class="ds-finding-text">Real-time team collaboration was a hard blocker — without it, adoption stalled</p>
+      </div>
+      <div class="ds-finding">
+        <div class="ds-finding-icon">◷</div>
+        <p class="ds-finding-text">Version history was expected as table stakes — users needed to revert without anxiety</p>
+      </div>
+      <div class="ds-finding">
+        <div class="ds-finding-icon">◈</div>
+        <p class="ds-finding-text">Inline comments and notifications were the most-requested collaboration feature</p>
+      </div>
+    </div>
+
+    <!-- 6. Research text -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p class="rds-label">Research</p>
+        <p>I mapped the user journey from scratch, identified three competing AI model approaches, and ran interviews and observational sessions to understand how creative teams actually work. The findings above didn't just inform the UI — they defined the product priorities for the next two quarters.</p>
+      </div>
+    </section>
+
+    <!-- 7. What I shipped -->
+    <div class="ds-features">
+      <div class="ds-feature">
+        <p class="ds-feature-num">01</p>
+        <p class="ds-feature-title">Tab navigation for projects</p>
+        <p class="ds-feature-desc">Quick switching between open projects without losing context — modelled on the mental model users already had from browser tabs and code editors.</p>
+      </div>
+      <div class="ds-feature">
+        <p class="ds-feature-num">02</p>
+        <p class="ds-feature-title">Commenting system</p>
+        <p class="ds-feature-desc">Contextual inline comments on specific frames, iterated from a smart threading model down to a clean, focused implementation that shipped without friction.</p>
+      </div>
+      <div class="ds-feature">
+        <p class="ds-feature-num">03</p>
+        <p class="ds-feature-title">Scene Break with angle selection</p>
+        <p class="ds-feature-desc">A dedicated tool for splitting scenes with a camera-angle dropdown — giving directors precise control over AI generation without breaking the creative flow.</p>
+      </div>
+      <div class="ds-feature">
+        <p class="ds-feature-num">04</p>
+        <p class="ds-feature-title">Project type onboarding</p>
+        <p class="ds-feature-desc">A structured selection page at the start of each project — film, animation, game, e-learning — so the AI model and default settings matched the user's actual context from the first frame.</p>
+      </div>
+      <div class="ds-feature">
+        <p class="ds-feature-num">05</p>
+        <p class="ds-feature-title">Presentation modes</p>
+        <p class="ds-feature-desc">Three output formats — grid, list, and animation preview — designed for different audiences: grid for internal review, animation for client presentations.</p>
+      </div>
+      <div class="ds-feature">
+        <p class="ds-feature-num">06</p>
+        <p class="ds-feature-title">Design system & UI Kit</p>
+        <p class="ds-feature-desc">A full component library built from the ground up — tokens, states, dark-mode defaults — to keep design and development in sync as the team scaled.</p>
+      </div>
+    </div>
+
+    <!-- 8. Image placeholder — replace with product screens -->
+    <section class="skp-fullimg skp-fh700">
+      <img src="/images/Works_Covers/drawstory.webp" alt="Drawstory — product screens">
+    </section>
+
+    <!-- 9. Results / impact -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p class="rds-label">Impact</p>
+        <p>The product launched and gained real traction quickly — not through marketing, but through the clarity of the experience. When the interface gets out of the way, people focus on their work.</p>
+      </div>
+    </section>
+
+    <!-- 10. Stats -->
+    <div class="ds-stats">
+      <div class="ds-stat">
+        <span class="ds-stat-num">500+</span>
+        <span class="ds-stat-label">users in the first month after launch</span>
+      </div>
+      <div class="ds-stat">
+        <span class="ds-stat-num">10K+</span>
+        <span class="ds-stat-label">frames and scenes generated on the platform</span>
+      </div>
+      <div class="ds-stat">
+        <span class="ds-stat-num">1</span>
+        <span class="ds-stat-label">global accelerator — accepted into Plug and Play</span>
+      </div>
+    </div>
+
+    <!-- 11. Closing -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>Beyond the numbers: Drawstory was presented at industry conferences and entered its first enterprise conversations — signals that the product had moved beyond early adopters and into a scalable market.</p>
+        <p>What I'd push further: deeper analytics on how users interact with AI-generated frames — which edits happen most, where people drop off, and what that means for the generation model. The design system is solid, but the feedback loop between design and AI behaviour is where the next layer of quality lives.</p>
+      </div>
+    </section>
+
+    <!-- 12. See also -->
+    <section class="rds-see-also">
+      <p class="rds-see-also-label">See also</p>
+      <div class="rds-see-also-grid">
+        <a href="/eburet" class="rds-see-also-item">
+          <div class="rds-see-also-img">
+            <img src="/images/Works_Covers/eburet.webp" alt="Eburet">
+          </div>
+          <p class="rds-see-also-title">Eburet</p>
+        </a>
+        <a href="/rebank" class="rds-see-also-item">
+          <div class="rds-see-also-img">
+            <img src="/images/Works_Covers/Re_Bank_cover.webp" alt="ReBank">
+          </div>
+          <p class="rds-see-also-title">ReBank DS</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Contact -->
+  <section class="contact-form-section">
+    <div>
+      <h2 class="contact-headline">Get in Touch</h2>
+      <p class="contact-body">Have an interesting project or struggling with design? Let's connect! I'm always open to talk, create, and collaborate.</p>
+    </div>
+    <form class="ol-form contact-form-ajax" novalidate>
+      <input type="hidden" name="access_key" value="262fc81b-9cb3-4ffb-bac3-c6d69a5b9200">
+      <input type="hidden" name="subject" value="Portfolio inquiry — ripsime.me">
+      <input type="hidden" name="from_name" value="ripsime.me contact form">
+      <div class="ol-field">
+        <input type="text" name="name" required placeholder=" ">
+        <label class="ol-label">Name</label>
+      </div>
+      <div class="ol-field">
+        <input type="email" name="email" required placeholder=" ">
+        <label class="ol-label">Email</label>
+      </div>
+      <div class="ol-field">
+        <input type="text" name="message" required placeholder=" ">
+        <label class="ol-label">About project</label>
+      </div>
+      <label class="ol-consent">
+        <input type="checkbox" name="consent" required>
+        <span class="ol-consent-text">I agree to the processing of personal data.</span>
+      </label>
+      <button type="submit" class="ol-submit">Send →</button>
+      <div class="form-status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-links-col">
+      <div>
+        <nav class="footer-col-links">
+          <a href="/">Home</a>
+          <a href="/work">Works</a>
+          <a href="/talks">Talks</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-links">
+          <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">@sargsyan.std</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-links">
+          <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
+        </div>
+      </div>
+      <div class="footer-col-right">
+        <p class="footer-copyright">All rights reserved</p>
+        <p class="footer-copyright">© 2026 Ripsime Sargsyan</p>
+      </div>
+    </div>
+  </footer>
+
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

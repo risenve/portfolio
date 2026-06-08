@@ -111,7 +111,7 @@ const PROJECTS = [
     role: 'Product Designer',
     year: '2024',
     cover: '/images/Works_Covers/drawstory.webp', imgs: ['/images/Works_Covers/drawstory.webp'],
-    href: 'https://drawstory.com'
+    href: '/drawstory'
   }
 ];
 
