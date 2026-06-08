@@ -93,14 +93,14 @@ const PROJECTS = [
     href: '/unicorn'
   },
   {
-    id: 10, slug: 'inhub',
-    title: 'InHub',
-    categories: ['art-direction', 'brand-design'],
-    type: 'Brand Design',
-    role: 'Brand Designer',
-    year: '2023',
-    cover: '/images/Works_Covers/in hub.webp', imgs: ['/images/Works_Covers/in hub.webp'],
-    href: '#'
+    id: 10, slug: 'open-control',
+    title: 'Open Control',
+    categories: ['ui-ux', 'art-direction'],
+    type: 'AR/VR Product Design',
+    role: 'AR/VR Product Designer',
+    year: '2024',
+    cover: '/images/Works_Covers/open-control.jpg', imgs: ['/images/Works_Covers/open-control.jpg'],
+    href: '/open-control'
   },
   {
     id: 11, slug: 'posters',
@@ -112,6 +112,16 @@ const PROJECTS = [
     cover: '/images/Works_Covers/posters.webp',
     imgs: ['/images/Works_Covers/posters.webp','/images/posters/poster-1.webp','/images/posters/poster-2.webp','/images/posters/poster-3.webp'],
     href: '/posters'
+  },
+  {
+    id: 12, slug: 'inhub',
+    title: 'InHub',
+    categories: ['art-direction', 'brand-design'],
+    type: 'Brand Design',
+    role: 'Brand Designer',
+    year: '2023',
+    cover: '/images/Works_Covers/in hub.webp', imgs: ['/images/Works_Covers/in hub.webp'],
+    href: '#'
   }
 ];
 
