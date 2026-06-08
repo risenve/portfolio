@@ -42,17 +42,7 @@ const PROJECTS = [
     href: '/premiumization'
   },
   {
-    id: 5, slug: 'unicorn-embassy',
-    title: 'Unicorn Embassy',
-    categories: ['art-direction', 'brand-design'],
-    type: 'Brand Design',
-    role: 'Art Director',
-    year: '2024',
-    cover: '/images/Works_Covers/Unicorn Embassy.webp', imgs: ['/images/Works_Covers/Unicorn Embassy.webp'],
-    href: '/unicorn'
-  },
-  {
-    id: 6, slug: 'match',
+    id: 5, slug: 'match',
     title: 'Match',
     categories: ['art-direction', 'brand-design'],
     type: 'Art Direction',
@@ -63,18 +53,17 @@ const PROJECTS = [
     href: '/match'
   },
   {
-    id: 7, slug: 'posters',
-    title: 'Posters Vol.1',
-    categories: ['graphics-ai', 'art-direction'],
-    type: 'Graphic Design',
-    role: 'Graphic Designer',
-    year: '2023',
-    cover: '/images/Works_Covers/posters.webp',
-    imgs: ['/images/Works_Covers/posters.webp','/images/posters/poster-1.webp','/images/posters/poster-2.webp','/images/posters/poster-3.webp'],
-    href: '/posters'
+    id: 6, slug: 'drawstory',
+    title: 'Drawstory',
+    categories: ['ui-ux', 'art-direction'],
+    type: 'Product Design',
+    role: 'Product Designer',
+    year: '2024',
+    cover: '/images/Works_Covers/drawstory.webp', imgs: ['/images/Works_Covers/drawstory.webp'],
+    href: '/drawstory'
   },
   {
-    id: 8, slug: 'empty-date',
+    id: 7, slug: 'empty-date',
     title: 'Empty Date',
     categories: ['ui-ux'],
     type: 'UI/UX Design',
@@ -84,7 +73,7 @@ const PROJECTS = [
     href: 'https://emptydate.com/'
   },
   {
-    id: 9, slug: 'here-creative',
+    id: 8, slug: 'here-creative',
     title: 'Here Creative',
     categories: ['ui-ux'],
     type: 'UI/UX Design',
@@ -92,6 +81,16 @@ const PROJECTS = [
     year: '2023',
     cover: '/images/Works_Covers/here creative.webp', imgs: ['/images/Works_Covers/here creative.webp'],
     href: '#'
+  },
+  {
+    id: 9, slug: 'unicorn-embassy',
+    title: 'Unicorn Embassy',
+    categories: ['art-direction', 'brand-design'],
+    type: 'Brand Design',
+    role: 'Art Director',
+    year: '2024',
+    cover: '/images/Works_Covers/Unicorn Embassy.webp', imgs: ['/images/Works_Covers/Unicorn Embassy.webp'],
+    href: '/unicorn'
   },
   {
     id: 10, slug: 'inhub',
@@ -104,14 +103,15 @@ const PROJECTS = [
     href: '#'
   },
   {
-    id: 11, slug: 'drawstory',
-    title: 'Drawstory',
-    categories: ['ui-ux', 'art-direction'],
-    type: 'Product Design',
-    role: 'Product Designer',
-    year: '2024',
-    cover: '/images/Works_Covers/drawstory.webp', imgs: ['/images/Works_Covers/drawstory.webp'],
-    href: '/drawstory'
+    id: 11, slug: 'posters',
+    title: 'Posters Vol.1',
+    categories: ['graphics-ai', 'art-direction'],
+    type: 'Graphic Design',
+    role: 'Graphic Designer',
+    year: '2023',
+    cover: '/images/Works_Covers/posters.webp',
+    imgs: ['/images/Works_Covers/posters.webp','/images/posters/poster-1.webp','/images/posters/poster-2.webp','/images/posters/poster-3.webp'],
+    href: '/posters'
   }
 ];
 
