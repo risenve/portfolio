@@ -8,6 +8,9 @@
   <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/style.css">
   <style>
+    /* Hero — overrride global 700px */
+    .skp-main .rds-hero { height: 540px; }
+
     /* Hero video cover */
     .oc-hero-video {
       width: 100%;
@@ -20,11 +23,11 @@
     .oc-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      padding: 8px var(--pad-x);
+      gap: 16px;
+      padding: 16px var(--pad-x) 40px;
     }
     .oc-grid-item {
-      aspect-ratio: 9 / 16;
+      height: 65vh;
       overflow: hidden;
       background: #111;
     }
@@ -38,9 +41,10 @@
     @media (max-width: 600px) {
       .oc-grid {
         grid-template-columns: 1fr;
-        gap: 4px;
-        padding: 4px var(--pad-x);
+        gap: 10px;
+        padding: 10px var(--pad-x) 32px;
       }
+      .oc-grid-item { height: 75vw; }
     }
   </style>
 </head>
