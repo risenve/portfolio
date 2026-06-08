@@ -59,7 +59,7 @@ const PROJECTS = [
     type: 'Product Design',
     role: 'Product Designer',
     year: '2024',
-    cover: '/images/Works_Covers/drawstory.webp', imgs: ['/images/Works_Covers/drawstory.webp'],
+    cover: '/images/drawstory/ds-block.png', imgs: ['/images/drawstory/ds-block.png'],
     href: '/drawstory',
     worksOnly: true
   },
