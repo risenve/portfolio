@@ -8,13 +8,136 @@
   <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/style.css">
   <style>
-    /* ── DRAWSTORY STATS ROW ── */
+    /* ── DARK HEADER (project title block) ── */
+    .ds-project-header {
+      background: #000 !important;
+    }
+    .ds-project-header h1 { color: #fff !important; }
+    .ds-project-header p  { color: rgba(255,255,255,0.45) !important; }
+
+    /* ── BODY: TOC left + sections right ── */
+    .ds-body {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      background: #000;
+    }
+    .ds-toc {
+      padding: 48px 24px 48px 48px;
+      position: sticky;
+      top: 56px;
+      align-self: start;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .ds-toc-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 16px;
+      font-family: var(--font);
+    }
+    .ds-toc-link {
+      display: block;
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s;
+      font-family: var(--font);
+      line-height: 1.3;
+    }
+    .ds-toc-link:last-child { border-bottom: none; }
+    .ds-toc-link:hover { color: #fff; }
+
+    /* ── SECTIONS (right column) ── */
+    .ds-sections { }
+
+    /* ── ACCORDION ── */
+    .ds-accordion {
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .ds-accordion summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px 48px;
+      user-select: none;
+    }
+    .ds-accordion summary::-webkit-details-marker { display: none; }
+    .ds-acc-title {
+      font-size: clamp(16px, 1.6vw, 20px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: -0.01em;
+    }
+    .ds-acc-arrow {
+      font-size: 22px;
+      line-height: 1;
+      color: rgba(255,255,255,0.3);
+      transition: transform 0.28s ease;
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+    .ds-accordion[open] .ds-acc-arrow { transform: rotate(45deg); }
+    .ds-accordion summary:hover .ds-acc-title { color: #fff; }
+
+    /* ── ACCORDION BODY ── */
+    .ds-acc-intro {
+      padding: 0 48px 28px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.65;
+      max-width: 600px;
+    }
+    .ds-acc-sub {
+      padding: 0 48px 20px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      font-family: var(--font);
+    }
+
+    /* ── IMAGE GRIDS ── */
+    .ds-img-row {
+      display: grid;
+      gap: 2px;
+      background: #000;
+    }
+    .ds-img-row-2 { grid-template-columns: 1fr 1fr; }
+    .ds-img-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .ds-img-row-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .ds-img-row + .ds-img-row { margin-top: 2px; }
+    .ds-img-row + .ds-acc-sub { margin-top: 32px; }
+
+    .ds-img-cell {
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+    }
+    .ds-img-cell img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .ds-img-cell-cap {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      padding: 10px 16px 16px;
+      line-height: 1.45;
+      flex: 1;
+    }
+
+    /* ── STATS ── */
     .ds-stats {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 1px;
       background: #1a1a1a;
-      margin: 0;
     }
     .ds-stat {
       background: #000;
@@ -32,114 +155,55 @@
     }
     .ds-stat-label {
       font-size: 14px;
-      font-weight: 400;
       color: rgba(255,255,255,0.45);
       line-height: 1.4;
       max-width: 180px;
     }
-    /* ── IMAGE GRIDS ── */
-    .ds-img-grid-2 {
+
+    /* ── SCREEN PAIR ── */
+    .ds-screens {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2px;
       background: #000;
     }
-    .ds-img-grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 2px;
-      background: #000;
-    }
-    .ds-img-grid-4 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 2px;
-      background: #000;
-    }
-    .ds-img-grid-2 img,
-    .ds-img-grid-3 img,
-    .ds-img-grid-4 img {
+    .ds-screens img {
       width: 100%;
       height: auto;
       display: block;
     }
-    .ds-img-grid-2 + .ds-img-grid-2,
-    .ds-img-grid-3 + .ds-img-grid-3,
-    .ds-img-grid-2 + .ds-img-grid-3,
-    .ds-img-grid-3 + .ds-img-grid-2 { margin-top: 2px; }
 
-    /* ── COLLAPSIBLE SECTIONS ── */
-    .ds-accordion {
-      border-top: 1px solid rgba(255,255,255,0.1);
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .ds-body { grid-template-columns: 160px 1fr; }
+      .ds-toc { padding: 36px 16px 36px 24px; }
     }
-    .ds-accordion summary {
-      list-style: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 32px 48px;
-      user-select: none;
-    }
-    .ds-accordion summary::-webkit-details-marker { display: none; }
-    .ds-accordion summary .ds-acc-title {
-      font-size: clamp(18px, 2vw, 24px);
-      font-weight: 400;
-      color: #fff;
-      letter-spacing: -0.02em;
-    }
-    .ds-accordion summary .ds-acc-arrow {
-      font-size: 20px;
-      color: rgba(255,255,255,0.4);
-      transition: transform 0.3s ease;
-      flex-shrink: 0;
-    }
-    .ds-accordion[open] summary .ds-acc-arrow {
-      transform: rotate(45deg);
-    }
-    .ds-accordion summary:hover .ds-acc-title { color: rgba(255,255,255,0.7); }
-    .ds-accordion-body {
-      padding-bottom: 2px;
-    }
-    .ds-acc-text {
-      padding: 0 48px 32px;
-    }
-    .ds-acc-text p {
-      font-size: 15px;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.65;
-      max-width: 640px;
-    }
-    .ds-img-caption {
-      font-size: 13px;
-      color: rgba(255,255,255,0.3);
-      padding: 10px 0 0;
-      line-height: 1.4;
-    }
-    .ds-img-item {
-      background: #000;
-    }
-    .ds-img-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .ds-img-item-inner {
-      padding: 12px 16px 20px;
-    }
-
-    @media (max-width: 900px) {
-      .ds-stats { grid-template-columns: 1fr; }
-      .ds-stat { padding: 36px 24px; }
-      .ds-img-grid-3 { grid-template-columns: 1fr 1fr; }
-      .ds-img-grid-4 { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 768px) {
+      .ds-body { grid-template-columns: 1fr; }
+      .ds-toc {
+        position: static;
+        padding: 24px 20px 16px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        display: flex;
+        gap: 0;
+        flex-wrap: wrap;
+      }
+      .ds-toc-label { width: 100%; margin-bottom: 10px; }
+      .ds-toc-link { padding: 6px 12px 6px 0; border-bottom: none; font-size: 13px; }
       .ds-accordion summary { padding: 24px 20px; }
-      .ds-acc-text { padding: 0 20px 24px; }
+      .ds-acc-intro { padding: 0 20px 20px; }
+      .ds-acc-sub { padding: 0 20px 14px; }
+      .ds-img-row-3 { grid-template-columns: 1fr 1fr; }
+      .ds-img-row-4 { grid-template-columns: 1fr 1fr; }
+      .ds-stats { grid-template-columns: 1fr; }
+      .ds-stat { padding: 36px 20px; }
+      .ds-screens { grid-template-columns: 1fr; }
     }
-    @media (max-width: 560px) {
-      .ds-img-grid-2 { grid-template-columns: 1fr; }
-      .ds-img-grid-3 { grid-template-columns: 1fr; }
-      .ds-img-grid-4 { grid-template-columns: 1fr; }
+    @media (max-width: 480px) {
+      .ds-img-row-2 { grid-template-columns: 1fr; }
+      .ds-img-row-3 { grid-template-columns: 1fr; }
+      .ds-img-row-4 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -222,22 +286,21 @@
   <div class="page-wrap hero-top">
   <main class="skp-main skp-main-dark">
 
-    <!-- 1. Hero -->
-    <section class="rds-hero">
-      <div class="rds-hero-left">
-        <h1 class="rds-title">Drawstory</h1>
-        <p class="rds-subtitle">Product & UI/UX design for an AI storyboard platform</p>
-      </div>
-      <div class="rds-hero-right">
-        <img src="/images/Works_Covers/drawstory.webp" class="skp-cover" alt="Drawstory — AI storyboard platform">
-      </div>
+    <!-- 1. Project header (dark) -->
+    <section class="skp-project-header ds-project-header">
+      <h1>Drawstory</h1>
+      <p>Product & UI/UX design for an AI storyboard platform · 2024</p>
     </section>
 
-    <!-- 2. Project info -->
+    <!-- 2. Hero: ds-block.png full fill -->
+    <section class="skp-hero">
+      <img src="/images/drawstory/ds-block.png" alt="Drawstory — design system">
+    </section>
+
+    <!-- 3. Project info: brief left | Problem/Role/Result right -->
     <section class="skp-project-info">
       <div class="skp-project-info-left">
         <p class="skp-info-headline">AI-powered platform for instant storyboard generation, real-time collaboration, and client presentation.</p>
-        <p style="color:rgba(255,255,255,0.55);font-size:15px;line-height:1.6;margin-top:16px;">I joined at the early MVP stage as Product Designer and took full ownership of the design: from competitor research and user interviews through to shipped features, a complete design system, and the product's web presence.</p>
         <div class="skp-project-services">
           <p>Product design</p>
           <p>UI/UX</p>
@@ -247,193 +310,176 @@
         </div>
         <a href="https://drawstory.com" class="skp-project-link" target="_blank" rel="noopener">drawstory.com</a>
       </div>
+      <div class="skp-project-info-right">
+        <div class="skp-context-blocks">
+          <div class="skp-context-block">
+            <span class="skp-context-label">Problem</span>
+            <p class="skp-context-text">Traditional storyboarding is slow, manual, and siloed. No single tool combined AI generation, editing, collaboration, and client presentation in one place.</p>
+          </div>
+          <div class="skp-context-block">
+            <span class="skp-context-label">My role</span>
+            <p class="skp-context-text">Joined at early MVP as the sole Product Designer. Full ownership from competitor research and user interviews through to shipped features and a complete design system.</p>
+          </div>
+          <div class="skp-context-block">
+            <span class="skp-context-label">Result</span>
+            <p class="skp-context-text">1000+ users, 20K+ frames generated, 50+ directors choose Drawstory. Presented at industry conferences and entered enterprise conversations.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 3. Project overview full-width -->
+    <!-- 4. Full-width product overview -->
     <section class="skp-fullimg">
-      <img src="/images/drawstory/project-overview.png" alt="Drawstory — project overview" loading="lazy">
+      <img src="/images/drawstory/project-overview.png" alt="Drawstory — product overview" loading="lazy">
     </section>
 
-    <!-- 4. The problem -->
-    <section class="skp-text">
-      <div class="skp-inner-512">
-        <p class="rds-label">The problem</p>
-        <p>Traditional storyboarding is slow, manual, and siloed. Existing digital tools are either too complex for creative teams or too limited for production-grade work. There was no single environment where generation, editing, collaboration, and client presentation could happen together.</p>
-      </div>
-    </section>
+    <!-- 5. Body: sticky TOC left + collapsible sections right -->
+    <div class="ds-body">
 
-    <!-- 5. Product screens -->
-    <div class="ds-img-grid-2">
-      <img src="/images/drawstory/screen-1.png" alt="Drawstory — product screen 1" loading="lazy">
-      <img src="/images/drawstory/screen-2.png" alt="Drawstory — product screen 2" loading="lazy">
-    </div>
+      <!-- Left: table of contents -->
+      <nav class="ds-toc" aria-label="Case study contents">
+        <p class="ds-toc-label">Contents</p>
+        <a href="#research"    class="ds-toc-link">Research &amp; Discovery</a>
+        <a href="#hypotheses"  class="ds-toc-link">Hypotheses &amp; Process</a>
+        <a href="#screens"     class="ds-toc-link">Product Screens</a>
+      </nav>
 
-    <!-- 6. COLLAPSIBLE: Research & Discovery -->
-    <details class="ds-accordion">
-      <summary>
-        <span class="ds-acc-title">Research & Discovery</span>
-        <span class="ds-acc-arrow">+</span>
-      </summary>
-      <div class="ds-accordion-body">
-        <div class="ds-acc-text">
-          <p>I started by mapping out competing AI model approaches and running observational sessions to understand how creative teams actually work. Four AI generation models were evaluated side by side — each with different trade-offs in speed, control, and output quality.</p>
-        </div>
+      <!-- Right: sections -->
+      <div class="ds-sections">
 
-        <!-- AI models 1–4 -->
-        <div class="ds-img-grid-2">
-          <div class="ds-img-item">
-            <img src="/images/drawstory/research-01.png" alt="AI model — Script Upload" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">AI model 1 — Script Upload: generate frames from a written screenplay</p>
-            </div>
-          </div>
-          <div class="ds-img-item">
-            <img src="/images/drawstory/research-02.png" alt="AI model — Text to Image" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">AI model 2 — Text-to-Image: direct prompt-to-frame generation</p>
-            </div>
-          </div>
-        </div>
-        <div class="ds-img-grid-2" style="margin-top:2px;">
-          <div class="ds-img-item">
-            <img src="/images/drawstory/research-03.png" alt="AI model — SAM API editing" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">AI model 3 — SAM API: segment-aware image editing for precise frame control</p>
-            </div>
-          </div>
-          <div class="ds-img-item">
-            <img src="/images/drawstory/research-04.png" alt="AI model — Object Generator" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">AI model 4 — Object Generator: add or replace elements within existing frames</p>
-            </div>
-          </div>
-        </div>
+        <!-- ── Research & Discovery ── -->
+        <details class="ds-accordion" id="research">
+          <summary>
+            <span class="ds-acc-title">Research &amp; Discovery</span>
+            <span class="ds-acc-arrow">+</span>
+          </summary>
+          <div>
+            <p class="ds-acc-intro">I started by mapping competing AI model approaches side by side, then ran interviews and observational sessions to understand how creative teams actually work. Four generation models were evaluated — each with different trade-offs in speed, control, and output quality.</p>
 
-        <!-- Initial user flow -->
-        <div class="ds-img-grid-2" style="margin-top:2px;">
-          <div class="ds-img-item">
-            <img src="/images/drawstory/research-05.png" alt="Initial user flow" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Initial user flow — mapping the end-to-end journey from brief to final delivery</p>
+            <p class="ds-acc-sub">AI model evaluation</p>
+            <div class="ds-img-row ds-img-row-2">
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/research-01.png" alt="AI model — Script Upload" loading="lazy">
+                <p class="ds-img-cell-cap">Model 1 — Script Upload: generate a full storyboard from a written screenplay</p>
+              </div>
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/research-02.png" alt="AI model — Text to Image" loading="lazy">
+                <p class="ds-img-cell-cap">Model 2 — Text-to-Image: direct prompt-to-frame generation without any source material</p>
+              </div>
             </div>
-          </div>
-        </div>
+            <div class="ds-img-row ds-img-row-2">
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/research-03.png" alt="AI model — SAM API editing" loading="lazy">
+                <p class="ds-img-cell-cap">Model 3 — SAM API: segment-aware editing for precise per-object control within frames</p>
+              </div>
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/research-04.png" alt="AI model — Object Generator" loading="lazy">
+                <p class="ds-img-cell-cap">Model 4 — Object Generator: add or replace elements inside an existing frame</p>
+              </div>
+            </div>
 
-        <div class="ds-acc-text" style="padding-top:32px;">
-          <p>I ran interviews and mapped user behavior across three key areas: how people gather references, how they work in teams, and where existing tools broke down. The patterns shaped the entire product roadmap for the next two quarters.</p>
-        </div>
+            <p class="ds-acc-sub" style="margin-top:32px;">Initial user flow</p>
+            <div class="ds-img-row ds-img-row-2">
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/research-05.png" alt="Initial user flow" loading="lazy">
+                <p class="ds-img-cell-cap">First user flow map — end-to-end journey from brief to final export, before any visual design</p>
+              </div>
+            </div>
 
-        <!-- Behavior research -->
-        <div class="ds-img-grid-3">
-          <div class="ds-img-item">
-            <img src="/images/drawstory/behavior-01.png" alt="User interview findings" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">User interview notes — pain points and mental models from 8 creative professionals</p>
+            <p class="ds-acc-sub" style="margin-top:32px;">User behavior &amp; market</p>
+            <div class="ds-img-row ds-img-row-3">
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/behavior-01.png" alt="User interview notes" loading="lazy">
+                <p class="ds-img-cell-cap">Interview notes — pain points and mental models from 8 creative professionals</p>
+              </div>
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/behavior-02.png" alt="Market analysis" loading="lazy">
+                <p class="ds-img-cell-cap">Competitor feature matrix — positioning gaps and opportunity areas</p>
+              </div>
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/behavior-03.png" alt="Early prototype" loading="lazy">
+                <p class="ds-img-cell-cap">First lo-fi prototype — tested with users before any visual design was committed</p>
+              </div>
             </div>
           </div>
-          <div class="ds-img-item">
-            <img src="/images/drawstory/behavior-02.png" alt="Market analysis" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Market analysis — competitor feature matrix and positioning gaps</p>
-            </div>
-          </div>
-          <div class="ds-img-item">
-            <img src="/images/drawstory/behavior-03.png" alt="Basic prototype" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Early prototype — first lo-fi flows tested with users before any visual design</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </details>
+        </details>
 
-    <!-- 7. COLLAPSIBLE: Hypotheses & Design Process -->
-    <details class="ds-accordion">
-      <summary>
-        <span class="ds-acc-title">Hypotheses & Design Process</span>
-        <span class="ds-acc-arrow">+</span>
-      </summary>
-      <div class="ds-accordion-body">
-        <div class="ds-acc-text">
-          <p>Every major feature started as a hypothesis — tested against real user sessions before being committed to the product. Here are the most significant design decisions and what drove them.</p>
-        </div>
+        <!-- ── Hypotheses & Design Process ── -->
+        <details class="ds-accordion" id="hypotheses">
+          <summary>
+            <span class="ds-acc-title">Hypotheses &amp; Design Process</span>
+            <span class="ds-acc-arrow">+</span>
+          </summary>
+          <div>
+            <p class="ds-acc-intro">Every major feature went through at least one design hypothesis — tested in user sessions before being committed to the product. These are the decisions that shaped the final interface.</p>
 
-        <!-- References + side panel -->
-        <div class="ds-img-grid-2">
-          <div class="ds-img-item">
-            <img src="/images/drawstory/hypothesis-01.png" alt="Reference collection" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Reference collection — organising visual mood boards directly inside the project</p>
+            <p class="ds-acc-sub">References &amp; side panel</p>
+            <div class="ds-img-row ds-img-row-2">
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/hypothesis-01.png" alt="Reference collection" loading="lazy">
+                <p class="ds-img-cell-cap">Reference collection inside the project — keeping visual mood boards alongside the canvas</p>
+              </div>
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/hypothesis-02.png" alt="Side panel variation" loading="lazy">
+                <p class="ds-img-cell-cap">Side panel layout iteration — tools accessible without crowding the main workspace</p>
+              </div>
             </div>
-          </div>
-          <div class="ds-img-item">
-            <img src="/images/drawstory/hypothesis-02.png" alt="Side panel variation" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Side panel layout — keeping tools accessible without crowding the canvas</p>
-            </div>
-          </div>
-        </div>
 
-        <!-- Comments -->
-        <div class="ds-img-grid-2" style="margin-top:2px;">
-          <div class="ds-img-item">
-            <img src="/images/drawstory/hypothesis-05.png" alt="Smart comments system" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Smart comments — threaded inline feedback, first iteration with auto-grouping</p>
+            <p class="ds-acc-sub" style="margin-top:32px;">Comments system</p>
+            <div class="ds-img-row ds-img-row-2">
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/hypothesis-05.png" alt="Smart comments" loading="lazy">
+                <p class="ds-img-cell-cap">First iteration — threaded inline comments with auto-grouping by frame region</p>
+              </div>
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/hypothesis-06.png" alt="Comments final" loading="lazy">
+                <p class="ds-img-cell-cap">Shipped version — simplified to frame-level anchoring; faster to use, less cognitive load</p>
+              </div>
             </div>
-          </div>
-          <div class="ds-img-item">
-            <img src="/images/drawstory/hypothesis-06.png" alt="Comments — final implementation" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Comments final — simplified to frame-level anchoring; shipped without friction</p>
-            </div>
-          </div>
-        </div>
 
-        <!-- Project type + presentation views -->
-        <div class="ds-img-grid-4" style="margin-top:2px;">
-          <div class="ds-img-item">
-            <img src="/images/drawstory/hypothesis-09.png" alt="Project type selection" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Project type onboarding — film, animation, game, e-learning</p>
+            <p class="ds-acc-sub" style="margin-top:32px;">Project types &amp; presentation modes</p>
+            <div class="ds-img-row ds-img-row-4">
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/hypothesis-09.png" alt="Project type selection" loading="lazy">
+                <p class="ds-img-cell-cap">Onboarding — film, animation, game, e-learning project types</p>
+              </div>
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/hypothesis-10.png" alt="List view" loading="lazy">
+                <p class="ds-img-cell-cap">List view — for detailed review and structured export</p>
+              </div>
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/hypothesis-11.png" alt="Grid view" loading="lazy">
+                <p class="ds-img-cell-cap">Grid view — default mode for internal team review</p>
+              </div>
+              <div class="ds-img-cell">
+                <img src="/images/drawstory/hypothesis-12.png" alt="Animation view" loading="lazy">
+                <p class="ds-img-cell-cap">Animation preview — for client presentations and sign-off</p>
+              </div>
             </div>
           </div>
-          <div class="ds-img-item">
-            <img src="/images/drawstory/hypothesis-10.png" alt="List view" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">List view — for detailed review and export</p>
-            </div>
-          </div>
-          <div class="ds-img-item">
-            <img src="/images/drawstory/hypothesis-11.png" alt="Grid view" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Grid view — default for internal team review</p>
-            </div>
-          </div>
-          <div class="ds-img-item">
-            <img src="/images/drawstory/hypothesis-12.png" alt="Animation view" loading="lazy">
-            <div class="ds-img-item-inner">
-              <p class="ds-img-caption">Animation preview — for client presentations</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </details>
+        </details>
 
-    <!-- 8. Design system block -->
-    <section class="skp-fullimg">
-      <img src="/images/drawstory/ds-block.png" alt="Drawstory — design system" loading="lazy">
-    </section>
+        <!-- ── Product Screens (always visible) ── -->
+        <section id="screens" style="border-top:1px solid rgba(255,255,255,0.08);padding:30px 48px 0;">
+          <p style="font-size:clamp(16px,1.6vw,20px);font-weight:400;color:rgba(255,255,255,0.85);letter-spacing:-0.01em;margin:0 0 28px;">Product Screens</p>
+          <div class="ds-screens" style="margin:0 -48px;">
+            <img src="/images/drawstory/screen-1.png" alt="Drawstory — screen 1" loading="lazy">
+            <img src="/images/drawstory/screen-2.png" alt="Drawstory — screen 2" loading="lazy">
+          </div>
+        </section>
 
-    <!-- 9. Results / impact -->
+      </div><!-- /ds-sections -->
+    </div><!-- /ds-body -->
+
+    <!-- 6. Impact text -->
     <section class="skp-text">
       <div class="skp-inner-512">
         <p class="rds-label">Impact</p>
-        <p>The product launched and gained real traction quickly — not through marketing, but through the clarity of the experience. When the interface gets out of the way, people focus on their work.</p>
+        <p>The product launched and gained real traction — not through marketing, but through the clarity of the experience. When the interface gets out of the way, people focus on their work.</p>
       </div>
     </section>
 
-    <!-- 10. Stats -->
+    <!-- 7. Stats -->
     <div class="ds-stats">
       <div class="ds-stat">
         <span class="ds-stat-num">1000+</span>
@@ -449,15 +495,15 @@
       </div>
     </div>
 
-    <!-- 11. Closing -->
+    <!-- 8. Closing -->
     <section class="skp-text">
       <div class="skp-inner-512">
-        <p>Beyond the numbers: Drawstory was presented at industry conferences and entered its first enterprise conversations — signals that the product had moved beyond early adopters and into a scalable market.</p>
-        <p>What I'd push further: deeper analytics on how users interact with AI-generated frames — which edits happen most, where people drop off, and what that means for the generation model. The design system is solid, but the feedback loop between design and AI behaviour is where the next layer of quality lives.</p>
+        <p>Drawstory was presented at industry conferences and entered its first enterprise conversations — signals that the product had moved beyond early adopters and into a scalable market.</p>
+        <p>What I'd push further: deeper analytics on how users interact with AI-generated frames — which edits happen most, where people drop off, and what that means for the generation model. The design system is solid; the feedback loop between design and AI behaviour is where the next layer of quality lives.</p>
       </div>
     </section>
 
-    <!-- 12. See also -->
+    <!-- 9. See also -->
     <section class="rds-see-also">
       <p class="rds-see-also-label">See also</p>
       <div class="rds-see-also-grid">
