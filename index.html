@@ -60,19 +60,18 @@
       color: rgba(255,255,255,0.45);
     }
 
-    /* ── CENTERED NAME (fixed, z-index above hero) ── */
-    /* No transform on this element — transform creates a stacking context
-       that isolates mix-blend-mode from the page background.
-       Centering via inset:0 + flex so the child blend works correctly. */
+    /* ── CENTERED NAME (absolute inside .ah-fixed, same stacking context as photo) ── */
+    /* Must be position:absolute (NOT fixed) and NO z-index so it doesn't create
+       its own stacking context. That way mix-blend-mode:difference on .ah-name-blend
+       blends with the photo inside .ah-fixed's stacking context — not with empty air. */
     .ah-name-center {
-      position: fixed;
+      position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 4px;
-      z-index: 2;
       pointer-events: none;
       transition: opacity 0.55s ease, transform 0.55s ease;
     }
@@ -612,14 +611,13 @@
     <div class="ah-photo-side" id="ah-photo-side">
       <img src="/images/ripsime-photo.webp" alt="Ripsime Sargsyan">
     </div>
-  </div>
-
-  <!-- ── CENTERED NAME + ROLE (fixed, above hero) ── -->
-  <div class="ah-name-center" id="ah-name-center">
-    <div class="ah-name-blend">
-      <p><span class="ah-name-str" id="ah-typed"></span><span class="ah-cursor" id="ah-cursor"></span></p>
+    <!-- Name is INSIDE .ah-fixed so mix-blend-mode:difference blends with the photo -->
+    <div class="ah-name-center" id="ah-name-center">
+      <div class="ah-name-blend">
+        <p><span class="ah-name-str" id="ah-typed"></span><span class="ah-cursor" id="ah-cursor"></span></p>
+      </div>
+      <p class="ah-role-center" id="ah-role-center">Digital Designer &amp; Creative lead</p>
     </div>
-    <p class="ah-role-center" id="ah-role-center">Digital Designer &amp; Creative lead</p>
   </div>
 
   <!-- ── SPLIT LABELS (appear after split) ── -->
