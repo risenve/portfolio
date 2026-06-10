@@ -61,22 +61,24 @@
     }
 
     /* ── CENTERED NAME (fixed, z-index above hero) ── */
+    /* No transform on this element — transform creates a stacking context
+       that isolates mix-blend-mode from the page background.
+       Centering via inset:0 + flex so the child blend works correctly. */
     .ah-name-center {
       position: fixed;
-      top: 50%; left: 0; right: 0;
-      transform: translateY(-50%);
-      text-align: center;
-      z-index: 2;
-      pointer-events: none;
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 4px;
+      z-index: 2;
+      pointer-events: none;
+      transition: opacity 0.55s ease, transform 0.55s ease;
     }
     .ah-name-center.hide {
       opacity: 0;
-      transform: translateY(-50%) scale(0.95);
+      transform: scale(0.95);
     }
     /* Blend mode only on the name line, not the role */
     .ah-name-blend {
