@@ -609,6 +609,12 @@ function initServiceCards() {
 
   var cards = Array.prototype.slice.call(wrap.querySelectorAll('.ah-svc-card'));
 
+  // Preload hover images so the first mouseenter shows instantly
+  cards.forEach(function(c) {
+    var src = c.getAttribute('data-img');
+    if (src) { var im = new Image(); im.src = src; }
+  });
+
   // Default gradient (used when card has no custom gradient)
   var DEFAULT_GRAD = 'linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 70%,rgba(0,0,0,.55) 100%)';
 
