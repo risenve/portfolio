@@ -445,7 +445,7 @@ body.overlay-open{overflow:hidden}
   grid-template-columns:1fr 1fr;
   gap:48px;
   padding:64px var(--pad-x);
-  background:var(--bg);
+  background:#0A0A0A; /* a touch lighter than pure black so the page visibly ends */
   border-radius:0;
 }
 .contact-headline{
@@ -530,7 +530,7 @@ body.overlay-open{overflow:hidden}
   gap:80px;
   padding:44px var(--pad-x);
   border-top:1px solid rgba(255,255,255,0.07);
-  background:var(--bg);
+  background:#0A0A0A; /* matches contact form — subtly separates from pure black */
 }
 .footer-links-col{
   display:grid;
