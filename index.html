@@ -484,28 +484,9 @@
         align-items: flex-start;
         gap: 32px;
       }
-      /* Mobile: service cards → plain text list */
-      .ah-svc-cards {
-        flex-direction: column;
-        overflow-x: visible;
-        gap: 0;
-        width: 100%;
-      }
-      .ah-svc-card {
-        flex: none !important;
-        height: auto !important;
-        background: transparent !important;
-        padding: 10px 0;
-        border-bottom: 1px solid rgba(0,0,0,0.08);
-      }
-      .ah-svc-card:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
-      .ah-svc-name {
-        font-size: 18px;
-        color: #000 !important;
-        opacity: 0.75 !important;
-        white-space: normal;
-      }
-      .ah-svc-desc { display: none !important; }
+      /* Mobile: hide service cards + hover bg entirely (desktop-only feature) */
+      .ah-svc-cards { display: none !important; }
+      .ah-proc-bg { display: none !important; }
       .ah-prac-col { padding-left: 0; width: 100%; }
       .ah-prac-label { margin-bottom: 8px; }
       .ah-prac-text { font-size: clamp(18px, 4.5vw, 28px); }
@@ -766,7 +747,7 @@
 
       <!-- Title: centered on black -->
       <h2 class="rev-title" id="rev-title">
-        <span>See what my clients say</span>
+        <span>See what my<br class="rev-title-br"> clients say</span>
       </h2>
 
       <!-- 3 equal cards -->
