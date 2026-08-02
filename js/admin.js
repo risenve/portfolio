@@ -131,16 +131,30 @@
   }
 
   // ============================================================
-  // ACCESS GATE (password-encrypted token)
+  // ACCESS GATE — Stage 1: team password · Stage 2: GitHub token
   // ============================================================
+  // SHA-256 of the team password (kept as a hash, not plaintext).
+  var PASS_HASH = '22ec276eb2e7776f06c57ea150ba8f3b117e061e7ab81c94b465043275a9547a';
+  var pw = '';  // verified password, kept in memory to en/decrypt the token vault
+
+  function sha256hex(str) {
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return ('0' + b.toString(16)).slice(-2);
+      }).join('');
+    });
+  }
+
+  function showStage(name) {
+    $('a-stage-pass').style.display = name === 'pass' ? 'contents' : 'none';
+    $('a-stage-token').style.display = name === 'token' ? 'contents' : 'none';
+    setTimeout(function () { var f = $(name === 'pass' ? 'a-pass' : 'a-token'); if (f) f.focus(); }, 50);
+  }
   function showGateMode() {
-    // Decide which sub-panel to show based on whether a vault exists.
-    var hasVault = !!getVault();
-    $('a-setup').classList.toggle('hidden', hasVault);
-    $('a-unlock').classList.toggle('hidden', !hasVault);
-    gate.classList.remove('hidden');
+    gate.style.display = 'flex';
     app.classList.add('hidden');
-    setTimeout(function () { (hasVault ? $('a-pass') : $('a-pass-new')).focus(); }, 50);
+    $('a-gate-log').innerHTML = ''; $('a-gate-log2').innerHTML = '';
+    showStage('pass');
   }
 
   function verifyToken() {
@@ -149,74 +163,66 @@
       return r.json();
     });
   }
-  function enterApp() {
-    var glog = $('a-gate-log'); glog.innerHTML = '';
+  function enterApp(glog) {
     log(glog, 'Checking access…');
     return verifyToken().then(function () {
-      gate.classList.add('hidden');
+      gate.style.display = 'none';
       app.classList.remove('hidden');
-      $('a-pass').value = '';
+      $('a-pass').value = ''; $('a-token').value = '';
       return loadProjects();
     });
   }
 
-  // First-time setup: password (x2) + token → encrypt → store
-  $('a-setup-save').addEventListener('click', function () {
+  // Stage 1: team password
+  $('a-pass-form').addEventListener('submit', function (e) {
+    e.preventDefault();
     var glog = $('a-gate-log'); glog.innerHTML = '';
-    var p1 = $('a-pass-new').value, p2 = $('a-pass-new2').value;
+    var input = $('a-pass').value;
+    if (!input) { log(glog, 'Enter the password.', 'err'); return; }
+    sha256hex(input).then(function (h) {
+      if (h !== PASS_HASH) { log(glog, 'Wrong password.', 'err'); return; }
+      pw = input;
+      var vault = getVault();
+      if (!vault) { showStage('token'); return; }
+      // token already saved → decrypt with the password and go in
+      log(glog, 'Unlocking…');
+      decryptToken(pw, vault).then(
+        function (tok) { token = tok; return enterApp(glog).catch(function (er) { token = ''; log(glog, er.message, 'err'); }); },
+        function () { showStage('token'); log($('a-gate-log2'), 'Saved token could not be read — paste it again.', 'err'); }
+      );
+    });
+  });
+
+  // Stage 2: GitHub token → verify → encrypt with password → save
+  $('a-token-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var glog = $('a-gate-log2'); glog.innerHTML = '';
     var tok = $('a-token').value.trim();
-    if (p1.length < 6) { log(glog, 'Password must be at least 6 characters.', 'err'); return; }
-    if (p1 !== p2) { log(glog, 'Passwords do not match.', 'err'); return; }
     if (!tok) { log(glog, 'Paste your GitHub token.', 'err'); return; }
+    if (!pw) { showStage('pass'); return; }
     token = tok;
     log(glog, 'Verifying token…');
     verifyToken().then(function () {
-      return encryptToken(p1, tok);
+      return encryptToken(pw, tok);
     }).then(function (vault) {
       localStorage.setItem(VAULT_KEY, JSON.stringify(vault));
       localStorage.removeItem(OLD_TOKEN_KEY);
-      $('a-token').value = ''; $('a-pass-new').value = ''; $('a-pass-new2').value = '';
-      return enterApp();
-    }).catch(function (e) { token = ''; log(glog, e.message, 'err'); });
+      return enterApp(glog);
+    }).catch(function (er) { token = ''; log(glog, er.message, 'err'); });
   });
 
-  // Returning: password → decrypt token → verify → in
-  function doUnlock() {
-    var glog = $('a-gate-log'); glog.innerHTML = '';
-    var vault = getVault();
-    if (!vault) { showGateMode(); return; }
-    var pass = $('a-pass').value;
-    if (!pass) { log(glog, 'Enter your password.', 'err'); return; }
-    log(glog, 'Unlocking…');
-    decryptToken(pass, vault).then(
-      function (tok) {
-        // decrypt succeeded → proceed; enterApp handles its own (network) errors
-        token = tok;
-        return enterApp().catch(function (e) { token = ''; log(glog, e.message, 'err'); });
-      },
-      function () {
-        // this branch only fires on decrypt failure = wrong password
-        token = '';
-        log(glog, 'Wrong password.', 'err');
-      }
-    );
-  }
-  $('a-unlock-btn').addEventListener('click', doUnlock);
-  $('a-pass').addEventListener('keydown', function (e) { if (e.key === 'Enter') doUnlock(); });
+  // Lock: drop in-memory secrets, require password again
+  $('a-lock').addEventListener('click', function () {
+    token = ''; pw = '';
+    showGateMode();
+  });
 
-  // Reset: wipe the encrypted token, start over
-  $('a-reset').addEventListener('click', function () {
-    if (!confirm('Remove the saved token and password from this browser? You\'ll need to paste the token again next time.')) return;
+  // Reset token: wipe the saved (encrypted) token; next login re-asks for it
+  $('a-reset-token').addEventListener('click', function () {
+    if (!confirm('Remove the saved GitHub token from this browser? You\'ll paste it again next time.')) return;
     localStorage.removeItem(VAULT_KEY);
     localStorage.removeItem(OLD_TOKEN_KEY);
-    token = '';
-    showGateMode();
-    log($('a-gate-log'), 'Access reset. Set a new password + token.', 'ok');
-  });
-
-  // Lock: drop the in-memory token, require password again
-  $('a-lock').addEventListener('click', function () {
-    token = '';
+    token = ''; pw = '';
     showGateMode();
   });
 

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin — Ripsime Portfolio</title>
   <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
   <style>
     :root {
       --a-bg: #0d0d0f; --a-panel: #16161a; --a-line: #26262c;
@@ -26,20 +27,42 @@
     .a-btn--danger { background: transparent; border: 1px solid #5a2530; color: #e0687e; }
     .a-btn:disabled { opacity: .4; cursor: not-allowed; }
 
-    /* Token gate */
-    .a-gate { max-width: 520px; margin: 60px auto; background: var(--a-panel); border: 1px solid var(--a-line); border-radius: var(--a-radius); padding: 28px; }
-    .a-gate h2 { margin: 0 0 6px; font-size: 18px; }
-    .a-gate p { color: var(--a-muted); font-size: 13px; line-height: 1.6; margin: 0 0 18px; }
-    .a-gate ol { color: var(--a-muted); font-size: 12.5px; line-height: 1.7; padding-left: 18px; }
-    .a-gate code { background: #000; padding: 1px 6px; border-radius: 4px; color: #ddd; font-size: 12px; }
+    /* Access gate — styled like the site's opening overlay menu */
+    #a-gate {
+      position: fixed; inset: 0; z-index: 300;
+      background: var(--bg, #000);
+      display: flex; flex-direction: column; overflow-y: auto;
+      font-family: var(--font);
+    }
+    .ag-header { display: flex; align-items: center; height: var(--nav-h, 56px); padding: 0 var(--pad-x, 48px); flex-shrink: 0; }
+    .ag-header img { display: block; }
+    .ag-body { flex: 1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; padding: 0 var(--pad-x, 48px) 90px; }
+    .ag-left { max-width: 16ch; }
+    .ag-title {
+      font-family: var(--font); font-weight: 400; color: #fff;
+      font-size: clamp(34px, 4.6vw, 68px); line-height: 1.02; letter-spacing: -0.03em; margin: 0;
+    }
+    .ag-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.65; margin: 22px 0 0; max-width: 40ch; }
+    .ag-help { margin-top: 26px; font-size: 12.5px; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 1.75; max-width: 42ch; }
+    .ag-help ol { padding-left: 18px; margin: 8px 0 0; }
+    .ag-help code { background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px; color: #ddd; }
+    .ag-help a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+    .ag-right { width: 100%; max-width: 440px; justify-self: end; }
+    #a-gate .a-log { font-family: ui-monospace, Menlo, monospace; }
+    @media (max-width: 860px) {
+      .ag-body { grid-template-columns: 1fr; align-items: start; padding-top: 32px; gap: 28px; }
+      .ag-right { justify-self: start; max-width: 100%; }
+      .ag-left { max-width: 100%; }
+    }
 
     label.a-lbl { display: block; font-size: 12px; color: var(--a-muted); margin: 14px 0 6px; font-weight: 500; }
-    input[type=text], input[type=password], textarea, select {
+    /* Editor inputs only — scoped so the gate keeps the overlay-menu look */
+    .a-panel input[type=text], .a-panel input[type=password], .a-panel textarea, .a-panel select {
       width: 100%; background: #0a0a0c; border: 1px solid var(--a-line); color: var(--a-text);
       border-radius: 8px; padding: 10px 12px; font-size: 13px; font-family: inherit; outline: none;
     }
-    input:focus, textarea:focus, select:focus { border-color: var(--a-accent); }
-    textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+    .a-panel input:focus, .a-panel textarea:focus, .a-panel select:focus { border-color: var(--a-accent); }
+    .a-panel textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
 
     .a-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
     .a-panel { background: var(--a-panel); border: 1px solid var(--a-line); border-radius: var(--a-radius); padding: 18px; }
@@ -83,46 +106,58 @@
 <body>
 
   <!-- ACCESS GATE -->
-  <div id="a-gate" class="a-gate">
-
-    <!-- FIRST-TIME SETUP: password + token -->
-    <div id="a-setup" class="hidden">
-      <h2>Set up admin access</h2>
-      <p>Choose a password and paste your GitHub token once. The token is <strong>encrypted with your password</strong> and stored only in this browser. After this you'll only ever type the password.</p>
-      <label class="a-lbl">Create a password</label>
-      <input type="password" id="a-pass-new" placeholder="Your password" autocomplete="new-password">
-      <label class="a-lbl">Confirm password</label>
-      <input type="password" id="a-pass-new2" placeholder="Repeat password" autocomplete="new-password">
-      <label class="a-lbl">GitHub token</label>
-      <input type="password" id="a-token" placeholder="github_pat_… or ghp_…" autocomplete="off">
-      <div class="a-hint">Fine-grained token → repo <code>risenve/portfolio</code> → Contents: Read and write.</div>
-      <div style="margin-top:18px;">
-        <button class="a-btn" id="a-setup-save">Save &amp; unlock</button>
-      </div>
-      <details style="margin-top:18px;">
-        <summary style="cursor:pointer; color:var(--a-muted); font-size:12px;">How to create the token</summary>
-        <ol>
-          <li>GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.</li>
-          <li>Repository access → Only select repositories → <code>risenve/portfolio</code>.</li>
-          <li>Permissions → Repository → <code>Contents</code> → Read and write.</li>
-          <li>Generate, copy, paste here. Treat it like a password.</li>
-        </ol>
-      </details>
+  <div id="a-gate">
+    <div class="ag-header">
+      <a href="/" class="nav-logo"><img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan"></a>
     </div>
+    <div class="ag-body">
 
-    <!-- RETURNING: password only -->
-    <div id="a-unlock" class="hidden">
-      <h2>Enter password</h2>
-      <p>Unlock the admin. Your token stays encrypted in this browser.</p>
-      <label class="a-lbl">Password</label>
-      <input type="password" id="a-pass" placeholder="Your password" autocomplete="current-password">
-      <div style="margin-top:18px; display:flex; gap:10px;">
-        <button class="a-btn" id="a-unlock-btn">Unlock</button>
-        <button class="a-btn a-btn--ghost" id="a-reset">Reset access</button>
+      <!-- STAGE 1: password -->
+      <div id="a-stage-pass" class="ag-stage" style="display:contents;">
+        <div class="ag-left">
+          <h1 class="ag-title">This page is only for Ripsime's team.</h1>
+          <p class="ag-sub">Enter password to continue.</p>
+        </div>
+        <div class="ag-right">
+          <form class="ol-form" id="a-pass-form" novalidate>
+            <div class="ol-field">
+              <input type="password" id="a-pass" required placeholder=" " autocomplete="current-password">
+              <label class="ol-label">Password</label>
+            </div>
+            <button type="submit" class="ol-submit">Enter →</button>
+            <div class="a-log" id="a-gate-log"></div>
+          </form>
+        </div>
       </div>
-    </div>
 
-    <div class="a-log" id="a-gate-log"></div>
+      <!-- STAGE 2: token -->
+      <div id="a-stage-token" class="ag-stage" style="display:none;">
+        <div class="ag-left">
+          <h1 class="ag-title">Add your access token.</h1>
+          <p class="ag-sub">Paste your GitHub token once — it's encrypted with the password and saved only in this browser, so next time you'll just enter the password.</p>
+          <div class="ag-help">
+            Where to find it:
+            <ol>
+              <li>GitHub → Settings → Developer settings → Fine-grained tokens → <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Generate new token</a>.</li>
+              <li>Repository access → Only select repositories → <code>risenve/portfolio</code>.</li>
+              <li>Permissions → Repository → <code>Contents</code> → Read and write.</li>
+              <li>Generate, copy, paste it here.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="ag-right">
+          <form class="ol-form" id="a-token-form" novalidate>
+            <div class="ol-field">
+              <input type="password" id="a-token" required placeholder=" " autocomplete="off">
+              <label class="ol-label">GitHub token</label>
+            </div>
+            <button type="submit" class="ol-submit">Save &amp; continue →</button>
+            <div class="a-log" id="a-gate-log2"></div>
+          </form>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- APP -->
@@ -134,6 +169,7 @@
       </div>
       <div style="display:flex; gap:10px;">
         <button class="a-btn a-btn--ghost a-btn--sm" id="a-save-order">Save order</button>
+        <button class="a-btn a-btn--ghost a-btn--sm" id="a-reset-token">Reset token</button>
         <button class="a-btn a-btn--ghost a-btn--sm" id="a-lock">Lock</button>
         <button class="a-btn" id="a-new">+ New case</button>
       </div>
