@@ -82,27 +82,47 @@
 </head>
 <body>
 
-  <!-- TOKEN GATE -->
+  <!-- ACCESS GATE -->
   <div id="a-gate" class="a-gate">
-    <h2>Admin access</h2>
-    <p>Paste your personal GitHub token. It's stored only in this browser (localStorage) and used to publish directly to <code>risenve/portfolio</code>.</p>
-    <label class="a-lbl">GitHub token</label>
-    <input type="password" id="a-token" placeholder="github_pat_… or ghp_…" autocomplete="off">
-    <div class="a-hint">Fine-grained token → repo <code>risenve/portfolio</code> → Contents: Read and write.</div>
-    <div style="margin-top:18px; display:flex; gap:10px;">
-      <button class="a-btn" id="a-token-save">Unlock</button>
-      <button class="a-btn a-btn--ghost" id="a-token-forget">Forget token</button>
+
+    <!-- FIRST-TIME SETUP: password + token -->
+    <div id="a-setup" class="hidden">
+      <h2>Set up admin access</h2>
+      <p>Choose a password and paste your GitHub token once. The token is <strong>encrypted with your password</strong> and stored only in this browser. After this you'll only ever type the password.</p>
+      <label class="a-lbl">Create a password</label>
+      <input type="password" id="a-pass-new" placeholder="Your password" autocomplete="new-password">
+      <label class="a-lbl">Confirm password</label>
+      <input type="password" id="a-pass-new2" placeholder="Repeat password" autocomplete="new-password">
+      <label class="a-lbl">GitHub token</label>
+      <input type="password" id="a-token" placeholder="github_pat_… or ghp_…" autocomplete="off">
+      <div class="a-hint">Fine-grained token → repo <code>risenve/portfolio</code> → Contents: Read and write.</div>
+      <div style="margin-top:18px;">
+        <button class="a-btn" id="a-setup-save">Save &amp; unlock</button>
+      </div>
+      <details style="margin-top:18px;">
+        <summary style="cursor:pointer; color:var(--a-muted); font-size:12px;">How to create the token</summary>
+        <ol>
+          <li>GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.</li>
+          <li>Repository access → Only select repositories → <code>risenve/portfolio</code>.</li>
+          <li>Permissions → Repository → <code>Contents</code> → Read and write.</li>
+          <li>Generate, copy, paste here. Treat it like a password.</li>
+        </ol>
+      </details>
     </div>
+
+    <!-- RETURNING: password only -->
+    <div id="a-unlock" class="hidden">
+      <h2>Enter password</h2>
+      <p>Unlock the admin. Your token stays encrypted in this browser.</p>
+      <label class="a-lbl">Password</label>
+      <input type="password" id="a-pass" placeholder="Your password" autocomplete="current-password">
+      <div style="margin-top:18px; display:flex; gap:10px;">
+        <button class="a-btn" id="a-unlock-btn">Unlock</button>
+        <button class="a-btn a-btn--ghost" id="a-reset">Reset access</button>
+      </div>
+    </div>
+
     <div class="a-log" id="a-gate-log"></div>
-    <details style="margin-top:18px;">
-      <summary style="cursor:pointer; color:var(--a-muted); font-size:12px;">How to create the token</summary>
-      <ol>
-        <li>GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.</li>
-        <li>Repository access → Only select repositories → <code>risenve/portfolio</code>.</li>
-        <li>Permissions → Repository → <code>Contents</code> → Read and write.</li>
-        <li>Generate, copy, paste here. Treat it like a password.</li>
-      </ol>
-    </details>
   </div>
 
   <!-- APP -->

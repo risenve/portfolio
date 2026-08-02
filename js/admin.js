@@ -8,7 +8,8 @@
 
   var OWNER = 'risenve', REPO = 'portfolio', BRANCH = 'main';
   var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
-  var TOKEN_KEY = 'rp_admin_token';
+  var VAULT_KEY = 'rp_admin_vault';   // encrypted token {salt, iv, ct}
+  var OLD_TOKEN_KEY = 'rp_admin_token'; // legacy plaintext (migrated away)
 
   var CATS = [
     { id: 'ui-ux', label: 'UI/UX' },
@@ -22,7 +23,7 @@
   var gate = $('a-gate'), app = $('a-app');
 
   // ---- state ----
-  var token = localStorage.getItem(TOKEN_KEY) || '';
+  var token = '';          // decrypted GitHub token, kept only in memory
   var projects = [];       // current projects.json array
   var projectsSha = null;  // sha of projects.json
   var editing = null;      // project being edited (null = new)
@@ -58,6 +59,46 @@
     el.scrollTop = el.scrollHeight;
   }
 
+  // ---- crypto (encrypt the token with the password; Web Crypto, AES-GCM) ----
+  function abToB64(buf) {
+    var bytes = new Uint8Array(buf), s = '';
+    for (var i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+    return btoa(s);
+  }
+  function b64ToU8(b64) {
+    var s = atob(b64), u = new Uint8Array(s.length);
+    for (var i = 0; i < s.length; i++) u[i] = s.charCodeAt(i);
+    return u;
+  }
+  function deriveKey(password, salt) {
+    var enc = new TextEncoder();
+    return crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey'])
+      .then(function (km) {
+        return crypto.subtle.deriveKey(
+          { name: 'PBKDF2', salt: salt, iterations: 150000, hash: 'SHA-256' },
+          km, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+      });
+  }
+  function encryptToken(password, plainToken) {
+    var salt = crypto.getRandomValues(new Uint8Array(16));
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    return deriveKey(password, salt).then(function (key) {
+      return crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, new TextEncoder().encode(plainToken));
+    }).then(function (ct) {
+      return { salt: abToB64(salt), iv: abToB64(iv), ct: abToB64(ct) };
+    });
+  }
+  function decryptToken(password, vault) {
+    return deriveKey(password, b64ToU8(vault.salt)).then(function (key) {
+      return crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64ToU8(vault.iv) }, key, b64ToU8(vault.ct));
+    }).then(function (pt) {
+      return new TextDecoder().decode(pt);
+    });
+  }
+  function getVault() {
+    try { return JSON.parse(localStorage.getItem(VAULT_KEY)); } catch (e) { return null; }
+  }
+
   // ---- GitHub API ----
   function ghHeaders() {
     return { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' };
@@ -90,39 +131,93 @@
   }
 
   // ============================================================
-  // TOKEN GATE
+  // ACCESS GATE (password-encrypted token)
   // ============================================================
+  function showGateMode() {
+    // Decide which sub-panel to show based on whether a vault exists.
+    var hasVault = !!getVault();
+    $('a-setup').classList.toggle('hidden', hasVault);
+    $('a-unlock').classList.toggle('hidden', !hasVault);
+    gate.classList.remove('hidden');
+    app.classList.add('hidden');
+    setTimeout(function () { (hasVault ? $('a-pass') : $('a-pass-new')).focus(); }, 50);
+  }
+
   function verifyToken() {
-    var glog = $('a-gate-log'); glog.innerHTML = '';
-    log(glog, 'Checking token…');
     return fetch(API, { headers: ghHeaders() }).then(function (r) {
-      if (!r.ok) throw new Error('Repo access failed (' + r.status + '). Check token scope.');
+      if (!r.ok) throw new Error('Repo access failed (' + r.status + '). Check the token scope.');
       return r.json();
     });
   }
-  function unlock() {
-    if (!token) return;
-    verifyToken().then(function () {
+  function enterApp() {
+    var glog = $('a-gate-log'); glog.innerHTML = '';
+    log(glog, 'Checking access…');
+    return verifyToken().then(function () {
       gate.classList.add('hidden');
       app.classList.remove('hidden');
+      $('a-pass').value = '';
       return loadProjects();
-    }).catch(function (e) {
-      log($('a-gate-log'), e.message, 'err');
     });
   }
 
-  $('a-token-save').addEventListener('click', function () {
-    token = $('a-token').value.trim();
-    if (!token) { log($('a-gate-log'), 'Paste a token first.', 'err'); return; }
-    localStorage.setItem(TOKEN_KEY, token);
-    unlock();
+  // First-time setup: password (x2) + token → encrypt → store
+  $('a-setup-save').addEventListener('click', function () {
+    var glog = $('a-gate-log'); glog.innerHTML = '';
+    var p1 = $('a-pass-new').value, p2 = $('a-pass-new2').value;
+    var tok = $('a-token').value.trim();
+    if (p1.length < 6) { log(glog, 'Password must be at least 6 characters.', 'err'); return; }
+    if (p1 !== p2) { log(glog, 'Passwords do not match.', 'err'); return; }
+    if (!tok) { log(glog, 'Paste your GitHub token.', 'err'); return; }
+    token = tok;
+    log(glog, 'Verifying token…');
+    verifyToken().then(function () {
+      return encryptToken(p1, tok);
+    }).then(function (vault) {
+      localStorage.setItem(VAULT_KEY, JSON.stringify(vault));
+      localStorage.removeItem(OLD_TOKEN_KEY);
+      $('a-token').value = ''; $('a-pass-new').value = ''; $('a-pass-new2').value = '';
+      return enterApp();
+    }).catch(function (e) { token = ''; log(glog, e.message, 'err'); });
   });
-  $('a-token-forget').addEventListener('click', function () {
-    localStorage.removeItem(TOKEN_KEY); token = ''; $('a-token').value = '';
-    log($('a-gate-log'), 'Token removed from this browser.', 'ok');
+
+  // Returning: password → decrypt token → verify → in
+  function doUnlock() {
+    var glog = $('a-gate-log'); glog.innerHTML = '';
+    var vault = getVault();
+    if (!vault) { showGateMode(); return; }
+    var pass = $('a-pass').value;
+    if (!pass) { log(glog, 'Enter your password.', 'err'); return; }
+    log(glog, 'Unlocking…');
+    decryptToken(pass, vault).then(
+      function (tok) {
+        // decrypt succeeded → proceed; enterApp handles its own (network) errors
+        token = tok;
+        return enterApp().catch(function (e) { token = ''; log(glog, e.message, 'err'); });
+      },
+      function () {
+        // this branch only fires on decrypt failure = wrong password
+        token = '';
+        log(glog, 'Wrong password.', 'err');
+      }
+    );
+  }
+  $('a-unlock-btn').addEventListener('click', doUnlock);
+  $('a-pass').addEventListener('keydown', function (e) { if (e.key === 'Enter') doUnlock(); });
+
+  // Reset: wipe the encrypted token, start over
+  $('a-reset').addEventListener('click', function () {
+    if (!confirm('Remove the saved token and password from this browser? You\'ll need to paste the token again next time.')) return;
+    localStorage.removeItem(VAULT_KEY);
+    localStorage.removeItem(OLD_TOKEN_KEY);
+    token = '';
+    showGateMode();
+    log($('a-gate-log'), 'Access reset. Set a new password + token.', 'ok');
   });
+
+  // Lock: drop the in-memory token, require password again
   $('a-lock').addEventListener('click', function () {
-    app.classList.add('hidden'); gate.classList.remove('hidden');
+    token = '';
+    showGateMode();
   });
 
   // ============================================================
@@ -466,5 +561,5 @@
   });
 
   // ---- boot ----
-  if (token) { $('a-token').value = token; unlock(); }
+  showGateMode();
 })();
