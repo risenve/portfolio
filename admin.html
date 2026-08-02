@@ -9,11 +9,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <style>
     :root {
-      --a-bg: #0d0d0f; --a-panel: #16161a; --a-line: #26262c;
+      --a-bg: #000; --a-panel: #0d0d0f; --a-line: #232327;
       --a-text: #eaeaea; --a-muted: #8a8a92; --a-accent: #FF2DC5; --a-green: #29c26f;
-      --a-radius: 10px; --a-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --a-radius: 10px; --a-font: var(--font, 'HN', Helvetica, Arial, sans-serif);
     }
     * { box-sizing: border-box; }
+    /* main.js (custom cursor) isn't loaded here, so undo style.css's cursor:none */
+    *, *::before, *::after { cursor: auto !important; }
+    a, button, summary, label.a-cat, .a-btn, .ol-submit, .a-ord button,
+    [data-add], [data-edit], [data-del], [data-brm], [data-bup], [data-bdown],
+    [data-up], [data-down], .a-tab { cursor: pointer !important; }
+    input, textarea, select { cursor: text !important; }
+    input[type=checkbox], input[type=file], input[type=radio] { cursor: pointer !important; }
     body { margin: 0; background: var(--a-bg); color: var(--a-text); font-family: var(--a-font); font-size: 14px; }
     a { color: var(--a-accent); }
     .a-wrap { max-width: 1180px; margin: 0 auto; padding: 24px; }
@@ -26,6 +33,22 @@
     .a-btn--sm { padding: 5px 10px; font-size: 12px; font-weight: 500; }
     .a-btn--danger { background: transparent; border: 1px solid #5a2530; color: #e0687e; }
     .a-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* Editor / Preview tabs */
+    .a-editor-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .a-tabs { display: inline-flex; border: 1px solid var(--a-line); border-radius: 8px; overflow: hidden; }
+    .a-tab { background: transparent; border: none; color: var(--a-muted); padding: 7px 16px; font-size: 12px; font-weight: 500; font-family: inherit; letter-spacing: .04em; }
+    .a-tab + .a-tab { border-left: 1px solid var(--a-line); }
+    .a-tab--on { background: rgba(255,255,255,0.08); color: #fff; }
+
+    /* Theme toggle */
+    .a-theme-toggle { display: inline-flex; gap: 8px; }
+    .a-theme-opt { background: transparent; border: 1px solid var(--a-line); color: var(--a-muted); padding: 8px 16px; border-radius: 8px; font-size: 12.5px; font-family: inherit; }
+    .a-theme-opt--on { border-color: var(--a-accent); color: #fff; }
+
+    /* Preview */
+    .a-preview-bar { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--a-muted); margin-bottom: 10px; }
+    #a-preview-frame { width: 100%; height: 70vh; border: 1px solid var(--a-line); border-radius: 8px; background: #000; }
 
     /* Access gate — styled like the site's opening overlay menu */
     #a-gate {
@@ -184,8 +207,28 @@
 
       <!-- RIGHT: editor -->
       <div class="a-panel" id="a-editor">
-        <h3 id="a-editor-title">New case</h3>
+        <div class="a-editor-head">
+          <h3 id="a-editor-title">New case</h3>
+          <div class="a-tabs">
+            <button class="a-tab a-tab--on" id="a-tab-editor">Editor</button>
+            <button class="a-tab" id="a-tab-preview">Preview</button>
+          </div>
+        </div>
 
+        <!-- PREVIEW pane -->
+        <div id="a-preview" class="hidden">
+          <div class="a-preview-bar">
+            <span>Approximate preview · <span id="a-preview-lang-label">EN</span></span>
+            <div class="a-tabs">
+              <button class="a-tab a-tab--on" id="a-prev-en">EN</button>
+              <button class="a-tab" id="a-prev-ru">RU</button>
+            </div>
+          </div>
+          <iframe id="a-preview-frame" title="Case preview"></iframe>
+        </div>
+
+        <!-- EDITOR form -->
+        <div id="a-form">
         <div class="a-cols">
           <div>
             <label class="a-lbl">Title (EN)</label>
@@ -196,6 +239,13 @@
             <input type="text" id="f-titleRu" placeholder="Название">
           </div>
         </div>
+
+        <label class="a-lbl">Case theme</label>
+        <div class="a-theme-toggle" id="f-theme">
+          <button type="button" class="a-theme-opt a-theme-opt--on" data-theme="dark">● Dark</button>
+          <button type="button" class="a-theme-opt" data-theme="light">○ Light</button>
+        </div>
+        <div class="a-hint">Background &amp; text colour of the case page. Hero image stays as-is.</div>
 
         <div class="a-cols">
           <div>
@@ -275,6 +325,7 @@
           <span id="a-publish-status" style="font-size:12px; color:var(--a-muted);"></span>
         </div>
         <div class="a-log" id="a-log"></div>
+        </div><!-- /#a-form -->
       </div>
     </div>
   </div>

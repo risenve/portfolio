@@ -172,6 +172,8 @@
   window.buildCaseHTML = function (p, lang) {
     lang = lang === 'ru' ? 'ru' : 'en';
     var isRu = lang === 'ru';
+    var isLight = p.theme === 'light';
+    var mainClass = isLight ? 'prm-main cs-light' : 'prm-main skp-main-dark';
 
     var title = isRu ? (p.titleRu || p.title) : p.title;
     var type  = isRu ? (p.typeRu || p.type) : p.type;
@@ -241,7 +243,7 @@
       langToggle,
       '',
       '  <div class="page-wrap">',
-      '  <main class="prm-main skp-main-dark">',
+      '  <main class="' + mainClass + '">',
       '',
       hero,
       '',

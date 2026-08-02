@@ -218,6 +218,25 @@
   text-underline-offset: 2px;
 }
 
+/* ============================================================
+   LIGHT THEME — .cs-light on <main>. Hero stays dark (image + white
+   title); the content body flips to light with dark text. The green
+   block stays a dark accent on both themes. Contact form + footer are
+   global and remain dark on every case page.
+   ============================================================ */
+.cs-light { background: #fff; }
+.cs-light .prm-full { background: #fff; }
+.cs-light .prm-split { background: #ededed; }        /* gap shows as light gray */
+.cs-light .prm-text { background: #fff; }
+.cs-light .prm-text p { color: rgba(0,0,0,0.72); }
+.cs-light .prm-text-right { background: #fff; }
+.cs-light .prm-text-right-inner p { color: rgba(0,0,0,0.72); }
+.cs-light .prm-text-intro { color: rgba(0,0,0,0.4) !important; }
+.cs-light .prm-credits { background: #fff; border-top-color: rgba(0,0,0,0.1); }
+.cs-light .prm-credits-label { color: rgba(0,0,0,0.4); }
+.cs-light .prm-cred-col p { color: rgba(0,0,0,0.55); }
+.cs-light .prm-cred-col a { color: rgba(0,0,0,0.8); }
+
 /* Mobile */
 @media (max-width: 720px) {
   .prm-hero-inner { bottom: 32px; }

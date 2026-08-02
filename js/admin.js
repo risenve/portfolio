@@ -306,6 +306,84 @@
     $('a-bespoke-note').classList.toggle('hidden', isTemplate);
   }
 
+  // ---- case theme (dark / light) ----
+  var curTheme = 'dark';
+  function setTheme(t) {
+    curTheme = (t === 'light') ? 'light' : 'dark';
+    Array.prototype.forEach.call($('f-theme').querySelectorAll('.a-theme-opt'), function (b) {
+      b.classList.toggle('a-theme-opt--on', b.dataset.theme === curTheme);
+    });
+  }
+  $('f-theme').addEventListener('click', function (e) {
+    var b = e.target.closest('.a-theme-opt'); if (!b) return;
+    setTheme(b.dataset.theme);
+  });
+
+  // ---- collect the current form into a project record (no uploads) ----
+  // forPreview=true resolves not-yet-uploaded images to temporary blob URLs.
+  function collectRecord(forPreview) {
+    var slug = slugify($('f-slug').value || $('f-title').value) || 'preview';
+    var rec = editing ? JSON.parse(JSON.stringify(editing)) : {};
+    rec.slug = slug;
+    rec.title = $('f-title').value.trim() || 'Untitled';
+    rec.titleRu = $('f-titleRu').value.trim() || rec.title;
+    rec.categories = getCats();
+    rec.type = $('f-type').value.trim();
+    rec.typeRu = $('f-typeRu').value.trim() || rec.type;
+    rec.year = $('f-year').value.trim();
+    var isTemplate = editing ? !!editing.template : true;
+    if (isTemplate) {
+      rec.template = true;
+      rec.theme = curTheme;
+      rec.subEn = $('f-subEn').value.trim();
+      rec.subRu = $('f-subRu').value.trim();
+      rec.descEn = $('f-descEn').value.trim();
+      rec.descRu = $('f-descRu').value.trim();
+      rec.href = '/' + slug; rec.hrefRu = '/' + slug + '-ru';
+      rec.blocks = blocks.map(function (b) {
+        var c = {}; for (var k in b) if (k[0] !== '_') c[k] = b[k];
+        if (forPreview) {
+          if ((b.type === 'full' || b.type === 'full-vh') && b._file) c.img = URL.createObjectURL(b._file);
+          if (b.type === 'split' && b._files) {
+            c.imgs = (c.imgs || []).slice();
+            b._files.forEach(function (f, i) { if (f) c.imgs[i] = URL.createObjectURL(f); });
+          }
+        }
+        return c;
+      });
+    }
+    if (forPreview && coverFile) rec.cover = URL.createObjectURL(coverFile);
+    return rec;
+  }
+
+  // ---- Editor / Preview tabs ----
+  function showTab(which) {
+    var preview = which === 'preview';
+    $('a-form').classList.toggle('hidden', preview);
+    $('a-preview').classList.toggle('hidden', !preview);
+    $('a-tab-editor').classList.toggle('a-tab--on', !preview);
+    $('a-tab-preview').classList.toggle('a-tab--on', preview);
+    if (preview) renderPreview(previewLang);
+  }
+  var previewLang = 'en';
+  function renderPreview(lang) {
+    previewLang = lang === 'ru' ? 'ru' : 'en';
+    $('a-prev-en').classList.toggle('a-tab--on', previewLang === 'en');
+    $('a-prev-ru').classList.toggle('a-tab--on', previewLang === 'ru');
+    $('a-preview-lang-label').textContent = previewLang.toUpperCase();
+    var frame = $('a-preview-frame');
+    var isTemplate = editing ? !!editing.template : true;
+    if (!isTemplate) {
+      frame.srcdoc = '<body style="margin:0;background:#000;color:#888;font:14px sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;padding:24px;">This is a hand-built page — open it directly on the site to preview.</body>';
+      return;
+    }
+    frame.srcdoc = window.buildCaseHTML(collectRecord(true), previewLang);
+  }
+  $('a-tab-editor').addEventListener('click', function () { showTab('editor'); });
+  $('a-tab-preview').addEventListener('click', function () { showTab('preview'); });
+  $('a-prev-en').addEventListener('click', function () { renderPreview('en'); });
+  $('a-prev-ru').addEventListener('click', function () { renderPreview('ru'); });
+
   function clearForm() {
     ['f-title', 'f-titleRu', 'f-slug', 'f-year', 'f-type', 'f-typeRu', 'f-subEn', 'f-subRu', 'f-descEn', 'f-descRu']
       .forEach(function (id) { $(id).value = ''; });
@@ -320,7 +398,9 @@
     $('a-editor-title').textContent = 'New case';
     clearForm();
     renderCats([]);
+    setTheme('dark');
     setTemplateMode(true); // new cases are always template-generated
+    showTab('editor');
   }
 
   function editCase(id) {
@@ -340,10 +420,12 @@
     $('f-descEn').value = p.descEn || '';
     $('f-descRu').value = p.descRu || '';
     renderCats(p.categories || []);
+    setTheme(p.theme || 'dark');
     if (p.cover) { $('f-cover-thumb').src = p.cover; $('f-cover-thumb').classList.remove('hidden'); }
     blocks = (p.blocks || []).map(function (b) { return JSON.parse(JSON.stringify(b)); });
     renderBlocks();
     setTemplateMode(!!p.template);
+    showTab('editor');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -494,6 +576,7 @@
     rec.year = $('f-year').value.trim();
     if (!editing) { rec.template = true; }
     if (rec.template) {
+      rec.theme = curTheme;
       rec.subEn = $('f-subEn').value.trim();
       rec.subRu = $('f-subRu').value.trim();
       rec.descEn = $('f-descEn').value.trim();
