@@ -57,7 +57,7 @@
       '        </div>',
       '      </div>',
       '      <a href="/talks" class="nav-link">Talks</a>',
-      '      <a href="mailto:sargsyan.std@gmail.com" class="nav-link">Contact</a>',
+      '      <a href="#contact" class="nav-link">Contact</a>',
       '    </div>',
       '    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu"><span></span><span></span></button>',
       '  </nav>',
@@ -66,7 +66,7 @@
       '    <a href="/" class="stair-link">Home</a>',
       '    <a href="/work" class="stair-link">Work</a>',
       '    <a href="/talks" class="stair-link">Talks</a>',
-      '    <a href="mailto:sargsyan.std@gmail.com" class="stair-link">Contact</a>',
+      '    <a href="#contact" class="stair-link">Contact</a>',
       '  </div>',
       '',
       '  <div class="nav-overlay" id="nav-overlay">',
@@ -86,7 +86,7 @@
       '            <a href="/service-art-direction">Art Direction</a>',
       '          </div>',
       '          <a href="/talks">Talks</a>',
-      '          <a href="mailto:sargsyan.std@gmail.com">Contact</a>',
+      '          <a href="#contact">Contact</a>',
       '      </div></div>',
       '    </div>',
       '  </div>'
@@ -95,7 +95,7 @@
 
   function footer(t) {
     return [
-      '    <section class="contact-form-section">',
+      '    <section class="contact-form-section" id="contact">',
       '      <div>',
       '        <h2 class="contact-headline">' + t.contactTitle + '</h2>',
       '        <p class="contact-body">' + t.contactBody + '</p>',
