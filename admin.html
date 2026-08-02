@@ -48,7 +48,7 @@
 
     /* Preview */
     .a-preview-bar { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--a-muted); margin-bottom: 10px; }
-    #a-preview-frame { width: 100%; height: 70vh; border: 1px solid var(--a-line); border-radius: 8px; background: #000; }
+    #a-preview-frame { width: 100%; height: 78vh; border: 1px solid var(--a-line); border-radius: 8px; background: #000; }
 
     /* Access gate — styled like the site's opening overlay menu */
     #a-gate {
@@ -315,8 +315,27 @@
           </div>
         </div>
 
-        <div id="a-bespoke-note" class="a-note hidden">
-          This is a hand-built page — its layout isn't managed here. You can still edit its title, directions, cover, year and discipline; those update the works grid & filters. The page body stays as-is.
+        <!-- Existing hand-built page: load its real structure to edit -->
+        <div id="a-bespoke-edit" class="hidden">
+          <label class="a-lbl" style="margin-top:20px;">Page content</label>
+          <div class="a-note">
+            This is a hand-built page. Load its content to <b>swap photos</b>, <b>reorder</b>, <b>add</b> or remove blocks — the rest of the layout stays exactly as-is. Editing here changes the primary language page. Always check <b>Preview</b> before saving. (Title, cover, directions &amp; year are saved separately with <b>Publish</b>.)
+          </div>
+          <div id="a-import-row" style="margin-top:10px; display:flex; gap:10px; align-items:center;">
+            <button type="button" class="a-btn a-btn--ghost a-btn--sm" id="a-import-btn">Load page content</button>
+            <span id="a-import-status" style="font-size:12px; color:var(--a-muted);"></span>
+          </div>
+          <div id="a-sections" style="margin-top:12px;"></div>
+          <div class="a-add-row" id="a-bespoke-add" style="display:none;">
+            <button type="button" class="a-btn a-btn--ghost a-btn--sm" data-badd="full">+ Full image</button>
+            <button type="button" class="a-btn a-btn--ghost a-btn--sm" data-badd="split">+ Two images</button>
+            <button type="button" class="a-btn a-btn--ghost a-btn--sm" data-badd="text">+ Text</button>
+          </div>
+          <div id="a-bespoke-actions" style="display:none; margin-top:16px; padding-top:14px; border-top:1px solid var(--a-line);">
+            <button type="button" class="a-btn" id="a-save-page">Save page changes</button>
+            <span id="a-save-page-status" style="font-size:12px; color:var(--a-muted); margin-left:8px;"></span>
+          </div>
+          <div class="a-log" id="a-bespoke-log"></div>
         </div>
 
         <div class="a-actions">

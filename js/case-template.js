@@ -135,21 +135,25 @@
     ].join('\n');
   }
 
-  function renderBlock(b, lang) {
+  function renderBlock(b, lang, opts) {
     if (!b || !b.type) return '';
+    var preview = opts && opts.preview;
+    function ph(label, cls) { return '<div class="prm-ph' + (cls ? ' ' + cls : '') + '">' + esc(label) + '</div>'; }
     switch (b.type) {
       case 'full':
-        if (!b.img) return '';
+        if (!b.img) return preview ? '    <section class="prm-full">\n      ' + ph('Full image') + '\n    </section>' : '';
         return '    <section class="prm-full">\n      <img src="' + esc(b.img) + '" alt="" loading="lazy">\n    </section>';
       case 'full-vh':
-        if (!b.img) return '';
+        if (!b.img) return preview ? '    <section class="prm-full prm-full--vh">\n      ' + ph('Full image (tall)', 'prm-ph--vh') + '\n    </section>' : '';
         return '    <section class="prm-full prm-full--vh">\n      <img src="' + esc(b.img) + '" alt="">\n    </section>';
       case 'split':
-        var imgs = (b.imgs || []).filter(Boolean);
-        if (imgs.length < 1) return '';
+        var imgs = (b.imgs || []);
+        if (!imgs.filter(Boolean).length && !preview) return '';
+        var cols = preview ? [0, 1] : imgs.slice(0, 2).map(function (_, i) { return i; }).filter(function (i) { return imgs[i]; });
         return '    <section class="prm-split">\n' +
-          imgs.slice(0, 2).map(function (src) {
-            return '      <div class="prm-split-col"><img src="' + esc(src) + '" alt="" loading="lazy"></div>';
+          cols.map(function (i) {
+            var src = imgs[i];
+            return '      <div class="prm-split-col">' + (src ? '<img src="' + esc(src) + '" alt="" loading="lazy">' : ph('Image')) + '</div>';
           }).join('\n') + '\n    </section>';
       case 'text':
         var txt = lang === 'ru' ? (b.ru || b.en) : (b.en || b.ru);
@@ -169,9 +173,10 @@
     }
   }
 
-  window.buildCaseHTML = function (p, lang) {
+  window.buildCaseHTML = function (p, lang, opts) {
     lang = lang === 'ru' ? 'ru' : 'en';
     var isRu = lang === 'ru';
+    var preview = opts && opts.preview;
     var isLight = p.theme === 'light';
     var mainClass = isLight ? 'prm-main cs-light' : 'prm-main skp-main-dark';
 
@@ -203,7 +208,8 @@
 
     // Hero
     var hero = '    <section class="prm-hero">\n' +
-      (p.cover ? '      <img src="' + esc(p.cover) + '" alt="' + esc(title) + '">\n' : '') +
+      (p.cover ? '      <img src="' + esc(p.cover) + '" alt="' + esc(title) + '">\n'
+               : (preview ? '      <div class="prm-hero-ph">Cover image</div>\n' : '')) +
       '      <div class="prm-hero-inner">\n' +
       '        <h1 class="prm-hero-title">' + esc(title) + '</h1>\n' +
       (sub ? '        <p class="prm-hero-sub">' + esc(sub) + '</p>\n' : '') +
@@ -221,7 +227,23 @@
       '      <div class="skp-project-info-right"></div>\n' +
       '    </section>';
 
-    var blocks = (p.blocks || []).map(function (b) { return renderBlock(b, lang); }).filter(Boolean).join('\n\n');
+    var blocks = (p.blocks || []).map(function (b) { return renderBlock(b, lang, opts); }).filter(Boolean).join('\n\n');
+
+    // Preview-only styles: compact the 100vh hero so the whole page composition
+    // fits the small preview frame, and draw placeholders for empty media slots.
+    var previewCss = preview ? [
+      '  <style>',
+      '    .prm-hero { height: 58vh; min-height: 0; }',
+      '    .prm-ph { display:flex; align-items:center; justify-content:center; min-height:220px;',
+      '      background: repeating-linear-gradient(45deg,#1b1b1b,#1b1b1b 11px,#151515 11px,#151515 22px);',
+      '      color:#6a6a6a; font:600 11px/1 var(--font,sans-serif); letter-spacing:.14em; text-transform:uppercase; }',
+      '    .prm-ph--vh { min-height:58vh; }',
+      '    .prm-hero-ph { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;',
+      '      background: repeating-linear-gradient(45deg,#141414,#141414 13px,#0f0f0f 13px,#0f0f0f 26px);',
+      '      color:#555; font:600 11px/1 var(--font,sans-serif); letter-spacing:.16em; text-transform:uppercase; }',
+      '    .cs-light .prm-ph { background: repeating-linear-gradient(45deg,#ededed,#ededed 11px,#e3e3e3 11px,#e3e3e3 22px); color:#9a9a9a; }',
+      '  </style>'
+    ].join('\n') : '';
 
     var doc = [
       '<!DOCTYPE html>',
@@ -235,6 +257,7 @@
       '  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">',
       '  <link rel="stylesheet" href="/css/style.css">',
       '  <link rel="stylesheet" href="/css/case.css">',
+      previewCss,
       '</head>',
       '<body>',
       '',
