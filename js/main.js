@@ -337,6 +337,11 @@ function initOverlay() {
   if (overlayClose) overlayClose.addEventListener('click', closeOverlay);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeOverlay(); });
 
+  // Close overlay when a menu link is clicked (incl. the #contact anchor)
+  navOverlay.querySelectorAll('.overlay-stair-links a[href]').forEach(function (link) {
+    link.addEventListener('click', closeOverlay);
+  });
+
   // Services sub-dropdown in overlay
   if (olServiceToggle && olServiceSub) {
     olServiceToggle.addEventListener('click', function () {
@@ -658,6 +663,42 @@ function initContactForms() {
   });
 }
 
+// ── SMOOTH-SCROLL FOR IN-PAGE "Contact" MENU LINKS ──
+// The homepage layout (fixed hero + overflow-x:hidden on <html>) makes native
+// smooth scrolling a no-op, so animate manually with instant scroll steps.
+function initContactAnchors() {
+  var target = document.getElementById('contact');
+  if (!target) return;
+
+  function easeInOutQuad(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+
+  function scrollToY(endY) {
+    var startY = window.scrollY;
+    var diff = endY - startY;
+    if (Math.abs(diff) < 2) return;
+    var duration = Math.min(900, Math.max(400, Math.abs(diff) * 0.35));
+    var startT = null;
+    function step(ts) {
+      if (startT === null) startT = ts;
+      var p = Math.min(1, (ts - startT) / duration);
+      window.scrollTo({ top: Math.round(startY + diff * easeInOutQuad(p)), behavior: 'instant' });
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.querySelectorAll('a[href="#contact"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 56;
+      var endY = target.getBoundingClientRect().top + window.scrollY - (navH + 24);
+      scrollToY(endY);
+      if (history.replaceState) history.replaceState(null, '', '#contact');
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   initContactForms();
+  initContactAnchors();
 });

@@ -13,6 +13,7 @@
 /* ── RESET ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-behavior:smooth;overflow-x:hidden}
+#contact{scroll-margin-top:calc(var(--nav-h) + 24px)}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 button{background:none;border:none;cursor:pointer;color:inherit;font:inherit}
