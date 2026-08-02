@@ -1,140 +1,13 @@
-const PROJECTS = [
-  {
-    id: 1, slug: 'skazpokrayu',
-    title: 'Skaz po krayu',
-    categories: ['art-direction', 'ui-ux', 'brand-design'],
-    type: 'Art Direction',
-    role: 'Art Director',
-    year: '2024',
-    cover: '/images/Works_Covers/skazpokrayu_cover.webp', imgs: ['/images/Works_Covers/skazpokrayu_cover.webp'],
-    href: '/skazpokrayu'
-  },
-  {
-    id: 2, slug: 'eburet',
-    title: 'Eburet',
-    categories: ['ui-ux'],
-    type: 'UI/UX Design',
-    role: 'UI/UX Designer',
-    year: '2024',
-    cover: '/images/Works_Covers/eburet.webp',
-    video: '/images/eburet/eburet final 2.mp4',
-    imgs: ['/images/Works_Covers/eburet.webp','/images/eburet/проект.png','/images/eburet/мобилки.png','/images/eburet/проект-1.png'],
-    href: '/eburet'
-  },
-  {
-    id: 3, slug: 'rebank',
-    title: 'ReBank',
-    categories: ['ui-ux', 'brand-design'],
-    type: 'Product Design',
-    role: 'Product Designer',
-    year: '2023',
-    cover: '/images/Works_Covers/Re_Bank_cover.webp', imgs: ['/images/Works_Covers/Re_Bank_cover.webp'],
-    href: '/rebank'
-  },
-  {
-    id: 4, slug: 'premiumization',
-    title: 'Premiumization',
-    categories: ['art-direction', 'ui-ux', 'graphics-ai'],
-    type: 'Art Direction',
-    role: 'Art Director',
-    year: '2023',
-    cover: '/images/Works_Covers/premiumization.webp', imgs: ['/images/Works_Covers/premiumization.webp'],
-    href: '/premiumization'
-  },
-  {
-    id: 5, slug: 'match',
-    title: 'Match',
-    categories: ['art-direction', 'brand-design'],
-    type: 'Art Direction',
-    role: 'Art Director',
-    year: '2024',
-    cover: '/images/Works_Covers/match.webp',
-    imgs: ['/images/Works_Covers/match.webp','/images/match/m_pair1a.webp','/images/match/m_full1.webp','/images/match/m_full2.webp'],
-    href: '/match'
-  },
-  {
-    id: 6, slug: 'drawstory-pd',
-    title: 'Drawstory',
-    categories: ['ui-ux', 'art-direction'],
-    type: 'Product Design',
-    role: 'Product Designer',
-    year: '2024',
-    cover: '/images/drawstory/ds-block.webp', imgs: ['/images/drawstory/ds-block.webp'],
-    href: '/drawstory',
-    worksOnly: true
-  },
-  {
-    id: 7, slug: 'drawstory',
-    title: 'Drawstory',
-    categories: ['ui-ux', 'art-direction'],
-    type: 'UI/UX Design',
-    role: 'UI/UX Designer',
-    year: '2024',
-    cover: '/images/Works_Covers/drawstory.webp', imgs: ['/images/Works_Covers/drawstory.webp'],
-    href: 'https://drawstory.com'
-  },
-  {
-    id: 8, slug: 'empty-date',
-    title: 'Empty Date',
-    categories: ['ui-ux'],
-    type: 'UI/UX Design',
-    role: 'Product Designer',
-    year: '2023',
-    cover: '/images/Works_Covers/empty date.webp', imgs: ['/images/Works_Covers/empty date.webp'],
-    href: 'https://emptydate.com/'
-  },
-  {
-    id: 11, slug: 'open-control',
-    title: 'Open Control',
-    categories: ['ui-ux', 'art-direction'],
-    type: 'AR/VR Product Design',
-    role: 'AR/VR Product Designer',
-    year: '2024',
-    cover: '/images/Works_Covers/open-control.jpg', imgs: ['/images/Works_Covers/open-control.jpg'],
-    href: '/open-control'
-  },
-  {
-    id: 12, slug: 'posters',
-    title: 'Posters Vol.1',
-    categories: ['graphics-ai', 'art-direction'],
-    type: 'Graphic Design',
-    role: 'Graphic Designer',
-    year: '2023',
-    cover: '/images/Works_Covers/posters.webp',
-    imgs: ['/images/Works_Covers/posters.webp','/images/posters/poster-1.webp','/images/posters/poster-2.webp','/images/posters/poster-3.webp'],
-    href: '/posters'
-  },
-  {
-    id: 9, slug: 'here-creative',
-    title: 'Here Creative',
-    categories: ['ui-ux'],
-    type: 'UI/UX Design',
-    role: 'UI/UX Designer',
-    year: '2023',
-    cover: '/images/Works_Covers/here creative.webp', imgs: ['/images/Works_Covers/here creative.webp'],
-    href: '#'
-  },
-  {
-    id: 10, slug: 'unicorn-embassy',
-    title: 'Unicorn Embassy',
-    categories: ['art-direction', 'brand-design'],
-    type: 'Brand Design',
-    role: 'Art Director',
-    year: '2024',
-    cover: '/images/Works_Covers/Unicorn Embassy.webp', imgs: ['/images/Works_Covers/Unicorn Embassy.webp'],
-    href: '/unicorn'
-  },
-  {
-    id: 13, slug: 'inhub',
-    title: 'InHub',
-    categories: ['art-direction', 'brand-design'],
-    type: 'Brand Design',
-    role: 'Brand Designer',
-    year: '2023',
-    cover: '/images/Works_Covers/in hub.webp', imgs: ['/images/Works_Covers/in hub.webp'],
-    href: '#'
-  }
-];
+// Projects are loaded from /data/projects.json (managed via /admin).
+// PROJECTS starts empty and is filled by loadProjects() before any list renders.
+var PROJECTS = [];
+
+function loadProjects() {
+  return fetch('/data/projects.json', { cache: 'no-cache' })
+    .then(function (res) { return res.ok ? res.json() : []; })
+    .then(function (list) { PROJECTS = Array.isArray(list) ? list : []; return PROJECTS; })
+    .catch(function () { PROJECTS = []; return PROJECTS; });
+}
 
 // ── CUSTOM CURSOR ──
 (function () {
@@ -694,7 +567,6 @@ function initServiceWip() {
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', function () {
   initReveal();
-  renderAllpList();
   initShowreel();
   initFeatHover();
   initOverlay();
@@ -705,12 +577,20 @@ document.addEventListener('DOMContentLoaded', function () {
   initProjSlider();
   initServiceCards();
   initServiceWip();
-  setTimeout(initCardReveal, 30);
-  if (document.getElementById('projects-container')) {
-    renderProjects('all');
-    initFilter();
-    initViewToggle();
-    initListHover();
+
+  // Project lists depend on data/projects.json — render them after it loads.
+  var needsProjects = document.getElementById('allp-list') || document.getElementById('projects-container');
+  if (needsProjects) {
+    loadProjects().then(function () {
+      renderAllpList();
+      if (document.getElementById('projects-container')) {
+        renderProjects('all');
+        initFilter();
+        initViewToggle();
+        initListHover();
+      }
+      setTimeout(initCardReveal, 30);
+    });
   }
 });
 

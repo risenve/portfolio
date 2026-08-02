@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Ripsime Portfolio</title>
+  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --a-bg: #0d0d0f; --a-panel: #16161a; --a-line: #26262c;
+      --a-text: #eaeaea; --a-muted: #8a8a92; --a-accent: #FF2DC5; --a-green: #29c26f;
+      --a-radius: 10px; --a-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--a-bg); color: var(--a-text); font-family: var(--a-font); font-size: 14px; }
+    a { color: var(--a-accent); }
+    .a-wrap { max-width: 1180px; margin: 0 auto; padding: 24px; }
+    .a-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .a-head h1 { font-size: 20px; margin: 0; font-weight: 600; }
+    .a-head .a-sub { color: var(--a-muted); font-size: 12px; }
+    .a-btn { background: var(--a-accent); color: #fff; border: none; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .a-btn:hover { opacity: .9; }
+    .a-btn--ghost { background: transparent; border: 1px solid var(--a-line); color: var(--a-text); }
+    .a-btn--sm { padding: 5px 10px; font-size: 12px; font-weight: 500; }
+    .a-btn--danger { background: transparent; border: 1px solid #5a2530; color: #e0687e; }
+    .a-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* Token gate */
+    .a-gate { max-width: 520px; margin: 60px auto; background: var(--a-panel); border: 1px solid var(--a-line); border-radius: var(--a-radius); padding: 28px; }
+    .a-gate h2 { margin: 0 0 6px; font-size: 18px; }
+    .a-gate p { color: var(--a-muted); font-size: 13px; line-height: 1.6; margin: 0 0 18px; }
+    .a-gate ol { color: var(--a-muted); font-size: 12.5px; line-height: 1.7; padding-left: 18px; }
+    .a-gate code { background: #000; padding: 1px 6px; border-radius: 4px; color: #ddd; font-size: 12px; }
+
+    label.a-lbl { display: block; font-size: 12px; color: var(--a-muted); margin: 14px 0 6px; font-weight: 500; }
+    input[type=text], input[type=password], textarea, select {
+      width: 100%; background: #0a0a0c; border: 1px solid var(--a-line); color: var(--a-text);
+      border-radius: 8px; padding: 10px 12px; font-size: 13px; font-family: inherit; outline: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--a-accent); }
+    textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+
+    .a-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
+    .a-panel { background: var(--a-panel); border: 1px solid var(--a-line); border-radius: var(--a-radius); padding: 18px; }
+    .a-panel h3 { margin: 0 0 14px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--a-muted); }
+
+    /* Project list */
+    .a-plist { display: flex; flex-direction: column; gap: 6px; }
+    .a-prow { display: flex; align-items: center; gap: 8px; padding: 9px 10px; border: 1px solid var(--a-line); border-radius: 8px; background: #0f0f12; }
+    .a-prow-main { flex: 1; min-width: 0; }
+    .a-prow-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .a-prow-meta { font-size: 11px; color: var(--a-muted); margin-top: 2px; }
+    .a-badge { display: inline-block; font-size: 9.5px; padding: 1px 5px; border-radius: 4px; background: #23232a; color: var(--a-muted); margin-left: 4px; vertical-align: middle; }
+    .a-badge--tpl { background: #1c3326; color: var(--a-green); }
+    .a-ord { display: flex; flex-direction: column; gap: 2px; }
+    .a-ord button { background: #1c1c22; border: none; color: var(--a-muted); width: 22px; height: 16px; border-radius: 4px; cursor: pointer; font-size: 10px; line-height: 1; }
+
+    /* Two-language grid */
+    .a-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .a-cat-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .a-cat { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid var(--a-line); border-radius: 20px; cursor: pointer; font-size: 12.5px; user-select: none; }
+    .a-cat input { accent-color: var(--a-accent); }
+    .a-cat.on { border-color: var(--a-accent); color: #fff; }
+
+    /* Blocks */
+    .a-block { border: 1px solid var(--a-line); border-radius: 8px; padding: 12px; margin-bottom: 10px; background: #0f0f12; }
+    .a-block-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .a-block-type { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--a-accent); font-weight: 600; }
+    .a-add-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .a-thumb { max-width: 100%; max-height: 120px; border-radius: 6px; margin-top: 8px; display: block; border: 1px solid var(--a-line); }
+    .a-note { font-size: 12px; color: var(--a-muted); line-height: 1.6; background: #0f0f12; border: 1px dashed var(--a-line); border-radius: 8px; padding: 12px; margin-top: 12px; }
+
+    .a-actions { display: flex; gap: 10px; align-items: center; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--a-line); }
+    .a-log { margin-top: 14px; font-size: 12px; line-height: 1.7; font-family: ui-monospace, Menlo, monospace; color: var(--a-muted); white-space: pre-wrap; max-height: 220px; overflow: auto; }
+    .a-log .ok { color: var(--a-green); }
+    .a-log .err { color: #e0687e; }
+    .a-hint { font-size: 11px; color: var(--a-muted); margin-top: 4px; }
+    .hidden { display: none !important; }
+    @media (max-width: 860px) { .a-layout { grid-template-columns: 1fr; } .a-cols { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- TOKEN GATE -->
+  <div id="a-gate" class="a-gate">
+    <h2>Admin access</h2>
+    <p>Paste your personal GitHub token. It's stored only in this browser (localStorage) and used to publish directly to <code>risenve/portfolio</code>.</p>
+    <label class="a-lbl">GitHub token</label>
+    <input type="password" id="a-token" placeholder="github_pat_… or ghp_…" autocomplete="off">
+    <div class="a-hint">Fine-grained token → repo <code>risenve/portfolio</code> → Contents: Read and write.</div>
+    <div style="margin-top:18px; display:flex; gap:10px;">
+      <button class="a-btn" id="a-token-save">Unlock</button>
+      <button class="a-btn a-btn--ghost" id="a-token-forget">Forget token</button>
+    </div>
+    <div class="a-log" id="a-gate-log"></div>
+    <details style="margin-top:18px;">
+      <summary style="cursor:pointer; color:var(--a-muted); font-size:12px;">How to create the token</summary>
+      <ol>
+        <li>GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token.</li>
+        <li>Repository access → Only select repositories → <code>risenve/portfolio</code>.</li>
+        <li>Permissions → Repository → <code>Contents</code> → Read and write.</li>
+        <li>Generate, copy, paste here. Treat it like a password.</li>
+      </ol>
+    </details>
+  </div>
+
+  <!-- APP -->
+  <div id="a-app" class="a-wrap hidden">
+    <div class="a-head">
+      <div>
+        <h1>Portfolio Admin</h1>
+        <span class="a-sub">Publishing to risenve/portfolio · <a href="/work" target="_blank">view site ↗</a></span>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="a-btn a-btn--ghost a-btn--sm" id="a-save-order">Save order</button>
+        <button class="a-btn a-btn--ghost a-btn--sm" id="a-lock">Lock</button>
+        <button class="a-btn" id="a-new">+ New case</button>
+      </div>
+    </div>
+
+    <div class="a-layout">
+      <!-- LEFT: project list -->
+      <div class="a-panel">
+        <h3>Projects</h3>
+        <div class="a-plist" id="a-plist"></div>
+      </div>
+
+      <!-- RIGHT: editor -->
+      <div class="a-panel" id="a-editor">
+        <h3 id="a-editor-title">New case</h3>
+
+        <div class="a-cols">
+          <div>
+            <label class="a-lbl">Title (EN)</label>
+            <input type="text" id="f-title" placeholder="Project name">
+          </div>
+          <div>
+            <label class="a-lbl">Title (RU)</label>
+            <input type="text" id="f-titleRu" placeholder="Название">
+          </div>
+        </div>
+
+        <div class="a-cols">
+          <div>
+            <label class="a-lbl">Slug (URL)</label>
+            <input type="text" id="f-slug" placeholder="my-project">
+            <div class="a-hint" id="f-slug-hint">Page will be at /slug and /slug-ru</div>
+          </div>
+          <div>
+            <label class="a-lbl">Year</label>
+            <input type="text" id="f-year" placeholder="2026">
+          </div>
+        </div>
+
+        <label class="a-lbl">Directions (filter tags)</label>
+        <div class="a-cat-grid" id="f-cats"></div>
+
+        <div class="a-cols">
+          <div>
+            <label class="a-lbl">Discipline label (EN)</label>
+            <input type="text" id="f-type" placeholder="UI/UX Design, Art Direction">
+            <div class="a-hint">Comma-separated → shown as service list</div>
+          </div>
+          <div>
+            <label class="a-lbl">Discipline label (RU)</label>
+            <input type="text" id="f-typeRu" placeholder="UI/UX Дизайн, Арт-дирекшн">
+          </div>
+        </div>
+
+        <!-- Template-only fields -->
+        <div id="a-tpl-fields">
+          <div class="a-cols">
+            <div>
+              <label class="a-lbl">Hero subtitle (EN)</label>
+              <input type="text" id="f-subEn" placeholder="Short line under the title">
+            </div>
+            <div>
+              <label class="a-lbl">Hero subtitle (RU)</label>
+              <input type="text" id="f-subRu" placeholder="Короткая строка под заголовком">
+            </div>
+          </div>
+          <div class="a-cols">
+            <div>
+              <label class="a-lbl">Intro paragraph (EN)</label>
+              <textarea id="f-descEn" placeholder="Project intro / description"></textarea>
+            </div>
+            <div>
+              <label class="a-lbl">Intro paragraph (RU)</label>
+              <textarea id="f-descRu" placeholder="Вступление / описание"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <label class="a-lbl">Cover image</label>
+        <input type="file" id="f-cover" accept="image/*">
+        <img class="a-thumb hidden" id="f-cover-thumb">
+
+        <!-- Content blocks (template only) -->
+        <div id="a-blocks-wrap">
+          <label class="a-lbl" style="margin-top:20px;">Content blocks (grid)</label>
+          <div id="f-blocks"></div>
+          <div class="a-add-row">
+            <button class="a-btn a-btn--ghost a-btn--sm" data-add="full">+ Full image</button>
+            <button class="a-btn a-btn--ghost a-btn--sm" data-add="full-vh">+ Full (tall crop)</button>
+            <button class="a-btn a-btn--ghost a-btn--sm" data-add="split">+ Two images</button>
+            <button class="a-btn a-btn--ghost a-btn--sm" data-add="text">+ Text</button>
+            <button class="a-btn a-btn--ghost a-btn--sm" data-add="green">+ Green highlight</button>
+          </div>
+        </div>
+
+        <div id="a-bespoke-note" class="a-note hidden">
+          This is a hand-built page — its layout isn't managed here. You can still edit its title, directions, cover, year and discipline; those update the works grid & filters. The page body stays as-is.
+        </div>
+
+        <div class="a-actions">
+          <button class="a-btn" id="a-publish">Publish</button>
+          <button class="a-btn a-btn--ghost" id="a-cancel">Reset</button>
+          <span id="a-publish-status" style="font-size:12px; color:var(--a-muted);"></span>
+        </div>
+        <div class="a-log" id="a-log"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/case-template.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

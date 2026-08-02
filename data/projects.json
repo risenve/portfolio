@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1, "slug": "skazpokrayu", "template": false,
+    "title": "Skaz po krayu", "titleRu": "Сказ по краю",
+    "categories": ["art-direction", "ui-ux", "brand-design"],
+    "type": "Art Direction", "typeRu": "Арт-дирекшн",
+    "role": "Art Director", "roleRu": "Арт-директор",
+    "year": "2024",
+    "cover": "/images/Works_Covers/skazpokrayu_cover.webp",
+    "imgs": ["/images/Works_Covers/skazpokrayu_cover.webp"],
+    "href": "/skazpokrayu", "hrefRu": "/skazpokrayu-ru"
+  },
+  {
+    "id": 2, "slug": "eburet", "template": false,
+    "title": "Eburet", "titleRu": "Eburet",
+    "categories": ["ui-ux"],
+    "type": "UI/UX Design", "typeRu": "UI/UX Дизайн",
+    "role": "UI/UX Designer", "roleRu": "UI/UX Дизайнер",
+    "year": "2024",
+    "cover": "/images/Works_Covers/eburet.webp",
+    "video": "/images/eburet/eburet final 2.mp4",
+    "imgs": ["/images/Works_Covers/eburet.webp", "/images/eburet/проект.png", "/images/eburet/мобилки.png", "/images/eburet/проект-1.png"],
+    "href": "/eburet", "hrefRu": "/eburet"
+  },
+  {
+    "id": 3, "slug": "rebank", "template": false,
+    "title": "ReBank", "titleRu": "ReBank",
+    "categories": ["ui-ux", "brand-design"],
+    "type": "Product Design", "typeRu": "Продуктовый дизайн",
+    "role": "Product Designer", "roleRu": "Продуктовый дизайнер",
+    "year": "2023",
+    "cover": "/images/Works_Covers/Re_Bank_cover.webp",
+    "imgs": ["/images/Works_Covers/Re_Bank_cover.webp"],
+    "href": "/rebank", "hrefRu": "/rebank"
+  },
+  {
+    "id": 4, "slug": "premiumization", "template": false,
+    "title": "Premiumization", "titleRu": "Премиумизация",
+    "categories": ["art-direction", "ui-ux", "graphics-ai"],
+    "type": "Art Direction", "typeRu": "Арт-дирекшн",
+    "role": "Art Director", "roleRu": "Арт-директор",
+    "year": "2023",
+    "cover": "/images/Works_Covers/premiumization.webp",
+    "imgs": ["/images/Works_Covers/premiumization.webp"],
+    "href": "/premiumization", "hrefRu": "/premiumization"
+  },
+  {
+    "id": 5, "slug": "match", "template": false,
+    "title": "Match", "titleRu": "Match",
+    "categories": ["art-direction", "brand-design"],
+    "type": "Art Direction", "typeRu": "Арт-дирекшн",
+    "role": "Art Director", "roleRu": "Арт-директор",
+    "year": "2024",
+    "cover": "/images/Works_Covers/match.webp",
+    "imgs": ["/images/Works_Covers/match.webp", "/images/match/m_pair1a.webp", "/images/match/m_full1.webp", "/images/match/m_full2.webp"],
+    "href": "/match", "hrefRu": "/match"
+  },
+  {
+    "id": 6, "slug": "drawstory-pd", "template": false, "worksOnly": true,
+    "title": "Drawstory", "titleRu": "Drawstory",
+    "categories": ["ui-ux", "art-direction"],
+    "type": "Product Design", "typeRu": "Продуктовый дизайн",
+    "role": "Product Designer", "roleRu": "Продуктовый дизайнер",
+    "year": "2024",
+    "cover": "/images/drawstory/ds-block.webp",
+    "imgs": ["/images/drawstory/ds-block.webp"],
+    "href": "/drawstory", "hrefRu": "/drawstory-ru"
+  },
+  {
+    "id": 7, "slug": "drawstory", "template": false,
+    "title": "Drawstory", "titleRu": "Drawstory",
+    "categories": ["ui-ux", "art-direction"],
+    "type": "UI/UX Design", "typeRu": "UI/UX Дизайн",
+    "role": "UI/UX Designer", "roleRu": "UI/UX Дизайнер",
+    "year": "2024",
+    "cover": "/images/Works_Covers/drawstory.webp",
+    "imgs": ["/images/Works_Covers/drawstory.webp"],
+    "href": "https://drawstory.com", "hrefRu": "https://drawstory.com"
+  },
+  {
+    "id": 8, "slug": "empty-date", "template": false,
+    "title": "Empty Date", "titleRu": "Empty Date",
+    "categories": ["ui-ux"],
+    "type": "UI/UX Design", "typeRu": "UI/UX Дизайн",
+    "role": "Product Designer", "roleRu": "Продуктовый дизайнер",
+    "year": "2023",
+    "cover": "/images/Works_Covers/empty date.webp",
+    "imgs": ["/images/Works_Covers/empty date.webp"],
+    "href": "https://emptydate.com/", "hrefRu": "https://emptydate.com/"
+  },
+  {
+    "id": 11, "slug": "open-control", "template": false,
+    "title": "Open Control", "titleRu": "Open Control",
+    "categories": ["ui-ux", "art-direction"],
+    "type": "AR/VR Product Design", "typeRu": "AR/VR Продуктовый дизайн",
+    "role": "AR/VR Product Designer", "roleRu": "AR/VR Продуктовый дизайнер",
+    "year": "2024",
+    "cover": "/images/Works_Covers/open-control.jpg",
+    "imgs": ["/images/Works_Covers/open-control.jpg"],
+    "href": "/open-control", "hrefRu": "/open-control-ru"
+  },
+  {
+    "id": 12, "slug": "posters", "template": false,
+    "title": "Posters Vol.1", "titleRu": "Постеры Vol.1",
+    "categories": ["graphics-ai", "art-direction"],
+    "type": "Graphic Design", "typeRu": "Графический дизайн",
+    "role": "Graphic Designer", "roleRu": "Графический дизайнер",
+    "year": "2023",
+    "cover": "/images/Works_Covers/posters.webp",
+    "imgs": ["/images/Works_Covers/posters.webp", "/images/posters/poster-1.webp", "/images/posters/poster-2.webp", "/images/posters/poster-3.webp"],
+    "href": "/posters", "hrefRu": "/posters-ru"
+  },
+  {
+    "id": 9, "slug": "here-creative", "template": false,
+    "title": "Here Creative", "titleRu": "Here Creative",
+    "categories": ["ui-ux"],
+    "type": "UI/UX Design", "typeRu": "UI/UX Дизайн",
+    "role": "UI/UX Designer", "roleRu": "UI/UX Дизайнер",
+    "year": "2023",
+    "cover": "/images/Works_Covers/here creative.webp",
+    "imgs": ["/images/Works_Covers/here creative.webp"],
+    "href": "#", "hrefRu": "#"
+  },
+  {
+    "id": 10, "slug": "unicorn-embassy", "template": false,
+    "title": "Unicorn Embassy", "titleRu": "Unicorn Embassy",
+    "categories": ["art-direction", "brand-design"],
+    "type": "Brand Design", "typeRu": "Брендинг",
+    "role": "Art Director", "roleRu": "Арт-директор",
+    "year": "2024",
+    "cover": "/images/Works_Covers/Unicorn Embassy.webp",
+    "imgs": ["/images/Works_Covers/Unicorn Embassy.webp"],
+    "href": "/unicorn", "hrefRu": "/unicorn"
+  },
+  {
+    "id": 13, "slug": "inhub", "template": false,
+    "title": "InHub", "titleRu": "InHub",
+    "categories": ["art-direction", "brand-design"],
+    "type": "Brand Design", "typeRu": "Брендинг",
+    "role": "Brand Designer", "roleRu": "Бренд-дизайнер",
+    "year": "2023",
+    "cover": "/images/Works_Covers/in hub.webp",
+    "imgs": ["/images/Works_Covers/in hub.webp"],
+    "href": "#", "hrefRu": "#"
+  }
+]
