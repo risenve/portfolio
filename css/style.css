@@ -363,6 +363,21 @@ body.overlay-open{overflow:hidden}
 .card-img-wrap:has(video){background:#f4f4f4;}
 .project-card:hover .card-img-wrap img{transform:scale(1.04)}
 
+/* Hover video preview (project cards + case hero) */
+.card-img-wrap .hover-video,
+.rds-hero-right .hover-video{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity .4s var(--ease);
+  pointer-events:none;
+  z-index:1;
+}
+.project-card:hover .hover-video,
+.rds-hero-right:hover .hover-video{ opacity:1; }
+.rds-hero-right{ position:relative; }
+
 .card-placeholder{
   width:100%;height:100%;
   display:flex;align-items:center;justify-content:center;
