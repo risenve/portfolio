@@ -124,8 +124,7 @@ function renderProjects(filter) {
       var href = p.href && p.href !== '#' ? ' href="' + p.href + '"' : '';
       var targetAttr = isExternal ? ' target="_blank" rel="noopener"' : '';
       var inner = p.video
-        ? '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">' +
-          '<video class="hover-video" src="' + p.video + '" muted loop playsinline preload="none" poster="' + p.cover + '"></video>'
+        ? '<video autoplay loop muted playsinline><source src="' + p.video + '" type="video/mp4"></video>'
         : p.cover
         ? '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">'
         : '<div class="card-placeholder"><span class="ph-num">' + p.id + '</span><span class="ph-title">' + p.title + '</span></div>';
@@ -134,7 +133,6 @@ function renderProjects(filter) {
         '</span><span class="card-cat">' + p.type + '</span></div></' + tag + '>';
     }).join('');
     setTimeout(initCardReveal, 30);
-    initHoverVideos();
   } else {
     container.innerHTML = list.map(function (p) {
       var isExternal = p.href && p.href.indexOf('http') === 0;
@@ -210,26 +208,6 @@ function initFeatHover() {
     card.addEventListener('mouseleave', function () {
       clearInterval(timer);
       imgEl.src = imgs[0];
-    });
-  });
-}
-
-// ── HOVER VIDEO PREVIEW (project cards + hero) ──
-function initHoverVideos() {
-  document.querySelectorAll('.hover-video').forEach(function (video) {
-    if (video.dataset.hoverBound) return;
-    video.dataset.hoverBound = '1';
-    var trigger = video.closest('.project-card, .rds-hero-right, .card-img-wrap');
-    if (!trigger) return;
-    trigger.addEventListener('mouseenter', function () {
-      try {
-        video.currentTime = 0;
-        var pr = video.play();
-        if (pr && pr.catch) pr.catch(function () {});
-      } catch (e) {}
-    });
-    trigger.addEventListener('mouseleave', function () {
-      video.pause();
     });
   });
 }
@@ -596,7 +574,6 @@ document.addEventListener('DOMContentLoaded', function () {
   initReveal();
   initShowreel();
   initFeatHover();
-  initHoverVideos();
   initOverlay();
   initServiceDrop();
   initScrollNav();
