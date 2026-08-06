@@ -884,6 +884,204 @@
     });
   });
 
+  // ============================================================
+  // PIECES  (virtual museum — data/pieces.json + images/pieces/*)
+  // ============================================================
+  var pieces = [];          // current pieces.json array
+  var piecesSha = null;     // sha of pieces.json
+  var pcEditing = null;     // piece being edited (null = new)
+  var pcImgData = null;     // compressed image for a new upload {base64,w,h}
+  var piecesLoaded = false; // lazy-load guard
+
+  // Downscale + convert to WebP entirely in the browser.
+  function compressToWebp(file, maxDim, quality) {
+    return new Promise(function (res, rej) {
+      var img = new Image();
+      img.onload = function () {
+        var w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+        var s = Math.min(1, maxDim / Math.max(w, h));
+        var cw = Math.max(1, Math.round(w * s)), ch = Math.max(1, Math.round(h * s));
+        var c = document.createElement('canvas'); c.width = cw; c.height = ch;
+        c.getContext('2d').drawImage(img, 0, 0, cw, ch);
+        c.toBlob(function (blob) {
+          if (!blob) { rej(new Error('WebP not supported in this browser')); return; }
+          var r = new FileReader();
+          r.onload = function () { res({ base64: String(r.result).split(',')[1], w: cw, h: ch }); };
+          r.onerror = function () { rej(new Error('read failed')); };
+          r.readAsDataURL(blob);
+        }, 'image/webp', quality);
+      };
+      img.onerror = function () { rej(new Error('not a valid image')); };
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  function nextPcId() {
+    return pieces.reduce(function (m, p) { return Math.max(m, +p.id || 0); }, 0) + 1;
+  }
+
+  function loadPieces() {
+    return getContent('data/pieces.json').then(function (f) {
+      if (!f) { pieces = []; piecesSha = null; }
+      else { pieces = JSON.parse(b64DecodeUtf8(f.content)); piecesSha = f.sha; }
+      renderPcList();
+      newPiece();
+    });
+  }
+
+  function renderPcList() {
+    var wrap = $('pc-list'); wrap.innerHTML = '';
+    pieces.forEach(function (p, idx) {
+      var row = document.createElement('div');
+      row.className = 'a-prow';
+      var thumb = p.img
+        ? '<img src="' + p.img + '" style="width:34px;height:34px;object-fit:cover;border-radius:5px;border:1px solid var(--a-line);flex-shrink:0;">'
+        : '<div style="width:34px;height:34px;border-radius:5px;background:#23232a;flex-shrink:0;"></div>';
+      row.innerHTML =
+        '<div class="a-ord"><button data-pcup="' + idx + '">▲</button><button data-pcdown="' + idx + '">▼</button></div>' +
+        thumb +
+        '<div class="a-prow-main">' +
+          '<div class="a-prow-title">' + (p.title || 'Untitled') + '</div>' +
+          '<div class="a-prow-meta">' + [p.year, p.collection].filter(Boolean).join(' · ') + '</div>' +
+        '</div>' +
+        '<button class="a-btn a-btn--ghost a-btn--sm" data-pcedit="' + p.id + '">Edit</button>' +
+        '<button class="a-btn a-btn--danger a-btn--sm" data-pcdel="' + p.id + '">✕</button>';
+      wrap.appendChild(row);
+    });
+  }
+
+  function movePc(idx, dir) {
+    var j = idx + dir;
+    if (j < 0 || j >= pieces.length) return;
+    var t = pieces[idx]; pieces[idx] = pieces[j]; pieces[j] = t;
+    renderPcList();
+  }
+
+  function newPiece() {
+    pcEditing = null; pcImgData = null;
+    $('pc-editor-title').textContent = 'New piece';
+    ['pc-title', 'pc-story', 'pc-year', 'pc-link', 'pc-collection'].forEach(function (id) { $(id).value = ''; });
+    $('pc-img').value = '';
+    var th = $('pc-thumb'); th.classList.add('hidden'); th.src = '';
+    $('pc-log').innerHTML = ''; $('pc-status').textContent = '';
+  }
+
+  function editPiece(id) {
+    var p = pieces.filter(function (x) { return String(x.id) === String(id); })[0];
+    if (!p) return;
+    pcEditing = p; pcImgData = null;
+    $('pc-editor-title').textContent = 'Edit — ' + (p.title || '');
+    $('pc-title').value = p.title || ''; $('pc-story').value = p.story || '';
+    $('pc-year').value = p.year || ''; $('pc-link').value = p.link || '';
+    $('pc-collection').value = p.collection || '';
+    var th = $('pc-thumb');
+    if (p.img) { th.src = p.img; th.classList.remove('hidden'); } else { th.classList.add('hidden'); th.src = ''; }
+    $('pc-img').value = '';
+    $('pc-log').innerHTML = ''; $('pc-status').textContent = '';
+    window.scrollTo(0, 0);
+  }
+
+  function deletePiece(id) {
+    var p = pieces.filter(function (x) { return String(x.id) === String(id); })[0];
+    if (!p) return;
+    if (!confirm('Remove "' + (p.title || 'piece') + '" from Pieces?\n\n(Updates pieces.json. The image file stays in the repo.)')) return;
+    var el = $('pc-log'); el.innerHTML = ''; log(el, 'Removing…');
+    pieces = pieces.filter(function (x) { return String(x.id) !== String(id); });
+    putText('data/pieces.json', JSON.stringify(pieces, null, 2) + '\n', 'Remove piece via admin')
+      .then(function (r) { piecesSha = r.content.sha; renderPcList(); newPiece(); log(el, '✓ Removed.', 'ok'); })
+      .catch(function (e) { log(el, e.message, 'err'); });
+  }
+
+  $('pc-list').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.pcedit) editPiece(b.dataset.pcedit);
+    else if (b.dataset.pcdel) deletePiece(b.dataset.pcdel);
+    else if (b.dataset.pcup) movePc(+b.dataset.pcup, -1);
+    else if (b.dataset.pcdown) movePc(+b.dataset.pcdown, 1);
+  });
+
+  $('pc-img').addEventListener('change', function () {
+    var f = this.files[0]; if (!f) return;
+    var th = $('pc-thumb'); th.src = URL.createObjectURL(f); th.classList.remove('hidden');
+    var el = $('pc-log'); el.innerHTML = ''; log(el, 'Preparing image…');
+    compressToWebp(f, 1800, 0.82)
+      .then(function (d) { pcImgData = d; el.innerHTML = ''; log(el, '✓ Image ready (' + d.w + '×' + d.h + ').', 'ok'); })
+      .catch(function (e) { pcImgData = null; el.innerHTML = ''; log(el, 'Image error: ' + e.message, 'err'); });
+  });
+
+  $('pc-cancel').addEventListener('click', newPiece);
+  $('pc-new').addEventListener('click', newPiece);
+
+  $('pc-save-order').addEventListener('click', function () {
+    var el = $('pc-log'); el.innerHTML = ''; log(el, 'Saving order…');
+    putText('data/pieces.json', JSON.stringify(pieces, null, 2) + '\n', 'Reorder pieces via admin')
+      .then(function (r) { piecesSha = r.content.sha; log(el, '✓ Order saved. Site rebuilds in ~1 min.', 'ok'); })
+      .catch(function (e) { log(el, e.message, 'err'); });
+  });
+
+  $('pc-publish').addEventListener('click', function () {
+    var el = $('pc-log'); el.innerHTML = '';
+    var title = $('pc-title').value.trim();
+    if (!title) { log(el, 'Add a title.', 'err'); return; }
+    if (!pcEditing && !pcImgData) { log(el, 'Choose a photo (and let it finish preparing).', 'err'); return; }
+
+    var status = $('pc-status'); status.textContent = 'Publishing…';
+    $('pc-publish').disabled = true;
+
+    var rec = pcEditing ? JSON.parse(JSON.stringify(pcEditing)) : { id: nextPcId() };
+    rec.title = title;
+    rec.story = $('pc-story').value.trim();
+    rec.year = $('pc-year').value.trim();
+    rec.link = $('pc-link').value.trim();
+    rec.collection = $('pc-collection').value.trim();
+
+    var chain = Promise.resolve();
+    if (pcImgData) {
+      var path = 'images/pieces/' + (slugify(title) || 'piece') + '-' + Date.now().toString(36) + '.webp';
+      rec.img = '/' + path; rec.w = pcImgData.w; rec.h = pcImgData.h;
+      chain = chain
+        .then(function () { log(el, 'Uploading photo…'); return putFile(path, pcImgData.base64, 'Add piece image ' + path, null); })
+        .then(function () { log(el, '✓ photo uploaded', 'ok'); });
+    }
+    chain.then(function () {
+      if (pcEditing) { pieces = pieces.map(function (p) { return String(p.id) === String(rec.id) ? rec : p; }); }
+      else { pieces.push(rec); }
+      log(el, 'Updating pieces.json…');
+      return putText('data/pieces.json', JSON.stringify(pieces, null, 2) + '\n', (pcEditing ? 'Update' : 'Add') + ' piece via admin');
+    }).then(function (r) {
+      piecesSha = r.content.sha;
+      renderPcList();
+      pcEditing = rec;
+      pcImgData = null;
+      $('pc-editor-title').textContent = 'Edit — ' + rec.title;
+      status.textContent = '';
+      log(el, '✓ Done! Site rebuilds in ~1 min.', 'ok');
+      $('pc-publish').disabled = false;
+    }).catch(function (e) {
+      log(el, e.message, 'err');
+      status.textContent = 'Failed.';
+      $('pc-publish').disabled = false;
+    });
+  });
+
+  // ---- top-level view switch (Works | Pieces) ----
+  function switchView(v) {
+    var works = v === 'works';
+    $('a-view-works').classList.toggle('hidden', !works);
+    $('a-view-pieces').classList.toggle('hidden', works);
+    $('a-works-actions').style.display = works ? 'flex' : 'none';
+    $('a-pieces-actions').style.display = works ? 'none' : 'flex';
+    var tabs = document.querySelectorAll('#a-view-tabs .a-tab');
+    for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('a-tab--on', tabs[i].dataset.view === v);
+    if (v === 'pieces' && !piecesLoaded) {
+      piecesLoaded = true;
+      loadPieces().catch(function (e) { log($('pc-log'), 'Load failed: ' + e.message, 'err'); piecesLoaded = false; });
+    }
+  }
+  $('a-view-tabs').addEventListener('click', function (e) {
+    var b = e.target.closest('.a-tab'); if (b) switchView(b.dataset.view);
+  });
+
   // ---- boot ----
   showGateMode();
 })();

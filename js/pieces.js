@@ -73,10 +73,10 @@
       var jx = (rand(d.id) - 0.5) * 140;
       var jy = (rand(d.id + 7) - 0.5) * 140;
 
-      // varied size + aspect
+      // varied size; real photos keep their own aspect, placeholders get a random one
       var base = 150 + rand(d.id + 3) * 170;          // 150–320
       var aspects = [0.72, 1, 1.35, 0.85, 1.55];
-      var asp = aspects[Math.floor(rand(d.id + 5) * aspects.length)];
+      var asp = (d.w && d.h) ? (d.w / d.h) : aspects[Math.floor(rand(d.id + 5) * aspects.length)];
       var w = Math.round(base);
       var h = Math.round(base / asp);
 
@@ -90,7 +90,11 @@
       el.style.width = w + 'px';
       el.style.height = h + 'px';
       el.dataset.index = i;
-      // real image later: if (d.img) el.innerHTML = '<img src="'+d.img+'" alt="'+d.title+'">';
+      if (d.img) {
+        var im = document.createElement('img');
+        im.src = d.img; im.alt = d.title || ''; im.loading = 'lazy';
+        el.appendChild(im);
+      }
       frag.appendChild(el);
 
       items.push({ el: el, x: x, y: y, w: w, h: h, data: d });
@@ -316,10 +320,10 @@
     pmYear.textContent = d.year || '';
     if (d.link) { pmLink.href = d.link; pmLink.hidden = false; }
     else { pmLink.hidden = true; pmLink.removeAttribute('href'); }
-    // placeholder media keeps the piece's aspect ratio
+    // media keeps the piece's aspect ratio; real photo when present
     var it = items[current];
     pmMedia.style.aspectRatio = it.w + ' / ' + it.h;
-    // real image later: pmMedia.innerHTML = d.img ? '<img src="'+d.img+'">' : '';
+    pmMedia.innerHTML = d.img ? '<img src="' + d.img + '" alt="' + (d.title || '') + '">' : '';
   }
 
   document.getElementById('pm-close').addEventListener('click', closeModal);

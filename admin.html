@@ -190,14 +190,25 @@
         <h1>Portfolio Admin</h1>
         <span class="a-sub">Publishing to risenve/portfolio · <a href="/work" target="_blank">view site ↗</a></span>
       </div>
+      <div class="a-tabs" id="a-view-tabs" style="margin-left:auto; margin-right:auto;">
+        <button class="a-tab a-tab--on" data-view="works">Works</button>
+        <button class="a-tab" data-view="pieces">Pieces</button>
+      </div>
       <div style="display:flex; gap:10px;">
-        <button class="a-btn a-btn--ghost a-btn--sm" id="a-save-order">Save order</button>
+        <span id="a-works-actions" style="display:flex; gap:10px;">
+          <button class="a-btn a-btn--ghost a-btn--sm" id="a-save-order">Save order</button>
+          <button class="a-btn" id="a-new">+ New case</button>
+        </span>
+        <span id="a-pieces-actions" style="display:none; gap:10px;">
+          <button class="a-btn a-btn--ghost a-btn--sm" id="pc-save-order">Save order</button>
+          <button class="a-btn" id="pc-new">+ New piece</button>
+        </span>
         <button class="a-btn a-btn--ghost a-btn--sm" id="a-reset-token">Reset token</button>
         <button class="a-btn a-btn--ghost a-btn--sm" id="a-lock">Lock</button>
-        <button class="a-btn" id="a-new">+ New case</button>
       </div>
     </div>
 
+    <div id="a-view-works">
     <div class="a-layout">
       <!-- LEFT: project list -->
       <div class="a-panel">
@@ -347,6 +358,55 @@
         </div><!-- /#a-form -->
       </div>
     </div>
+    </div><!-- /#a-view-works -->
+
+    <!-- ============ PIECES VIEW ============ -->
+    <div id="a-view-pieces" class="hidden">
+      <div class="a-layout">
+        <!-- LEFT: pieces list -->
+        <div class="a-panel">
+          <h3>Pieces</h3>
+          <div class="a-plist" id="pc-list"></div>
+        </div>
+        <!-- RIGHT: piece editor -->
+        <div class="a-panel">
+          <div class="a-editor-head"><h3 id="pc-editor-title">New piece</h3></div>
+          <label class="a-lbl">Photo</label>
+          <input type="file" id="pc-img" accept="image/*">
+          <img class="a-thumb hidden" id="pc-thumb">
+          <div class="a-hint">Photos are auto-compressed to web-friendly WebP before upload.</div>
+          <div class="a-cols">
+            <div>
+              <label class="a-lbl">Title</label>
+              <input type="text" id="pc-title" placeholder="What is it">
+            </div>
+            <div>
+              <label class="a-lbl">Year</label>
+              <input type="text" id="pc-year" placeholder="2024">
+            </div>
+          </div>
+          <label class="a-lbl">Story</label>
+          <textarea id="pc-story" placeholder="A short note — what it is, where it's from"></textarea>
+          <div class="a-cols">
+            <div>
+              <label class="a-lbl">Source link (optional)</label>
+              <input type="text" id="pc-link" placeholder="https://…">
+            </div>
+            <div>
+              <label class="a-lbl">Collection (optional)</label>
+              <input type="text" id="pc-collection" placeholder="film, fashion, type…">
+              <div class="a-hint">For future filtering / stacks.</div>
+            </div>
+          </div>
+          <div class="a-actions">
+            <button class="a-btn" id="pc-publish">Publish</button>
+            <button class="a-btn a-btn--ghost" id="pc-cancel">Reset</button>
+            <span id="pc-status" style="font-size:12px; color:var(--a-muted);"></span>
+          </div>
+          <div class="a-log" id="pc-log"></div>
+        </div>
+      </div>
+    </div><!-- /#a-view-pieces -->
   </div>
 
   <script src="/js/case-template.js"></script>
