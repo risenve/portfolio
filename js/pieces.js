@@ -11,17 +11,49 @@
 
   var caption  = document.getElementById('museum-caption');
   var hint     = document.getElementById('museum-hint');
+  var zoomPct  = document.getElementById('museum-zoom-pct');
 
   // ── view transform state ──
+  // current = what's rendered now; target = where we're easing toward.
   var tx = 0, ty = 0, scale = 1;
-  var MIN_SCALE = 0.3, MAX_SCALE = 3.5;
+  var targetTx = 0, targetTy = 0, targetScale = 1;
+  var MIN_SCALE = 0.25, MAX_SCALE = 5;
+  var animId = null;
 
   var items = [];   // data + layout {el, x, y, w, h, data}
   var built = false;
 
   function applyTransform() {
     world.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+    if (zoomPct) zoomPct.textContent = Math.round(scale * 100) + '%';
   }
+
+  // Instantly set the transform (used by pan, pinch, centering) — no easing.
+  function setTransform(s, x, y) {
+    scale = targetScale = s;
+    tx = targetTx = x;
+    ty = targetTy = y;
+    if (animId != null) { cancelAnimationFrame(animId); animId = null; }
+    applyTransform();
+  }
+
+  // Ease current → target each frame (used by wheel + zoom buttons).
+  function tick() {
+    var k = 0.2;
+    scale += (targetScale - scale) * k;
+    tx += (targetTx - tx) * k;
+    ty += (targetTy - ty) * k;
+    if (Math.abs(targetScale - scale) < 0.0006 &&
+        Math.abs(targetTx - tx) < 0.3 && Math.abs(targetTy - ty) < 0.3) {
+      scale = targetScale; tx = targetTx; ty = targetTy;
+      applyTransform();
+      animId = null;
+      return;
+    }
+    applyTransform();
+    animId = requestAnimationFrame(tick);
+  }
+  function startAnim() { if (animId == null) animId = requestAnimationFrame(tick); }
 
   // ── deterministic-ish pseudo random for stable layout per id ──
   function rand(seed) {
@@ -78,10 +110,7 @@
 
   // ── center the plane origin in the viewport at start ──
   function centerView() {
-    tx = vpW() / 2;
-    ty = vpH() / 2;
-    scale = 1;
-    applyTransform();
+    setTransform(1, vpW() / 2, vpH() / 2);
   }
 
   // Center once the viewport actually has a size (it can be 0 for a frame or
@@ -124,8 +153,14 @@
     if (pointers.size >= 2 && pinchStart) {
       var now = pinchState();
       var ratio = now.dist / pinchStart.dist;
-      var next = clampScale(pinchStart.scale * ratio);
-      zoomTo(next, now.cx, now.cy, pinchStart);
+      var ns = clampScale(pinchStart.scale * ratio);
+      var rect = viewport.getBoundingClientRect();
+      var px = now.cx - rect.left, py = now.cy - rect.top;
+      // keep the world point under the pinch centre fixed
+      var wx = (px - pinchStart.tx) / pinchStart.scale;
+      var wy = (py - pinchStart.ty) / pinchStart.scale;
+      setTransform(ns, px - wx * ns, py - wy * ns);
+      hideCaption();
       return;
     }
 
@@ -133,9 +168,8 @@
       var dx = e.clientX - last.x;
       var dy = e.clientY - last.y;
       moved += Math.abs(dx) + Math.abs(dy);
-      tx += dx; ty += dy;
+      setTransform(scale, tx + dx, ty + dy);
       last.x = e.clientX; last.y = e.clientY;
-      applyTransform();
     }
   });
 
@@ -177,24 +211,21 @@
      ======================================================== */
   function clampScale(s) { return Math.max(MIN_SCALE, Math.min(MAX_SCALE, s)); }
 
-  // zoom toward a client point; `from` optional snapshot for pinch
-  function zoomTo(nextScale, clientX, clientY, from) {
+  // Eased zoom toward a client point. Anchors in TARGET space so repeated
+  // wheel ticks accumulate around the same point while the view eases in.
+  function zoomTo(nextScale, clientX, clientY) {
     var rect = viewport.getBoundingClientRect();
     var px = clientX - rect.left;
     var py = clientY - rect.top;
 
-    var baseS = from ? from.scale : scale;
-    var baseTx = from ? from.tx : tx;
-    var baseTy = from ? from.ty : ty;
-
     // world point under the cursor stays fixed
-    var wx = (px - baseTx) / baseS;
-    var wy = (py - baseTy) / baseS;
+    var wx = (px - targetTx) / targetScale;
+    var wy = (py - targetTy) / targetScale;
 
-    scale = nextScale;
-    tx = px - wx * scale;
-    ty = py - wy * scale;
-    applyTransform();
+    targetScale = nextScale;
+    targetTx = px - wx * targetScale;
+    targetTy = py - wy * targetScale;
+    startAnim();
     hideCaption();
     fadeHint();
   }
@@ -202,13 +233,13 @@
   viewport.addEventListener('wheel', function (e) {
     e.preventDefault();
     interacted = true;
-    var factor = Math.exp(-e.deltaY * 0.0015);
-    zoomTo(clampScale(scale * factor), e.clientX, e.clientY);
+    var factor = Math.exp(-e.deltaY * 0.0028);   // stronger per notch
+    zoomTo(clampScale(targetScale * factor), e.clientX, e.clientY);
   }, { passive: false });
 
   function zoomButton(dir) {
     var rect = viewport.getBoundingClientRect();
-    zoomTo(clampScale(scale * (dir > 0 ? 1.25 : 0.8)),
+    zoomTo(clampScale(targetScale * (dir > 0 ? 1.45 : 0.69)),
            rect.left + vpW() / 2,
            rect.top + vpH() / 2);
   }
