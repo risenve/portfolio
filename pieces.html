@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109758796', 'ym');
+    ym(109758796, 'init', {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109758796" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pieces — Ripsime Sargsyan</title>
+  <meta name="description" content="Pieces — a virtual museum of visual finds by Ripsime Sargsyan. An endless canvas you can drag and zoom.">
+  <link rel="canonical" href="https://ripsime.me/pieces">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pieces — Ripsime Sargsyan">
+  <meta property="og:description" content="A virtual museum of visual finds — an endless canvas you can drag and zoom.">
+  <meta property="og:url" content="https://ripsime.me/pieces">
+  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=TASA+Orbiter:wght@400..800&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/pieces.css">
+</head>
+<body class="museum-body">
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/work" class="nav-link">Work</a>
+      <div class="nav-service-wrap">
+        <button class="nav-link nav-service-toggle">Service</button>
+        <div class="service-drop">
+          <a href="/service-branding" class="service-item">Branding</a>
+          <a href="/service-uiux" class="service-item">UI/UX</a>
+          <a href="/service-product-design" class="service-item">Product Design</a>
+          <a href="/service-art-direction" class="service-item">Art Direction</a>
+        </div>
+      </div>
+      <a href="/talks" class="nav-link">Talks</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- STAIRCASE HOVER PANEL -->
+  <div class="staircase-panel" id="staircase-panel">
+    <a href="/" class="stair-link">Home</a>
+    <a href="/work" class="stair-link">Work</a>
+    <a href="/talks" class="stair-link">Talks</a>
+    <a href="#contact" class="stair-link">Contact</a>
+  </div>
+
+  <!-- FULL OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+      <div>
+        <div class="overlay-stair-links">
+          <a href="/">Home</a>
+          <a href="/work">Work</a>
+          <button class="ol-service-toggle" type="button">Services <span class="ol-toggle-arrow">▾</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="/service-branding">Branding</a>
+            <a href="/service-uiux">UI/UX</a>
+            <a href="/service-product-design">Product Design</a>
+            <a href="/service-art-direction">Art Direction</a>
+          </div>
+          <a href="/talks">Talks</a>
+          <a href="#contact">Contact</a>
+        </div></div>
+    </div>
+  </div>
+
+  <!-- ============ MUSEUM CANVAS ============ -->
+  <div class="museum" id="museum">
+    <div class="museum-world" id="museum-world"></div>
+  </div>
+
+  <!-- floating hover caption -->
+  <div class="museum-caption" id="museum-caption"></div>
+
+  <!-- hint -->
+  <div class="museum-hint" id="museum-hint">
+    <span>Drag to explore</span>
+    <span class="dot"></span>
+    <span>Scroll to zoom</span>
+    <span class="dot hide-sm"></span>
+    <span class="hide-sm">Click a piece</span>
+  </div>
+
+  <!-- zoom controls -->
+  <div class="museum-zoom">
+    <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+    <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+  </div>
+
+  <!-- ============ POPUP ============ -->
+  <div class="pm" id="pm" role="dialog" aria-modal="true" aria-label="Piece detail">
+    <button class="pm-close" id="pm-close" type="button" aria-label="Close">×</button>
+    <button class="pm-nav pm-prev" id="pm-prev" type="button" aria-label="Previous">‹</button>
+    <button class="pm-nav pm-next" id="pm-next" type="button" aria-label="Next">›</button>
+    <div class="pm-inner">
+      <div class="pm-media" id="pm-media"></div>
+      <div class="pm-info">
+        <h2 class="pm-title" id="pm-title"></h2>
+        <p class="pm-story" id="pm-story"></p>
+        <div class="pm-meta">
+          <span class="pm-year" id="pm-year"></span>
+          <a class="pm-link" id="pm-link" target="_blank" rel="noopener" hidden>Source ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/pieces.js"></script>
+</body>
+</html>

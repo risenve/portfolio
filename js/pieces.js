@@ -1,0 +1,327 @@
+/* ============================================================
+   PIECES / VIRTUAL MUSEUM
+   Infinite pan + zoom canvas of grey placeholder pieces.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var viewport = document.getElementById('museum');
+  var world    = document.getElementById('museum-world');
+  if (!viewport || !world) return;
+
+  var caption  = document.getElementById('museum-caption');
+  var hint     = document.getElementById('museum-hint');
+
+  // ── view transform state ──
+  var tx = 0, ty = 0, scale = 1;
+  var MIN_SCALE = 0.3, MAX_SCALE = 3.5;
+
+  var items = [];   // data + layout {el, x, y, w, h, data}
+  var built = false;
+
+  function applyTransform() {
+    world.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+  }
+
+  // ── deterministic-ish pseudo random for stable layout per id ──
+  function rand(seed) {
+    var x = Math.sin(seed * 99.13 + 0.7) * 43758.5453;
+    return x - Math.floor(x);
+  }
+
+  // ── phyllotaxis scatter layout (organic, even, gappy) ──
+  function layout(data) {
+    var GOLDEN = 2.399963229728653; // rad
+    var SPACING = 240;
+    var frag = document.createDocumentFragment();
+
+    data.forEach(function (d, i) {
+      var r = SPACING * Math.sqrt(i + 0.6);
+      var a = i * GOLDEN;
+      var jx = (rand(d.id) - 0.5) * 140;
+      var jy = (rand(d.id + 7) - 0.5) * 140;
+
+      // varied size + aspect
+      var base = 150 + rand(d.id + 3) * 170;          // 150–320
+      var aspects = [0.72, 1, 1.35, 0.85, 1.55];
+      var asp = aspects[Math.floor(rand(d.id + 5) * aspects.length)];
+      var w = Math.round(base);
+      var h = Math.round(base / asp);
+
+      var x = Math.round(r * Math.cos(a) + jx - w / 2);
+      var y = Math.round(r * Math.sin(a) + jy - h / 2);
+
+      var el = document.createElement('div');
+      el.className = 'piece';
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
+      el.dataset.index = i;
+      // real image later: if (d.img) el.innerHTML = '<img src="'+d.img+'" alt="'+d.title+'">';
+      frag.appendChild(el);
+
+      items.push({ el: el, x: x, y: y, w: w, h: h, data: d });
+    });
+
+    world.appendChild(frag);
+    built = true;
+  }
+
+  // Viewport size helpers. Some engines mis-measure a fixed element's own
+  // box, so derive size from the window and the element's top offset instead.
+  function vpTop() { return viewport.getBoundingClientRect().top; }
+  function vpW() { return window.innerWidth; }
+  function vpH() { return window.innerHeight - vpTop(); }
+
+  var interacted = false;   // becomes true on first pan/zoom
+
+  // ── center the plane origin in the viewport at start ──
+  function centerView() {
+    tx = vpW() / 2;
+    ty = vpH() / 2;
+    scale = 1;
+    applyTransform();
+  }
+
+  // Center once the viewport actually has a size (it can be 0 for a frame or
+  // two right after load), retrying across a few frames.
+  function centerWhenReady(attempt) {
+    if (vpW() > 0 && vpH() > 0) { centerView(); return; }
+    if (attempt < 60) requestAnimationFrame(function () { centerWhenReady(attempt + 1); });
+  }
+
+  /* ========================================================
+     PAN + CLICK (pointer events, unified mouse/touch)
+     ======================================================== */
+  var pointers = new Map();
+  var isPanning = false;
+  var moved = 0;
+  var last = { x: 0, y: 0 };
+  var pinchStart = null;
+
+  viewport.addEventListener('pointerdown', function (e) {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    viewport.setPointerCapture(e.pointerId);
+
+    if (pointers.size === 1) {
+      isPanning = true;
+      interacted = true;
+      moved = 0;
+      last.x = e.clientX; last.y = e.clientY;
+      viewport.classList.add('is-panning');
+      hideCaption();
+    } else if (pointers.size === 2) {
+      isPanning = false;
+      pinchStart = pinchState();
+    }
+  });
+
+  viewport.addEventListener('pointermove', function (e) {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pointers.size >= 2 && pinchStart) {
+      var now = pinchState();
+      var ratio = now.dist / pinchStart.dist;
+      var next = clampScale(pinchStart.scale * ratio);
+      zoomTo(next, now.cx, now.cy, pinchStart);
+      return;
+    }
+
+    if (isPanning && pointers.size === 1) {
+      var dx = e.clientX - last.x;
+      var dy = e.clientY - last.y;
+      moved += Math.abs(dx) + Math.abs(dy);
+      tx += dx; ty += dy;
+      last.x = e.clientX; last.y = e.clientY;
+      applyTransform();
+    }
+  });
+
+  function endPointer(e) {
+    if (!pointers.has(e.pointerId)) return;
+
+    // click (not a drag) on a piece → open.
+    // Pointer capture makes e.target the viewport, so hit-test by point instead.
+    if (pointers.size === 1 && moved < 6) {
+      var hit = document.elementFromPoint(e.clientX, e.clientY);
+      var pc = hit && hit.closest ? hit.closest('.piece') : null;
+      if (pc) openModal(parseInt(pc.dataset.index, 10));
+    }
+
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinchStart = null;
+    if (pointers.size === 0) {
+      isPanning = false;
+      viewport.classList.remove('is-panning');
+    }
+  }
+  viewport.addEventListener('pointerup', endPointer);
+  viewport.addEventListener('pointercancel', endPointer);
+
+  function pinchState() {
+    var pts = Array.from(pointers.values());
+    var dx = pts[0].x - pts[1].x;
+    var dy = pts[0].y - pts[1].y;
+    return {
+      dist: Math.hypot(dx, dy) || 1,
+      cx: (pts[0].x + pts[1].x) / 2,
+      cy: (pts[0].y + pts[1].y) / 2,
+      scale: scale, tx: tx, ty: ty
+    };
+  }
+
+  /* ========================================================
+     ZOOM (wheel + buttons + pinch), anchored to a point
+     ======================================================== */
+  function clampScale(s) { return Math.max(MIN_SCALE, Math.min(MAX_SCALE, s)); }
+
+  // zoom toward a client point; `from` optional snapshot for pinch
+  function zoomTo(nextScale, clientX, clientY, from) {
+    var rect = viewport.getBoundingClientRect();
+    var px = clientX - rect.left;
+    var py = clientY - rect.top;
+
+    var baseS = from ? from.scale : scale;
+    var baseTx = from ? from.tx : tx;
+    var baseTy = from ? from.ty : ty;
+
+    // world point under the cursor stays fixed
+    var wx = (px - baseTx) / baseS;
+    var wy = (py - baseTy) / baseS;
+
+    scale = nextScale;
+    tx = px - wx * scale;
+    ty = py - wy * scale;
+    applyTransform();
+    hideCaption();
+    fadeHint();
+  }
+
+  viewport.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    interacted = true;
+    var factor = Math.exp(-e.deltaY * 0.0015);
+    zoomTo(clampScale(scale * factor), e.clientX, e.clientY);
+  }, { passive: false });
+
+  function zoomButton(dir) {
+    var rect = viewport.getBoundingClientRect();
+    zoomTo(clampScale(scale * (dir > 0 ? 1.25 : 0.8)),
+           rect.left + vpW() / 2,
+           rect.top + vpH() / 2);
+  }
+
+  /* ========================================================
+     HOVER CAPTION
+     ======================================================== */
+  viewport.addEventListener('pointerover', function (e) {
+    if (isPanning || pointers.size) return;
+    var pc = e.target.closest ? e.target.closest('.piece') : null;
+    if (!pc) return;
+    var d = items[parseInt(pc.dataset.index, 10)].data;
+    showCaption(pc, d);
+  });
+  viewport.addEventListener('pointerout', function (e) {
+    var pc = e.target.closest ? e.target.closest('.piece') : null;
+    if (pc) hideCaption();
+  });
+
+  function showCaption(pc, d) {
+    var r = pc.getBoundingClientRect();
+    caption.innerHTML = '<span class="cap-title"></span>' +
+                        (d.year ? '<span class="cap-year"></span>' : '');
+    caption.querySelector('.cap-title').textContent = d.title;
+    if (d.year) caption.querySelector('.cap-year').textContent = d.year;
+    caption.style.left = r.left + 'px';
+    caption.style.top = (r.top - 34) + 'px';
+    caption.classList.add('is-visible');
+  }
+  function hideCaption() { caption.classList.remove('is-visible'); }
+
+  /* ========================================================
+     HINT auto-fade
+     ======================================================== */
+  var hintFaded = false;
+  function fadeHint() {
+    if (hintFaded || !hint) return;
+    hintFaded = true;
+    hint.classList.add('is-faded');
+  }
+  viewport.addEventListener('pointerdown', fadeHint, { once: true });
+
+  /* ========================================================
+     MODAL / POPUP
+     ======================================================== */
+  var pm       = document.getElementById('pm');
+  var pmMedia  = document.getElementById('pm-media');
+  var pmTitle  = document.getElementById('pm-title');
+  var pmStory  = document.getElementById('pm-story');
+  var pmYear   = document.getElementById('pm-year');
+  var pmLink   = document.getElementById('pm-link');
+  var current  = -1;
+
+  function openModal(i) {
+    current = i;
+    renderModal();
+    pm.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    hideCaption();
+  }
+  function closeModal() {
+    pm.classList.remove('is-open');
+    current = -1;
+  }
+  function step(dir) {
+    if (current < 0) return;
+    current = (current + dir + items.length) % items.length;
+    renderModal();
+  }
+  function renderModal() {
+    var d = items[current].data;
+    pmTitle.textContent = d.title;
+    pmStory.textContent = d.story || '';
+    pmYear.textContent = d.year || '';
+    if (d.link) { pmLink.href = d.link; pmLink.hidden = false; }
+    else { pmLink.hidden = true; pmLink.removeAttribute('href'); }
+    // placeholder media keeps the piece's aspect ratio
+    var it = items[current];
+    pmMedia.style.aspectRatio = it.w + ' / ' + it.h;
+    // real image later: pmMedia.innerHTML = d.img ? '<img src="'+d.img+'">' : '';
+  }
+
+  document.getElementById('pm-close').addEventListener('click', closeModal);
+  document.getElementById('pm-prev').addEventListener('click', function () { step(-1); });
+  document.getElementById('pm-next').addEventListener('click', function () { step(1); });
+  pm.addEventListener('click', function (e) {
+    // click on the dim backdrop (not the content) closes
+    if (e.target === pm) closeModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (current < 0) return;
+    if (e.key === 'Escape') closeModal();
+    else if (e.key === 'ArrowLeft') step(-1);
+    else if (e.key === 'ArrowRight') step(1);
+  });
+
+  document.getElementById('zoom-in').addEventListener('click', function () { zoomButton(1); });
+  document.getElementById('zoom-out').addEventListener('click', function () { zoomButton(-1); });
+
+  window.addEventListener('resize', function () {
+    if (!interacted) centerView();
+  });
+
+  /* ========================================================
+     BOOT
+     ======================================================== */
+  fetch('/data/pieces.json')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      layout(data);
+      centerWhenReady(0);
+    })
+    .catch(function (err) {
+      console.error('pieces: failed to load data', err);
+    });
+})();
