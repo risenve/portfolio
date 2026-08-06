@@ -569,6 +569,37 @@ function initServiceWip() {
   });
 }
 
+// ── LAB: click-to-load interactive demos ──
+function initLabDemos() {
+  document.querySelectorAll('.lab-card[data-embed]').forEach(function (card) {
+    var stage  = card.querySelector('.lab-stage');
+    var poster = card.querySelector('.lab-poster');
+    var reset  = card.querySelector('.lab-reset');
+    if (!stage || !poster) return;
+    var src = card.getAttribute('data-embed');
+
+    function load() {
+      if (card.classList.contains('is-live')) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.loading = 'lazy';
+      iframe.setAttribute('allow', 'camera; microphone; autoplay; fullscreen; clipboard-write; accelerometer; gyroscope');
+      var titleEl = card.querySelector('.lab-card-title');
+      iframe.title = titleEl ? titleEl.textContent : 'Live demo';
+      stage.appendChild(iframe);
+      card.classList.add('is-live');
+    }
+    function unload() {
+      var iframe = stage.querySelector('iframe');
+      if (iframe) iframe.remove();
+      card.classList.remove('is-live');
+    }
+
+    poster.addEventListener('click', load);
+    if (reset) reset.addEventListener('click', unload);
+  });
+}
+
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', function () {
   initReveal();
@@ -582,6 +613,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initProjSlider();
   initServiceCards();
   initServiceWip();
+  initLabDemos();
 
   // Project lists depend on data/projects.json — render them after it loads.
   var needsProjects = document.getElementById('allp-list') || document.getElementById('projects-container');

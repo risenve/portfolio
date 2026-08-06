@@ -1,0 +1,186 @@
+/* ===== LAB PAGE ===== */
+/* Accent fonts pulled from the reference: TASA Orbiter (display) + Fragment Mono (mono) */
+
+:root{
+  --lab-mono:'Fragment Mono','SF Mono',ui-monospace,monospace;
+  --lab-display:'TASA Orbiter',var(--font);
+  --lab-line:rgba(255,255,255,0.14);
+  --lab-line-soft:rgba(255,255,255,0.08);
+  --lab-card-bg:#0a0a0a;
+}
+
+/* ---- Header ---- */
+.lab-header{
+  padding:calc(var(--nav-h) + 64px) var(--pad-x) 8px;
+  max-width:1200px;margin:0 auto;
+}
+.lab-eyebrow{
+  font-family:var(--lab-mono);
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 18px;
+}
+.lab-title{
+  font-family:var(--lab-display);
+  font-size:clamp(56px,12vw,140px);
+  font-weight:700;line-height:.92;letter-spacing:-.02em;
+  margin:0;
+}
+.lab-lead{
+  font-family:var(--lab-mono);
+  font-size:clamp(14px,1.6vw,17px);
+  line-height:1.6;color:#bdbdbd;
+  max-width:620px;margin:22px 0 0;
+}
+
+/* ---- About (bio) ---- */
+.lab-about{
+  max-width:1200px;margin:0 auto;
+  padding:40px var(--pad-x) 8px;
+  border-top:1px solid var(--lab-line-soft);
+  margin-top:48px;
+}
+.lab-about-label{
+  font-family:var(--lab-mono);
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 16px;
+}
+.lab-about p{
+  font-size:clamp(18px,2.4vw,26px);
+  line-height:1.5;max-width:820px;margin:0 0 14px;color:#eee;
+}
+.lab-about .lab-placeholder{
+  color:var(--muted);font-style:italic;
+}
+
+/* ---- Section label ---- */
+.lab-section-head{
+  max-width:1200px;margin:0 auto;
+  padding:64px var(--pad-x) 24px;
+  display:flex;align-items:baseline;gap:14px;
+}
+.lab-section-head h2{
+  font-family:var(--lab-display);
+  font-size:clamp(26px,4vw,40px);font-weight:600;margin:0;letter-spacing:-.01em;
+}
+.lab-section-head .lab-count{
+  font-family:var(--lab-mono);font-size:13px;color:var(--muted);
+}
+
+/* ---- Grid ---- */
+.lab-grid{
+  max-width:1200px;margin:0 auto;
+  padding:0 var(--pad-x) 40px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:28px;
+}
+
+/* ---- Card ---- */
+.lab-card{
+  display:flex;flex-direction:column;
+  border:1px solid var(--lab-line);
+  background:var(--lab-card-bg);
+  border-radius:14px;overflow:hidden;
+  transition:border-color .3s var(--ease),transform .3s var(--ease);
+}
+.lab-card:hover{border-color:rgba(255,255,255,0.32);}
+
+/* mock browser frame */
+.lab-frame{position:relative;}
+.lab-browser-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:11px 14px;border-bottom:1px solid var(--lab-line-soft);
+  background:#111;
+}
+.lab-dot{width:10px;height:10px;border-radius:50%;background:#333;display:inline-block;}
+.lab-dot:nth-child(1){background:#ff5f57;}
+.lab-dot:nth-child(2){background:#febc2e;}
+.lab-dot:nth-child(3){background:#28c840;}
+.lab-url{
+  font-family:var(--lab-mono);font-size:12px;color:#888;
+  margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* stage holds poster then iframe */
+.lab-stage{
+  position:relative;
+  aspect-ratio:16/10;
+  background:
+    radial-gradient(120% 120% at 50% 0%,#141414 0%,#050505 70%);
+  overflow:hidden;
+}
+.lab-stage iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:0;display:block;
+  background:#fff;
+}
+
+/* poster (default state) */
+.lab-poster{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:22px;cursor:pointer;text-align:center;padding:20px;
+  transition:opacity .3s var(--ease);
+}
+.lab-poster-title{
+  font-family:var(--lab-display);
+  font-size:clamp(28px,4.5vw,46px);font-weight:700;letter-spacing:-.02em;
+  color:#fff;opacity:.92;
+}
+.lab-try{
+  font-family:var(--lab-mono);font-size:13px;letter-spacing:.04em;
+  color:#fff;background:transparent;
+  border:1px solid rgba(255,255,255,0.4);
+  padding:11px 20px;border-radius:999px;cursor:pointer;
+  transition:background .25s var(--ease),color .25s var(--ease),border-color .25s;
+}
+.lab-poster:hover .lab-try{background:#fff;color:#000;border-color:#fff;}
+.lab-hint{
+  font-family:var(--lab-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;
+}
+.lab-card.is-live .lab-poster{opacity:0;pointer-events:none;}
+
+/* live controls */
+.lab-live-bar{
+  display:none;align-items:center;justify-content:space-between;
+  padding:9px 14px;border-top:1px solid var(--lab-line-soft);background:#111;
+}
+.lab-card.is-live .lab-live-bar{display:flex;}
+.lab-live-bar button,.lab-live-bar a{
+  font-family:var(--lab-mono);font-size:12px;color:#aaa;
+  background:transparent;border:0;cursor:pointer;text-decoration:none;
+  transition:color .2s;
+}
+.lab-live-bar button:hover,.lab-live-bar a:hover{color:#fff;}
+
+/* card info */
+.lab-card-info{padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;}
+.lab-card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;}
+.lab-card-title{
+  font-family:var(--lab-display);font-size:22px;font-weight:600;margin:0;letter-spacing:-.01em;
+}
+.lab-open{
+  font-family:var(--lab-mono);font-size:12px;color:var(--muted);
+  text-decoration:none;white-space:nowrap;transition:color .2s;
+}
+.lab-open:hover{color:#fff;}
+.lab-card-desc{font-size:15px;line-height:1.5;color:#b6b6b6;margin:0;}
+.lab-tag{
+  align-self:flex-start;
+  font-family:var(--lab-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  color:#888;border:1px solid var(--lab-line);padding:4px 10px;border-radius:999px;
+}
+
+/* coming-soon card */
+.lab-card--soon{opacity:.72;}
+.lab-card--soon .lab-stage{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;}
+.lab-soon-badge{
+  font-family:var(--lab-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);border:1px dashed var(--lab-line);padding:8px 16px;border-radius:999px;
+}
+
+/* ---- Responsive ---- */
+@media(max-width:860px){
+  .lab-grid{grid-template-columns:1fr;gap:22px;}
+  .lab-header{padding-top:calc(var(--nav-h) + 40px);}
+}
+@media(max-width:600px){
+  .lab-stage{aspect-ratio:4/3;}
+}

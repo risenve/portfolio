@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109758796', 'ym');
+    ym(109758796, 'init', {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109758796" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab — Ripsime Sargsyan</title>
+  <meta name="description" content="Lab — инструменты и вайбкод-эксперименты Ripsime Sargsyan. Интерактивные мини-проекты, которые можно потестить прямо на странице.">
+  <link rel="canonical" href="https://ripsime.me/lab-ru">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lab — Ripsime Sargsyan">
+  <meta property="og:description" content="Инструменты и вайбкод-эксперименты, которые можно потестить прямо на странице.">
+  <meta property="og:url" content="https://ripsime.me/lab-ru">
+  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=TASA+Orbiter:wght@400..800&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/lab.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/work" class="nav-link">Work</a>
+      <div class="nav-service-wrap">
+        <button class="nav-link nav-service-toggle">Service</button>
+        <div class="service-drop">
+          <a href="/service-branding" class="service-item">Branding</a>
+          <a href="/service-uiux" class="service-item">UI/UX</a>
+          <a href="/service-product-design" class="service-item">Product Design</a>
+          <a href="/service-art-direction" class="service-item">Art Direction</a>
+        </div>
+      </div>
+      <a href="/talks" class="nav-link">Talks</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- STAIRCASE HOVER PANEL -->
+  <div class="staircase-panel" id="staircase-panel">
+    <a href="/" class="stair-link">Home</a>
+    <a href="/work" class="stair-link">Work</a>
+    <a href="/talks" class="stair-link">Talks</a>
+    <a href="#contact" class="stair-link">Contact</a>
+  </div>
+
+  <!-- FULL OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+      <div>
+        <div class="overlay-stair-links">
+          <a href="/">Home</a>
+          <a href="/work">Work</a>
+          <button class="ol-service-toggle" type="button">Services <span class="ol-toggle-arrow">▾</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="/service-branding">Branding</a>
+            <a href="/service-uiux">UI/UX</a>
+            <a href="/service-product-design">Product Design</a>
+            <a href="/service-art-direction">Art Direction</a>
+          </div>
+          <a href="/talks">Talks</a>
+          <a href="#contact">Contact</a>
+        </div></div>
+      <div class="overlay-form-wrap">
+        <form id="overlay-form" class="ol-form" novalidate>
+          <div class="ol-field">
+            <input type="text" name="ol-name" required placeholder=" ">
+            <label class="ol-label">Name</label>
+          </div>
+          <div class="ol-field">
+            <input type="email" name="ol-email" required placeholder=" ">
+            <label class="ol-label">Email</label>
+          </div>
+          <div class="ol-field">
+            <input type="text" name="ol-message" required placeholder=" ">
+            <label class="ol-label">About project</label>
+          </div>
+          <label class="ol-consent">
+            <input type="checkbox" name="ol-consent" required>
+            <span class="ol-consent-text">I agree to the processing of personal data.</span>
+          </label>
+          <button type="submit" class="ol-submit">Send →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Language toggle -->
+  <div class="lang-toggle">
+    <a href="/lab" class="lang-btn">EN</a>
+    <span class="lang-btn lang-btn--active">RU</span>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- HEADER -->
+    <header class="lab-header">
+      <p class="lab-eyebrow">Площадка · Инструменты · Эксперименты</p>
+      <h1 class="lab-title">Lab</h1>
+      <p class="lab-lead">Место для маленьких штук, которые я вайбкожу — инструментов и экспериментов. Каждая карточка ниже живая: нажми <b>Попробовать</b> и потести прямо здесь, не уходя со страницы.</p>
+    </header>
+
+    <!-- ABOUT (bio — replace with your text) -->
+    <section class="lab-about">
+      <p class="lab-about-label">Обо мне</p>
+      <p class="lab-placeholder">[ Здесь будет твой текст обо мне — пришли, и я вставлю. ]</p>
+    </section>
+
+    <!-- VIBECODE PROJECTS -->
+    <div class="lab-section-head">
+      <h2>Vibecode</h2>
+      <span class="lab-count">04 / live</span>
+    </div>
+
+    <div class="lab-grid">
+
+      <!-- ASCII Vision -->
+      <article class="lab-card" data-embed="https://risenve.github.io/ascii-vision/">
+        <div class="lab-frame">
+          <div class="lab-browser-bar">
+            <span class="lab-dot"></span><span class="lab-dot"></span><span class="lab-dot"></span>
+            <span class="lab-url">risenve.github.io/ascii-vision</span>
+          </div>
+          <div class="lab-stage">
+            <div class="lab-poster">
+              <span class="lab-poster-title">ASCII Vision</span>
+              <button class="lab-try" type="button">▶ Попробовать</button>
+              <span class="lab-hint">загрузится по клику · может запросить камеру</span>
+            </div>
+          </div>
+          <div class="lab-live-bar">
+            <button type="button" class="lab-reset">↺ Сброс</button>
+            <a href="https://risenve.github.io/ascii-vision/" target="_blank" rel="noopener">Открыть ↗</a>
+          </div>
+        </div>
+        <div class="lab-card-info">
+          <div class="lab-card-head">
+            <h3 class="lab-card-title">ASCII Vision</h3>
+            <a class="lab-open" href="https://risenve.github.io/ascii-vision/" target="_blank" rel="noopener">Открыть ↗</a>
+          </div>
+          <p class="lab-card-desc">Превращает любое видео или фото в ASCII-арт — и экспортирует результат в аккуратный SVG.</p>
+          <span class="lab-tag">Креативный инструмент</span>
+        </div>
+      </article>
+
+      <!-- Motion Text -->
+      <article class="lab-card" data-embed="https://ripsime.me/tools/motion_text/">
+        <div class="lab-frame">
+          <div class="lab-browser-bar">
+            <span class="lab-dot"></span><span class="lab-dot"></span><span class="lab-dot"></span>
+            <span class="lab-url">ripsime.me/tools/motion_text</span>
+          </div>
+          <div class="lab-stage">
+            <div class="lab-poster">
+              <span class="lab-poster-title">Motion Text</span>
+              <button class="lab-try" type="button">▶ Попробовать</button>
+              <span class="lab-hint">загрузится по клику</span>
+            </div>
+          </div>
+          <div class="lab-live-bar">
+            <button type="button" class="lab-reset">↺ Сброс</button>
+            <a href="https://ripsime.me/tools/motion_text/" target="_blank" rel="noopener">Открыть ↗</a>
+          </div>
+        </div>
+        <div class="lab-card-info">
+          <div class="lab-card-head">
+            <h3 class="lab-card-title">Motion Text</h3>
+            <a class="lab-open" href="https://ripsime.me/tools/motion_text/" target="_blank" rel="noopener">Открыть ↗</a>
+          </div>
+          <p class="lab-card-desc">Быстрая песочница для анимации текста — накидай моушен-эффекты на типографику за секунды.</p>
+          <span class="lab-tag">Текст · Моушен</span>
+        </div>
+      </article>
+
+      <!-- Repazzle -->
+      <article class="lab-card" data-embed="https://risenve.github.io/repazzle/">
+        <div class="lab-frame">
+          <div class="lab-browser-bar">
+            <span class="lab-dot"></span><span class="lab-dot"></span><span class="lab-dot"></span>
+            <span class="lab-url">risenve.github.io/repazzle</span>
+          </div>
+          <div class="lab-stage">
+            <div class="lab-poster">
+              <span class="lab-poster-title">Repazzle</span>
+              <button class="lab-try" type="button">▶ Попробовать</button>
+              <span class="lab-hint">загрузится по клику · может запросить камеру</span>
+            </div>
+          </div>
+          <div class="lab-live-bar">
+            <button type="button" class="lab-reset">↺ Сброс</button>
+            <a href="https://risenve.github.io/repazzle/" target="_blank" rel="noopener">Открыть ↗</a>
+          </div>
+        </div>
+        <div class="lab-card-info">
+          <div class="lab-card-head">
+            <h3 class="lab-card-title">Repazzle</h3>
+            <a class="lab-open" href="https://risenve.github.io/repazzle/" target="_blank" rel="noopener">Открыть ↗</a>
+          </div>
+          <p class="lab-card-desc">Пятнашки из твоего собственного лица — сделай кадр и перемешай себя.</p>
+          <span class="lab-tag">Игрушка</span>
+        </div>
+      </article>
+
+      <!-- Vase Viewer -->
+      <article class="lab-card" data-embed="https://risenve.github.io/vase-viewer/">
+        <div class="lab-frame">
+          <div class="lab-browser-bar">
+            <span class="lab-dot"></span><span class="lab-dot"></span><span class="lab-dot"></span>
+            <span class="lab-url">risenve.github.io/vase-viewer</span>
+          </div>
+          <div class="lab-stage">
+            <div class="lab-poster">
+              <span class="lab-poster-title">Vase Viewer</span>
+              <button class="lab-try" type="button">▶ Попробовать</button>
+              <span class="lab-hint">загрузится по клику</span>
+            </div>
+          </div>
+          <div class="lab-live-bar">
+            <button type="button" class="lab-reset">↺ Сброс</button>
+            <a href="https://risenve.github.io/vase-viewer/" target="_blank" rel="noopener">Открыть ↗</a>
+          </div>
+        </div>
+        <div class="lab-card-info">
+          <div class="lab-card-head">
+            <h3 class="lab-card-title">Vase Viewer</h3>
+            <a class="lab-open" href="https://risenve.github.io/vase-viewer/" target="_blank" rel="noopener">Открыть ↗</a>
+          </div>
+          <p class="lab-card-desc">Выбери вазу из каталога и посмотри, как она встанет в твоём интерьере.</p>
+          <span class="lab-tag">3D · Превью</span>
+        </div>
+      </article>
+
+      <!-- Job bot — coming soon -->
+      <article class="lab-card lab-card--soon">
+        <div class="lab-frame">
+          <div class="lab-browser-bar">
+            <span class="lab-dot"></span><span class="lab-dot"></span><span class="lab-dot"></span>
+            <span class="lab-url">telegram · bot</span>
+          </div>
+          <div class="lab-stage">
+            <span class="lab-soon-badge">Скоро</span>
+          </div>
+        </div>
+        <div class="lab-card-info">
+          <div class="lab-card-head">
+            <h3 class="lab-card-title">Job Finder Bot</h3>
+          </div>
+          <p class="lab-card-desc">Телеграм-бот, который подбирает подходящие вакансии. Уже в работе.</p>
+          <span class="lab-tag">Телеграм-бот</span>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- CONTACT -->
+    <section class="contact-form-section" id="contact">
+      <div>
+        <h2 class="contact-headline">Свяжитесь со мной</h2>
+        <p class="contact-body">Есть интересный проект или мучаетесь с дизайном? Давайте на связи! Всегда открыта поговорить, придумать и посотрудничать.</p>
+      </div>
+      <form class="ol-form contact-form-ajax" novalidate>
+        <input type="hidden" name="access_key" value="262fc81b-9cb3-4ffb-bac3-c6d69a5b9200">
+        <input type="hidden" name="subject" value="Portfolio inquiry — ripsime.me">
+        <input type="hidden" name="from_name" value="ripsime.me contact form">
+        <div class="ol-field">
+          <input type="text" name="name" required placeholder=" ">
+          <label class="ol-label">Name</label>
+        </div>
+        <div class="ol-field">
+          <input type="email" name="email" required placeholder=" ">
+          <label class="ol-label">Email</label>
+        </div>
+        <div class="ol-field">
+          <input type="text" name="message" required placeholder=" ">
+          <label class="ol-label">About project</label>
+        </div>
+        <label class="ol-consent">
+          <input type="checkbox" name="consent" required>
+          <span class="ol-consent-text">I agree to the processing of personal data.</span>
+        </label>
+        <button type="submit" class="ol-submit">Send →</button>
+        <div class="form-status" aria-live="polite"></div>
+      </form>
+    </section>
+
+  <footer class="site-footer">
+    <div class="footer-links-col">
+      <div>
+        <nav class="footer-col-links">
+          <a href="/">Home</a>
+          <a href="/work">Works</a>
+          <a href="/talks">Talks</a>
+        </nav>
+      </div>
+      <div>        <div class="footer-col-links">
+          <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">@sargsyan.std</a>
+        </div>
+      </div>
+      <div>        <div class="footer-col-links">
+          <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
+        </div>
+      </div>
+      <div class="footer-col-right">
+        <p class="footer-copyright">All rights reserved</p>
+        <p class="footer-copyright">© 2026 Ripsime Sargsyan</p>
+      </div>
+    </div>
+  </footer>
+
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
