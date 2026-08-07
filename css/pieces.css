@@ -78,6 +78,18 @@ body.museum-body{
   display:block;
   pointer-events:none;
 }
+/* resize grip — corner handle, revealed on hover (still grabbable on touch) */
+.piece-grip{
+  position:absolute; right:-1px; bottom:-1px;
+  width:16px; height:16px;
+  border-radius:4px 0 3px 0;
+  background:rgba(255,255,255,0.92);
+  box-shadow:0 1px 5px rgba(0,0,0,0.28);
+  opacity:0;
+  transition:opacity .15s ease;
+  touch-action:none;
+}
+.piece:hover .piece-grip{ opacity:1; }
 
 /* ── FLOATING HOVER CAPTION (screen space, crisp at any zoom) ── */
 .museum-caption{

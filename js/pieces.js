@@ -74,20 +74,25 @@
     var frag = document.createDocumentFragment();
 
     data.forEach(function (d, i) {
-      var r = SPACING * Math.sqrt(i + 0.6);
-      var a = i * GOLDEN;
-      var jx = (rand(d.id) - 0.5) * 140;
-      var jy = (rand(d.id + 7) - 0.5) * 140;
-
-      // varied size; real photos keep their own aspect, placeholders get a random one
-      var base = 150 + rand(d.id + 3) * 170;          // 150–320
+      // real photos keep their own aspect, placeholders get a random one
       var aspects = [0.72, 1, 1.35, 0.85, 1.55];
       var asp = (d.w && d.h) ? (d.w / d.h) : aspects[Math.floor(rand(d.id + 5) * aspects.length)];
+
+      // size: saved `size` (base width) else a varied default
+      var base = (typeof d.size === 'number') ? d.size : (150 + rand(d.id + 3) * 170);
       var w = Math.round(base);
       var h = Math.round(base / asp);
 
-      var x = Math.round(r * Math.cos(a) + jx - w / 2);
-      var y = Math.round(r * Math.sin(a) + jy - h / 2);
+      // position: saved px/py (top-left) else auto phyllotaxis scatter
+      var x, y;
+      if (typeof d.px === 'number' && typeof d.py === 'number') {
+        x = Math.round(d.px); y = Math.round(d.py);
+      } else {
+        var r = SPACING * Math.sqrt(i + 0.6), a = i * GOLDEN;
+        var jx = (rand(d.id) - 0.5) * 140, jy = (rand(d.id + 7) - 0.5) * 140;
+        x = Math.round(r * Math.cos(a) + jx - w / 2);
+        y = Math.round(r * Math.sin(a) + jy - h / 2);
+      }
 
       var el = document.createElement('div');
       el.className = 'piece';
@@ -101,15 +106,21 @@
         im.src = d.img; im.alt = d.title || ''; im.loading = 'lazy';
         el.appendChild(im);
       }
+      var grip = document.createElement('div');
+      grip.className = 'piece-grip';
+      el.appendChild(grip);
       frag.appendChild(el);
 
-      items.push({ el: el, x: x, y: y, w: w, h: h, data: d });
+      items.push({ el: el, x: x, y: y, w: w, h: h, aspect: asp, data: d });
     });
 
     world.appendChild(frag);
     built = true;
+    computeBounds();
+  }
 
-    // bounding box of everything (+ padding) — drives the pan pills
+  // bounding box of everything (+ padding) — drives the pan pills
+  function computeBounds() {
     var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     items.forEach(function (it) {
       minX = Math.min(minX, it.x); minY = Math.min(minY, it.y);
@@ -147,24 +158,43 @@
      PAN + CLICK (pointer events, unified mouse/touch)
      ======================================================== */
   var pointers = new Map();
-  var isPanning = false;
   var moved = 0;
   var last = { x: 0, y: 0 };
   var pinchStart = null;
 
+  // single-pointer gesture: 'pan' | 'piece' (move) | 'resize'
+  var dragMode = null, dragItem = null;
+  var downX = 0, downY = 0, startX = 0, startY = 0, startW = 0, startH = 0;
+  var zTop = 0;
+
+  function bringToFront(it) { it.el.style.zIndex = ++zTop; }
+
   viewport.addEventListener('pointerdown', function (e) {
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    viewport.setPointerCapture(e.pointerId);
+    try { viewport.setPointerCapture(e.pointerId); } catch (err) {}
 
     if (pointers.size === 1) {
-      isPanning = true;
       interacted = true;
       moved = 0;
-      last.x = e.clientX; last.y = e.clientY;
-      viewport.classList.add('is-panning');
+      downX = last.x = e.clientX; downY = last.y = e.clientY;
       hideCaption();
+
+      // what did we grab? a resize grip, a piece, or empty canvas
+      var hit = document.elementFromPoint(e.clientX, e.clientY);
+      var grip = hit && hit.closest ? hit.closest('.piece-grip') : null;
+      var pieceEl = hit && hit.closest ? hit.closest('.piece') : null;
+      if (grip && pieceEl) {
+        dragMode = 'resize'; dragItem = items[+pieceEl.dataset.index];
+        startW = dragItem.w; startH = dragItem.h; bringToFront(dragItem);
+      } else if (pieceEl) {
+        dragMode = 'piece'; dragItem = items[+pieceEl.dataset.index];
+        startX = dragItem.x; startY = dragItem.y; bringToFront(dragItem);
+      } else {
+        dragMode = 'pan'; viewport.classList.add('is-panning');
+      }
     } else if (pointers.size === 2) {
-      isPanning = false;
+      dragMode = null; dragItem = null;
+      viewport.classList.remove('is-panning');
       pinchStart = pinchState();
     }
   });
@@ -187,30 +217,40 @@
       return;
     }
 
-    if (isPanning && pointers.size === 1) {
-      var dx = e.clientX - last.x;
-      var dy = e.clientY - last.y;
-      moved += Math.abs(dx) + Math.abs(dy);
+    if (pointers.size !== 1) return;
+    var dx = e.clientX - last.x, dy = e.clientY - last.y;
+    moved += Math.abs(dx) + Math.abs(dy);
+    last.x = e.clientX; last.y = e.clientY;
+
+    if (dragMode === 'pan') {
       setTransform(scale, tx + dx, ty + dy);
-      last.x = e.clientX; last.y = e.clientY;
+    } else if (dragMode === 'piece' && dragItem) {
+      dragItem.x = startX + (e.clientX - downX) / scale;
+      dragItem.y = startY + (e.clientY - downY) / scale;
+      dragItem.el.style.left = dragItem.x + 'px';
+      dragItem.el.style.top = dragItem.y + 'px';
+    } else if (dragMode === 'resize' && dragItem) {
+      var nw = Math.max(40, startW + (e.clientX - downX) / scale);
+      dragItem.w = nw; dragItem.h = nw / dragItem.aspect;
+      dragItem.el.style.width = dragItem.w + 'px';
+      dragItem.el.style.height = dragItem.h + 'px';
     }
   });
 
   function endPointer(e) {
     if (!pointers.has(e.pointerId)) return;
 
-    // click (not a drag) on a piece → open.
-    // Pointer capture makes e.target the viewport, so hit-test by point instead.
-    if (pointers.size === 1 && moved < 6) {
-      var hit = document.elementFromPoint(e.clientX, e.clientY);
-      var pc = hit && hit.closest ? hit.closest('.piece') : null;
-      if (pc) openModal(parseInt(pc.dataset.index, 10));
+    // a click (no real drag) on a piece opens it
+    if (pointers.size === 1 && moved < 6 && dragMode === 'piece' && dragItem) {
+      openModal(parseInt(dragItem.el.dataset.index, 10));
     }
+    // moving/resizing changes the content extent → refresh the pan pills
+    if (dragMode === 'piece' || dragMode === 'resize') computeBounds();
 
     pointers.delete(e.pointerId);
     if (pointers.size < 2) pinchStart = null;
     if (pointers.size === 0) {
-      isPanning = false;
+      dragMode = null; dragItem = null;
       viewport.classList.remove('is-panning');
     }
   }
