@@ -12,6 +12,11 @@
   var caption  = document.getElementById('museum-caption');
   var hint     = document.getElementById('museum-hint');
   var zoomPct  = document.getElementById('museum-zoom-pct');
+  var barH     = document.getElementById('mmbar-h');
+  var barV     = document.getElementById('mmbar-v');
+  var thumbH   = document.getElementById('mmthumb-h');
+  var thumbV   = document.getElementById('mmthumb-v');
+  var contentBounds = null;   // world-space bbox of all pieces (+ padding)
 
   // ── view transform state ──
   // current = what's rendered now; target = where we're easing toward.
@@ -26,6 +31,7 @@
   function applyTransform() {
     world.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
     if (zoomPct) zoomPct.textContent = Math.round(scale * 100) + '%';
+    updateScrollbars();
   }
 
   // Instantly set the transform (used by pan, pinch, centering) — no easing.
@@ -102,6 +108,19 @@
 
     world.appendChild(frag);
     built = true;
+
+    // bounding box of everything (+ padding) — drives the pan pills
+    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    items.forEach(function (it) {
+      minX = Math.min(minX, it.x); minY = Math.min(minY, it.y);
+      maxX = Math.max(maxX, it.x + it.w); maxY = Math.max(maxY, it.y + it.h);
+    });
+    if (isFinite(minX)) {
+      var pad = 700;
+      contentBounds = { minX: minX - pad, minY: minY - pad, maxX: maxX + pad, maxY: maxY + pad };
+    } else {
+      contentBounds = null;
+    }
   }
 
   // Viewport size helpers. Some engines mis-measure a fixed element's own
@@ -237,6 +256,14 @@
   viewport.addEventListener('wheel', function (e) {
     e.preventDefault();
     interacted = true;
+    // two-finger horizontal swipe (or Shift+wheel) → pan left/right;
+    // pinch (Ctrl/⌘+wheel) or plain vertical wheel → zoom
+    if (!e.ctrlKey && !e.metaKey && (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY))) {
+      var dx = (e.shiftKey && !e.deltaX) ? e.deltaY : e.deltaX;
+      setTransform(scale, tx - dx, ty);
+      hideCaption(); fadeHint();
+      return;
+    }
     var factor = Math.exp(-e.deltaY * 0.0028);   // stronger per notch
     zoomTo(clampScale(targetScale * factor), e.clientX, e.clientY);
   }, { passive: false });
@@ -345,7 +372,66 @@
 
   window.addEventListener('resize', function () {
     if (!interacted) centerView();
+    else updateScrollbars();
   });
+
+  /* ========================================================
+     PAN PILLS (iPhone-style minimap scrollbars)
+     Thumb size/position = the visible window inside the content
+     bbox; drag a thumb to pan the canvas along that axis.
+     ======================================================== */
+  function updateScrollbars() {
+    if (!contentBounds || !barH || !barV) return;
+    var rx = Math.max(1, contentBounds.maxX - contentBounds.minX);
+    var ry = Math.max(1, contentBounds.maxY - contentBounds.minY);
+
+    // visible world-space window
+    var viewL = (0 - tx) / scale, viewR = (vpW() - tx) / scale;
+    var viewT = (0 - ty) / scale, viewB = (vpH() - ty) / scale;
+
+    var trackW = barH.clientWidth;
+    var l = clamp01((viewL - contentBounds.minX) / rx) * trackW;
+    var r = clamp01((viewR - contentBounds.minX) / rx) * trackW;
+    thumbH.style.left = l + 'px';
+    thumbH.style.width = Math.max(32, r - l) + 'px';
+
+    var trackH = barV.clientHeight;
+    var t = clamp01((viewT - contentBounds.minY) / ry) * trackH;
+    var b = clamp01((viewB - contentBounds.minY) / ry) * trackH;
+    thumbV.style.top = t + 'px';
+    thumbV.style.height = Math.max(32, b - t) + 'px';
+  }
+  function clamp01(v) { return Math.max(0, Math.min(1, v)); }
+
+  function bindThumb(thumb, axis) {
+    if (!thumb) return;
+    thumb.addEventListener('pointerdown', function (e) {
+      if (!contentBounds) return;
+      e.preventDefault(); e.stopPropagation();
+      interacted = true;
+      try { thumb.setPointerCapture(e.pointerId); } catch (err) {}
+      var startPx = axis === 'x' ? e.clientX : e.clientY;
+      var startTx = tx, startTy = ty;
+      var range = axis === 'x' ? (contentBounds.maxX - contentBounds.minX)
+                               : (contentBounds.maxY - contentBounds.minY);
+      var trackLen = axis === 'x' ? barH.clientWidth : barV.clientHeight;
+
+      function move(ev) {
+        var cur = axis === 'x' ? ev.clientX : ev.clientY;
+        var dWorld = ((cur - startPx) / trackLen) * range;
+        if (axis === 'x') setTransform(scale, startTx - dWorld * scale, ty);
+        else setTransform(scale, tx, startTy - dWorld * scale);
+      }
+      function up() {
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', up);
+      }
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+    });
+  }
+  bindThumb(thumbH, 'x');
+  bindThumb(thumbV, 'y');
 
   /* ========================================================
      AUTO-HIDING TOP NAV — shows near the top, hides when idle
@@ -376,7 +462,7 @@
   /* ========================================================
      BOOT
      ======================================================== */
-  fetch('/data/pieces.json')
+  fetch('/data/pieces.json', { cache: 'no-store' })
     .then(function (r) { return r.json(); })
     .then(function (data) {
       layout(data);
