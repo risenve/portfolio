@@ -26,7 +26,7 @@ body.museum-body{
 .museum-nav .nav-logo,
 .museum-nav .museum-contact{ pointer-events:auto; }
 .museum-nav .nav-logo img{
-  filter:invert(1);             /* dark logo on the light canvas */
+  width:28px; height:28px;      /* circular badge logo, already dark on the light canvas */
 }
 .museum-contact{
   margin-left:auto;             /* push to the right edge */
