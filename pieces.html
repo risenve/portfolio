@@ -31,40 +31,15 @@
 </head>
 <body class="museum-body">
 
-  <!-- NAV -->
-  <nav class="site-nav">
+  <!-- NAV — minimal, auto-hiding: logo + Contact -->
+  <nav class="site-nav museum-nav" id="museum-nav">
     <a href="/" class="nav-logo">
       <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
     </a>
-    <div class="nav-links">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/work" class="nav-link">Work</a>
-      <div class="nav-service-wrap">
-        <button class="nav-link nav-service-toggle">Service</button>
-        <div class="service-drop">
-          <a href="/service-branding" class="service-item">Branding</a>
-          <a href="/service-uiux" class="service-item">UI/UX</a>
-          <a href="/service-product-design" class="service-item">Product Design</a>
-          <a href="/service-art-direction" class="service-item">Art Direction</a>
-        </div>
-      </div>
-      <a href="/talks" class="nav-link">Talks</a>
-      <a href="#contact" class="nav-link">Contact</a>
-    </div>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
-      <span></span><span></span>
-    </button>
+    <button class="museum-contact" id="nav-toggle" type="button" aria-label="Open contact menu">Contact</button>
   </nav>
 
-  <!-- STAIRCASE HOVER PANEL -->
-  <div class="staircase-panel" id="staircase-panel">
-    <a href="/" class="stair-link">Home</a>
-    <a href="/work" class="stair-link">Work</a>
-    <a href="/talks" class="stair-link">Talks</a>
-    <a href="#contact" class="stair-link">Contact</a>
-  </div>
-
-  <!-- FULL OVERLAY -->
+  <!-- FULL OVERLAY (opens on Contact) -->
   <div class="nav-overlay" id="nav-overlay">
     <div class="overlay-header">
       <a href="/" class="nav-logo">
@@ -85,8 +60,35 @@
             <a href="/service-art-direction">Art Direction</a>
           </div>
           <a href="/talks">Talks</a>
-          <a href="#contact">Contact</a>
-        </div></div>
+        </div>
+        <div class="overlay-socials">
+          <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+        </div>
+      </div>
+      <div class="overlay-form-wrap">
+        <form id="overlay-form" class="ol-form" novalidate>
+          <div class="ol-field">
+            <input type="text" name="ol-name" required placeholder=" ">
+            <label class="ol-label">Name</label>
+          </div>
+          <div class="ol-field">
+            <input type="email" name="ol-email" required placeholder=" ">
+            <label class="ol-label">Email</label>
+          </div>
+          <div class="ol-field">
+            <input type="text" name="ol-message" required placeholder=" ">
+            <label class="ol-label">About project</label>
+          </div>
+          <label class="ol-consent">
+            <input type="checkbox" name="ol-consent" required>
+            <span class="ol-consent-text">I agree to the processing of personal data.</span>
+          </label>
+          <button type="submit" class="ol-submit">Send →</button>
+        </form>
+      </div>
     </div>
   </div>
 

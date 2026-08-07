@@ -348,6 +348,32 @@
   });
 
   /* ========================================================
+     AUTO-HIDING TOP NAV — shows near the top, hides when idle
+     ======================================================== */
+  (function initNavAutoHide() {
+    var mnav = document.getElementById('museum-nav');
+    if (!mnav) return;
+    var hideT = null, navHover = false;
+    var TOP_ZONE = 92, IDLE = 2200;
+
+    function overlayOpen() { return document.body.classList.contains('overlay-open'); }
+    function scheduleHide() {
+      clearTimeout(hideT);
+      hideT = setTimeout(function () {
+        if (!navHover && !overlayOpen()) mnav.classList.add('nav-hidden');
+      }, IDLE);
+    }
+    function showNav() { mnav.classList.remove('nav-hidden'); scheduleHide(); }
+
+    mnav.addEventListener('mouseenter', function () { navHover = true; clearTimeout(hideT); mnav.classList.remove('nav-hidden'); });
+    mnav.addEventListener('mouseleave', function () { navHover = false; scheduleHide(); });
+    window.addEventListener('pointermove', function (e) { if (e.clientY <= TOP_ZONE) showNav(); });
+    window.addEventListener('pointerdown', function (e) { if (e.clientY <= TOP_ZONE) showNav(); });
+
+    showNav();   // visible on load, then auto-hides
+  })();
+
+  /* ========================================================
      BOOT
      ======================================================== */
   fetch('/data/pieces.json')

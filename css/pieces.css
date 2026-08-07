@@ -9,10 +9,10 @@ body.museum-body{
   height:100vh;
 }
 
-/* ── VIEWPORT ── */
+/* ── VIEWPORT ── (full height; the auto-hiding nav floats over the top) */
 .museum{
   position:fixed;
-  top:var(--nav-h); left:0; right:0; bottom:0;
+  top:0; left:0; right:0; bottom:0;
   overflow:hidden;
   background:#fafafa;
   cursor:grab;
@@ -20,6 +20,34 @@ body.museum-body{
   user-select:none;
   -webkit-user-select:none;
 }
+
+/* ── MINIMAL AUTO-HIDING NAV ── */
+.museum-nav{ background:transparent; pointer-events:none; }
+.museum-nav .nav-logo,
+.museum-nav .museum-contact{ pointer-events:auto; }
+.museum-nav .nav-logo img{
+  filter:invert(1);             /* dark logo on the light canvas */
+}
+.museum-contact{
+  margin-left:auto;             /* push to the right edge */
+  background:rgba(255,255,255,0.82);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  border:1px solid rgba(0,0,0,0.08);
+  color:#111;
+  font-family:var(--font); font-size:14px;
+  padding:8px 18px; border-radius:100px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.06);
+  transition:background .18s var(--ease), transform .18s var(--ease);
+}
+.museum-contact:hover{ background:#fff; transform:translateY(-1px); }
+
+/* socials inside the overlay (this page has no footer) */
+.overlay-socials{ display:flex; flex-wrap:wrap; gap:18px; margin-top:26px; }
+.overlay-socials a{
+  font-size:14px; color:rgba(255,255,255,0.55);
+  text-decoration:none; transition:color .18s ease;
+}
+.overlay-socials a:hover{ color:#fff; }
 .museum.is-panning{cursor:grabbing;}
 
 /* ── WORLD (the thing we translate + scale) ── */
