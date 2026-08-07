@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "spk vase",
+    "story": "самая продаваемая ваза сказа по краю",
+    "year": "2026",
+    "link": "skazpokrayu.ru",
+    "collection": "art",
+    "img": "/images/pieces/spk-vase-msimwtqh.webp",
+    "w": 1458,
+    "h": 1800
+  }
+]
