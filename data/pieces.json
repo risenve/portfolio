@@ -31,5 +31,16 @@
     "img": "/images/pieces/collage-workshop-mskimnwo.webp",
     "w": 1350,
     "h": 1800
+  },
+  {
+    "id": 4,
+    "title": "my lecture about desogn porfolios",
+    "story": "провела в Щелочи вебинар/просмотр портфолио, обсуждали какие есть приемы и фишки портфолио, как можно в 2026 году сделать свой сайт и тд, ссылка на запись и презентацию прикрепляю",
+    "year": "2026",
+    "link": "https://t.me/sargsyanstd/258",
+    "collection": "lectures/workshops",
+    "img": "/images/pieces/my-lecture-about-desogn-porfolios-mskis8m9.webp",
+    "w": 1280,
+    "h": 828
   }
 ]
