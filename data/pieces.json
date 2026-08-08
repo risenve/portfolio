@@ -1,16 +1,5 @@
 [
   {
-    "id": 1,
-    "title": "spk vase",
-    "story": "самая продаваемая ваза сказа по краю",
-    "year": "2026",
-    "link": "skazpokrayu.ru",
-    "collection": "art",
-    "img": "/images/pieces/spk-vase-msimwtqh.webp",
-    "w": 1458,
-    "h": 1800
-  },
-  {
     "id": 2,
     "title": "my letters from letters and typography workshop by HSE design in Yerevan",
     "story": "Я всегда хотела  учиться дизайну, особенно в хороших местах, как в HSE design. К счастью ребята проводят лекции и воркшопы, где я активно участвую и знакомлюсь с людьми!!",
@@ -19,6 +8,17 @@
     "collection": "",
     "img": "/images/pieces/my-letters-from-letters-and-typography-workshop-by-hse-design-in-yerevan-msk956iq.webp",
     "w": 1013,
+    "h": 1800
+  },
+  {
+    "id": 1,
+    "title": "spk vase",
+    "story": "самая продаваемая ваза сказа по краю",
+    "year": "2026",
+    "link": "skazpokrayu.ru",
+    "collection": "art",
+    "img": "/images/pieces/spk-vase-msimwtqh.webp",
+    "w": 1458,
     "h": 1800
   },
   {
