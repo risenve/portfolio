@@ -75,5 +75,126 @@
     "img": "/images/pieces/representation-of-me-msl0bxvf.webp",
     "w": 1287,
     "h": 1800
+  },
+  {
+    "id": 8,
+    "title": "Skaz po krayu",
+    "story": "Brand identity for a premium handmade ceramic brand.",
+    "year": "2024",
+    "link": "/skazpokrayu",
+    "collection": "projects",
+    "img": "/images/Works_Covers/skazpokrayu_cover.webp",
+    "w": 1822,
+    "h": 1417
+  },
+  {
+    "id": 9,
+    "title": "Eburet",
+    "story": "Redesign of an online store for recycled-plastic interior objects.",
+    "year": "2024",
+    "link": "/eburet",
+    "collection": "projects",
+    "img": "/images/Works_Covers/eburet.webp",
+    "w": 1822,
+    "h": 1417
+  },
+  {
+    "id": 10,
+    "title": "ReBank",
+    "story": "A token-driven design system for a mobile banking product.",
+    "year": "2023",
+    "link": "/rebank",
+    "collection": "projects",
+    "img": "/images/Works_Covers/Re_Bank_cover.webp",
+    "w": 2733,
+    "h": 2126
+  },
+  {
+    "id": 11,
+    "title": "Premiumization",
+    "story": "UI/UX design and AI art for a services-premiumization platform.",
+    "year": "2023",
+    "link": "/premiumization",
+    "collection": "projects",
+    "img": "/images/Works_Covers/premiumization.webp",
+    "w": 1822,
+    "h": 1417
+  },
+  {
+    "id": 12,
+    "title": "Match",
+    "story": "A souvenir match brand inspired by Armenian cultural heritage.",
+    "year": "2024",
+    "link": "/match",
+    "collection": "projects",
+    "img": "/images/Works_Covers/match.webp",
+    "w": 1822,
+    "h": 1417
+  },
+  {
+    "id": 13,
+    "title": "Drawstory",
+    "story": "AI-powered storyboard generation platform.",
+    "year": "2024",
+    "link": "https://drawstory.com",
+    "collection": "projects",
+    "img": "/images/Works_Covers/drawstory.webp",
+    "w": 1822,
+    "h": 1417
+  },
+  {
+    "id": 14,
+    "title": "Open Control",
+    "story": "AR/VR product design for a Moscow government festival.",
+    "year": "2024",
+    "link": "/open-control",
+    "collection": "projects",
+    "img": "/images/Works_Covers/open-control.jpg",
+    "w": 1920,
+    "h": 2560
+  },
+  {
+    "id": 15,
+    "title": "Posters Vol.1",
+    "story": "Graphic works for a charity exhibition at Oktyabr Cinema, Moscow.",
+    "year": "2023",
+    "link": "/posters",
+    "collection": "projects",
+    "img": "/images/Works_Covers/posters.webp",
+    "w": 1822,
+    "h": 1417
+  },
+  {
+    "id": 16,
+    "title": "Here Creative",
+    "story": "UI/UX design project.",
+    "year": "2023",
+    "link": "",
+    "collection": "projects",
+    "img": "/images/Works_Covers/here creative.webp",
+    "w": 1822,
+    "h": 1417
+  },
+  {
+    "id": 17,
+    "title": "Unicorn Embassy",
+    "story": "Brand identity for an international design conference.",
+    "year": "2024",
+    "link": "/unicorn",
+    "collection": "projects",
+    "img": "/images/Works_Covers/Unicorn Embassy.webp",
+    "w": 1822,
+    "h": 1417
+  },
+  {
+    "id": 18,
+    "title": "InHub",
+    "story": "Brand identity design.",
+    "year": "2023",
+    "link": "",
+    "collection": "projects",
+    "img": "/images/Works_Covers/in hub.webp",
+    "w": 1822,
+    "h": 1417
   }
 ]
