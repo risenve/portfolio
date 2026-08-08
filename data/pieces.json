@@ -42,5 +42,16 @@
     "img": "/images/pieces/my-lecture-about-desogn-porfolios-mskis8m9.webp",
     "w": 1280,
     "h": 828
+  },
+  {
+    "id": 5,
+    "title": "snkh studio",
+    "story": "ходила на выставку и воркшоп (фото также здесь) прямо в их студию, ребята занимаются интерьером и это видно",
+    "year": "2026, august",
+    "link": "",
+    "collection": "interiors",
+    "img": "/images/pieces/snkh-studio-mskiva0v.webp",
+    "w": 1350,
+    "h": 1800
   }
 ]
