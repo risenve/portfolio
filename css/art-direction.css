@@ -1,0 +1,194 @@
+/* ===== ART DIRECTION — service page (draft) ===== */
+/* Two-pane split-scroll: the pane under the cursor scrolls; title stays pinned. */
+
+.ad-body{ overflow:hidden; }
+
+.ad-main{
+  position:fixed;
+  top:var(--nav-h); left:0; right:0; bottom:0;
+  display:flex;
+  align-items:stretch;
+}
+
+/* each pane scrolls on its own (native: wheel scrolls whichever pane the cursor is over) */
+.ad-pane{
+  height:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;              /* Firefox */
+  -ms-overflow-style:none;
+}
+.ad-pane::-webkit-scrollbar{ width:0; height:0; display:none; }
+
+.ad-left{
+  flex:1 1 auto;
+  max-width:900px;
+  padding:0 clamp(24px,4vw,56px) 80px var(--pad-x);
+}
+.ad-right{
+  flex:0 0 clamp(320px,34%,440px);
+  padding:36px clamp(20px,3vw,48px) 80px 0;
+}
+
+/* ---- Title (pinned, Baskerville, hover→italic per word) ---- */
+.ad-title{
+  position:sticky; top:0; z-index:5;
+  background:var(--bg);
+  margin:0;
+  padding:28px 0 22px;
+  font-family:'Libre Baskerville','Baskerville','Times New Roman',Georgia,serif;
+  font-weight:400;
+  font-size:clamp(46px,7.5vw,92px);
+  line-height:1;
+  letter-spacing:-.01em;
+  color:#fff;
+}
+.ad-title .adw{
+  font-style:normal;
+  cursor:default;
+  transition:opacity .2s var(--ease);
+}
+.ad-title .adw:hover{ font-style:italic; }
+
+/* ---- Lead paragraph ---- */
+.ad-lead{
+  font-family:var(--font);
+  font-size:clamp(19px,2.3vw,27px);
+  font-weight:500;
+  line-height:1.32;
+  color:#fff;
+  max-width:640px;
+  margin:6px 0 0;
+}
+
+/* ---- Decorative waveform ---- */
+.ad-wave{
+  position:relative;
+  height:38px;
+  margin:38px 0 30px;
+}
+.ad-wave-ruler{
+  position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
+  height:16px;
+  background:repeating-linear-gradient(90deg,#4d4d4d 0 1px,transparent 1px 7.56px);
+}
+.ad-wave-spike{
+  position:absolute; left:44%; top:50%; transform:translate(-50%,-50%);
+  display:flex; align-items:center; gap:6.5px;
+}
+.ad-wave-spike i{
+  display:block; width:1px; border-radius:1px;
+  background:#ff2d6b;
+}
+.ad-wave-spike i:nth-child(1){height:14px}
+.ad-wave-spike i:nth-child(2){height:22px}
+.ad-wave-spike i:nth-child(3){height:30px}
+.ad-wave-spike i:nth-child(4){height:38px}
+.ad-wave-spike i:nth-child(5){height:30px}
+.ad-wave-spike i:nth-child(6){height:22px}
+.ad-wave-spike i:nth-child(7){height:14px}
+
+/* ---- "для кого" points ---- */
+.ad-point{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:24px;
+  padding:22px 0;
+}
+.ad-point-label{
+  font-family:var(--font);
+  font-size:12px; letter-spacing:.02em;
+  color:#8a8a8a;
+}
+.ad-point-text{
+  font-family:var(--font);
+  font-size:15px; line-height:1.5;
+  color:#cfcfcf; max-width:620px; margin:0;
+}
+
+/* ---- "что делаю" block ---- */
+.ad-do{
+  background:#0d0d0d;
+  border-radius:16px;
+  padding:30px clamp(20px,3vw,34px);
+  display:grid;
+  grid-template-columns:130px 1fr;
+  gap:22px;
+  margin-top:34px;
+}
+.ad-do-label{
+  font-family:var(--font);
+  font-size:12px; color:#8a8a8a;
+}
+.ad-do-list{ display:flex; flex-direction:column; }
+.ad-do-item{
+  font-family:var(--font);
+  font-size:15px; line-height:1.4; color:#ededed;
+  padding:15px 0;
+  border-bottom:1px solid rgba(255,255,255,0.09);
+}
+.ad-do-item:first-child{ padding-top:0; }
+.ad-do-item:last-child{ border-bottom:0; padding-bottom:0; }
+
+/* ---- Right: project cards ---- */
+.ad-cards{ display:flex; flex-direction:column; gap:22px; }
+.ad-card{
+  position:relative;
+  display:block;
+  border-radius:14px;
+  overflow:hidden;
+  background:#111;
+  text-decoration:none;
+  transform:scale(1);
+  transition:transform .45s var(--ease);
+  will-change:transform;
+}
+.ad-card img{
+  width:100%; height:100%;
+  object-fit:cover; display:block;
+}
+.ad-card:hover{ transform:scale(1.025); }
+
+.ad-card--a{ aspect-ratio:394/388; }
+.ad-card--b{ aspect-ratio:300/271; width:78%; margin-left:auto; }
+.ad-card--c{ aspect-ratio:394/220; }
+
+/* hover plaque */
+.ad-plaque{
+  position:absolute; left:0; right:0; bottom:0;
+  background:#fff; color:#000;
+  padding:13px 16px 15px;
+  transform:translateY(101%);
+  transition:transform .38s var(--ease);
+}
+.ad-card:hover .ad-plaque{ transform:translateY(0); }
+.ad-plaque-title{
+  font-family:var(--font);
+  font-size:14px; font-weight:600; line-height:1.2;
+  display:block;
+}
+.ad-plaque-desc{
+  font-family:var(--font);
+  font-size:12px; color:#666; line-height:1.3;
+  display:block; margin-top:3px;
+}
+
+/* ---- Responsive: stack into a single normal-scroll column ---- */
+@media(max-width:860px){
+  .ad-body{ overflow:auto; }
+  .ad-main{
+    position:static;
+    display:block;
+    height:auto;
+    padding-top:calc(var(--nav-h) + 16px);
+  }
+  .ad-pane{ height:auto; overflow:visible; }
+  .ad-left{ max-width:none; padding:0 var(--pad-x) 8px; }
+  .ad-right{ flex:none; width:100%; padding:24px var(--pad-x) 60px; }
+  .ad-title{ position:static; padding:8px 0 18px; }
+  .ad-card--b{ width:100%; }
+  .ad-point{ grid-template-columns:110px 1fr; gap:16px; }
+  .ad-do{ grid-template-columns:1fr; gap:16px; }
+  /* on touch, reveal plaques by default (no hover) */
+  .ad-plaque{ transform:translateY(0); }
+}
