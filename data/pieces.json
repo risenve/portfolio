@@ -53,5 +53,16 @@
     "img": "/images/pieces/snkh-studio-mskiva0v.webp",
     "w": 1350,
     "h": 1800
+  },
+  {
+    "id": 6,
+    "title": "random 3d",
+    "story": "при работе над обложкой для ютуб подкаста повяился вот такой артефакт, решила сохранить на память",
+    "year": "2026 july",
+    "link": "",
+    "collection": "random stuff",
+    "img": "/images/pieces/random-3d-msl08ztg.webp",
+    "w": 1505,
+    "h": 954
   }
 ]
