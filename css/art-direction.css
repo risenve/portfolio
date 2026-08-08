@@ -1,194 +1,229 @@
-/* ===== ART DIRECTION — service page (draft) ===== */
-/* Two-pane split-scroll: the pane under the cursor scrolls; title stays pinned. */
+/* ===== ART DIRECTION — service page ===== */
+/* Pixel-matched to Figma (1440 frame) via container-query units (1cqw = 14.4px @1440). */
+/* White background, two-pane split-scroll, pinned Baskerville title. */
 
-.ad-body{ overflow:hidden; }
+.ad-body{ background:#fff; }
 
 .ad-main{
   position:fixed;
   top:var(--nav-h); left:0; right:0; bottom:0;
+  background:#fff;
+  color:#000;
   display:flex;
-  align-items:stretch;
+  justify-content:center;
 }
 
-/* each pane scrolls on its own (native: wheel scrolls whichever pane the cursor is over) */
+.ad-stage{
+  container-type:inline-size;
+  width:100%;
+  max-width:1440px;
+  height:100%;
+  display:flex;
+  align-items:flex-start;
+  padding:0 2.7778cqw;               /* 40px */
+}
+
+/* panes scroll independently (native: the pane under the cursor scrolls) */
 .ad-pane{
   height:100%;
   overflow-y:auto;
   overflow-x:hidden;
-  scrollbar-width:none;              /* Firefox */
+  scrollbar-width:none;
   -ms-overflow-style:none;
 }
 .ad-pane::-webkit-scrollbar{ width:0; height:0; display:none; }
 
 .ad-left{
-  flex:1 1 auto;
-  max-width:900px;
-  padding:0 clamp(24px,4vw,56px) 80px var(--pad-x);
+  width:56.1111cqw;                  /* 808px */
+  flex:0 0 auto;
+  padding-top:3.4cqw;                /* ~49px gap under nav */
+  padding-bottom:6cqw;
 }
 .ad-right{
-  flex:0 0 clamp(320px,34%,440px);
-  padding:36px clamp(20px,3vw,48px) 80px 0;
+  width:27.3611cqw;                  /* 394px */
+  flex:0 0 auto;
+  margin-left:10.9722cqw;            /* 158px gap */
+  padding-top:3.4cqw;
+  padding-bottom:6cqw;
 }
 
 /* ---- Title (pinned, Baskerville, hover→italic per word) ---- */
 .ad-title{
   position:sticky; top:0; z-index:5;
-  background:var(--bg);
+  background:#fff;
   margin:0;
-  padding:28px 0 22px;
-  font-family:'Libre Baskerville','Baskerville','Times New Roman',Georgia,serif;
+  padding:0.6cqw 0 3.0cqw;
+  font-family:'Baskerville','Baskervville','Libre Baskerville','Times New Roman',Georgia,serif;
   font-weight:400;
-  font-size:clamp(46px,7.5vw,92px);
+  font-size:8.3333cqw;               /* 120px */
   line-height:1;
-  letter-spacing:-.01em;
-  color:#fff;
+  letter-spacing:-0.5833cqw;         /* -8.4px */
+  text-transform:capitalize;
+  color:#000;
+  white-space:nowrap;
 }
-.ad-title .adw{
-  font-style:normal;
-  cursor:default;
-  transition:opacity .2s var(--ease);
-}
+.ad-title .adw{ font-style:normal; cursor:default; }
+.ad-title .adw--i{ font-style:italic; }
 .ad-title .adw:hover{ font-style:italic; }
 
 /* ---- Lead paragraph ---- */
 .ad-lead{
   font-family:var(--font);
-  font-size:clamp(19px,2.3vw,27px);
-  font-weight:500;
-  line-height:1.32;
-  color:#fff;
-  max-width:640px;
-  margin:6px 0 0;
+  font-weight:400;
+  font-size:2.7778cqw;               /* 40px */
+  line-height:1.05;
+  letter-spacing:-0.0833cqw;         /* -1.2px */
+  color:#000;
+  margin:0;
 }
 
 /* ---- Decorative waveform ---- */
 .ad-wave{
   position:relative;
-  height:38px;
-  margin:38px 0 30px;
+  height:2.64cqw;
+  margin:2.7778cqw 0;                /* part of the 40px flow gap */
+  display:flex; align-items:center;
 }
 .ad-wave-ruler{
-  position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
-  height:16px;
-  background:repeating-linear-gradient(90deg,#4d4d4d 0 1px,transparent 1px 7.56px);
+  flex:1 1 auto;
+  height:1.1111cqw;                  /* 16px */
+  background:repeating-linear-gradient(90deg,#d1d1d1 0 1px,transparent 1px 7.56px);
 }
 .ad-wave-spike{
   position:absolute; left:44%; top:50%; transform:translate(-50%,-50%);
-  display:flex; align-items:center; gap:6.5px;
+  display:flex; align-items:center; gap:0.5556cqw;  /* 8px */
+  background:#fff; padding:0 0.5cqw;
 }
-.ad-wave-spike i{
-  display:block; width:1px; border-radius:1px;
-  background:#ff2d6b;
-}
-.ad-wave-spike i:nth-child(1){height:14px}
-.ad-wave-spike i:nth-child(2){height:22px}
-.ad-wave-spike i:nth-child(3){height:30px}
-.ad-wave-spike i:nth-child(4){height:38px}
-.ad-wave-spike i:nth-child(5){height:30px}
-.ad-wave-spike i:nth-child(6){height:22px}
-.ad-wave-spike i:nth-child(7){height:14px}
+.ad-wave-spike i{ display:block; width:1px; border-radius:1px; background:#ff00ea; }
+.ad-wave-spike i:nth-child(1){height:1.1111cqw}   /* 16 */
+.ad-wave-spike i:nth-child(2){height:1.5278cqw}   /* 22 */
+.ad-wave-spike i:nth-child(3){height:2.0833cqw}   /* 30 */
+.ad-wave-spike i:nth-child(4){height:2.6389cqw}   /* 38 */
+.ad-wave-spike i:nth-child(5){height:2.0833cqw}
+.ad-wave-spike i:nth-child(6){height:1.5278cqw}
+.ad-wave-spike i:nth-child(7){height:1.1111cqw}
 
 /* ---- "для кого" points ---- */
 .ad-point{
-  display:grid;
-  grid-template-columns:150px 1fr;
-  gap:24px;
-  padding:22px 0;
+  display:flex;
+  gap:5.625cqw;                      /* 81px */
+  padding:0 2.0833cqw;               /* px-30 */
 }
 .ad-point-label{
+  flex:0 0 auto;
   font-family:var(--font);
-  font-size:12px; letter-spacing:.02em;
-  color:#8a8a8a;
+  font-size:1.1111cqw;               /* 16px */
+  letter-spacing:-0.0778cqw;         /* -1.12px */
+  color:#000;
+  white-space:nowrap;
 }
 .ad-point-text{
+  flex:1 1 0;
   font-family:var(--font);
-  font-size:15px; line-height:1.5;
-  color:#cfcfcf; max-width:620px; margin:0;
+  font-size:1.6667cqw;               /* 24px */
+  line-height:1.05;
+  letter-spacing:-0.05cqw;           /* -0.72px */
+  color:#000;
+  margin:0;
 }
 
-/* ---- "что делаю" block ---- */
-.ad-do{
-  background:#0d0d0d;
-  border-radius:16px;
-  padding:30px clamp(20px,3vw,34px);
-  display:grid;
-  grid-template-columns:130px 1fr;
-  gap:22px;
-  margin-top:34px;
+/* ---- "что делаю" block (black card) ---- */
+.ad-doblock{
+  width:54.65cqw;                    /* 787px */
+  background:#000;
+  border-radius:1.3889cqw;           /* 20px */
+  display:flex;
+  gap:2.3611cqw;                     /* 34px */
+  padding:2.0833cqw 2.0833cqw 2.5cqw; /* pt30 px30 pb36 */
 }
 .ad-do-label{
+  flex:0 0 auto;
   font-family:var(--font);
-  font-size:12px; color:#8a8a8a;
+  font-size:1.1111cqw;               /* 16px */
+  letter-spacing:-0.0778cqw;
+  color:#fff;
+  white-space:nowrap;
 }
-.ad-do-list{ display:flex; flex-direction:column; }
+.ad-do-list{ flex:1 1 0; display:flex; flex-direction:column; gap:0.8333cqw; } /* 12px */
 .ad-do-item{
   font-family:var(--font);
-  font-size:15px; line-height:1.4; color:#ededed;
-  padding:15px 0;
-  border-bottom:1px solid rgba(255,255,255,0.09);
+  font-size:1.3889cqw;               /* 20px */
+  line-height:1.1;
+  letter-spacing:-0.0417cqw;         /* -0.6px */
+  color:#fff;
+  margin:0;
 }
-.ad-do-item:first-child{ padding-top:0; }
-.ad-do-item:last-child{ border-bottom:0; padding-bottom:0; }
+.ad-sep{ display:flex; gap:0.6944cqw; height:1px; }   /* gap 10px */
+.ad-sep i{ display:block; height:1px; background:#d9d9d9; opacity:.2; }
+.ad-sep--full i{ flex:1 1 auto; }
+.ad-sep .ad-sep-fill{ flex:1 1 0; }
 
 /* ---- Right: project cards ---- */
-.ad-cards{ display:flex; flex-direction:column; gap:22px; }
+.ad-cards{ display:flex; flex-direction:column; align-items:flex-end; gap:1.3889cqw; } /* 20px */
 .ad-card{
   position:relative;
   display:block;
-  border-radius:14px;
   overflow:hidden;
-  background:#111;
   text-decoration:none;
   transform:scale(1);
   transition:transform .45s var(--ease);
   will-change:transform;
 }
-.ad-card img{
-  width:100%; height:100%;
-  object-fit:cover; display:block;
-}
+.ad-card img{ width:100%; height:100%; object-fit:cover; display:block; }
 .ad-card:hover{ transform:scale(1.025); }
 
-.ad-card--a{ aspect-ratio:394/388; }
-.ad-card--b{ aspect-ratio:300/271; width:78%; margin-left:auto; }
-.ad-card--c{ aspect-ratio:394/220; }
+.ad-card--1{ width:100%; height:26.9444cqw; border-radius:2.7778cqw; }  /* 388 / r40 */
+.ad-card--2{ width:20.8333cqw; height:18.8194cqw; border-radius:1000px; } /* 300x271 pill */
+.ad-card--3{ width:100%; height:15.2778cqw; border-radius:2.7778cqw; }  /* 220 / r40 */
 
-/* hover plaque */
+/* card 1 has an inner white plaque (matches Figma) */
+.ad-card--1{ padding:0.6944cqw; }    /* p10 */
+.ad-card--1 img{ position:absolute; inset:0; border-radius:2.7778cqw; }
 .ad-plaque{
-  position:absolute; left:0; right:0; bottom:0;
-  background:#fff; color:#000;
-  padding:13px 16px 15px;
-  transform:translateY(101%);
-  transition:transform .38s var(--ease);
+  position:absolute; left:0.6944cqw; right:0.6944cqw; bottom:0.6944cqw;
+  background:#fff;
+  border-radius:2.0833cqw;           /* 30px */
+  padding:1.3889cqw 2.0833cqw 1.5278cqw; /* pt20 px30 pb22 */
+  display:flex; flex-direction:column; gap:0.2778cqw; /* 4px */
 }
-.ad-card:hover .ad-plaque{ transform:translateY(0); }
-.ad-plaque-title{
-  font-family:var(--font);
-  font-size:14px; font-weight:600; line-height:1.2;
-  display:block;
+.ad-plaque-t{
+  font-family:var(--font); font-weight:500;
+  font-size:1.1111cqw; color:#000; line-height:1.1;
 }
-.ad-plaque-desc{
-  font-family:var(--font);
-  font-size:12px; color:#666; line-height:1.3;
-  display:block; margin-top:3px;
+.ad-plaque-d{
+  font-family:var(--font); font-weight:400;
+  font-size:0.8333cqw; color:#000; line-height:1.1;
 }
 
 /* ---- Responsive: stack into a single normal-scroll column ---- */
 @media(max-width:860px){
-  .ad-body{ overflow:auto; }
-  .ad-main{
-    position:static;
-    display:block;
-    height:auto;
-    padding-top:calc(var(--nav-h) + 16px);
-  }
+  .ad-body{ background:#fff; }
+  .ad-main{ position:static; height:auto; display:block; }
+  .ad-stage{ display:block; container-type:normal; max-width:none; padding:calc(var(--nav-h) + 16px) 20px 40px; }
   .ad-pane{ height:auto; overflow:visible; }
-  .ad-left{ max-width:none; padding:0 var(--pad-x) 8px; }
-  .ad-right{ flex:none; width:100%; padding:24px var(--pad-x) 60px; }
-  .ad-title{ position:static; padding:8px 0 18px; }
-  .ad-card--b{ width:100%; }
-  .ad-point{ grid-template-columns:110px 1fr; gap:16px; }
-  .ad-do{ grid-template-columns:1fr; gap:16px; }
-  /* on touch, reveal plaques by default (no hover) */
-  .ad-plaque{ transform:translateY(0); }
+  .ad-left{ width:100%; padding:0 0 8px; }
+  .ad-right{ width:100%; margin-left:0; padding:24px 0 40px; }
+  .ad-title{ position:static; font-size:19vw; letter-spacing:-1.2vw; padding:8px 0 20px; }
+  .ad-lead{ font-size:6.2vw; }
+  .ad-wave{ height:34px; margin:24px 0; }
+  .ad-wave-ruler{ height:16px; }
+  .ad-wave-spike{ gap:6px; padding:0 6px; }
+  .ad-wave-spike i:nth-child(1),.ad-wave-spike i:nth-child(7){height:16px}
+  .ad-wave-spike i:nth-child(2),.ad-wave-spike i:nth-child(6){height:22px}
+  .ad-wave-spike i:nth-child(3),.ad-wave-spike i:nth-child(5){height:30px}
+  .ad-wave-spike i:nth-child(4){height:38px}
+  .ad-point{ gap:24px; padding:0; }
+  .ad-point-label{ font-size:13px; }
+  .ad-point-text{ font-size:18px; }
+  .ad-doblock{ width:100%; gap:20px; border-radius:16px; padding:24px 20px 28px; flex-direction:column; }
+  .ad-do-label{ font-size:13px; }
+  .ad-do-item{ font-size:16px; }
+  .ad-sep{ gap:8px; }
+  .ad-cards{ align-items:stretch; gap:16px; }
+  .ad-card--1{ height:auto; aspect-ratio:394/388; border-radius:24px; padding:8px; }
+  .ad-card--2{ width:70%; height:auto; aspect-ratio:300/271; }
+  .ad-card--3{ height:auto; aspect-ratio:394/220; border-radius:24px; }
+  .ad-plaque{ left:8px; right:8px; bottom:8px; border-radius:20px; padding:14px 20px 16px; gap:4px; }
+  .ad-plaque-t{ font-size:15px; }
+  .ad-plaque-d{ font-size:12px; }
 }
