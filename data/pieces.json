@@ -20,5 +20,16 @@
     "img": "/images/pieces/my-letters-from-letters-and-typography-workshop-by-hse-design-in-yerevan-msk956iq.webp",
     "w": 1013,
     "h": 1800
+  },
+  {
+    "id": 3,
+    "title": "collage workshop",
+    "story": "Однажды мой подписчик Эдгар организовал воркшоп по коллажам, я посетила! Было круто, интересно и много креатива",
+    "year": "2026",
+    "link": "",
+    "collection": "workshops",
+    "img": "/images/pieces/collage-workshop-mskimnwo.webp",
+    "w": 1350,
+    "h": 1800
   }
 ]
