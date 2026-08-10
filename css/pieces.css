@@ -21,32 +21,52 @@ body.museum-body{
   -webkit-user-select:none;
 }
 
-/* ── FILTER BAR (chips) ── */
+/* ── FILTER — bottom-left pill + upward vertical menu ── */
 .museum-filter{
   position:fixed;
-  top:12px; left:50%;
-  transform:translateX(-50%);
-  z-index:115;
-  display:flex; gap:6px;
-  max-width:min(760px, 68vw);
-  overflow-x:auto;
-  padding:6px;
-  background:rgba(255,255,255,0.72);
-  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
-  border:1px solid rgba(0,0,0,0.06);
-  border-radius:100px;
-  box-shadow:0 6px 24px rgba(0,0,0,0.07);
-  scrollbar-width:none;
+  left:24px; bottom:24px;
+  z-index:116;
 }
-.museum-filter::-webkit-scrollbar{ display:none; }
+.filter-btn{
+  background:rgba(255,255,255,0.82);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  border:1px solid rgba(0,0,0,0.08);
+  color:#111;
+  font-family:var(--font); font-size:14px;
+  padding:9px 20px; border-radius:100px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.06);
+  transition:background .18s var(--ease), transform .18s var(--ease);
+}
+.filter-btn:hover{ background:#fff; transform:translateY(-1px); }
+.museum-filter.open .filter-btn{ background:#111; color:#fff; border-color:#111; }
+
+.filter-menu{
+  position:absolute;
+  left:0; bottom:calc(100% + 10px);
+  display:flex; flex-direction:column-reverse; gap:6px;
+  padding:6px;
+  background:rgba(255,255,255,0.82);
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,0.07);
+  border-radius:16px;
+  box-shadow:0 10px 34px rgba(0,0,0,0.10);
+  min-width:150px;
+  max-height:60vh; overflow-y:auto; scrollbar-width:none;
+  opacity:0; visibility:hidden;
+  transform:translateY(8px) scale(.98);
+  transform-origin:bottom left;
+  transition:opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
+}
+.filter-menu::-webkit-scrollbar{ display:none; }
+.museum-filter.open .filter-menu{ opacity:1; visibility:visible; transform:translateY(0) scale(1); }
 .mf-chip{
-  flex:0 0 auto;
-  padding:7px 14px;
-  border:none; border-radius:100px;
-  background:transparent; color:#555;
-  font-family:var(--font); font-size:13px;
+  text-align:left;
+  padding:9px 14px;
+  border:none; border-radius:10px;
+  background:transparent; color:#444;
+  font-family:var(--font); font-size:14px;
   white-space:nowrap;
-  transition:background .18s ease, color .18s ease;
+  transition:background .16s ease, color .16s ease;
 }
 .mf-chip:hover{ background:rgba(0,0,0,0.05); color:#111; }
 .mf-chip.is-active{ background:#111; color:#fff; }

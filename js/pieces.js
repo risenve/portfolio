@@ -443,8 +443,11 @@
      Selecting a collection gathers its pieces into a cluster
      (graph-vertex style) and fades the rest; "All" restores.
      ======================================================== */
+  var filterMenu = document.getElementById('filter-menu');
+  var filterBtn  = document.getElementById('filter-btn');
+
   function buildFilterChips() {
-    if (!filterBar) return;
+    if (!filterMenu) return;
     var colls = [];
     items.forEach(function (it) {
       var c = it.data.collection;
@@ -455,14 +458,30 @@
     colls.forEach(function (c) {
       html += '<button class="mf-chip" data-coll="' + c.replace(/"/g, '&quot;') + '">' + c + '</button>';
     });
-    filterBar.innerHTML = html;
+    filterMenu.innerHTML = html;
   }
-  if (filterBar) {
-    filterBar.addEventListener('click', function (e) {
-      var b = e.target.closest('.mf-chip'); if (!b) return;
-      applyFilter(b.dataset.coll || null);
+  function closeFilterMenu() {
+    if (!filterBar) return;
+    filterBar.classList.remove('open');
+    if (filterBtn) filterBtn.setAttribute('aria-expanded', 'false');
+  }
+  if (filterBtn) {
+    filterBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = filterBar.classList.toggle('open');
+      filterBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
+  if (filterMenu) {
+    filterMenu.addEventListener('click', function (e) {
+      var b = e.target.closest('.mf-chip'); if (!b) return;
+      applyFilter(b.dataset.coll || null);
+      closeFilterMenu();   // close so the fly-to view is unobstructed
+    });
+  }
+  document.addEventListener('pointerdown', function (e) {
+    if (filterBar && filterBar.classList.contains('open') && !filterBar.contains(e.target)) closeFilterMenu();
+  });
 
   function styleItem(it, op) {
     it.el.style.left = it.x + 'px'; it.el.style.top = it.y + 'px';
@@ -482,8 +501,6 @@
     startAnim();
   }
 
-  var clusterCenters = {};
-
   function bboxOf(arr) {
     var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     arr.forEach(function (it) {
@@ -493,45 +510,9 @@
     return { minX: minX, minY: minY, maxX: maxX, maxY: maxY };
   }
 
-  // Lay every piece out into per-collection clusters (graph vertices).
-  // Nothing is hidden — all pieces stay visible, just separated.
-  function groupLayout() {
-    var GA = 2.399963229728653;
-    var order = [], byColl = {};
-    items.forEach(function (it) {
-      var c = it.data.collection || '—';
-      if (order.indexOf(c) === -1) order.push(c);
-      (byColl[c] = byColl[c] || []).push(it);
-    });
-    var meta = {}, maxR = 0;
-    order.forEach(function (c) {
-      var arr = byColl[c];
-      var avg = arr.reduce(function (a, it) { return a + Math.max(it.w, it.h); }, 0) / arr.length;
-      var spacing = Math.max(70, avg * 0.6);
-      var rr = spacing * Math.sqrt(arr.length) + avg;
-      meta[c] = { spacing: spacing, rr: rr };
-      if (rr > maxR) maxR = rr;
-    });
-    var n = order.length;
-    var cols = Math.max(1, Math.ceil(Math.sqrt(n)));
-    var rows = Math.ceil(n / cols);
-    var cell = maxR * 1.45 + 160;
-    clusterCenters = {};
-    order.forEach(function (c, idx) {
-      var col = idx % cols, row = Math.floor(idx / cols);
-      var cx = (col - (cols - 1) / 2) * cell;
-      var cy = (row - (rows - 1) / 2) * cell;
-      clusterCenters[c] = { cx: cx, cy: cy };
-      var arr = byColl[c], sp = meta[c].spacing;
-      arr.forEach(function (it, i) {
-        var r = sp * Math.sqrt(i + 0.5), a = i * GA;
-        it.x = Math.round(cx + r * Math.cos(a) - it.w / 2);
-        it.y = Math.round(cy + r * Math.sin(a) - it.h / 2);
-        styleItem(it, '1');
-      });
-    });
-  }
-
+  // Selecting a collection gathers ONLY that group into a cluster (around the
+  // centroid of its home positions); everything else stays where it is. The
+  // camera then flies to the group, taking the visitor straight to it.
   function applyFilter(coll) {
     activeFilter = coll || null;
     interacted = true;
@@ -539,26 +520,39 @@
     clearTimeout(animClsT);
     animClsT = setTimeout(function () { world.classList.remove('pieces-animating'); }, 950);
 
-    items.forEach(function (it) { it.el.classList.remove('mf-focus'); });
+    // reset everyone to their scatter home + clear highlight ("leave the rest as is")
+    items.forEach(function (it) {
+      it.x = it.ox; it.y = it.oy; it.w = it.ow; it.h = it.oh;
+      styleItem(it, '1'); it.el.classList.remove('mf-focus');
+    });
+    if (filterBtn) filterBtn.textContent = activeFilter || 'Filter';
 
     if (!activeFilter) {
-      // All → restore the scattered home positions
-      items.forEach(function (it) { it.x = it.ox; it.y = it.oy; it.w = it.ow; it.h = it.oh; styleItem(it, '1'); });
+      var b = bboxOf(items);
+      fitToBounds({ minX: b.minX - 200, minY: b.minY - 200, maxX: b.maxX + 200, maxY: b.maxY + 200 }, 0.9);
     } else {
-      // split everything into per-collection clusters — all stay visible;
-      // the chosen collection just gets highlighted
-      groupLayout();
-      items.forEach(function (it) {
-        if ((it.data.collection || '—') === activeFilter) it.el.classList.add('mf-focus');
-      });
+      var group = items.filter(function (it) { return (it.data.collection || '') === activeFilter; });
+      if (group.length) {
+        var cx = 0, cy = 0;
+        group.forEach(function (it) { cx += it.ox + it.ow / 2; cy += it.oy + it.oh / 2; });
+        cx /= group.length; cy /= group.length;
+        var GA = 2.399963229728653;
+        var avg = group.reduce(function (a, it) { return a + Math.max(it.w, it.h); }, 0) / group.length;
+        var spacing = Math.max(70, avg * 0.6);
+        group.forEach(function (it, i) {
+          var r = spacing * Math.sqrt(i + 0.5), a = i * GA;
+          it.x = Math.round(cx + r * Math.cos(a) - it.w / 2);
+          it.y = Math.round(cy + r * Math.sin(a) - it.h / 2);
+          styleItem(it, '1'); it.el.classList.add('mf-focus');
+        });
+        var bb = bboxOf(group);
+        fitToBounds({ minX: bb.minX - 160, minY: bb.minY - 160, maxX: bb.maxX + 160, maxY: bb.maxY + 160 }, 0.66);
+      }
     }
-    // frame the whole arrangement so the separation into clusters is visible
-    var b = bboxOf(items);
-    fitToBounds({ minX: b.minX - 200, minY: b.minY - 200, maxX: b.maxX + 200, maxY: b.maxY + 200 }, 0.86);
     computeBounds(); updateScrollbars();
 
-    if (filterBar) {
-      Array.prototype.forEach.call(filterBar.querySelectorAll('.mf-chip'), function (c) {
+    if (filterMenu) {
+      Array.prototype.forEach.call(filterMenu.querySelectorAll('.mf-chip'), function (c) {
         c.classList.toggle('is-active', (c.dataset.coll || '') === (activeFilter || ''));
       });
     }
@@ -621,32 +615,6 @@
   }
   bindThumb(thumbH, 'x');
   bindThumb(thumbV, 'y');
-
-  /* ========================================================
-     AUTO-HIDING TOP NAV — shows near the top, hides when idle
-     ======================================================== */
-  (function initNavAutoHide() {
-    var mnav = document.getElementById('museum-nav');
-    if (!mnav) return;
-    var hideT = null, navHover = false;
-    var TOP_ZONE = 92, IDLE = 2200;
-
-    function overlayOpen() { return document.body.classList.contains('overlay-open'); }
-    function scheduleHide() {
-      clearTimeout(hideT);
-      hideT = setTimeout(function () {
-        if (!navHover && !overlayOpen()) mnav.classList.add('nav-hidden');
-      }, IDLE);
-    }
-    function showNav() { mnav.classList.remove('nav-hidden'); scheduleHide(); }
-
-    mnav.addEventListener('mouseenter', function () { navHover = true; clearTimeout(hideT); mnav.classList.remove('nav-hidden'); });
-    mnav.addEventListener('mouseleave', function () { navHover = false; scheduleHide(); });
-    window.addEventListener('pointermove', function (e) { if (e.clientY <= TOP_ZONE) showNav(); });
-    window.addEventListener('pointerdown', function (e) { if (e.clientY <= TOP_ZONE) showNav(); });
-
-    showNav();   // visible on load, then auto-hides
-  })();
 
   /* ========================================================
      BOOT
