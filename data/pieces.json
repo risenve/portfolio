@@ -2,7 +2,7 @@
   {
     "id": 2,
     "title": "my letters from letters and typography workshop by HSE design in Yerevan",
-    "story": "Я всегда хотела  учиться дизайну, особенно в хороших местах, как в HSE design. К счастью ребята проводят лекции и воркшопы, где я активно участвую и знакомлюсь с людьми!!",
+    "story": "Я всегда хотела учиться дизайну, особенно в хороших местах, как в HSE design. К счастью ребята проводят лекции и воркшопы, где я активно участвую и знакомлюсь с людьми!!",
     "year": "2026",
     "link": "",
     "collection": "",
@@ -57,7 +57,7 @@
   {
     "id": 6,
     "title": "random 3d",
-    "story": "при работе над обложкой для ютуб подкаста повяился вот такой артефакт, решила сохранить на память",
+    "story": "при работе над обложкой для ютуб подкаста появился вот такой артефакт, решила сохранить на память",
     "year": "2026 july",
     "link": "",
     "collection": "random stuff",
@@ -196,5 +196,214 @@
     "img": "/images/Works_Covers/in hub.webp",
     "w": 1822,
     "h": 1417
+  },
+  {
+    "id": 19,
+    "title": "Match",
+    "story": "",
+    "year": "2024",
+    "link": "",
+    "collection": "match",
+    "img": "/images/match/m_hero.webp",
+    "w": 2880,
+    "h": 3210
+  },
+  {
+    "id": 20,
+    "title": "Match",
+    "story": "",
+    "year": "2024",
+    "link": "",
+    "collection": "match",
+    "img": "/images/match/photo_10.webp",
+    "w": 1464,
+    "h": 1416
+  },
+  {
+    "id": 21,
+    "title": "Match",
+    "story": "",
+    "year": "2024",
+    "link": "",
+    "collection": "match",
+    "img": "/images/match/m_full5.webp",
+    "w": 2880,
+    "h": 1659
+  },
+  {
+    "id": 22,
+    "title": "Match",
+    "story": "",
+    "year": "2024",
+    "link": "",
+    "collection": "match",
+    "img": "/images/match/photo_8.webp",
+    "w": 2880,
+    "h": 1620
+  },
+  {
+    "id": 23,
+    "title": "Skaz po krayu",
+    "story": "",
+    "year": "2025-26",
+    "link": "",
+    "collection": "skaz po krayu",
+    "img": "/images/skazpokrayu/valentine.webp",
+    "w": 1080,
+    "h": 1341
+  },
+  {
+    "id": 24,
+    "title": "Skaz po krayu",
+    "story": "",
+    "year": "2025-26",
+    "link": "",
+    "collection": "skaz po krayu",
+    "img": "/images/skazpokrayu/interior_photo1.webp",
+    "w": 3977,
+    "h": 5966
+  },
+  {
+    "id": 25,
+    "title": "Skaz po krayu",
+    "story": "",
+    "year": "2025-26",
+    "link": "",
+    "collection": "skaz po krayu",
+    "img": "/images/skazpokrayu/interior_photo2.webp",
+    "w": 4127,
+    "h": 6191
+  },
+  {
+    "id": 26,
+    "title": "Skaz po krayu",
+    "story": "",
+    "year": "2025-26",
+    "link": "",
+    "collection": "skaz po krayu",
+    "img": "/images/skazpokrayu/image 30.png",
+    "w": 1620,
+    "h": 2024
+  },
+  {
+    "id": 27,
+    "title": "Skaz po krayu",
+    "story": "",
+    "year": "2025-26",
+    "link": "",
+    "collection": "skaz po krayu",
+    "img": "/images/skazpokrayu/pink.webp",
+    "w": 1644,
+    "h": 1050
+  },
+  {
+    "id": 28,
+    "title": "Posters Vol.1",
+    "story": "",
+    "year": "2023",
+    "link": "",
+    "collection": "posters",
+    "img": "/images/posters/poster.webp",
+    "w": 1316,
+    "h": 1861
+  },
+  {
+    "id": 29,
+    "title": "Posters Vol.1",
+    "story": "",
+    "year": "2023",
+    "link": "",
+    "collection": "posters",
+    "img": "/images/posters/poster-5.webp",
+    "w": 1316,
+    "h": 1861
+  },
+  {
+    "id": 30,
+    "title": "Posters Vol.1",
+    "story": "",
+    "year": "2023",
+    "link": "",
+    "collection": "posters",
+    "img": "/images/posters/poster-3.webp",
+    "w": 1316,
+    "h": 1861
+  },
+  {
+    "id": 31,
+    "title": "Posters Vol.1",
+    "story": "",
+    "year": "2023",
+    "link": "",
+    "collection": "posters",
+    "img": "/images/posters/poster  2.2.webp",
+    "w": 1316,
+    "h": 1861
+  },
+  {
+    "id": 32,
+    "title": "Premiumization",
+    "story": "",
+    "year": "2023",
+    "link": "",
+    "collection": "premiumization",
+    "img": "/images/premiumization/photo4.webp",
+    "w": 1440,
+    "h": 1400
+  },
+  {
+    "id": 33,
+    "title": "Premiumization",
+    "story": "",
+    "year": "2023",
+    "link": "",
+    "collection": "premiumization",
+    "img": "/images/premiumization/photo3.webp",
+    "w": 1258,
+    "h": 1400
+  },
+  {
+    "id": 34,
+    "title": "Premiumization",
+    "story": "",
+    "year": "2023",
+    "link": "",
+    "collection": "premiumization",
+    "img": "/images/premiumization/flower2.webp",
+    "w": 1024,
+    "h": 576
+  },
+  {
+    "id": 35,
+    "title": "Premiumization",
+    "story": "",
+    "year": "2023",
+    "link": "",
+    "collection": "premiumization",
+    "img": "/images/premiumization/photo1.webp",
+    "w": 1440,
+    "h": 1400
+  },
+  {
+    "id": 36,
+    "title": "Eburet",
+    "story": "",
+    "year": "2024",
+    "link": "",
+    "collection": "eburet",
+    "img": "/images/eburet/img 6.webp",
+    "w": 1440,
+    "h": 527
+  },
+  {
+    "id": 37,
+    "title": "Eburet",
+    "story": "",
+    "year": "2024",
+    "link": "",
+    "collection": "eburet",
+    "img": "/images/eburet/img 2.webp",
+    "w": 1440,
+    "h": 843
   }
 ]
