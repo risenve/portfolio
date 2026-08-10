@@ -539,14 +539,32 @@
         var GA = 2.399963229728653;
         var avg = group.reduce(function (a, it) { return a + Math.max(it.w, it.h); }, 0) / group.length;
         var spacing = Math.max(70, avg * 0.6);
+        var clusterR = 0;
         group.forEach(function (it, i) {
           var r = spacing * Math.sqrt(i + 0.5), a = i * GA;
           it.x = Math.round(cx + r * Math.cos(a) - it.w / 2);
           it.y = Math.round(cy + r * Math.sin(a) - it.h / 2);
           styleItem(it, '1'); it.el.classList.add('mf-focus');
+          clusterR = Math.max(clusterR, r + Math.max(it.w, it.h) / 2);
         });
+
+        // push everyone else radially outward so the group stands clear of the rest
+        var gap = clusterR + 360;
+        items.forEach(function (it, i) {
+          if ((it.data.collection || '') === activeFilter) return;
+          var pcx = it.ox + it.ow / 2, pcy = it.oy + it.oh / 2;
+          var dx = pcx - cx, dy = pcy - cy, dist = Math.hypot(dx, dy);
+          if (dist < 1) { var ang = i * GA; dx = Math.cos(ang); dy = Math.sin(ang); dist = 1; }
+          if (dist < gap) {
+            var f = gap / dist;
+            it.x = Math.round(cx + dx * f - it.w / 2);
+            it.y = Math.round(cy + dy * f - it.h / 2);
+            styleItem(it, '1');
+          }
+        });
+
         var bb = bboxOf(group);
-        fitToBounds({ minX: bb.minX - 160, minY: bb.minY - 160, maxX: bb.maxX + 160, maxY: bb.maxY + 160 }, 0.66);
+        fitToBounds({ minX: bb.minX - 160, minY: bb.minY - 160, maxX: bb.maxX + 160, maxY: bb.maxY + 160 }, 0.72);
       }
     }
     computeBounds(); updateScrollbars();
