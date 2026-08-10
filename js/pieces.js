@@ -411,7 +411,7 @@
       pmMedia.scrollTop = 0;
     } else {
       pmMedia.className = 'pm-media';
-      pmMedia.style.aspectRatio = it.w + ' / ' + it.h;
+      pmMedia.style.aspectRatio = '';   // let the photo keep its own proportions
       pmMedia.innerHTML = imgs.length ? '<img src="' + imgs[0] + '" alt="' + (d.title || '') + '">' : '';
     }
   }
