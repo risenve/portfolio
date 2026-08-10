@@ -57,7 +57,14 @@ body.museum-body{
              top .7s cubic-bezier(0.22,1,0.36,1),
              width .7s cubic-bezier(0.22,1,0.36,1),
              height .7s cubic-bezier(0.22,1,0.36,1),
+             transform .5s cubic-bezier(0.22,1,0.36,1),
              opacity .45s ease;
+}
+/* highlighted cluster (selected collection) pops slightly; others stay fully visible */
+.piece.mf-focus{
+  transform:scale(1.05);
+  z-index:40;
+  box-shadow:0 22px 60px rgba(0,0,0,0.22);
 }
 
 /* ── MINIMAL AUTO-HIDING NAV ── */

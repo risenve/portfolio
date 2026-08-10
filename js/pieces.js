@@ -482,6 +482,56 @@
     startAnim();
   }
 
+  var clusterCenters = {};
+
+  function bboxOf(arr) {
+    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    arr.forEach(function (it) {
+      minX = Math.min(minX, it.x); minY = Math.min(minY, it.y);
+      maxX = Math.max(maxX, it.x + it.w); maxY = Math.max(maxY, it.y + it.h);
+    });
+    return { minX: minX, minY: minY, maxX: maxX, maxY: maxY };
+  }
+
+  // Lay every piece out into per-collection clusters (graph vertices).
+  // Nothing is hidden — all pieces stay visible, just separated.
+  function groupLayout() {
+    var GA = 2.399963229728653;
+    var order = [], byColl = {};
+    items.forEach(function (it) {
+      var c = it.data.collection || '—';
+      if (order.indexOf(c) === -1) order.push(c);
+      (byColl[c] = byColl[c] || []).push(it);
+    });
+    var meta = {}, maxR = 0;
+    order.forEach(function (c) {
+      var arr = byColl[c];
+      var avg = arr.reduce(function (a, it) { return a + Math.max(it.w, it.h); }, 0) / arr.length;
+      var spacing = Math.max(70, avg * 0.6);
+      var rr = spacing * Math.sqrt(arr.length) + avg;
+      meta[c] = { spacing: spacing, rr: rr };
+      if (rr > maxR) maxR = rr;
+    });
+    var n = order.length;
+    var cols = Math.max(1, Math.ceil(Math.sqrt(n)));
+    var rows = Math.ceil(n / cols);
+    var cell = maxR * 1.45 + 160;
+    clusterCenters = {};
+    order.forEach(function (c, idx) {
+      var col = idx % cols, row = Math.floor(idx / cols);
+      var cx = (col - (cols - 1) / 2) * cell;
+      var cy = (row - (rows - 1) / 2) * cell;
+      clusterCenters[c] = { cx: cx, cy: cy };
+      var arr = byColl[c], sp = meta[c].spacing;
+      arr.forEach(function (it, i) {
+        var r = sp * Math.sqrt(i + 0.5), a = i * GA;
+        it.x = Math.round(cx + r * Math.cos(a) - it.w / 2);
+        it.y = Math.round(cy + r * Math.sin(a) - it.h / 2);
+        styleItem(it, '1');
+      });
+    });
+  }
+
   function applyFilter(coll) {
     activeFilter = coll || null;
     interacted = true;
@@ -489,36 +539,22 @@
     clearTimeout(animClsT);
     animClsT = setTimeout(function () { world.classList.remove('pieces-animating'); }, 950);
 
-    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-    function grow(it) {
-      minX = Math.min(minX, it.x); minY = Math.min(minY, it.y);
-      maxX = Math.max(maxX, it.x + it.w); maxY = Math.max(maxY, it.y + it.h);
-    }
+    items.forEach(function (it) { it.el.classList.remove('mf-focus'); });
 
     if (!activeFilter) {
-      // All → restore scatter homes
-      items.forEach(function (it) {
-        it.x = it.ox; it.y = it.oy; it.w = it.ow; it.h = it.oh;
-        styleItem(it, '1'); grow(it);
-      });
+      // All → restore the scattered home positions
+      items.forEach(function (it) { it.x = it.ox; it.y = it.oy; it.w = it.ow; it.h = it.oh; styleItem(it, '1'); });
     } else {
-      // cluster matching around origin (phyllotaxis pack); fade the rest
-      var matching = items.filter(function (it) { return it.data.collection === activeFilter; });
+      // split everything into per-collection clusters — all stay visible;
+      // the chosen collection just gets highlighted
+      groupLayout();
       items.forEach(function (it) {
-        if (it.data.collection !== activeFilter) { it.el.style.opacity = '0'; it.el.style.pointerEvents = 'none'; }
-      });
-      var GA = 2.399963229728653;
-      var avg = matching.reduce(function (a, it) { return a + Math.max(it.w, it.h); }, 0) / (matching.length || 1);
-      var spacing = Math.max(70, avg * 0.6);
-      matching.forEach(function (it, i) {
-        var r = spacing * Math.sqrt(i + 0.5), a = i * GA;
-        it.x = Math.round(r * Math.cos(a) - it.w / 2);
-        it.y = Math.round(r * Math.sin(a) - it.h / 2);
-        styleItem(it, '1'); grow(it);
+        if ((it.data.collection || '—') === activeFilter) it.el.classList.add('mf-focus');
       });
     }
-
-    if (isFinite(minX)) fitToBounds({ minX: minX - 140, minY: minY - 140, maxX: maxX + 140, maxY: maxY + 140 }, activeFilter ? 0.82 : 0.9);
+    // frame the whole arrangement so the separation into clusters is visible
+    var b = bboxOf(items);
+    fitToBounds({ minX: b.minX - 200, minY: b.minY - 200, maxX: b.maxX + 200, maxY: b.maxY + 200 }, 0.86);
     computeBounds(); updateScrollbars();
 
     if (filterBar) {
