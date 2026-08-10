@@ -371,10 +371,12 @@
         <!-- RIGHT: piece editor -->
         <div class="a-panel">
           <div class="a-editor-head"><h3 id="pc-editor-title">New piece</h3></div>
-          <label class="a-lbl">Photo</label>
-          <input type="file" id="pc-img" accept="image/*">
+          <label class="a-lbl">Photos <span style="color:var(--a-muted);font-weight:400;">(one or several)</span></label>
+          <input type="file" id="pc-img" accept="image/*" multiple>
           <img class="a-thumb hidden" id="pc-thumb">
-          <div class="a-hint">Photos are auto-compressed to web-friendly WebP before upload.</div>
+          <div class="a-hint">Pick multiple to make a gallery card. Auto-compressed to WebP. The first photo is the cover on the canvas.</div>
+          <label class="a-lbl">PDF <span style="color:var(--a-muted);font-weight:400;">(optional — adds a download button)</span></label>
+          <input type="file" id="pc-pdf" accept="application/pdf">
           <div class="a-cols">
             <div>
               <label class="a-lbl">Title</label>

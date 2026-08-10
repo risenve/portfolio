@@ -890,7 +890,8 @@
   var pieces = [];          // current pieces.json array
   var piecesSha = null;     // sha of pieces.json
   var pcEditing = null;     // piece being edited (null = new)
-  var pcImgData = null;     // compressed image for a new upload {base64,w,h}
+  var pcImgs = [];          // compressed images for a new upload [{base64,w,h}, ...]
+  var pcPdfData = null;     // optional PDF { base64, name }
   var piecesLoaded = false; // lazy-load guard
 
   // Downscale + convert to WebP entirely in the browser.
@@ -957,11 +958,13 @@
     renderPcList();
   }
 
+  function pcFirstImg(p) { return p.img || (p.imgs && p.imgs[0]) || ''; }
+
   function newPiece() {
-    pcEditing = null; pcImgData = null;
+    pcEditing = null; pcImgs = []; pcPdfData = null;
     $('pc-editor-title').textContent = 'New piece';
     ['pc-title', 'pc-story', 'pc-year', 'pc-link', 'pc-collection'].forEach(function (id) { $(id).value = ''; });
-    $('pc-img').value = '';
+    $('pc-img').value = ''; $('pc-pdf').value = '';
     var th = $('pc-thumb'); th.classList.add('hidden'); th.src = '';
     $('pc-log').innerHTML = ''; $('pc-status').textContent = '';
   }
@@ -969,15 +972,20 @@
   function editPiece(id) {
     var p = pieces.filter(function (x) { return String(x.id) === String(id); })[0];
     if (!p) return;
-    pcEditing = p; pcImgData = null;
+    pcEditing = p; pcImgs = []; pcPdfData = null;
     $('pc-editor-title').textContent = 'Edit — ' + (p.title || '');
     $('pc-title').value = p.title || ''; $('pc-story').value = p.story || '';
     $('pc-year').value = p.year || ''; $('pc-link').value = p.link || '';
     $('pc-collection').value = p.collection || '';
-    var th = $('pc-thumb');
-    if (p.img) { th.src = p.img; th.classList.remove('hidden'); } else { th.classList.add('hidden'); th.src = ''; }
-    $('pc-img').value = '';
-    $('pc-log').innerHTML = ''; $('pc-status').textContent = '';
+    var th = $('pc-thumb'); var first = pcFirstImg(p);
+    if (first) { th.src = first; th.classList.remove('hidden'); } else { th.classList.add('hidden'); th.src = ''; }
+    $('pc-img').value = ''; $('pc-pdf').value = '';
+    $('pc-log').innerHTML = '';
+    var extra = [];
+    if (p.imgs && p.imgs.length > 1) extra.push(p.imgs.length + ' photos');
+    if (p.pdf) extra.push('PDF attached');
+    $('pc-log').innerHTML = ''; if (extra.length) log($('pc-log'), 'Current: ' + extra.join(' · '), 'ok');
+    $('pc-status').textContent = '';
     window.scrollTo(0, 0);
   }
 
@@ -1001,12 +1009,21 @@
   });
 
   $('pc-img').addEventListener('change', function () {
-    var f = this.files[0]; if (!f) return;
-    var th = $('pc-thumb'); th.src = URL.createObjectURL(f); th.classList.remove('hidden');
-    var el = $('pc-log'); el.innerHTML = ''; log(el, 'Preparing image…');
-    compressToWebp(f, 1800, 0.82)
-      .then(function (d) { pcImgData = d; el.innerHTML = ''; log(el, '✓ Image ready (' + d.w + '×' + d.h + ').', 'ok'); })
-      .catch(function (e) { pcImgData = null; el.innerHTML = ''; log(el, 'Image error: ' + e.message, 'err'); });
+    var files = Array.prototype.slice.call(this.files); if (!files.length) return;
+    var th = $('pc-thumb'); th.src = URL.createObjectURL(files[0]); th.classList.remove('hidden');
+    var el = $('pc-log'); el.innerHTML = ''; log(el, 'Preparing ' + files.length + ' image' + (files.length > 1 ? 's' : '') + '…');
+    Promise.all(files.map(function (f) { return compressToWebp(f, 1800, 0.82); }))
+      .then(function (arr) { pcImgs = arr; el.innerHTML = ''; log(el, '✓ ' + arr.length + ' image(s) ready (first ' + arr[0].w + '×' + arr[0].h + ').', 'ok'); })
+      .catch(function (e) { pcImgs = []; el.innerHTML = ''; log(el, 'Image error: ' + e.message, 'err'); });
+  });
+
+  $('pc-pdf').addEventListener('change', function () {
+    var f = this.files[0];
+    if (!f) { pcPdfData = null; return; }
+    var el = $('pc-log'); log(el, 'Reading PDF…');
+    fileToBase64(f)
+      .then(function (b64) { pcPdfData = { base64: b64, name: f.name }; log(el, '✓ PDF ready (' + f.name + ').', 'ok'); })
+      .catch(function (e) { pcPdfData = null; log(el, 'PDF error: ' + e.message, 'err'); });
   });
 
   $('pc-cancel').addEventListener('click', newPiece);
@@ -1023,7 +1040,7 @@
     var el = $('pc-log'); el.innerHTML = '';
     var title = $('pc-title').value.trim();
     if (!title) { log(el, 'Add a title.', 'err'); return; }
-    if (!pcEditing && !pcImgData) { log(el, 'Choose a photo (and let it finish preparing).', 'err'); return; }
+    if (!pcEditing && !pcImgs.length) { log(el, 'Choose at least one photo (and let it finish preparing).', 'err'); return; }
 
     var status = $('pc-status'); status.textContent = 'Publishing…';
     $('pc-publish').disabled = true;
@@ -1035,14 +1052,34 @@
     rec.link = $('pc-link').value.trim();
     rec.collection = $('pc-collection').value.trim();
 
+    var slug = slugify(title) || 'piece';
+    var stamp = Date.now().toString(36);
     var chain = Promise.resolve();
-    if (pcImgData) {
-      var path = 'images/pieces/' + (slugify(title) || 'piece') + '-' + Date.now().toString(36) + '.webp';
-      rec.img = '/' + path; rec.w = pcImgData.w; rec.h = pcImgData.h;
-      chain = chain
-        .then(function () { log(el, 'Uploading photo…'); return putFile(path, pcImgData.base64, 'Add piece image ' + path, null); })
-        .then(function () { log(el, '✓ photo uploaded', 'ok'); });
+
+    // new photos → upload all, replacing the piece's image set
+    if (pcImgs.length) {
+      var paths = pcImgs.map(function (_, i) {
+        return 'images/pieces/' + slug + '-' + stamp + (pcImgs.length > 1 ? '-' + (i + 1) : '') + '.webp';
+      });
+      rec.imgs = paths.map(function (p) { return '/' + p; });
+      rec.img = rec.imgs[0];
+      rec.w = pcImgs[0].w; rec.h = pcImgs[0].h;
+      chain = chain.then(function () { log(el, 'Uploading ' + pcImgs.length + ' photo(s)…'); });
+      pcImgs.forEach(function (d, i) {
+        chain = chain.then(function () { return putFile(paths[i], d.base64, 'Add piece image ' + paths[i], null); });
+      });
+      chain = chain.then(function () { log(el, '✓ photos uploaded', 'ok'); });
     }
+
+    // optional PDF
+    if (pcPdfData) {
+      var pdfPath = 'files/pieces/' + slug + '-' + stamp + '.pdf';
+      rec.pdf = '/' + pdfPath;
+      chain = chain
+        .then(function () { log(el, 'Uploading PDF…'); return putFile(pdfPath, pcPdfData.base64, 'Add piece pdf ' + pdfPath, null); })
+        .then(function () { log(el, '✓ PDF uploaded', 'ok'); });
+    }
+
     chain.then(function () {
       if (pcEditing) { pieces = pieces.map(function (p) { return String(p.id) === String(rec.id) ? rec : p; }); }
       else { pieces.push(rec); }
@@ -1052,7 +1089,8 @@
       piecesSha = r.content.sha;
       renderPcList();
       pcEditing = rec;
-      pcImgData = null;
+      pcImgs = []; pcPdfData = null;
+      $('pc-pdf').value = '';
       $('pc-editor-title').textContent = 'Edit — ' + rec.title;
       status.textContent = '';
       log(el, '✓ Done! Site rebuilds in ~1 min.', 'ok');

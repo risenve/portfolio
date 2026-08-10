@@ -274,6 +274,23 @@ body.museum-body{
 }
 .pm-media img{width:100%;height:100%;object-fit:contain;display:block;border-radius:6px;}
 
+/* multi-image gallery: vertical scroll of full-width images */
+.pm-media.pm-gallery{
+  aspect-ratio:auto;
+  background:transparent;
+  box-shadow:none;
+  max-height:80vh;
+  overflow-y:auto;
+  display:flex; flex-direction:column; gap:12px;
+  padding-right:4px;
+  scrollbar-width:thin;
+}
+.pm-media.pm-gallery img{
+  width:100%; height:auto;
+  border-radius:6px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.14);
+}
+
 /* info panel */
 .pm-info{
   flex:0 0 300px;

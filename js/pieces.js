@@ -104,9 +104,10 @@
       el.style.width = w + 'px';
       el.style.height = h + 'px';
       el.dataset.index = i;
-      if (d.img) {
+      var thumbSrc = d.img || (d.imgs && d.imgs[0]);
+      if (thumbSrc) {
         var im = document.createElement('img');
-        im.src = d.img; im.alt = d.title || ''; im.loading = 'lazy';
+        im.src = thumbSrc; im.alt = d.title || ''; im.loading = 'lazy';
         el.appendChild(im);
       }
       var grip = document.createElement('div');
@@ -369,6 +370,7 @@
   var pmStory  = document.getElementById('pm-story');
   var pmYear   = document.getElementById('pm-year');
   var pmLink   = document.getElementById('pm-link');
+  var pmPdf    = document.getElementById('pm-pdf');
   var current  = -1;
 
   function openModal(i) {
@@ -394,10 +396,24 @@
     pmYear.textContent = d.year || '';
     if (d.link) { pmLink.href = d.link; pmLink.hidden = false; }
     else { pmLink.hidden = true; pmLink.removeAttribute('href'); }
-    // media keeps the piece's aspect ratio; real photo when present
+    if (d.pdf) { pmPdf.href = d.pdf; pmPdf.hidden = false; }
+    else { pmPdf.hidden = true; pmPdf.removeAttribute('href'); }
+
+    // media: multi-image gallery (scroll) or a single aspect-fit photo
     var it = items[current];
-    pmMedia.style.aspectRatio = it.w + ' / ' + it.h;
-    pmMedia.innerHTML = d.img ? '<img src="' + d.img + '" alt="' + (d.title || '') + '">' : '';
+    var imgs = (d.imgs && d.imgs.length) ? d.imgs : (d.img ? [d.img] : []);
+    if (imgs.length > 1) {
+      pmMedia.className = 'pm-media pm-gallery';
+      pmMedia.style.aspectRatio = '';
+      pmMedia.innerHTML = imgs.map(function (s) {
+        return '<img src="' + s + '" alt="' + (d.title || '') + '">';
+      }).join('');
+      pmMedia.scrollTop = 0;
+    } else {
+      pmMedia.className = 'pm-media';
+      pmMedia.style.aspectRatio = it.w + ' / ' + it.h;
+      pmMedia.innerHTML = imgs.length ? '<img src="' + imgs[0] + '" alt="' + (d.title || '') + '">' : '';
+    }
   }
 
   document.getElementById('pm-close').addEventListener('click', closeModal);
