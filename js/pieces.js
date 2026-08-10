@@ -16,7 +16,10 @@
   var barV     = document.getElementById('mmbar-v');
   var thumbH   = document.getElementById('mmthumb-h');
   var thumbV   = document.getElementById('mmthumb-v');
+  var filterBar = document.getElementById('museum-filter');
   var contentBounds = null;   // world-space bbox of all pieces (+ padding)
+  var activeFilter = null;    // current collection filter (null = All)
+  var animClsT = null;
 
   // ── view transform state ──
   // current = what's rendered now; target = where we're easing toward.
@@ -111,18 +114,21 @@
       el.appendChild(grip);
       frag.appendChild(el);
 
-      items.push({ el: el, x: x, y: y, w: w, h: h, aspect: asp, data: d });
+      items.push({ el: el, x: x, y: y, w: w, h: h, aspect: asp,
+                   ox: x, oy: y, ow: w, oh: h, data: d });
     });
 
     world.appendChild(frag);
     built = true;
     computeBounds();
+    buildFilterChips();
   }
 
   // bounding box of everything (+ padding) — drives the pan pills
   function computeBounds() {
     var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     items.forEach(function (it) {
+      if (it.el.style.opacity === '0') return;   // skip filtered-out pieces
       minX = Math.min(minX, it.x); minY = Math.min(minY, it.y);
       maxX = Math.max(maxX, it.x + it.w); maxY = Math.max(maxY, it.y + it.h);
     });
@@ -177,6 +183,7 @@
       interacted = true;
       moved = 0;
       downX = last.x = e.clientX; downY = last.y = e.clientY;
+      world.classList.remove('pieces-animating');   // keep drags snappy
       hideCaption();
 
       // what did we grab? a resize grip, a piece, or empty canvas
@@ -414,6 +421,96 @@
     if (!interacted) centerView();
     else updateScrollbars();
   });
+
+  /* ========================================================
+     FILTER + CLUSTER
+     Selecting a collection gathers its pieces into a cluster
+     (graph-vertex style) and fades the rest; "All" restores.
+     ======================================================== */
+  function buildFilterChips() {
+    if (!filterBar) return;
+    var colls = [];
+    items.forEach(function (it) {
+      var c = it.data.collection;
+      if (c && colls.indexOf(c) === -1) colls.push(c);
+    });
+    colls.sort();
+    var html = '<button class="mf-chip is-active" data-coll="">All</button>';
+    colls.forEach(function (c) {
+      html += '<button class="mf-chip" data-coll="' + c.replace(/"/g, '&quot;') + '">' + c + '</button>';
+    });
+    filterBar.innerHTML = html;
+  }
+  if (filterBar) {
+    filterBar.addEventListener('click', function (e) {
+      var b = e.target.closest('.mf-chip'); if (!b) return;
+      applyFilter(b.dataset.coll || null);
+    });
+  }
+
+  function styleItem(it, op) {
+    it.el.style.left = it.x + 'px'; it.el.style.top = it.y + 'px';
+    it.el.style.width = it.w + 'px'; it.el.style.height = it.h + 'px';
+    it.el.style.opacity = op; it.el.style.pointerEvents = '';
+  }
+
+  // frame a world-space bbox in the viewport (eased via the canvas tick)
+  function fitToBounds(b, padFactor) {
+    var bw = b.maxX - b.minX, bh = b.maxY - b.minY;
+    if (bw <= 0 || bh <= 0) return;
+    var s = clampScale(Math.min(vpW() / bw, vpH() / bh) * (padFactor || 0.82));
+    var cx = (b.minX + b.maxX) / 2, cy = (b.minY + b.maxY) / 2;
+    targetScale = s;
+    targetTx = vpW() / 2 - cx * s;
+    targetTy = vpH() / 2 - cy * s;
+    startAnim();
+  }
+
+  function applyFilter(coll) {
+    activeFilter = coll || null;
+    interacted = true;
+    world.classList.add('pieces-animating');
+    clearTimeout(animClsT);
+    animClsT = setTimeout(function () { world.classList.remove('pieces-animating'); }, 950);
+
+    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    function grow(it) {
+      minX = Math.min(minX, it.x); minY = Math.min(minY, it.y);
+      maxX = Math.max(maxX, it.x + it.w); maxY = Math.max(maxY, it.y + it.h);
+    }
+
+    if (!activeFilter) {
+      // All → restore scatter homes
+      items.forEach(function (it) {
+        it.x = it.ox; it.y = it.oy; it.w = it.ow; it.h = it.oh;
+        styleItem(it, '1'); grow(it);
+      });
+    } else {
+      // cluster matching around origin (phyllotaxis pack); fade the rest
+      var matching = items.filter(function (it) { return it.data.collection === activeFilter; });
+      items.forEach(function (it) {
+        if (it.data.collection !== activeFilter) { it.el.style.opacity = '0'; it.el.style.pointerEvents = 'none'; }
+      });
+      var GA = 2.399963229728653;
+      var avg = matching.reduce(function (a, it) { return a + Math.max(it.w, it.h); }, 0) / (matching.length || 1);
+      var spacing = Math.max(70, avg * 0.6);
+      matching.forEach(function (it, i) {
+        var r = spacing * Math.sqrt(i + 0.5), a = i * GA;
+        it.x = Math.round(r * Math.cos(a) - it.w / 2);
+        it.y = Math.round(r * Math.sin(a) - it.h / 2);
+        styleItem(it, '1'); grow(it);
+      });
+    }
+
+    if (isFinite(minX)) fitToBounds({ minX: minX - 140, minY: minY - 140, maxX: maxX + 140, maxY: maxY + 140 }, activeFilter ? 0.82 : 0.9);
+    computeBounds(); updateScrollbars();
+
+    if (filterBar) {
+      Array.prototype.forEach.call(filterBar.querySelectorAll('.mf-chip'), function (c) {
+        c.classList.toggle('is-active', (c.dataset.coll || '') === (activeFilter || ''));
+      });
+    }
+  }
 
   /* ========================================================
      PAN PILLS (iPhone-style minimap scrollbars)
