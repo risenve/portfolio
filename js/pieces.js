@@ -635,6 +635,26 @@
   bindThumb(thumbV, 'y');
 
   /* ========================================================
+     CUSTOM CURSOR states (the site's "+" reacts on the canvas)
+     ======================================================== */
+  (function initCursorStates() {
+    if (!window.matchMedia || !matchMedia('(pointer:fine)').matches) return;
+    var cur = document.querySelector('.cursor-x');
+    if (!cur) return;
+    var UI = '.mf-chip, button, a, .museum-contact, .pm-link, .mmthumb, .piece-grip, #filter-btn';
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      var t = e.target;
+      var onPiece = t && t.closest && !!t.closest('.piece');
+      var onUI = t && t.closest && !!t.closest(UI);
+      cur.classList.toggle('over-piece', onPiece && !onUI);
+    });
+    window.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'touch') cur.classList.add('dragging'); });
+    window.addEventListener('pointerup', function () { cur.classList.remove('dragging'); });
+    window.addEventListener('pointercancel', function () { cur.classList.remove('dragging'); });
+  })();
+
+  /* ========================================================
      BOOT
      ======================================================== */
   fetch('/data/pieces.json', { cache: 'no-store' })
