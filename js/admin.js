@@ -1173,6 +1173,28 @@
     });
   }
 
+  // delete via JSONP GET so we can actually READ the server's answer
+  // (no-cors POST is a black hole — you never learn if it failed)
+  function deleteMark(id, secret) {
+    return new Promise(function (resolve) {
+      var cb = 'admDel_' + Date.now();
+      var s = document.createElement('script');
+      var done = false;
+      function finish(res) {
+        if (done) return; done = true;
+        try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+        if (s.parentNode) s.parentNode.removeChild(s);
+        resolve(res);
+      }
+      window[cb] = function (res) { finish(res || {}); };
+      s.onerror = function () { finish({ success: false, error: 'network' }); };
+      s.src = MARKS_URL + '?action=delete&id=' + encodeURIComponent(id) +
+        '&secret=' + encodeURIComponent(secret) + '&callback=' + cb + '&_=' + Date.now();
+      document.body.appendChild(s);
+      setTimeout(function () { finish({ success: false, error: 'timeout' }); }, 12000);
+    });
+  }
+
   $('cm-list').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b || !b.dataset.cmdel) return;
     var id = b.dataset.cmdel;
@@ -1180,15 +1202,22 @@
     if (!secret) { alert('Paste your moderation secret in the panel on the right first.'); return; }
     if (!confirm('Remove this mark from the museum?')) return;
     var el = $('cm-log'); el.innerHTML = ''; log(el, 'Removing…');
-    marks = marks.filter(function (c) { return String(c.id) !== String(id); });
-    renderCmList();
-    fetch(MARKS_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: 'delete', id: id, secret: secret })
-    }).catch(function () {}).then(function () {
-      log(el, '✓ Sent. Refreshing…', 'ok');
-      setTimeout(function () { loadComments(); }, 1600);
+    deleteMark(id, secret).then(function (res) {
+      if (Array.isArray(res)) res = { success: false, error: 'noaction' };
+      if (res && res.success) {
+        marks = marks.filter(function (c) { return String(c.id) !== String(id); });
+        renderCmList();
+        log(el, '✓ Deleted from the museum.', 'ok');
+        setTimeout(function () { loadComments(); }, 1200);
+      } else {
+        var why = res && res.error;
+        var msg = why === 'auth'
+          ? '✗ Wrong secret — it must match the ADMIN_SECRET line in your Apps Script exactly.'
+          : why === 'noaction'
+            ? '✗ Your deployed script is the OLD version — it has no delete step. Re-deploy: Manage deployments → Edit → New version → Deploy.'
+            : '✗ Could not delete (' + (why || 'unknown') + '). Try Refresh.';
+        log(el, msg, 'err');
+      }
     });
   });
 
