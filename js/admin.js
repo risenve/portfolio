@@ -1103,9 +1103,11 @@
   });
 
   // ============================================================
-  // COMMENTS  (guestbook marks — data/comments.json)
+  // MARKS  (live guest marks via the Apps Script store)
   // ============================================================
-  var comments = [], commentsSha = null, commentsLoaded = false;
+  var MARKS_URL = 'https://script.google.com/macros/s/AKfycbzEc93ldpaz1pnwIp2J-8QiUY2lDUHt4fQjHYuBWg3qIQwVl5tdO00wpWsWRFy_7atXXA/exec';
+  var MARKS_SECRET_KEY = 'rp_marks_secret';
+  var marks = [], commentsLoaded = false;
   var CM_SHAPES = {
     circle: '<circle cx="12" cy="12" r="10"/>', square: '<rect x="2" y="2" width="20" height="20" rx="4"/>',
     triangle: '<polygon points="12,2 22,21 2,21"/>',
@@ -1116,20 +1118,50 @@
   function cmSvg(shape, color) {
     return '<svg viewBox="0 0 24 24" width="20" height="20" style="fill:' + (color || '#FFC400') + '">' + (CM_SHAPES[shape] || CM_SHAPES.circle) + '</svg>';
   }
-  function nextCmId() { return comments.reduce(function (m, c) { return Math.max(m, +c.id || 0); }, 0) + 1; }
+  function marksSecret() { try { return localStorage.getItem(MARKS_SECRET_KEY) || ''; } catch (e) { return ''; } }
 
+  // read all marks via JSONP (the Apps Script GET is cross-origin)
   function loadComments() {
-    return getContent('data/comments.json').then(function (f) {
-      if (!f) { comments = []; commentsSha = null; }
-      else { comments = JSON.parse(b64DecodeUtf8(f.content)); commentsSha = f.sha; }
-      renderCmList();
-      checkPendingComment();
+    return new Promise(function (resolve) {
+      var cb = 'admMarks_' + Date.now();
+      var s = document.createElement('script');
+      window[cb] = function (list) {
+        marks = Array.isArray(list) ? list : [];
+        try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+        if (s.parentNode) s.parentNode.removeChild(s);
+        renderCmList(); resolve();
+      };
+      s.onerror = function () { if (s.parentNode) s.parentNode.removeChild(s); renderCmList(); resolve(); };
+      s.src = MARKS_URL + '?callback=' + cb + '&_=' + Date.now();
+      document.body.appendChild(s);
     });
   }
+
+  function renderSecretPanel() {
+    var box = $('cm-pending'); if (!box) return;
+    var has = !!marksSecret();
+    box.innerHTML =
+      '<div class="a-note" style="line-height:1.6;">Marks are live — visitors post them straight to the museum and you get an email. To <b>delete</b> one, paste the moderation secret you set in your Apps Script (the <code>ADMIN_SECRET</code> line). It stays only in this browser.</div>' +
+      '<label class="a-lbl">Moderation secret</label>' +
+      '<input type="password" id="cm-secret" placeholder="' + (has ? '•••• saved' : 'paste secret') + '">' +
+      '<div class="a-actions" style="margin-top:12px;">' +
+        '<button class="a-btn a-btn--sm" id="cm-secret-save">Save</button>' +
+        '<button class="a-btn a-btn--ghost a-btn--sm" id="cm-refresh">↻ Refresh</button></div>';
+    $('cm-secret-save').addEventListener('click', function () {
+      var v = $('cm-secret').value.trim(); if (!v) return;
+      try { localStorage.setItem(MARKS_SECRET_KEY, v); } catch (e) {}
+      $('cm-secret').value = '';
+      log($('cm-log'), '✓ Secret saved in this browser.', 'ok');
+      renderSecretPanel();
+    });
+    $('cm-refresh').addEventListener('click', function () { $('cm-log').innerHTML = ''; loadComments(); });
+  }
+
   function renderCmList() {
+    renderSecretPanel();
     var wrap = $('cm-list'); wrap.innerHTML = '';
-    if (!comments.length) { wrap.innerHTML = '<div style="color:var(--a-muted);font-size:12px;padding:8px;">No marks yet.</div>'; return; }
-    comments.forEach(function (c) {
+    if (!marks.length) { wrap.innerHTML = '<div style="color:var(--a-muted);font-size:12px;padding:8px;">No marks yet.</div>'; return; }
+    marks.forEach(function (c) {
       var row = document.createElement('div');
       row.className = 'a-prow';
       row.innerHTML =
@@ -1140,53 +1172,25 @@
       wrap.appendChild(row);
     });
   }
+
   $('cm-list').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b || !b.dataset.cmdel) return;
     var id = b.dataset.cmdel;
+    var secret = marksSecret();
+    if (!secret) { alert('Paste your moderation secret in the panel on the right first.'); return; }
     if (!confirm('Remove this mark from the museum?')) return;
     var el = $('cm-log'); el.innerHTML = ''; log(el, 'Removing…');
-    comments = comments.filter(function (c) { return String(c.id) !== String(id); });
-    putText('data/comments.json', JSON.stringify(comments, null, 2) + '\n', 'Remove guest mark via admin')
-      .then(function (r) { commentsSha = r.content.sha; renderCmList(); log(el, '✓ Removed.', 'ok'); })
-      .catch(function (e2) { log(el, e2.message, 'err'); });
-  });
-
-  // approve link from the notification email: /admin?c=<base64 payload>
-  function checkPendingComment() {
-    var box = $('cm-pending');
-    var m = /[?&]c=([^&]+)/.exec(location.search);
-    if (!m) { box.innerHTML = '<div style="color:var(--a-muted);font-size:13px;line-height:1.6;">New marks arrive by email — click <b>“Approve &amp; place”</b> in the message and it opens here ready to publish. Existing marks are on the left; ✕ removes them.</div>'; return; }
-    var data;
-    try { data = JSON.parse(b64DecodeUtf8(decodeURIComponent(m[1]))); }
-    catch (e) { box.innerHTML = '<div style="color:#e0687e;font-size:13px;">Could not read this approval link.</div>'; return; }
-    box.innerHTML =
-      '<div class="a-note" style="display:flex;align-items:center;gap:12px;">' +
-        '<span style="flex-shrink:0;">' + cmSvg(data.shape, data.color) + '</span>' +
-        '<div><div style="color:var(--a-text);font-size:14px;">' + (data.text || '(no text)') + '</div>' +
-        '<div style="color:var(--a-muted);font-size:11px;margin-top:2px;">' + data.shape + ' · ' + data.color + ' · at (' + data.x + ', ' + data.y + ')</div></div>' +
-      '</div>' +
-      '<div class="a-actions"><button class="a-btn" id="cm-publish">Publish to museum</button>' +
-      '<button class="a-btn a-btn--ghost" id="cm-dismiss">Dismiss</button></div>';
-    $('cm-publish').addEventListener('click', function () { publishComment(data); });
-    $('cm-dismiss').addEventListener('click', function () {
-      history.replaceState(null, '', location.pathname);
-      checkPendingComment();
+    marks = marks.filter(function (c) { return String(c.id) !== String(id); });
+    renderCmList();
+    fetch(MARKS_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'delete', id: id, secret: secret })
+    }).catch(function () {}).then(function () {
+      log(el, '✓ Sent. Refreshing…', 'ok');
+      setTimeout(function () { loadComments(); }, 1600);
     });
-  }
-  function publishComment(data) {
-    var el = $('cm-log'); el.innerHTML = ''; log(el, 'Publishing…');
-    var rec = { id: nextCmId(), text: (data.text || '').slice(0, 80), shape: data.shape || 'circle',
-                color: data.color || '#FFC400', x: Math.round(+data.x || 0), y: Math.round(+data.y || 0), ts: Date.now() };
-    comments.push(rec);
-    putText('data/comments.json', JSON.stringify(comments, null, 2) + '\n', 'Approve guest mark via admin')
-      .then(function (r) {
-        commentsSha = r.content.sha; renderCmList();
-        history.replaceState(null, '', location.pathname);
-        $('cm-pending').innerHTML = '<div style="color:var(--a-green);font-size:14px;">✓ Published! It appears on the museum in ~1 min.</div>';
-        el.innerHTML = '';
-      })
-      .catch(function (e) { log(el, e.message, 'err'); });
-  }
+  });
 
   // ---- top-level view switch (Works | Pieces | Comments) ----
   function switchView(v) {
@@ -1210,12 +1214,6 @@
   $('a-view-tabs').addEventListener('click', function (e) {
     var b = e.target.closest('.a-tab'); if (b) switchView(b.dataset.view);
   });
-
-  // if opened via an approval link, jump straight to Comments after login
-  if (/[?&]c=/.test(location.search)) {
-    var _origEnter = enterApp;
-    enterApp = function (glog) { return _origEnter(glog).then(function () { switchView('comments'); }); };
-  }
 
   // ---- boot ----
   showGateMode();
