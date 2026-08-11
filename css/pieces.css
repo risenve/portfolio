@@ -21,12 +21,17 @@ body.museum-body{
   -webkit-user-select:none;
 }
 
+/* ── TOP-RIGHT TOOLS: Leave a mark + Filter, stacked under Contact ── */
+.museum-tools{
+  position:fixed;
+  top:calc(var(--nav-h, 56px) + 10px);
+  right:var(--pad-x, 48px);
+  z-index:116;
+  display:flex; flex-direction:column; align-items:flex-end; gap:8px;
+}
+
 /* ── LEAVE A MARK (guestbook) ── */
 .leave-mark{
-  position:fixed;
-  top:12px; left:50%;
-  transform:translateX(-50%);
-  z-index:116;
   background:rgba(255,255,255,0.82);
   -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
   border:1px solid rgba(0,0,0,0.08);
@@ -34,14 +39,16 @@ body.museum-body{
   font-family:var(--font); font-size:14px;
   padding:8px 18px; border-radius:100px;
   box-shadow:0 6px 24px rgba(0,0,0,0.06);
+  white-space:nowrap;
   transition:background .18s var(--ease), transform .18s var(--ease);
 }
-.leave-mark:hover{ background:#fff; transform:translateX(-50%) translateY(-1px); }
+.leave-mark:hover{ background:#fff; transform:translateY(-1px); }
 
 .mark-composer{
   position:fixed;
-  top:56px; left:50%;
-  transform:translateX(-50%) translateY(-8px);
+  top:calc(var(--nav-h, 56px) + 52px);
+  right:var(--pad-x, 48px);
+  transform:translateY(-8px);
   z-index:130;
   width:min(320px, 90vw);
   background:rgba(255,255,255,0.96);
@@ -53,7 +60,7 @@ body.museum-body{
   opacity:0; visibility:hidden;
   transition:opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
 }
-.mark-composer.is-open{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+.mark-composer.is-open{ opacity:1; visibility:visible; transform:translateY(0); }
 .mc-head{ font-size:15px; font-weight:500; color:#111; margin-bottom:12px; }
 .mc-label{ font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:#999; margin:12px 0 7px; }
 .mc-shapes, .mc-colors{ display:flex; flex-wrap:wrap; gap:8px; }
@@ -161,11 +168,9 @@ body.museum-body{
   transform:translate(-50%,-50%) rotate(45deg) scale(0.72);
 }
 
-/* ── FILTER — bottom-left pill + upward vertical menu ── */
+/* ── FILTER — pill in the top-right stack + downward vertical menu ── */
 .museum-filter{
-  position:fixed;
-  left:24px; bottom:24px;
-  z-index:116;
+  position:relative;
 }
 .filter-btn{
   background:rgba(255,255,255,0.82);
@@ -182,8 +187,8 @@ body.museum-body{
 
 .filter-menu{
   position:absolute;
-  left:0; bottom:calc(100% + 10px);
-  display:flex; flex-direction:column-reverse; gap:6px;
+  right:0; top:calc(100% + 10px);
+  display:flex; flex-direction:column; gap:6px;
   padding:6px;
   background:rgba(255,255,255,0.82);
   -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
@@ -191,10 +196,10 @@ body.museum-body{
   border-radius:16px;
   box-shadow:0 10px 34px rgba(0,0,0,0.10);
   min-width:150px;
-  max-height:60vh; overflow-y:auto; scrollbar-width:none;
+  max-height:66vh; overflow-y:auto; scrollbar-width:none;
   opacity:0; visibility:hidden;
-  transform:translateY(8px) scale(.98);
-  transform-origin:bottom left;
+  transform:translateY(-8px) scale(.98);
+  transform-origin:top right;
   transition:opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
 }
 .filter-menu::-webkit-scrollbar{ display:none; }
