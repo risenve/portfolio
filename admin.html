@@ -193,6 +193,7 @@
       <div class="a-tabs" id="a-view-tabs" style="margin-left:auto; margin-right:auto;">
         <button class="a-tab a-tab--on" data-view="works">Works</button>
         <button class="a-tab" data-view="pieces">Pieces</button>
+        <button class="a-tab" data-view="comments">Comments</button>
       </div>
       <div style="display:flex; gap:10px;">
         <span id="a-works-actions" style="display:flex; gap:10px;">
@@ -409,6 +410,21 @@
         </div>
       </div>
     </div><!-- /#a-view-pieces -->
+
+    <!-- ============ COMMENTS VIEW ============ -->
+    <div id="a-view-comments" class="hidden">
+      <div class="a-layout">
+        <div class="a-panel">
+          <h3>Marks on the museum</h3>
+          <div class="a-plist" id="cm-list"></div>
+        </div>
+        <div class="a-panel">
+          <div class="a-editor-head"><h3 id="cm-title">Pending approval</h3></div>
+          <div id="cm-pending"></div>
+          <div class="a-log" id="cm-log"></div>
+        </div>
+      </div>
+    </div><!-- /#a-view-comments -->
   </div>
 
   <script src="/js/case-template.js"></script>

@@ -1102,23 +1102,120 @@
     });
   });
 
-  // ---- top-level view switch (Works | Pieces) ----
+  // ============================================================
+  // COMMENTS  (guestbook marks — data/comments.json)
+  // ============================================================
+  var comments = [], commentsSha = null, commentsLoaded = false;
+  var CM_SHAPES = {
+    circle: '<circle cx="12" cy="12" r="10"/>', square: '<rect x="2" y="2" width="20" height="20" rx="4"/>',
+    triangle: '<polygon points="12,2 22,21 2,21"/>',
+    star: '<polygon points="12,2 14.9,8.6 22,9.2 16.5,13.9 18.3,21 12,17.1 5.7,21 7.5,13.9 2,9.2 9.1,8.6"/>',
+    heart: '<path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/>',
+    flower: '<path d="M12 2a3 3 0 0 1 3 3 3 3 0 0 1 4.2 4.2A3 3 0 0 1 22 12a3 3 0 0 1-2.8 3 3 3 0 0 1-4.2 4.2A3 3 0 0 1 12 22a3 3 0 0 1-3-2.8A3 3 0 0 1 4.8 15 3 3 0 0 1 2 12a3 3 0 0 1 2.8-3A3 3 0 0 1 9 4.8 3 3 0 0 1 12 2z"/>'
+  };
+  function cmSvg(shape, color) {
+    return '<svg viewBox="0 0 24 24" width="20" height="20" style="fill:' + (color || '#FFC400') + '">' + (CM_SHAPES[shape] || CM_SHAPES.circle) + '</svg>';
+  }
+  function nextCmId() { return comments.reduce(function (m, c) { return Math.max(m, +c.id || 0); }, 0) + 1; }
+
+  function loadComments() {
+    return getContent('data/comments.json').then(function (f) {
+      if (!f) { comments = []; commentsSha = null; }
+      else { comments = JSON.parse(b64DecodeUtf8(f.content)); commentsSha = f.sha; }
+      renderCmList();
+      checkPendingComment();
+    });
+  }
+  function renderCmList() {
+    var wrap = $('cm-list'); wrap.innerHTML = '';
+    if (!comments.length) { wrap.innerHTML = '<div style="color:var(--a-muted);font-size:12px;padding:8px;">No marks yet.</div>'; return; }
+    comments.forEach(function (c) {
+      var row = document.createElement('div');
+      row.className = 'a-prow';
+      row.innerHTML =
+        '<span style="flex-shrink:0;display:inline-flex;">' + cmSvg(c.shape, c.color) + '</span>' +
+        '<div class="a-prow-main"><div class="a-prow-title" style="font-weight:400;">' + (c.text || '(no text)') + '</div>' +
+        '<div class="a-prow-meta">' + (c.shape || '') + ' · ' + (c.color || '') + '</div></div>' +
+        '<button class="a-btn a-btn--danger a-btn--sm" data-cmdel="' + c.id + '">✕</button>';
+      wrap.appendChild(row);
+    });
+  }
+  $('cm-list').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b || !b.dataset.cmdel) return;
+    var id = b.dataset.cmdel;
+    if (!confirm('Remove this mark from the museum?')) return;
+    var el = $('cm-log'); el.innerHTML = ''; log(el, 'Removing…');
+    comments = comments.filter(function (c) { return String(c.id) !== String(id); });
+    putText('data/comments.json', JSON.stringify(comments, null, 2) + '\n', 'Remove guest mark via admin')
+      .then(function (r) { commentsSha = r.content.sha; renderCmList(); log(el, '✓ Removed.', 'ok'); })
+      .catch(function (e2) { log(el, e2.message, 'err'); });
+  });
+
+  // approve link from the notification email: /admin?c=<base64 payload>
+  function checkPendingComment() {
+    var box = $('cm-pending');
+    var m = /[?&]c=([^&]+)/.exec(location.search);
+    if (!m) { box.innerHTML = '<div style="color:var(--a-muted);font-size:13px;line-height:1.6;">New marks arrive by email — click <b>“Approve &amp; place”</b> in the message and it opens here ready to publish. Existing marks are on the left; ✕ removes them.</div>'; return; }
+    var data;
+    try { data = JSON.parse(b64DecodeUtf8(decodeURIComponent(m[1]))); }
+    catch (e) { box.innerHTML = '<div style="color:#e0687e;font-size:13px;">Could not read this approval link.</div>'; return; }
+    box.innerHTML =
+      '<div class="a-note" style="display:flex;align-items:center;gap:12px;">' +
+        '<span style="flex-shrink:0;">' + cmSvg(data.shape, data.color) + '</span>' +
+        '<div><div style="color:var(--a-text);font-size:14px;">' + (data.text || '(no text)') + '</div>' +
+        '<div style="color:var(--a-muted);font-size:11px;margin-top:2px;">' + data.shape + ' · ' + data.color + ' · at (' + data.x + ', ' + data.y + ')</div></div>' +
+      '</div>' +
+      '<div class="a-actions"><button class="a-btn" id="cm-publish">Publish to museum</button>' +
+      '<button class="a-btn a-btn--ghost" id="cm-dismiss">Dismiss</button></div>';
+    $('cm-publish').addEventListener('click', function () { publishComment(data); });
+    $('cm-dismiss').addEventListener('click', function () {
+      history.replaceState(null, '', location.pathname);
+      checkPendingComment();
+    });
+  }
+  function publishComment(data) {
+    var el = $('cm-log'); el.innerHTML = ''; log(el, 'Publishing…');
+    var rec = { id: nextCmId(), text: (data.text || '').slice(0, 80), shape: data.shape || 'circle',
+                color: data.color || '#FFC400', x: Math.round(+data.x || 0), y: Math.round(+data.y || 0), ts: Date.now() };
+    comments.push(rec);
+    putText('data/comments.json', JSON.stringify(comments, null, 2) + '\n', 'Approve guest mark via admin')
+      .then(function (r) {
+        commentsSha = r.content.sha; renderCmList();
+        history.replaceState(null, '', location.pathname);
+        $('cm-pending').innerHTML = '<div style="color:var(--a-green);font-size:14px;">✓ Published! It appears on the museum in ~1 min.</div>';
+        el.innerHTML = '';
+      })
+      .catch(function (e) { log(el, e.message, 'err'); });
+  }
+
+  // ---- top-level view switch (Works | Pieces | Comments) ----
   function switchView(v) {
-    var works = v === 'works';
-    $('a-view-works').classList.toggle('hidden', !works);
-    $('a-view-pieces').classList.toggle('hidden', works);
-    $('a-works-actions').style.display = works ? 'flex' : 'none';
-    $('a-pieces-actions').style.display = works ? 'none' : 'flex';
+    var isWorks = v === 'works', isPieces = v === 'pieces', isComments = v === 'comments';
+    $('a-view-works').classList.toggle('hidden', !isWorks);
+    $('a-view-pieces').classList.toggle('hidden', !isPieces);
+    $('a-view-comments').classList.toggle('hidden', !isComments);
+    $('a-works-actions').style.display = isWorks ? 'flex' : 'none';
+    $('a-pieces-actions').style.display = isPieces ? 'flex' : 'none';
     var tabs = document.querySelectorAll('#a-view-tabs .a-tab');
     for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('a-tab--on', tabs[i].dataset.view === v);
-    if (v === 'pieces' && !piecesLoaded) {
+    if (isPieces && !piecesLoaded) {
       piecesLoaded = true;
       loadPieces().catch(function (e) { log($('pc-log'), 'Load failed: ' + e.message, 'err'); piecesLoaded = false; });
+    }
+    if (isComments && !commentsLoaded) {
+      commentsLoaded = true;
+      loadComments().catch(function (e) { log($('cm-log'), 'Load failed: ' + e.message, 'err'); commentsLoaded = false; });
     }
   }
   $('a-view-tabs').addEventListener('click', function (e) {
     var b = e.target.closest('.a-tab'); if (b) switchView(b.dataset.view);
   });
+
+  // if opened via an approval link, jump straight to Comments after login
+  if (/[?&]c=/.test(location.search)) {
+    var _origEnter = enterApp;
+    enterApp = function (glog) { return _origEnter(glog).then(function () { switchView('comments'); }); };
+  }
 
   // ---- boot ----
   showGateMode();

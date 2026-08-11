@@ -98,6 +98,27 @@
     <button class="filter-btn" id="filter-btn" type="button" aria-haspopup="true" aria-expanded="false">Filter</button>
   </div>
 
+  <!-- leave-a-mark (guestbook) -->
+  <button class="leave-mark" id="leave-mark" type="button">✎ Leave a mark</button>
+
+  <div class="mark-composer" id="mark-composer" aria-hidden="true">
+    <div class="mc-head">Leave a mark</div>
+    <div class="mc-label">Shape</div>
+    <div class="mc-shapes" id="mc-shapes"></div>
+    <div class="mc-label">Colour</div>
+    <div class="mc-colors" id="mc-colors"></div>
+    <div class="mc-label">Note</div>
+    <input type="text" id="mc-text" maxlength="80" placeholder="a few words…" autocomplete="off">
+    <div class="mc-actions">
+      <button class="mc-cancel" id="mc-cancel" type="button">Cancel</button>
+      <button class="mc-place" id="mc-place" type="button">Place on canvas →</button>
+    </div>
+    <div class="mc-log" id="mc-log"></div>
+  </div>
+
+  <div class="mark-placing" id="mark-placing" aria-hidden="true">Click anywhere to drop your mark · Esc to cancel</div>
+  <div class="mark-toast" id="mark-toast" role="status" aria-live="polite"></div>
+
   <!-- ============ MUSEUM CANVAS ============ -->
   <div class="museum" id="museum">
     <div class="museum-world" id="museum-world"></div>

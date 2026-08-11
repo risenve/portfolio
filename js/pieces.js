@@ -248,8 +248,8 @@
   function endPointer(e) {
     if (!pointers.has(e.pointerId)) return;
 
-    // a click (no real drag) on a piece opens it
-    if (pointers.size === 1 && moved < 6 && dragMode === 'piece' && dragItem) {
+    // a click (no real drag) on a piece opens it — unless we're placing a mark
+    if (!placing && pointers.size === 1 && moved < 6 && dragMode === 'piece' && dragItem) {
       openModal(parseInt(dragItem.el.dataset.index, 10));
     }
     // moving/resizing changes the content extent → refresh the pan pills
@@ -635,6 +635,149 @@
   bindThumb(thumbV, 'y');
 
   /* ========================================================
+     GUESTBOOK — leave-a-mark stickers (moderated via email)
+     ======================================================== */
+  var WEB3_KEY = '262fc81b-9cb3-4ffb-bac3-c6d69a5b9200';
+  var SHAPES = {
+    circle:   '<circle cx="12" cy="12" r="10"/>',
+    square:   '<rect x="2" y="2" width="20" height="20" rx="4"/>',
+    triangle: '<polygon points="12,2 22,21 2,21"/>',
+    star:     '<polygon points="12,2 14.9,8.6 22,9.2 16.5,13.9 18.3,21 12,17.1 5.7,21 7.5,13.9 2,9.2 9.1,8.6"/>',
+    heart:    '<path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/>',
+    flower:   '<path d="M12 2a3 3 0 0 1 3 3 3 3 0 0 1 4.2 4.2A3 3 0 0 1 22 12a3 3 0 0 1-2.8 3 3 3 0 0 1-4.2 4.2A3 3 0 0 1 12 22a3 3 0 0 1-3-2.8A3 3 0 0 1 4.8 15 3 3 0 0 1 2 12a3 3 0 0 1 2.8-3A3 3 0 0 1 9 4.8 3 3 0 0 1 12 2z"/>'
+  };
+  var COLORS = ['#FFC400', '#FF5CA8', '#FF6A2B', '#7CE23E', '#22D3EE', '#4C6FFF', '#A855F7', '#FF3B3B'];
+  function shapeSvg(shape, color) {
+    return '<svg viewBox="0 0 24 24" style="fill:' + color + '">' + (SHAPES[shape] || SHAPES.circle) + '</svg>';
+  }
+  function b64(str) { return btoa(unescape(encodeURIComponent(str))); }
+
+  var placing = false;
+  var mcShape = 'star', mcColor = COLORS[0];
+  var mcEls = {
+    btn: document.getElementById('leave-mark'),
+    box: document.getElementById('mark-composer'),
+    shapes: document.getElementById('mc-shapes'),
+    colors: document.getElementById('mc-colors'),
+    text: document.getElementById('mc-text'),
+    place: document.getElementById('mc-place'),
+    cancel: document.getElementById('mc-cancel'),
+    log: document.getElementById('mc-log'),
+    placing: document.getElementById('mark-placing'),
+    toast: document.getElementById('mark-toast')
+  };
+
+  // render approved stickers onto the world
+  function renderStickers(list) {
+    if (!Array.isArray(list)) return;
+    list.forEach(function (c) {
+      if (typeof c.x !== 'number' || typeof c.y !== 'number') return;
+      var el = document.createElement('div');
+      el.className = 'sticker';
+      el.style.left = c.x + 'px';
+      el.style.top = c.y + 'px';
+      el.innerHTML = shapeSvg(c.shape, c.color || '#FFC400') +
+        (c.text ? '<div class="st-txt"></div>' : '');
+      if (c.text) el.querySelector('.st-txt').textContent = c.text;
+      world.appendChild(el);
+    });
+  }
+
+  function toast(msg, ms) {
+    if (!mcEls.toast) return;
+    mcEls.toast.textContent = msg;
+    mcEls.toast.classList.add('is-open');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { mcEls.toast.classList.remove('is-open'); }, ms || 3600);
+  }
+
+  function buildComposer() {
+    if (!mcEls.shapes) return;
+    mcEls.shapes.innerHTML = Object.keys(SHAPES).map(function (s) {
+      return '<button type="button" class="mc-shape' + (s === mcShape ? ' on' : '') + '" data-shape="' + s + '">' +
+             '<svg viewBox="0 0 24 24">' + SHAPES[s] + '</svg></button>';
+    }).join('');
+    mcEls.colors.innerHTML = COLORS.map(function (c) {
+      return '<button type="button" class="mc-color' + (c === mcColor ? ' on' : '') + '" data-color="' + c + '" style="background:' + c + '"></button>';
+    }).join('');
+  }
+  if (mcEls.shapes) {
+    mcEls.shapes.addEventListener('click', function (e) {
+      var b = e.target.closest('.mc-shape'); if (!b) return;
+      mcShape = b.dataset.shape;
+      Array.prototype.forEach.call(mcEls.shapes.children, function (c) { c.classList.toggle('on', c === b); });
+    });
+    mcEls.colors.addEventListener('click', function (e) {
+      var b = e.target.closest('.mc-color'); if (!b) return;
+      mcColor = b.dataset.color;
+      Array.prototype.forEach.call(mcEls.colors.children, function (c) { c.classList.toggle('on', c === b); });
+    });
+  }
+
+  function openComposer() { buildComposer(); mcEls.box.classList.add('is-open'); mcEls.box.setAttribute('aria-hidden', 'false'); mcEls.log.textContent = ''; setTimeout(function () { mcEls.text.focus(); }, 60); }
+  function closeComposer() { mcEls.box.classList.remove('is-open'); mcEls.box.setAttribute('aria-hidden', 'true'); }
+  function enterPlacing() {
+    closeComposer(); placing = true;
+    mcEls.placing.classList.add('is-open'); mcEls.placing.setAttribute('aria-hidden', 'false');
+  }
+  function exitPlacing() { placing = false; mcEls.placing.classList.remove('is-open'); mcEls.placing.setAttribute('aria-hidden', 'true'); }
+
+  if (mcEls.btn) mcEls.btn.addEventListener('click', function () { mcEls.box.classList.contains('is-open') ? closeComposer() : openComposer(); });
+  if (mcEls.cancel) mcEls.cancel.addEventListener('click', closeComposer);
+  if (mcEls.place) mcEls.place.addEventListener('click', function () {
+    if (!mcEls.text.value.trim()) { mcEls.log.className = 'mc-log err'; mcEls.log.textContent = 'Write a few words first.'; return; }
+    enterPlacing();
+    toast('Click anywhere on the canvas to drop your mark', 4000);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && placing) exitPlacing(); });
+
+  // click-to-drop while placing (capture: detect click vs pan by movement)
+  var placeDown = null;
+  viewport.addEventListener('pointerdown', function (e) { if (placing) placeDown = { x: e.clientX, y: e.clientY }; }, true);
+  viewport.addEventListener('click', function (e) {
+    if (!placing || !placeDown) return;
+    var moved = Math.abs(e.clientX - placeDown.x) + Math.abs(e.clientY - placeDown.y);
+    placeDown = null;
+    if (moved > 6) return;            // that was a pan, not a drop
+    e.stopPropagation(); e.preventDefault();
+    var wx = Math.round((e.clientX - tx) / scale);
+    var wy = Math.round((e.clientY - ty) / scale);
+    submitMark(wx, wy);
+    exitPlacing();
+  }, true);
+
+  function submitMark(x, y) {
+    var text = mcEls.text.value.trim().slice(0, 80);
+    var payload = { text: text, shape: mcShape, color: mcColor, x: x, y: y };
+    var link = location.origin + '/admin?c=' + b64(JSON.stringify(payload));
+    toast('Sending your mark…', 6000);
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3_KEY,
+        subject: 'New mark on the Pieces museum ✎',
+        from_name: 'Pieces museum',
+        note: text, shape: mcShape, colour: mcColor, x: x, y: y,
+        message: 'Note: ' + text + '\nShape: ' + mcShape + '  ·  Colour: ' + mcColor +
+                 '\n\nApprove & place it on the canvas:\n' + link
+      })
+    }).then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j && j.success) { toast('Thanks! Your mark is on its way — it appears once Ripsime approves it. 🤍', 5200); mcEls.text.value = ''; }
+        else { toast('Hmm, could not send — try again?', 4000); }
+      })
+      .catch(function () { toast('Network hiccup — try again?', 4000); });
+  }
+
+  function loadComments() {
+    return fetch('/data/comments.json', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (list) { renderStickers(list); })
+      .catch(function () {});
+  }
+
+  /* ========================================================
      CUSTOM CURSOR states (the site's "+" reacts on the canvas)
      ======================================================== */
   (function initCursorStates() {
@@ -662,6 +805,7 @@
     .then(function (data) {
       layout(data);
       centerWhenReady(0);
+      loadComments();
     })
     .catch(function (err) {
       console.error('pieces: failed to load data', err);

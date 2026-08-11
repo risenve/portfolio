@@ -21,6 +21,121 @@ body.museum-body{
   -webkit-user-select:none;
 }
 
+/* ── LEAVE A MARK (guestbook) ── */
+.leave-mark{
+  position:fixed;
+  top:12px; left:50%;
+  transform:translateX(-50%);
+  z-index:116;
+  background:rgba(255,255,255,0.82);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  border:1px solid rgba(0,0,0,0.08);
+  color:#111;
+  font-family:var(--font); font-size:14px;
+  padding:8px 18px; border-radius:100px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.06);
+  transition:background .18s var(--ease), transform .18s var(--ease);
+}
+.leave-mark:hover{ background:#fff; transform:translateX(-50%) translateY(-1px); }
+
+.mark-composer{
+  position:fixed;
+  top:56px; left:50%;
+  transform:translateX(-50%) translateY(-8px);
+  z-index:130;
+  width:min(320px, 90vw);
+  background:rgba(255,255,255,0.96);
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  border:1px solid rgba(0,0,0,0.08);
+  border-radius:16px;
+  box-shadow:0 24px 70px rgba(0,0,0,0.18);
+  padding:16px;
+  opacity:0; visibility:hidden;
+  transition:opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
+}
+.mark-composer.is-open{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+.mc-head{ font-size:15px; font-weight:500; color:#111; margin-bottom:12px; }
+.mc-label{ font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:#999; margin:12px 0 7px; }
+.mc-shapes, .mc-colors{ display:flex; flex-wrap:wrap; gap:8px; }
+.mc-shape{
+  width:38px; height:38px; border-radius:10px;
+  border:1.5px solid rgba(0,0,0,0.1); background:#fff;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:border-color .15s ease, transform .15s ease;
+}
+.mc-shape svg{ width:20px; height:20px; fill:#333; }
+.mc-shape.on{ border-color:#111; transform:scale(1.05); }
+.mc-color{
+  width:26px; height:26px; border-radius:50%;
+  cursor:pointer; border:2px solid transparent;
+  box-shadow:0 0 0 1px rgba(0,0,0,0.08);
+  transition:transform .15s ease;
+}
+.mc-color.on{ border-color:#111; transform:scale(1.12); }
+.mark-composer input[type=text]{
+  width:100%; box-sizing:border-box;
+  border:1px solid rgba(0,0,0,0.14); border-radius:9px;
+  padding:9px 11px; font-size:14px; font-family:var(--font);
+  color:#111; outline:none; background:#fff;
+}
+.mark-composer input[type=text]:focus{ border-color:#111; }
+.mc-actions{ display:flex; gap:8px; margin-top:14px; }
+.mc-cancel, .mc-place{
+  flex:1; border:none; border-radius:9px; padding:10px;
+  font-size:13px; font-family:var(--font); cursor:pointer;
+  transition:background .15s ease, opacity .15s ease;
+}
+.mc-cancel{ background:rgba(0,0,0,0.06); color:#333; flex:0 0 auto; padding:10px 14px; }
+.mc-place{ background:#111; color:#fff; }
+.mc-place:disabled{ opacity:.4; cursor:not-allowed; }
+.mc-log{ font-size:12px; color:#888; margin-top:8px; min-height:1em; }
+.mc-log.err{ color:#c0392b; }
+.mc-log.ok{ color:#1f9d55; }
+
+.mark-placing{
+  position:fixed; top:14px; left:50%;
+  transform:translateX(-50%);
+  z-index:130;
+  background:#111; color:#fff;
+  font-family:var(--font); font-size:13px;
+  padding:9px 16px; border-radius:100px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.2);
+  opacity:0; visibility:hidden; transition:opacity .2s ease, visibility .2s;
+}
+.mark-placing.is-open{ opacity:1; visibility:visible; }
+
+.mark-toast{
+  position:fixed; bottom:88px; left:50%;
+  transform:translateX(-50%) translateY(8px);
+  z-index:130;
+  background:#111; color:#fff;
+  font-family:var(--font); font-size:13px;
+  padding:11px 18px; border-radius:12px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.24);
+  opacity:0; visibility:hidden;
+  transition:opacity .25s ease, transform .25s ease, visibility .25s;
+  max-width:88vw; text-align:center;
+}
+.mark-toast.is-open{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+
+/* ── STICKERS on the canvas (approved guest marks) ── */
+.sticker{
+  position:absolute;
+  display:flex; flex-direction:column; align-items:center; gap:5px;
+  width:max-content; max-width:170px;
+  pointer-events:none;   /* they decorate; not draggable/openable */
+  text-align:center;
+}
+.sticker svg{ width:40px; height:40px; filter:drop-shadow(0 6px 14px rgba(0,0,0,0.18)); }
+.sticker .st-txt{
+  background:rgba(255,255,255,0.96);
+  color:#141414;
+  font-family:var(--font); font-size:12px; line-height:1.3;
+  padding:5px 9px; border-radius:9px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+  word-break:break-word;
+}
+
 /* ── CUSTOM CURSOR on the canvas (the site's "+" gets interactive states) ── */
 .museum-body .cursor-x{
   width:22px; height:22px;
