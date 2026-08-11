@@ -635,9 +635,9 @@
   bindThumb(thumbV, 'y');
 
   /* ========================================================
-     GUESTBOOK — leave-a-mark stickers (moderated via email)
+     GUESTBOOK — leave-a-mark stickers (live via Google Apps Script)
      ======================================================== */
-  var WEB3_KEY = '262fc81b-9cb3-4ffb-bac3-c6d69a5b9200';
+  var MARKS_URL = 'https://script.google.com/macros/s/AKfycbzEc93ldpaz1pnwIp2J-8QiUY2lDUHt4fQjHYuBWg3qIQwVl5tdO00wpWsWRFy_7atXXA/exec';
   var SHAPES = {
     circle:   '<circle cx="12" cy="12" r="10"/>',
     square:   '<rect x="2" y="2" width="20" height="20" rx="4"/>',
@@ -748,33 +748,32 @@
 
   function submitMark(x, y) {
     var text = mcEls.text.value.trim().slice(0, 80);
+    if (!text) return;
     var payload = { text: text, shape: mcShape, color: mcColor, x: x, y: y };
-    var link = location.origin + '/admin?c=' + b64(JSON.stringify(payload));
-    toast('Sending your mark…', 6000);
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        access_key: WEB3_KEY,
-        subject: 'New mark on the Pieces museum ✎',
-        from_name: 'Pieces museum',
-        note: text, shape: mcShape, colour: mcColor, x: x, y: y,
-        message: 'Note: ' + text + '\nShape: ' + mcShape + '  ·  Colour: ' + mcColor +
-                 '\n\nApprove & place it on the canvas:\n' + link
-      })
-    }).then(function (r) { return r.json(); })
-      .then(function (j) {
-        if (j && j.success) { toast('Thanks! Your mark is on its way — it appears once Ripsime approves it. 🤍', 5200); mcEls.text.value = ''; }
-        else { toast('Hmm, could not send — try again?', 4000); }
-      })
-      .catch(function () { toast('Network hiccup — try again?', 4000); });
+    // show it immediately for the author…
+    renderStickers([payload]);
+    toast('Thanks! Your mark is live 🤍', 4200);
+    mcEls.text.value = '';
+    // …and save it to the shared store (fire-and-forget; the script emails Ripsime)
+    fetch(MARKS_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    }).catch(function () {});
   }
 
-  function loadComments() {
-    return fetch('/data/comments.json', { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (list) { renderStickers(list); })
-      .catch(function () {});
+  // read everyone's marks via JSONP (Apps Script GET is cross-origin)
+  function loadMarks() {
+    var cbName = 'pcMarks_' + Date.now();
+    var s = document.createElement('script');
+    window[cbName] = function (list) {
+      renderStickers(list);
+      try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+      if (s.parentNode) s.parentNode.removeChild(s);
+    };
+    s.src = MARKS_URL + '?callback=' + cbName;
+    s.onerror = function () { if (s.parentNode) s.parentNode.removeChild(s); };
+    document.body.appendChild(s);
   }
 
   /* ========================================================
@@ -805,7 +804,7 @@
     .then(function (data) {
       layout(data);
       centerWhenReady(0);
-      loadComments();
+      loadMarks();
     })
     .catch(function (err) {
       console.error('pieces: failed to load data', err);
