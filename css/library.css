@@ -1,0 +1,306 @@
+/* ============================================================
+   My Virtual Library — full-screen horizontal bookshelf
+   Orange typographic aesthetic (reference: type-specimen tool)
+   ============================================================ */
+
+:root{
+  --lib-orange:#e8451f;
+  --lib-orange-deep:#c73a12;
+  --lib-cream:#ffe9df;
+  --lib-ink:#1a1512;
+  --lib-bg:#f4f4f4;
+  --lib-peach:#ececec;
+  --lib-line:rgba(26,21,18,.14);
+  --lib-topbar-h:60px;
+  --slot-gap:16px;
+}
+
+*{ box-sizing:border-box; }
+
+body.lib-body{
+  margin:0;
+  overflow:hidden;
+  background:var(--lib-bg);
+  color:var(--lib-ink);
+  font-family:'TASA Orbiter',var(--font),Helvetica,Arial,sans-serif;
+  height:100dvh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---- top nav (logo + contact), transparent over the page ---- */
+.lib-nav{ background:transparent; pointer-events:none; z-index:60; }
+.lib-nav .nav-logo,
+.lib-nav .lib-contact{ pointer-events:auto; }
+.lib-nav .nav-logo img{ filter:none; display:block; }
+.lib-contact{
+  margin-left:auto;
+  border:1px solid var(--lib-ink);
+  background:transparent;
+  color:var(--lib-ink);
+  font:inherit; font-size:13px;
+  padding:7px 16px; border-radius:100px;
+  cursor:pointer; transition:background .2s var(--ease),color .2s var(--ease);
+}
+.lib-contact:hover{ background:var(--lib-ink); color:var(--lib-cream); }
+
+/* ============ shell ============ */
+.lib{
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
+  height:100dvh; width:100vw;
+}
+
+/* ---- top bar: title + chips ---- */
+.lib-topbar{
+  flex:0 0 var(--lib-topbar-h);
+  display:flex; align-items:center; gap:24px;
+  padding:0 20px 0 76px;
+  border-bottom:1px solid var(--lib-ink);
+  background:var(--lib-bg);
+  z-index:40;
+}
+.lib-title{
+  margin:0; font-size:19px; font-weight:600; letter-spacing:-.01em;
+  color:var(--lib-ink); white-space:nowrap;
+}
+.lib-chips{ display:flex; gap:0; margin-left:auto; margin-right:120px; }
+.lib-chip{
+  font-size:13px; color:var(--lib-ink);
+  border:1px solid var(--lib-ink); border-right:none;
+  padding:8px 18px; display:flex; align-items:center; gap:8px;
+  white-space:nowrap; background:transparent;
+}
+.lib-chip:last-child{ border-right:1px solid var(--lib-ink); }
+.lib-chip-btn{ font-family:inherit; cursor:pointer; transition:background .18s,color .18s; }
+.lib-chip-btn:hover{ background:var(--lib-ink); color:var(--lib-cream); }
+.chip-arrow{ font-size:10px; opacity:.7; }
+
+/* ============ split: stage (left) + grid (right) ============ */
+.lib-split{
+  flex:1 1 auto; display:flex; min-height:0;
+}
+
+/* ---------- LEFT STAGE ---------- */
+.lib-stage{
+  position:relative;
+  flex:1.25 1 0; min-width:0; min-height:0;
+  background:var(--lib-bg);
+  overflow:hidden;
+  border-right:1px solid var(--lib-ink);
+  display:flex; align-items:center;
+  cursor:grab;
+}
+.lib-stage.dragging{ cursor:grabbing; }
+
+/* decorative vertical ruler on the far left, like the specimen tool */
+.lib-ruler{
+  position:absolute; left:0; top:0; bottom:0; width:64px;
+  border-right:1px solid var(--lib-line);
+  pointer-events:none; z-index:3;
+}
+.lib-ruler::before{
+  content:""; position:absolute; inset:0;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 39px, var(--lib-line) 39px 40px);
+}
+.lib-rtick{
+  position:absolute; right:8px; font-family:'Fragment Mono',monospace;
+  font-size:10px; color:var(--lib-orange-deep); transform:translateY(-50%);
+}
+
+/* huge ghost title behind the shelf (echoes the giant "Aa") */
+.lib-ghost{
+  position:absolute; right:4%; bottom:-6%;
+  font-size:clamp(140px,26vw,360px); line-height:.8; font-weight:800;
+  color:rgba(26,21,18,.05); pointer-events:none; z-index:1;
+  letter-spacing:-.04em; user-select:none; text-transform:lowercase;
+  max-width:70%; text-align:right; overflow:hidden;
+}
+
+/* the horizontal track of books */
+.lib-shelf{
+  position:relative; z-index:4;
+  display:flex; align-items:flex-end; gap:var(--slot-gap);
+  height:60%; width:100%;
+  perspective:1600px;
+  will-change:transform;
+  outline:none;
+}
+
+/* each slot reserves horizontal space; width animates active<->spine */
+.lib-slot{
+  position:relative; flex:0 0 auto;
+  width:var(--spine-w); height:100%;
+  display:flex; align-items:flex-end; justify-content:center;
+  transition:width .55s var(--ease);
+}
+.lib-slot.active{ width:var(--cover-w); }
+
+/* the rotating book body */
+.book3d{
+  position:relative;
+  width:var(--cover-w); height:var(--cover-h);
+  transform-style:preserve-3d;
+  transform:rotateY(-74deg);
+  transition:transform .55s var(--ease);
+  transform-origin:left center;
+  cursor:pointer;
+}
+.lib-slot.active .book3d{ transform:rotateY(0deg); }
+.lib-slot.active.flipped .book3d{ transform:translateX(var(--cover-w)) rotateY(180deg); }
+
+.book-face{
+  position:absolute; inset:0;
+  backface-visibility:hidden;
+  border-radius:2px 4px 4px 2px;
+  overflow:hidden;
+  box-shadow:0 24px 50px rgba(20,8,2,.35);
+}
+
+/* front cover */
+.book-cover{
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:16px 15px;
+  background:var(--cv-bg); color:var(--cv-fg);
+}
+.book-cover::after{ /* spine shadow gradient on the left edge */
+  content:""; position:absolute; left:0; top:0; bottom:0; width:14px;
+  background:linear-gradient(to right, rgba(0,0,0,.28), transparent);
+}
+.bc-top{ font-family:'Fragment Mono',monospace; font-size:10px; letter-spacing:.04em; opacity:.85; }
+.bc-title{
+  font-size:clamp(15px,1.5vw,21px); font-weight:700; line-height:1.05;
+  letter-spacing:-.01em; margin-top:auto;
+}
+.bc-author{ font-size:11px; margin-top:8px; opacity:.9; font-family:'Fragment Mono',monospace; }
+.book-cover img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+
+/* spine (the left edge shown when the book is closed on the shelf) */
+.book-spine{
+  transform:rotateY(90deg) translateZ(0);
+  transform-origin:left center;
+  left:0; width:var(--spine-w);
+  background:var(--sp-bg); color:var(--cv-fg);
+  display:flex; align-items:center; justify-content:center;
+  padding:10px 0;
+}
+.book-spine::before{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(to right, rgba(255,255,255,.10), rgba(0,0,0,.22));
+}
+.bs-text{
+  writing-mode:vertical-rl; transform:rotate(180deg);
+  font-size:11px; font-weight:600; letter-spacing:.02em; white-space:nowrap;
+  text-overflow:ellipsis; overflow:hidden; max-height:88%;
+  z-index:1;
+}
+
+/* back cover — the note, shown after a second click */
+.book-back{
+  transform:rotateY(180deg);
+  background:var(--cv-fg); color:var(--cv-bg);
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:18px 16px;
+}
+.bb-note{ font-size:13px; line-height:1.4; font-style:italic; }
+.bb-year{ font-family:'Fragment Mono',monospace; font-size:11px; opacity:.8; }
+.bb-flip{ font-family:'Fragment Mono',monospace; font-size:10px; opacity:.7; }
+
+/* active book meta text (bottom-left) */
+.lib-meta{
+  position:absolute; left:80px; bottom:26px; z-index:5;
+  color:var(--lib-ink); max-width:46%; pointer-events:none;
+}
+.lm-title{ font-size:22px; font-weight:700; line-height:1.1; letter-spacing:-.01em; }
+.lm-sub{ font-family:'Fragment Mono',monospace; font-size:12px; margin-top:6px; opacity:.9; }
+
+.lib-hint{
+  position:absolute; left:80px; top:20px; z-index:5;
+  display:flex; align-items:center; gap:10px;
+  font-family:'Fragment Mono',monospace; font-size:11px;
+  color:rgba(26,21,18,.55);
+  transition:opacity .5s var(--ease);
+}
+.lib-hint.gone{ opacity:0; }
+.lib-dot{ width:4px; height:4px; border-radius:50%; background:currentColor; opacity:.6; }
+
+/* ---------- RIGHT GRID ---------- */
+.lib-grid-wrap{
+  flex:1 1 0; min-width:0; min-height:0;
+  background:var(--lib-peach);
+  display:flex; flex-direction:column;
+}
+.lib-grid-head{
+  flex:0 0 auto; padding:12px 18px;
+  font-family:'Fragment Mono',monospace; font-size:11px; letter-spacing:.04em;
+  color:var(--lib-orange-deep); text-transform:uppercase;
+  border-bottom:1px solid var(--lib-line);
+}
+.lib-grid{
+  flex:1 1 auto; overflow-y:auto; overflow-x:hidden;
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:0;
+  scrollbar-width:thin; scrollbar-color:var(--lib-orange) transparent;
+}
+.lib-cell{
+  position:relative;
+  border-right:1px solid var(--lib-line);
+  border-bottom:1px solid var(--lib-line);
+  cursor:pointer; overflow:hidden;
+  background:var(--lib-peach);
+  transition:transform .3s var(--ease);
+}
+.lib-cell:nth-child(4n){ border-right:none; }
+.cell-cover{
+  position:relative; aspect-ratio:3/4; margin:10px;
+  border-radius:2px; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:9px 8px;
+  background:var(--cv-bg); color:var(--cv-fg);
+  box-shadow:0 6px 14px rgba(20,8,2,.14);
+  transition:transform .28s var(--ease), box-shadow .28s var(--ease);
+}
+.cell-cover img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.cc-title{ font-size:11px; font-weight:700; line-height:1.05; margin-top:auto; }
+.cc-author{ font-family:'Fragment Mono',monospace; font-size:8px; margin-top:4px; opacity:.85; }
+.cc-top{ font-family:'Fragment Mono',monospace; font-size:8px; opacity:.8; }
+.lib-cell:hover .cell-cover{ transform:translateY(-3px); box-shadow:0 12px 22px rgba(20,8,2,.24); }
+
+/* active cell — the square selection border from the reference */
+.lib-cell.active::after{
+  content:""; position:absolute; inset:3px;
+  border:2px solid var(--lib-orange);
+  pointer-events:none; z-index:2;
+}
+
+/* ============ overlay tweaks on this page ============ */
+body.lib-body .nav-overlay{ z-index:200; }
+body.overlay-open{ overflow:hidden; }
+
+/* ============ responsive ============ */
+@media (max-width:900px){
+  .lib-title{ font-size:16px; }
+  .lib-topbar{ padding-left:64px; gap:12px; }
+  .lib-chips{ margin-right:96px; }
+  .lib-chip{ padding:7px 12px; font-size:12px; }
+  #chip-count{ display:none; }
+  .lib-split{ flex-direction:column; }
+  .lib-stage{ flex:0 0 48%; border-right:none; border-bottom:1px solid var(--lib-ink); }
+  .lib-grid-wrap{ flex:1 1 auto; }
+  .lib-grid{ grid-template-columns:repeat(5,1fr); }
+  .lib-cell:nth-child(4n){ border-right:1px solid var(--lib-line); }
+  .lib-cell:nth-child(5n){ border-right:none; }
+  .lib-meta{ left:20px; max-width:70%; }
+  .lib-meta .lm-title{ font-size:17px; }
+  .lib-hint{ left:20px; }
+  .lib-ghost{ font-size:clamp(90px,30vw,200px); }
+}
+@media (max-width:560px){
+  .lib-grid{ grid-template-columns:repeat(3,1fr); }
+  .lib-cell:nth-child(5n){ border-right:1px solid var(--lib-line); }
+  .lib-cell:nth-child(3n){ border-right:none; }
+  :root{ --lib-topbar-h:52px; }
+  .lib-chips{ display:none; }
+  .lib-title{ font-size:15px; }
+  .lib-topbar{ padding-left:60px; }
+}

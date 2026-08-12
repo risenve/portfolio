@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109758796', 'ym');
+    ym(109758796, 'init', {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109758796" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Virtual Library — Ripsime Sargsyan</title>
+  <meta name="description" content="My virtual library — a shelf of books I love. Scroll the shelf, pick a cover, flip a book from spine to cover.">
+  <link rel="canonical" href="https://ripsime.me/lib">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="My Virtual Library — Ripsime Sargsyan">
+  <meta property="og:description" content="A shelf of books I love — scroll, pick a cover, flip from spine to cover.">
+  <meta property="og:url" content="https://ripsime.me/lib">
+  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=TASA+Orbiter:wght@400..800&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/library.css">
+</head>
+<body class="lib-body">
+
+  <!-- NAV — minimal, auto-hiding: logo + Contact -->
+  <nav class="site-nav lib-nav" id="lib-nav">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo_variants/r logo black.svg" width="28" height="28" alt="Ripsime Sargsyan">
+    </a>
+    <button class="lib-contact" id="nav-toggle" type="button" aria-label="Open contact menu">Contact</button>
+  </nav>
+
+  <!-- FULL OVERLAY (opens on Contact) -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+      <div>
+        <div class="overlay-stair-links">
+          <a href="/">Home</a>
+          <a href="/work">Work</a>
+          <a href="/pieces">Pieces</a>
+          <a href="/lib">Library</a>
+          <button class="ol-service-toggle" type="button">Services <span class="ol-toggle-arrow">▾</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="/service-branding">Branding</a>
+            <a href="/service-uiux">UI/UX</a>
+            <a href="/service-product-design">Product Design</a>
+            <a href="/service-art-direction">Art Direction</a>
+          </div>
+          <a href="/talks">Talks</a>
+        </div>
+        <div class="overlay-socials">
+          <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+        </div>
+      </div>
+      <div class="overlay-form-wrap">
+        <form id="overlay-form" class="ol-form" novalidate>
+          <div class="ol-field">
+            <input type="text" name="ol-name" required placeholder=" ">
+            <label class="ol-label">Name</label>
+          </div>
+          <div class="ol-field">
+            <input type="email" name="ol-email" required placeholder=" ">
+            <label class="ol-label">Email</label>
+          </div>
+          <div class="ol-field">
+            <input type="text" name="ol-message" required placeholder=" ">
+            <label class="ol-label">About project</label>
+          </div>
+          <label class="ol-consent">
+            <input type="checkbox" name="ol-consent" required>
+            <span class="ol-consent-text">I agree to the processing of personal data.</span>
+          </label>
+          <button type="submit" class="ol-submit">Send →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LIBRARY ============ -->
+  <main class="lib" id="lib">
+
+    <!-- top bar: title + control chips (reference style) -->
+    <header class="lib-topbar">
+      <h1 class="lib-title">my virtual library</h1>
+      <div class="lib-chips">
+        <span class="lib-chip" id="chip-count">— books</span>
+        <button class="lib-chip lib-chip-btn" id="sort-chip" type="button" aria-haspopup="true" aria-expanded="false">
+          <span id="sort-label">Shelf order</span> <span class="chip-arrow">▾</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="lib-split">
+
+      <!-- LEFT: the active shelf (horizontal scroll of books) -->
+      <section class="lib-stage" id="lib-stage" aria-label="Bookshelf">
+        <div class="lib-ruler" id="lib-ruler" aria-hidden="true"></div>
+
+        <!-- big ghost title of the active book -->
+        <div class="lib-ghost" id="lib-ghost" aria-hidden="true"></div>
+
+        <!-- the shelf track -->
+        <div class="lib-shelf" id="lib-shelf" role="listbox" aria-label="Books on the shelf" tabindex="0"></div>
+
+        <!-- active book meta -->
+        <div class="lib-meta" id="lib-meta" aria-live="polite"></div>
+
+        <div class="lib-hint" id="lib-hint">
+          <span>Drag or scroll the shelf</span>
+          <span class="lib-dot"></span>
+          <span>Click a book to flip it</span>
+        </div>
+      </section>
+
+      <!-- RIGHT: cover grid navigator -->
+      <aside class="lib-grid-wrap" aria-label="All covers">
+        <div class="lib-grid-head">Character set · all covers</div>
+        <div class="lib-grid" id="lib-grid"></div>
+      </aside>
+
+    </div>
+  </main>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+[
+  { "id": 1,  "title": "The Elements of Typographic Style", "author": "Robert Bringhurst", "year": "1992", "bg": "#e8451f", "fg": "#ffe9df", "spine": "#c73a12", "note": "A book that made me look at every letter twice." },
+  { "id": 2,  "title": "Grid Systems", "author": "Josef Müller-Brockmann", "year": "1981", "bg": "#1a1512", "fg": "#ff5a2c", "spine": "#0f0c0a", "note": "The Swiss bible. I keep it on the desk, not the shelf." },
+  { "id": 3,  "title": "Interaction of Color", "author": "Josef Albers", "year": "1963", "bg": "#ffd9c2", "fg": "#c73a12", "spine": "#e8451f", "note": "Colour is the most relative medium in art." },
+  { "id": 4,  "title": "Ways of Seeing", "author": "John Berger", "year": "1972", "bg": "#c73a12", "fg": "#ffe9df", "spine": "#8f2708", "note": "Changed how I read images forever." },
+  { "id": 5,  "title": "Thinking with Type", "author": "Ellen Lupton", "year": "2004", "bg": "#ff7a4d", "fg": "#2b0f06", "spine": "#e8451f", "note": "Gave to every junior on my team." },
+  { "id": 6,  "title": "The Design of Everyday Things", "author": "Don Norman", "year": "1988", "bg": "#2b0f06", "fg": "#ff9c6b", "spine": "#1a0a04", "note": "Affordances everywhere once you notice them." },
+  { "id": 7,  "title": "S, M, L, XL", "author": "Rem Koolhaas", "year": "1995", "bg": "#f4ede3", "fg": "#1a1512", "spine": "#d9cdbd", "note": "Heaviest book I own. Worth the shelf sag." },
+  { "id": 8,  "title": "Just My Type", "author": "Simon Garfield", "year": "2010", "bg": "#ff5a2c", "fg": "#fff3ec", "spine": "#d63e12", "note": "A love letter to fonts, and their gossip." },
+  { "id": 9,  "title": "A Smile in the Mind", "author": "Beryl McAlhone", "year": "1996", "bg": "#ffe1b0", "fg": "#b83208", "spine": "#f0c98a", "note": "Witty thinking in graphic design." },
+  { "id": 10, "title": "Dieter Rams: As Little Design as Possible", "author": "Sophie Lovell", "year": "2011", "bg": "#e6e2da", "fg": "#e8451f", "spine": "#cfc9bd", "note": "Less, but better. Ten principles I re-read." },
+  { "id": 11, "title": "Meggs' History of Graphic Design", "author": "Philip B. Meggs", "year": "1983", "bg": "#8f2708", "fg": "#ffd9c2", "spine": "#5c1804", "note": "Where the whole timeline lives." },
+  { "id": 12, "title": "The Vignelli Canon", "author": "Massimo Vignelli", "year": "2010", "bg": "#141414", "fg": "#ff7a4d", "spine": "#000000", "note": "If you can design one thing, you can design everything." },
+  { "id": 13, "title": "Emotional Design", "author": "Don Norman", "year": "2004", "bg": "#ff9c6b", "fg": "#3a1509", "spine": "#e8451f", "note": "Beautiful things work better." },
+  { "id": 14, "title": "Hegarty on Creativity", "author": "John Hegarty", "year": "2014", "bg": "#fff3ec", "fg": "#e8451f", "spine": "#ffd9c2", "note": "There are no rules. Except this one." }
+]
