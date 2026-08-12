@@ -637,7 +637,7 @@
   /* ========================================================
      GUESTBOOK — leave-a-mark stickers (live via Google Apps Script)
      ======================================================== */
-  var MARKS_URL = 'https://script.google.com/macros/s/AKfycbzEc93ldpaz1pnwIp2J-8QiUY2lDUHt4fQjHYuBWg3qIQwVl5tdO00wpWsWRFy_7atXXA/exec';
+  var MARKS_URL = 'https://script.google.com/macros/s/AKfycbyMBrlj4gysDDAzlGgRroTFc9FKtC2t1ytamgSCHNhRCYTQuXYXgaojmyb7xEqvvWy2rQ/exec';
   var SHAPES = {
     circle:   '<circle cx="12" cy="12" r="10"/>',
     square:   '<rect x="2" y="2" width="20" height="20" rx="4"/>',

@@ -1105,7 +1105,7 @@
   // ============================================================
   // MARKS  (live guest marks via the Apps Script store)
   // ============================================================
-  var MARKS_URL = 'https://script.google.com/macros/s/AKfycbzEc93ldpaz1pnwIp2J-8QiUY2lDUHt4fQjHYuBWg3qIQwVl5tdO00wpWsWRFy_7atXXA/exec';
+  var MARKS_URL = 'https://script.google.com/macros/s/AKfycbyMBrlj4gysDDAzlGgRroTFc9FKtC2t1ytamgSCHNhRCYTQuXYXgaojmyb7xEqvvWy2rQ/exec';
   var MARKS_SECRET_KEY = 'rp_marks_secret';
   var marks = [], commentsLoaded = false;
   var CM_SHAPES = {
