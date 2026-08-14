@@ -24,10 +24,10 @@ body.museum-body{
 /* ── TOP-RIGHT TOOLS: Leave a mark + Filter, stacked under Contact ── */
 .museum-tools{
   position:fixed;
-  top:calc(var(--nav-h, 56px) + 10px);
-  right:var(--pad-x, 48px);
+  bottom:32px; left:50%;
+  transform:translateX(-50%);
   z-index:116;
-  display:flex; flex-direction:column; align-items:flex-end; gap:10px;
+  display:flex; flex-direction:row; align-items:center; gap:10px;
   /* the whole tools zone uses Helvetica */
   font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -48,9 +48,8 @@ body.museum-body{
 
 .mark-composer{
   position:fixed;
-  top:calc(var(--nav-h, 56px) + 52px);
-  right:var(--pad-x, 48px);
-  transform:translateY(-8px);
+  bottom:88px; left:50%;
+  transform:translateX(-50%) translateY(8px);
   z-index:130;
   width:min(320px, 90vw);
   background:rgba(255,255,255,0.96);
@@ -62,7 +61,7 @@ body.museum-body{
   opacity:0; visibility:hidden;
   transition:opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
 }
-.mark-composer.is-open{ opacity:1; visibility:visible; transform:translateY(0); }
+.mark-composer.is-open{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
 .mc-head{ font-size:15px; font-weight:500; color:#111; margin-bottom:12px; }
 .mc-label{ font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:#999; margin:12px 0 7px; }
 .mc-shapes, .mc-colors{ display:flex; flex-wrap:wrap; gap:8px; }
@@ -189,7 +188,7 @@ body.museum-body{
 
 .filter-menu{
   position:absolute;
-  right:0; top:calc(100% + 10px);
+  left:50%; bottom:calc(100% + 12px);
   display:flex; flex-direction:column; gap:6px;
   padding:8px;
   background:rgba(255,255,255,0.82);
@@ -200,12 +199,12 @@ body.museum-body{
   min-width:168px;
   max-height:66vh; overflow-y:auto; scrollbar-width:none;
   opacity:0; visibility:hidden;
-  transform:translateY(-8px) scale(.98);
-  transform-origin:top right;
+  transform:translateX(-50%) translateY(8px) scale(.98);
+  transform-origin:bottom center;
   transition:opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
 }
 .filter-menu::-webkit-scrollbar{ display:none; }
-.museum-filter.open .filter-menu{ opacity:1; visibility:visible; transform:translateY(0) scale(1); }
+.museum-filter.open .filter-menu{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0) scale(1); }
 .mf-chip{
   text-align:left;
   padding:11px 18px;
@@ -328,7 +327,7 @@ body.museum-body{
 /* ── HINT (bottom center) ── */
 .museum-hint{
   position:fixed;
-  left:50%; bottom:48px;
+  left:50%; bottom:96px;
   transform:translateX(-50%);
   z-index:110;
   display:flex; align-items:center; gap:14px;
