@@ -42,7 +42,8 @@
   .pd-grid {
     display: grid;
     grid-template-columns: 464px 87px minmax(0, 1fr);
-    padding: 132px var(--pdx) 0;
+    /* +200px top offset — page deliberately starts from the middle */
+    padding: 332px var(--pdx) 0;
     align-items: stretch;
   }
 
@@ -159,7 +160,7 @@
     display: block;
     width: 100%; height: 100%; border-radius: 16px; overflow: hidden; background: #ededed;
   }
-  .pd-card-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pd-card-inner img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px; }
   .pd-card--left   { left: 0;    transform: rotate(-3deg); z-index: 1; }
   .pd-card--right  { left: 96px; transform: rotate(3deg);  z-index: 2; border-color: #8400ff; }
   .pd-card--mid    { left: 45px; transform: rotate(0deg);  z-index: 3; border-color: #2f7fff; }
@@ -292,7 +293,7 @@
 
       <!-- LEFT: sticky title -->
       <div class="pd-title-col">
-        <h1 class="pd-title">Product design<span class="pd-caret" aria-hidden="true"></span></h1>
+        <h1 class="pd-title">Product design</h1>
       </div>
 
       <!-- MIDDLE: stacking labels -->
