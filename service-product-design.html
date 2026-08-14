@@ -16,275 +16,184 @@
   <!-- /Yandex.Metrika counter -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Design — Ripsime Sargsyan</title>
-  <meta name="description" content="Product design by Ripsime Sargsyan — end-to-end digital product design, from user flows and wireframes to polished, conversion-focused interfaces that users love.">
-  <meta name="keywords" content="product design, digital product design, user flows, wireframes, interface design, SaaS design, Ripsime Sargsyan">
+  <meta name="description" content="Product design by Ripsime Sargsyan — design web, mobile, and desktop products from early concept to a system ready to scale.">
+  <meta name="keywords" content="product design, digital product design, interface design, design systems, Ripsime Sargsyan">
   <link rel="canonical" href="https://ripsime.me/service-product-design">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Product Design — Ripsime Sargsyan">
-  <meta property="og:description" content="End-to-end digital product design, from user flows to polished, conversion-focused interfaces.">
+  <meta property="og:description" content="Design web, mobile, and desktop products — from early concept to a system ready to scale.">
   <meta property="og:url" content="https://ripsime.me/service-product-design">
   <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/style.css">
   <style>
-  /* ── White-page overrides ── */
+  /* ============================================================
+     Product Design service page — ported pixel-for-pixel from Figma
+     (node 194:6229). Font: HN (HelveticaNeueCyr). Canvas ref: 1440.
+     ============================================================ */
+  :root { --pdx: 40px; }
   body { background: #fff; color: #000; }
   .site-nav { background: #000; }
   .site-side-label { display: none; }
+  html { scroll-behavior: smooth; }
 
-  /* ── HERO: 2-column — left text / right photo ── */
-  .sp-hero {
+  .pd { max-width: 1440px; margin: 0 auto; position: relative; }
+
+  /* 3-column grid: title rail | label rail | content — matches Figma x40/504/591 */
+  .pd-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 100vh;
-    padding-top: var(--nav-h);
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    grid-template-columns: 464px 87px minmax(0, 1fr);
+    padding: 132px var(--pdx) 0;
+    align-items: stretch;
   }
-  .sp-hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 64px var(--pad-x) 80px;
+
+  /* ── LEFT: sticky title ── */
+  .pd-title-col { position: relative; }
+  .pd-title {
+    position: sticky; top: 88px; align-self: flex-start;
+    margin: 0;
+    font-family: var(--font); font-weight: 400;
+    font-size: 60px; line-height: 1; letter-spacing: -0.04em;
+    text-transform: capitalize; color: #000;
+    display: inline-flex; align-items: center; white-space: nowrap;
   }
-  .sp-tag {
-    font-size: 11px; font-weight: 400;
-    color: rgba(0,0,0,0.35);
-    letter-spacing: 0.08em;
-    margin-bottom: 36px;
-    display: block;
+  .pd-caret {
+    display: inline-block; width: 4px; height: 58px;
+    background: #595959; margin-left: 2px;
+    animation: pd-blink 1.1s steps(1) infinite;
   }
-  .sp-title {
-    font-size: clamp(56px, 8vw, 120px);
-    font-weight: 400;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: #000;
-    margin-bottom: 40px;
+  @keyframes pd-blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
+
+  /* ── MIDDLE: stacking section labels ── */
+  .pd-labels { position: relative; }
+  .pd-label {
+    position: sticky;
+    display: block; width: max-content;
+    font-family: var(--font); font-weight: 400;
+    font-size: 18px; line-height: 1.1; letter-spacing: -0.04em;
+    color: #000; background: #fff; cursor: pointer;
+    padding: 4px 0; border: none; text-align: left;
+    transition: opacity .25s;
   }
-  .sp-desc {
-    font-size: clamp(15px, 1.5vw, 20px);
-    font-weight: 400;
-    line-height: 1.45;
-    color: rgba(0,0,0,0.5);
-    max-width: 480px;
+  .pd-label:hover { opacity: .55; }
+  .pd-label.is-active { }
+
+  /* ── RIGHT: content ── */
+  .pd-content { position: relative; }
+
+  .pd-about {
+    font-family: var(--font); font-weight: 400;
+    font-size: 32px; line-height: 1.1; letter-spacing: -0.04em;
+    color: #000; max-width: 808px; margin: 0;
   }
-  /* Right: photo area */
-  .sp-hero-photo {
-    background: #f0f0f0;
-    position: relative;
-    overflow: hidden;
+
+  /* Accordion tree (Service + FAQ) */
+  .pd-tree { position: relative; padding-left: 39px; }
+  .pd-tree::before { /* vertical spine */
+    content: ""; position: absolute; left: 0; top: 6px; bottom: 6px;
+    width: 1px; background: #000;
   }
-  .sp-hero-photo img {
-    width: 100%; height: 100%;
+  .pd-acc { position: relative; }
+  .pd-acc + .pd-acc { margin-top: 46px; }
+  .pd-acc::before { /* horizontal tick from spine to item */
+    content: ""; position: absolute; left: -39px; top: 13px;
+    width: 30px; height: 1px; background: #000;
+  }
+  .pd-acc-head {
+    display: inline-flex; align-items: center; gap: 5px;
+    cursor: pointer; user-select: none; background: none; border: none;
+    font-family: var(--font); font-weight: 400;
+    font-size: 24px; line-height: 1.1; letter-spacing: -0.04em; color: #000;
+    padding: 0;
+  }
+  .pd-arrow { width: 12px; height: 12px; flex: none; transition: transform .28s ease; }
+  .pd-acc.is-open .pd-arrow { transform: scaleY(-1); }   /* ↘ closed → ↗ open */
+  .pd-acc-body {
+    overflow: hidden; max-height: 0; opacity: 0;
+    transition: max-height .34s ease, opacity .28s ease, margin-top .34s ease;
+  }
+  .pd-acc.is-open .pd-acc-body { max-height: 240px; opacity: 1; margin-top: 12px; }
+  .pd-acc.is-open { padding-bottom: 13px; }
+  .pd-answer {
+    font-family: var(--font); font-weight: 400;
+    font-size: 18px; line-height: 1.1; letter-spacing: -0.04em;
+    color: #5c5c5c; max-width: 372px; margin: 0;
+  }
+
+  .pd-service { margin-top: 54px; }
+  .pd-faq { margin-top: 94px; padding-bottom: 40px; }
+
+  /* Projects */
+  .pd-projects { margin-top: 60px; display: flex; flex-direction: column; gap: 2px; }
+  .pd-tile {
+    display: block; background: #f4f4f4; border-radius: 30px;
+    padding: 4px; height: 408px; position: relative;
+  }
+  .pd-tile-inner {
+    position: relative; height: 400px; border-radius: 26px; overflow: hidden;
+    background: #103e9f;
+  }
+  .pd-tile-inner img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; display: block;
   }
-  .sp-hero-photo-placeholder {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(0,0,0,0.2);
-    font-size: 12px; font-weight: 400;
-    letter-spacing: 0.08em;
+  .pd-tile-inner::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    box-shadow: inset 0 0 25.7px 0 rgba(255,255,255,0.25); pointer-events: none;
   }
+  .pd-tile--eburet .pd-tile-inner { background: #ededed; }
 
-  /* ── COVER IMAGE (full-width, after hero) ── */
-  .sp-cover {
-    width: 100%;
-    aspect-ratio: 16/7;
-    overflow: hidden;
-    background: #e8e8e8;
-    position: relative;
+  /* ── Fixed fanned cover cards (bottom-left) ── */
+  .pd-cards {
+    position: fixed; left: 40px; bottom: 40px; z-index: 90;
+    width: 220px; height: 140px;
   }
-  .sp-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .sp-cover-placeholder {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(0,0,0,0.2); font-size: 12px; font-weight: 400; letter-spacing: 0.08em;
+  .pd-card {
+    position: absolute; bottom: 0;
+    width: 116px; height: 116px; border-radius: 27px;
+    border: 1.4px solid #e0e0e0; padding: 8px; background: #fff;
+    cursor: pointer; transition: transform .3s ease, box-shadow .3s ease, z-index 0s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.14);
   }
+  .pd-card-inner {
+    width: 100%; height: 100%; border-radius: 18px; overflow: hidden; background: #ededed;
+  }
+  .pd-card-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pd-card--left   { left: 0;    transform: rotate(-3deg); z-index: 1; }
+  .pd-card--right  { left: 96px; transform: rotate(3deg);  z-index: 2; border-color: #8400ff; }
+  .pd-card--mid    { left: 45px; transform: rotate(0deg);  z-index: 3; border-color: #2f7fff; }
+  .pd-card--eburet .pd-card-inner img { object-fit: contain; }
+  .pd-card--left:hover  { transform: rotate(-3deg) translateY(-8px); }
+  .pd-card--mid:hover   { transform: rotate(0deg)  translateY(-8px); }
+  .pd-card--right:hover { transform: rotate(3deg)  translateY(-8px); }
+  /* Clicked card rises to the front of the stack */
+  .pd-card.is-front { z-index: 10; box-shadow: 0 16px 40px rgba(0,0,0,0.22); }
+  .pd-card--left.is-front  { transform: rotate(-3deg) translateY(-12px); }
+  .pd-card--mid.is-front   { transform: rotate(0deg)  translateY(-12px); }
+  .pd-card--right.is-front { transform: rotate(3deg)  translateY(-12px); }
 
-  /* ── SECTION ── */
-  .sp-section {
-    padding: 80px var(--pad-x);
-  }
-  .sp-label {
-    display: block;
-    font-size: 11px; font-weight: 400;
-    letter-spacing: 0.1em;
-    color: rgba(0,0,0,0.35);
-    margin-bottom: 56px;
-  }
-  .sp-intro {
-    font-size: clamp(14px, 1.4vw, 18px); font-weight: 400;
-    color: rgba(0,0,0,0.4); max-width: 500px;
-    line-height: 1.5; margin-bottom: 56px;
-  }
-
-  /* ── PROCESS ── */
-  .sp-step {
-    display: grid;
-    grid-template-columns: 72px 1fr;
-    gap: 28px;
-    padding: 28px 0;
-    border-top: 1px solid rgba(0,0,0,0.08);
-  }
-
-  .sp-step-num {
-    font-size: 12px; font-weight: 400;
-    color: rgba(0,0,0,0.28); padding-top: 3px;
-  }
-  .sp-step-title {
-    font-size: clamp(17px, 1.7vw, 24px);
-    font-weight: 400; letter-spacing: -0.01em;
-    line-height: 1; color: #000; margin-bottom: 12px;
-  }
-  .sp-step-text {
-    font-size: 14px; font-weight: 400;
-    color: rgba(0,0,0,0.5); line-height: 1.5; max-width: 580px;
-  }
-  .sp-step-note {
-    font-size: 13px; font-weight: 400;
-    color: rgba(0,0,0,0.28); margin-top: 8px;
-    line-height: 1.4; max-width: 580px;
-  }
-
-  /* ── ADVANTAGES ── */
-  .sp-adv-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-  .sp-adv-item {
-    padding: 36px 48px 36px 0;
-  }
-  .sp-adv-item:nth-child(even) {
-    padding-left: 48px; padding-right: 0;
-  }
-  .sp-adv-title {
-    font-size: clamp(16px, 1.5vw, 20px);
-    font-weight: 400; letter-spacing: -0.01em;
-    line-height: 1; color: #000; margin-bottom: 10px;
-  }
-  .sp-adv-text {
-    font-size: 14px; font-weight: 400;
-    color: rgba(0,0,0,0.5); line-height: 1.45;
-  }
-
-  /* ── SELECTED WORK ── */
-  .sp-work-item {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 32px;
-    padding: 24px 0;
-    border-top: 1px solid rgba(0,0,0,0.08);
-    align-items: start;
-  }
-
-  .sp-work-client {
-    font-size: 15px; font-weight: 400;
-    line-height: 1; color: #000;
-    display: block; margin-bottom: 5px;
-  }
-  .sp-work-sub {
-    font-size: 11px; font-weight: 400;
-    color: rgba(0,0,0,0.35); line-height: 1;
-  }
-  .sp-work-text {
-    font-size: 14px; font-weight: 400;
-    color: rgba(0,0,0,0.5); line-height: 1.45;
-  }
-
-  /* ── TESTIMONIALS — CARDS ── */
-  .sp-testi-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .sp-testi-card {
-    background: #f5f5f5;
-    padding: 40px 36px 36px;
-    display: flex; flex-direction: column;
-    justify-content: space-between;
-    min-height: 240px;
-  }
-  .sp-quote {
-    font-size: clamp(14px, 1.4vw, 18px);
-    font-weight: 400; line-height: 1.5;
-    color: rgba(0,0,0,0.75); flex: 1;
-    margin-bottom: 32px;
-  }
-  .sp-quote-footer {
-    border-top: 1px solid rgba(0,0,0,0.1);
-    padding-top: 16px;
-  }
-  .sp-quote-attr {
-    font-size: 13px; font-weight: 400;
-    color: rgba(0,0,0,0.5); line-height: 1;
-    display: block;
-  }
-  .sp-quote-co {
-    font-size: 11px; font-weight: 400;
-    color: rgba(0,0,0,0.3); display: block;
-    margin-top: 4px;
-  }
-
-  /* ── CONTACT ── */
-  .sp-contact-section {
-    padding: 80px var(--pad-x);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    background: #fff;
-  }
-  .sp-contact-title {
-    font-size: clamp(32px, 4vw, 56px);
-    font-weight: 400; letter-spacing: -0.03em;
-    line-height: 1; color: #000; align-self: start;
-  }
-  .sp-form { display: flex; flex-direction: column; }
-  .sp-field {
-    border-bottom: 1px solid rgba(0,0,0,0.65);
-    padding: 16px 0; transition: border-color .2s;
-  }
-  .sp-field:focus-within { border-bottom-color: #000; }
-  .sp-field input, .sp-field textarea {
-    width: 100%; background: transparent;
-    border: none; outline: none;
-    color: #000; font-family: var(--font);
-    font-size: 15px; font-weight: 400;
-    resize: none; line-height: 1.5;
-  }
-  .sp-field textarea { min-height: 90px; }
-  .sp-field input::placeholder, .sp-field textarea::placeholder { color: rgba(0,0,0,0.3); }
-  .sp-form-footer {
-    margin-top: 24px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .sp-privacy { font-size: 11px; font-weight: 400; color: rgba(0,0,0,0.28); }
-  .sp-btn {
-    font-family: var(--font); font-size: 13px; font-weight: 400;
-    color: #000; background: transparent;
-    border: 1px solid rgba(0,0,0,0.3);
-    padding: 11px 26px; cursor: pointer;
-    transition: background .2s, color .2s;
-  }
-  .sp-btn:hover { background: #000; color: #fff; }
-
-  /* ── FOOTER ── */
+  /* ── Footer stays dark (matches Figma black block) ── */
+  .contact-form-section { background: #fff; }
   .site-footer { background: #000; }
 
-  /* ── MOBILE ── */
-  @media(max-width:720px){
-    .sp-hero { grid-template-columns: 1fr; }
-    .sp-hero-photo { min-height: 55vw; }
-    .sp-hero-left { padding: 40px var(--pad-x) 56px; }
-    .sp-cover { aspect-ratio: 4/3; }
-    .sp-step { grid-template-columns: 44px 1fr; gap: 14px; }
-    .sp-adv-grid { grid-template-columns: 1fr; }
-    .sp-adv-item:nth-child(even) { padding-left: 0; border-left: none; }
-    .sp-work-item { grid-template-columns: 1fr; gap: 6px; }
-    .sp-testi-grid { grid-template-columns: 1fr; gap: 12px; }
-    .sp-contact-section { grid-template-columns: 1fr; gap: 36px; padding: 48px var(--pad-x); }
-    .sp-section { padding: 52px var(--pad-x); }
+  /* ── Responsive ── */
+  @media (max-width: 1200px) {
+    .pd-grid { grid-template-columns: 300px 80px minmax(0,1fr); }
+    .pd-title { font-size: 48px; }
+    .pd-caret { height: 46px; }
   }
-
+  @media (max-width: 900px) {
+    .pd-grid { grid-template-columns: 1fr; padding-top: 40px; row-gap: 20px; }
+    .pd-title-col { position: static; }
+    .pd-title { position: static; top: auto; font-size: 40px; }
+    .pd-caret { height: 38px; }
+    .pd-labels { display: none; }
+    .pd-about { font-size: 24px; }
+    .pd-tile { height: 300px; border-radius: 22px; }
+    .pd-tile-inner { height: 292px; border-radius: 18px; }
+    .pd-cards { left: 16px; bottom: 16px; transform: scale(.8); transform-origin: bottom left; }
+    .pd-service { margin-top: 40px; }
+    .pd-faq { margin-top: 56px; }
+  }
   </style>
 </head>
 <body>
@@ -364,156 +273,119 @@
     </div>
   </div>
 
-  <div class="sp-page">
+  <!-- Fixed fanned cover cards (bottom-left) -->
+  <div class="pd-cards" id="pd-cards" aria-label="Jump to project">
+    <button class="pd-card pd-card--left pd-card--eburet" data-target="proj-eburet" aria-label="Eburet">
+      <span class="pd-card-inner"><img src="/images/product-design/pd-eburet.webp" alt="Eburet"></span>
+    </button>
+    <button class="pd-card pd-card--right" data-target="proj-dashboard" aria-label="Dashboard">
+      <span class="pd-card-inner"><img src="/images/product-design/pd-dashboard.webp" alt="Dashboard"></span>
+    </button>
+    <button class="pd-card pd-card--mid" data-target="proj-rebank" aria-label="ReBank">
+      <span class="pd-card-inner"><img src="/images/product-design/pd-rebank.webp" alt="ReBank"></span>
+    </button>
+  </div>
 
-    <!-- HERO: left text / right photo -->
-    <section class="sp-hero">
-      <div class="sp-hero-left">
-        <span class="sp-tag">Service · Product Design</span>
-        <h1 class="sp-title">Product Design</h1>
-        <p class="sp-desc">We help companies build digital products from concept to launch. Combining strategy, UX, interface design, and close collaboration with engineering, we deliver products that solve real problems and scale with your business.</p>
-      </div>
-      <div class="sp-hero-photo">
-        <img src="/images/re_ds/image%201.png" alt="Product Design — ReBank DS" fetchpriority="high" decoding="async">
-      </div>
-    </section>
+  <div class="pd">
+    <div class="pd-grid">
 
-    <!-- COVER IMAGE (full-width) -->
-    <div class="sp-cover">
-      <img src="/images/eburet/проект-1.png" alt="Eburet product design" loading="lazy" decoding="async">
+      <!-- LEFT: sticky title -->
+      <div class="pd-title-col">
+        <h1 class="pd-title">Product design<span class="pd-caret" aria-hidden="true"></span></h1>
+      </div>
+
+      <!-- MIDDLE: stacking labels -->
+      <div class="pd-labels" id="pd-labels">
+        <button class="pd-label" data-target="sec-about">About</button>
+        <button class="pd-label" data-target="sec-service">Service</button>
+        <button class="pd-label" data-target="sec-projects">Projects</button>
+        <button class="pd-label" data-target="sec-faq">FAQ’s</button>
+      </div>
+
+      <!-- RIGHT: content -->
+      <div class="pd-content">
+
+        <!-- About -->
+        <section id="sec-about">
+          <p class="pd-about">Design web, mobile, and desktop products — from early concept to a system ready to scale. Each project is shaped around the business context, user behavior, and real usage data.</p>
+        </section>
+
+        <!-- Service -->
+        <section id="sec-service" class="pd-service">
+          <div class="pd-tree">
+            <div class="pd-acc is-open">
+              <button class="pd-acc-head" type="button">
+                Audit &amp; Analytics
+                <svg class="pd-arrow" viewBox="0 0 13.7071 13.7071" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.707107 0.707107L12.7071 12.7071M12.7071 0.707107V12.7071C12.7071 12.7071 5.3934 12.7071 0.707107 12.7071" stroke="black" stroke-width="2"/></svg>
+              </button>
+              <div class="pd-acc-body">
+                <p class="pd-answer">UX audit backed by analytics: heatmaps, funnels, session data. I find where users drop off and translate that into specific, prioritized fixes.</p>
+              </div>
+            </div>
+            <div class="pd-acc">
+              <button class="pd-acc-head" type="button">
+                Interface Design
+                <svg class="pd-arrow" viewBox="0 0 13.7071 13.7071" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.707107 0.707107L12.7071 12.7071M12.7071 0.707107V12.7071C12.7071 12.7071 5.3934 12.7071 0.707107 12.7071" stroke="black" stroke-width="2"/></svg>
+              </button>
+              <div class="pd-acc-body">
+                <p class="pd-answer">Interfaces that stay clear at scale — layout, states, and components designed as one consistent system, ready for engineering.</p>
+              </div>
+            </div>
+            <div class="pd-acc">
+              <button class="pd-acc-head" type="button">
+                Design Systems
+                <svg class="pd-arrow" viewBox="0 0 13.7071 13.7071" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.707107 0.707107L12.7071 12.7071M12.7071 0.707107V12.7071C12.7071 12.7071 5.3934 12.7071 0.707107 12.7071" stroke="black" stroke-width="2"/></svg>
+              </button>
+              <div class="pd-acc-body">
+                <p class="pd-answer">Tokens, components, and documentation that keep product teams fast and consistent across every screen and release.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="sec-projects" class="pd-projects">
+          <a class="pd-tile pd-tile--rebank" id="proj-rebank" href="/rebank">
+            <span class="pd-tile-inner"><img src="/images/product-design/pd-rebank.webp" alt="ReBank" loading="lazy"></span>
+          </a>
+          <a class="pd-tile pd-tile--eburet" id="proj-eburet" href="/eburet">
+            <span class="pd-tile-inner"><img src="/images/product-design/pd-eburet.webp" alt="Eburet" loading="lazy"></span>
+          </a>
+          <a class="pd-tile pd-tile--dashboard" id="proj-dashboard" href="/open-control">
+            <span class="pd-tile-inner"><img src="/images/product-design/pd-dashboard.webp" alt="Dashboard" loading="lazy"></span>
+          </a>
+        </section>
+
+        <!-- FAQ -->
+        <section id="sec-faq" class="pd-faq">
+          <div class="pd-tree">
+            <div class="pd-acc is-open">
+              <button class="pd-acc-head" type="button">
+                Question 1
+                <svg class="pd-arrow" viewBox="0 0 13.7071 13.7071" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.707107 0.707107L12.7071 12.7071M12.7071 0.707107V12.7071C12.7071 12.7071 5.3934 12.7071 0.707107 12.7071" stroke="black" stroke-width="2"/></svg>
+              </button>
+              <div class="pd-acc-body"><p class="pd-answer">Answer</p></div>
+            </div>
+            <div class="pd-acc">
+              <button class="pd-acc-head" type="button">
+                Question 2
+                <svg class="pd-arrow" viewBox="0 0 13.7071 13.7071" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.707107 0.707107L12.7071 12.7071M12.7071 0.707107V12.7071C12.7071 12.7071 5.3934 12.7071 0.707107 12.7071" stroke="black" stroke-width="2"/></svg>
+              </button>
+              <div class="pd-acc-body"><p class="pd-answer">Answer</p></div>
+            </div>
+            <div class="pd-acc">
+              <button class="pd-acc-head" type="button">
+                Question 3
+                <svg class="pd-arrow" viewBox="0 0 13.7071 13.7071" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.707107 0.707107L12.7071 12.7071M12.7071 0.707107V12.7071C12.7071 12.7071 5.3934 12.7071 0.707107 12.7071" stroke="black" stroke-width="2"/></svg>
+              </button>
+              <div class="pd-acc-body"><p class="pd-answer">Answer</p></div>
+            </div>
+          </div>
+        </section>
+
+      </div>
     </div>
 
-    <!-- PROCESS -->
-    <section class="sp-section">
-      <span class="sp-label">Our Process</span>
-      <p class="sp-intro">A transparent and structured workflow, built for seamless collaboration with your team.</p>
-          <div class="sp-step">
-            <span class="sp-step-num">01</span>
-            <div>
-              <h3 class="sp-step-title">Product Discovery</h3>
-              <p class="sp-step-text">We work with stakeholders to define the problem space, target users, and success criteria. This phase includes competitor mapping, Jobs-to-Be-Done analysis, and prioritization workshops. The output is a validated product brief and a roadmap for design execution.</p>
-            </div>
-          </div>
-          <div class="sp-step">
-            <span class="sp-step-num">02</span>
-            <div>
-              <h3 class="sp-step-title">Concept &amp; Validation</h3>
-              <p class="sp-step-text">We generate solution concepts, build low-fidelity prototypes, and test them with real users. The goal is to validate the core value proposition before committing resources to high-fidelity design or development.</p>
-            </div>
-          </div>
-          <div class="sp-step">
-            <span class="sp-step-num">03</span>
-            <div>
-              <h3 class="sp-step-title">Design &amp; Engineering Collaboration</h3>
-              <p class="sp-step-text">We design production-ready interfaces in close sync with your engineering team. Shared component libraries, regular syncs, and developer-friendly specs keep the process tight. No design-to-dev gaps.</p>
-            </div>
-          </div>
-          <div class="sp-step">
-            <span class="sp-step-num">04</span>
-            <div>
-              <h3 class="sp-step-title">Testing &amp; Iteration</h3>
-              <p class="sp-step-text">We run usability tests, analyze behavioral data, and iterate in focused sprints. Each cycle improves clarity, reduces friction, and moves key metrics.</p>
-            </div>
-          </div>
-          <div class="sp-step">
-            <span class="sp-step-num">05</span>
-            <div>
-              <h3 class="sp-step-title">Launch &amp; Growth Support</h3>
-              <p class="sp-step-text">Post-launch, we support your team with design reviews, feature design for new releases, and strategic input on product direction. We can operate as an embedded design partner or on a retainer basis.</p>
-            </div>
-          </div>
-    </section>
-
-    <!-- WHY US -->
-    <section class="sp-section">
-      <span class="sp-label">Why Us</span>
-      <div class="sp-adv-grid">
-          <div class="sp-adv-item">
-            <h3 class="sp-adv-title">Product Thinking, Not Just Pixels</h3>
-            <p class="sp-adv-text">We start with the problem, not the interface. Every design decision ties back to user needs and business goals. This keeps the product focused and the roadmap honest.</p>
-          </div>
-          <div class="sp-adv-item">
-            <h3 class="sp-adv-title">Embedded Collaboration</h3>
-            <p class="sp-adv-text">We integrate directly with your product and engineering teams. Daily standups, shared tools, aligned sprints. The result is faster shipping with fewer misalignments.</p>
-          </div>
-          <div class="sp-adv-item">
-            <h3 class="sp-adv-title">Full-Stack Design</h3>
-            <p class="sp-adv-text">Strategy, research, UX, UI, motion, design systems. One team covers the full spectrum, so nothing falls between the cracks.</p>
-          </div>
-          <div class="sp-adv-item">
-            <h3 class="sp-adv-title">Outcome-Oriented</h3>
-            <p class="sp-adv-text">We define success metrics upfront and track them through launch and beyond. Design is measured by impact, not deliverables.</p>
-          </div>
-      </div>
-    </section>
-
-    <!-- SELECTED WORK -->
-    <section class="sp-section">
-      <span class="sp-label">Selected Work</span>
-      <div class="sp-work-list">
-          <div class="sp-work-item">
-            <div>
-              <span class="sp-work-client">Helio</span>
-              <span class="sp-work-sub">0-to-1 product design for a project management tool</span>
-            </div>
-            <p class="sp-work-text">Took the product from concept through beta launch in 14 weeks. Designed the full interface, built a design system, and ran three rounds of usability testing. The product onboarded 2,000 beta users in the first month with a 62% retention rate.</p>
-          </div>
-          <div class="sp-work-item">
-            <div>
-              <span class="sp-work-client">ArcPay</span>
-              <span class="sp-work-sub">Payment infrastructure dashboard</span>
-            </div>
-            <p class="sp-work-text">Designed a multi-tenant admin platform handling transaction monitoring, risk alerts, and merchant onboarding. Reduced average task completion time for operations teams by 35%.</p>
-          </div>
-          <div class="sp-work-item">
-            <div>
-              <span class="sp-work-client">Movewell</span>
-              <span class="sp-work-sub">Health and fitness app</span>
-            </div>
-            <p class="sp-work-text">Led product design from discovery through App Store launch. Integrated wearable device data, built personalized coaching flows, and designed the subscription model UX. Achieved a 4.7 app store rating at launch.</p>
-          </div>
-      </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section class="sp-section">
-      <span class="sp-label">What Clients Say</span>
-      <div class="sp-testi-grid">
-          <div class="sp-testi-card">
-            <p class="sp-quote">"They helped us figure out what to build, not just how it should look. That saved us months of development time and kept us focused on what actually mattered to users."</p>
-            <div class="sp-quote-footer">
-              <span class="sp-quote-attr">James Ortega</span>
-              <span class="sp-quote-co">CEO, Helio</span>
-            </div>
-          </div>
-          <div class="sp-testi-card">
-            <p class="sp-quote">"Exceptional product thinking. They challenged our assumptions constructively and delivered a product our operations team adopted immediately, no training needed."</p>
-            <div class="sp-quote-footer">
-              <span class="sp-quote-attr">Nina Cheng</span>
-              <span class="sp-quote-co">Head of Product, ArcPay</span>
-            </div>
-          </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="sp-contact-section">
-      <h2 class="sp-contact-title">Let's Build Your Product</h2>
-      <form class="sp-form" novalidate>
-        <div class="sp-field"><input type="text" placeholder="Name" required></div>
-        <div class="sp-field"><input type="text" placeholder="Company" required></div>
-        <div class="sp-field"><input type="email" placeholder="Email" required></div>
-        <div class="sp-field"><input type="tel" placeholder="Phone"></div>
-        <div class="sp-field"><textarea placeholder="Describe your project..." rows="4" required></textarea></div>
-        <div class="sp-form-footer">
-          <span class="sp-privacy">By submitting you agree to our Privacy Policy.</span>
-          <button type="submit" class="sp-btn">Submit →</button>
-        </div>
-      </form>
-    </section>
-
-
-  
     <!-- Contact -->
     <section class="contact-form-section" id="contact">
       <div>
@@ -562,7 +434,7 @@
       </div>
       <div>        <div class="footer-col-links">
           <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          <a href="https://behance.net/ripsime" target="_blank" rel="noopener">Behance</a>
           <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
         </div>
       </div>
@@ -575,6 +447,77 @@
 
   </div>
 
+  <script>
+  (function () {
+    // ---- Accordions (Service + FAQ): single-open per group ----
+    document.querySelectorAll('.pd-acc-head').forEach(function (h) {
+      h.addEventListener('click', function () {
+        var acc = h.parentNode;
+        var tree = acc.closest('.pd-tree');
+        var wasOpen = acc.classList.contains('is-open');
+        tree.querySelectorAll('.pd-acc.is-open').forEach(function (o) { o.classList.remove('is-open'); });
+        if (!wasOpen) acc.classList.add('is-open');
+        setTimeout(layoutLabels, 360);
+      });
+    });
+
+    // ---- Smooth scroll helper (accounts for fixed nav) ----
+    function scrollToEl(el) {
+      if (!el) return;
+      var navH = 62;
+      var y = el.getBoundingClientRect().top + window.pageYOffset - navH - 24;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+
+    // ---- Cover cards → rise to front + scroll to matching project tile ----
+    var cards = document.querySelectorAll('#pd-cards .pd-card');
+    cards.forEach(function (c) {
+      c.addEventListener('click', function () {
+        cards.forEach(function (o) { o.classList.remove('is-front'); });
+        c.classList.add('is-front');
+        scrollToEl(document.getElementById(c.dataset.target));
+      });
+    });
+
+    // ---- Stacking labels: align to sections, stick & stack, click to scroll ----
+    var labels = Array.prototype.slice.call(document.querySelectorAll('#pd-labels .pd-label'));
+    var TOP0 = 96, STEP = 30; // stacked positions at top-left
+    function layoutLabels() {
+      if (window.innerWidth <= 900) return;
+      var labelCol = document.getElementById('pd-labels');
+      var base = labelCol.getBoundingClientRect().top + window.pageYOffset;
+      var prevBottom = 0;
+      labels.forEach(function (lab, i) {
+        lab.style.top = (TOP0 + i * STEP) + 'px';
+        var sec = document.getElementById(lab.dataset.target);
+        var target = sec ? (sec.getBoundingClientRect().top + window.pageYOffset - base) : prevBottom;
+        var margin = Math.max(0, target - prevBottom);
+        lab.style.marginTop = margin + 'px';
+        prevBottom = target + lab.offsetHeight;
+      });
+    }
+    labels.forEach(function (lab) {
+      lab.addEventListener('click', function () {
+        scrollToEl(document.getElementById(lab.dataset.target));
+      });
+    });
+
+    // ---- Active section highlight ----
+    var sections = labels.map(function (l) { return document.getElementById(l.dataset.target); });
+    function onScroll() {
+      var mid = window.pageYOffset + window.innerHeight * 0.35;
+      var idx = 0;
+      sections.forEach(function (s, i) { if (s && s.offsetTop <= mid) idx = i; });
+      labels.forEach(function (l, i) { l.classList.toggle('is-active', i === idx); });
+    }
+
+    window.addEventListener('load', layoutLabels);
+    window.addEventListener('resize', function () { layoutLabels(); onScroll(); });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    layoutLabels(); onScroll();
+    window.addEventListener('load', function () { setTimeout(layoutLabels, 200); });
+  })();
+  </script>
   <script src="/js/main.js"></script>
 </body>
 </html>
