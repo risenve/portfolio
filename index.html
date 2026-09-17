@@ -25,7 +25,7 @@
     .site-side-label { display: none; } /* hide global side labels on home */
 
     .cov {
-      --cov-x: clamp(18px, 2.57vw, 40px);
+      --cov-x: var(--pad-x);          /* align logo / Currently / name on one line */
       position: relative;
       box-sizing: border-box;
       min-height: 100vh;
@@ -87,11 +87,12 @@
     /* Lower group: name + columns fall to the bottom together */
     .cov-lower { display: flex; flex-direction: column; gap: 10px; }
 
-    /* Big name — spans full width and blends over the photo */
+    /* Big name — fills the line from the logo edge to the burger edge */
     .cov-name-wrap { position: relative; z-index: 1; }
     .cov-name {
+      display: inline-block;          /* shrink-wrap so JS can fit it to the line */
       margin: 0;
-      font-size: clamp(40px, 12.5vw, 200px);
+      font-size: clamp(40px, 12.5vw, 200px);   /* fallback; JS sets exact size */
       font-weight: 400;
       line-height: 1;
       letter-spacing: -0.02em;
@@ -104,6 +105,35 @@
       position: relative; z-index: 1;
       display: flex;
       gap: clamp(40px, 6vw, 88px);
+    }
+
+    /* ── Intro animation: photo → name → texts ── */
+    .cov-anim .cov-photo { opacity: 0; transition: opacity 0.9s ease; }
+    .cov-anim .cov-name  {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease 0.75s,
+                  transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.75s;
+    }
+    .cov-anim .cov-top,
+    .cov-anim .cov-bottom,
+    .cov-anim .cov-role {
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.6s ease 1.35s, transform 0.6s ease 1.35s;
+    }
+    .cov-anim.is-in .cov-photo,
+    .cov-anim.is-in .cov-name,
+    .cov-anim.is-in .cov-top,
+    .cov-anim.is-in .cov-bottom,
+    .cov-anim.is-in .cov-role { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cov-anim .cov-photo,
+      .cov-anim .cov-name,
+      .cov-anim .cov-top,
+      .cov-anim .cov-bottom,
+      .cov-anim .cov-role {
+        opacity: 1 !important; transform: none !important; transition: none !important;
+      }
     }
 
     @media (max-width: 720px) {
@@ -124,6 +154,7 @@
       .cov-top { order: 1; }
       .cov-name-wrap { order: 2; }
       .cov-name {
+        display: block;
         font-size: clamp(40px, 13.5vw, 96px);
         white-space: normal; line-height: 0.98;
       }
@@ -577,8 +608,8 @@
     </div>
   </div>
 
-  <!-- ── COVER (static, from Figma) ── -->
-  <section class="cov">
+  <!-- ── COVER (from Figma) ── -->
+  <section class="cov cov-anim">
 
     <!-- Photo: right side, inset -->
     <div class="cov-photo">
@@ -938,6 +969,42 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="/js/main.js"></script>
   <script>
+  // ── COVER: fit the name to the line + intro animation ──
+  (function () {
+    var cov  = document.querySelector('.cov');
+    var wrap = document.querySelector('.cov-name-wrap');
+    var name = document.querySelector('.cov-name');
+    if (!cov) return;
+
+    // Size the name so it runs from the logo edge to the burger edge.
+    function fitName() {
+      if (!wrap || !name) return;
+      if (window.innerWidth <= 720) { name.style.fontSize = ''; return; }
+      var target = wrap.clientWidth;
+      if (!target) return;
+      // two ratio passes — text width scales ~linearly with font-size
+      for (var i = 0; i < 2; i++) {
+        var cur = parseFloat(getComputedStyle(name).fontSize) || 120;
+        var r = document.createRange();
+        r.selectNodeContents(name);
+        var w = r.getBoundingClientRect().width;
+        if (!w) return;
+        name.style.fontSize = (cur * target / w).toFixed(2) + 'px';
+      }
+    }
+
+    fitName();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fitName);
+    }
+    window.addEventListener('resize', fitName, { passive: true });
+
+    // Reveal in sequence: photo → name → texts (CSS handles the timing).
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { cov.classList.add('is-in'); });
+    });
+  })();
+
   (function () {
     var words      = document.querySelectorAll('.aw');
     var statNums   = document.querySelectorAll('.ah-stat-num[data-target]');
