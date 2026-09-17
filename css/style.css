@@ -2171,6 +2171,11 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .skp-m2 .skp-info-headline{grid-column:1;grid-row:1 / span 2}
   .skp-m2 .skp-project-services{grid-column:2;grid-row:1;margin-bottom:0}
   .skp-m2 .skp-project-link{grid-column:2;grid-row:2;align-self:start}
+
+  /* "See also": full-width cards (drop the 90px side padding, one column) */
+  .skp-m2 .ebr-see-also{padding:48px 20px}
+  .skp-m2 .ebr-see-also-grid{grid-template-columns:1fr;gap:28px}
+  .skp-m2 .ebr-see-also-thumb{height:auto;aspect-ratio:4/3}
 }
 
 /* ── MOBILE OVERRIDES (must come last to win cascade) ── */
