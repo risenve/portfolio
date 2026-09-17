@@ -2141,6 +2141,42 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .skp-project-link{font-size:16px}
 }
 
+/* ── Case-study mobile v2 (opt-in via .skp-m2 on <main>) ────────────────
+   1+3) photos fill width at natural height (no forced crop/stretch),
+   2)   tighter credit rows, 4) info = description | services+link. ── */
+@media(max-width:900px){
+  /* Photos: flow at natural aspect, full width, uncropped */
+  .skp-m2 .skp-pair{gap:12px}
+  .skp-m2 .skp-pcol:not(.skp-red):not(:has(video)){height:auto}
+  .skp-m2 .skp-cover,
+  .skp-m2 .skp-gray-img{position:static;width:100%;height:auto;object-fit:cover;object-position:center}
+  .skp-m2 .skp-tall-inner{position:static;height:auto}
+  .skp-m2 .skp-tall-inner img{height:auto}
+  /* Videos: also show fully at natural aspect (like the photos) */
+  .skp-m2 .skp-pcol:has(video){height:auto;flex:none}
+  .skp-m2 .skp-pcol video{height:auto!important;width:100%!important;display:block}
+  /* Red logo column keeps a defined box */
+  .skp-m2 .skp-pcol.skp-red{height:92vw}
+
+  /* Credits: reduce the big gaps between name/role lines */
+  .skp-m2 .skp-cred-roles,
+  .skp-m2 .skp-cred-names{gap:8px}
+  .skp-m2 .skp-credits-wrap{gap:14px}
+  .skp-m2 .skp-credits p{line-height:1.2}
+
+  /* Project info: description (left) + services & site link (right) */
+  .skp-m2 .skp-project-info-left{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:20px;
+    row-gap:14px;
+    align-items:start;
+  }
+  .skp-m2 .skp-info-headline{grid-column:1;grid-row:1 / span 2}
+  .skp-m2 .skp-project-services{grid-column:2;grid-row:1;margin-bottom:0}
+  .skp-m2 .skp-project-link{grid-column:2;grid-row:2;align-self:start}
+}
+
 /* ── MOBILE OVERRIDES (must come last to win cascade) ── */
 @media(max-width:900px){
   .nav-links{gap:20px}
