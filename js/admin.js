@@ -169,6 +169,7 @@
       gate.style.display = 'none';
       app.classList.remove('hidden');
       $('a-pass').value = ''; $('a-token').value = '';
+      getAvifEncoder();   // warm the AVIF encoder in the background
       return loadProjects();
     });
   }
@@ -746,8 +747,8 @@
 
     var chain = Promise.resolve();
     bespokeUploads.forEach(function (u, i) {
-      chain = chain.then(function () { log(el, 'Uploading image ' + (i + 1) + '/' + bespokeUploads.length + '…'); return uploadImage(u.file, slug); })
-        .then(function (path) { u.node.setAttribute('src', path); });
+      chain = chain.then(function () { log(el, 'Optimizing + uploading image ' + (i + 1) + '/' + bespokeUploads.length + '…'); return uploadImage(u.file, slug); })
+        .then(function (path) { applyUploadedSrc(u.node, path); });
     });
     chain.then(function () {
       syncMainOrder();
@@ -771,13 +772,67 @@
   $('a-new').addEventListener('click', newCase);
   $('a-cancel').addEventListener('click', function () { editing ? editCase(editing.id) : newCase(); });
 
-  function uploadImage(file, slug) {
-    var path = 'images/' + slug + '/' + safeName(file.name);
-    return fileToBase64(file).then(function (b64) {
-      return getContent(path).then(function (ex) {
-        return putFile(path, b64, 'Upload ' + path + ' via admin', ex && ex.sha);
+  // ---- In-browser image optimisation: AVIF (WASM) + WebP fallback, resized ----
+  var MAX_EDGE = 2560;
+  function avifOf(p) { return p.replace(/\.(webp|png|jpe?g)$/i, '.avif').replace(/ /g, '%20'); }
+  var _avifEnc = null;
+  function getAvifEncoder() {
+    if (_avifEnc) return _avifEnc;
+    _avifEnc = import('https://cdn.jsdelivr.net/npm/@jsquash/avif@1.3.0/+esm')
+      .then(function (m) { return m.encode || (m.default && m.default.encode) || m.default; })
+      .catch(function () { return null; });
+    return _avifEnc;
+  }
+  function drawScaled(bitmap) {
+    var w = bitmap.width, h = bitmap.height, s = Math.min(1, MAX_EDGE / Math.max(w, h));
+    var cw = Math.max(1, Math.round(w * s)), ch = Math.max(1, Math.round(h * s));
+    var c = document.createElement('canvas'); c.width = cw; c.height = ch;
+    var ctx = c.getContext('2d'); ctx.drawImage(bitmap, 0, 0, cw, ch);
+    return { ctx: ctx, canvas: c, w: cw, h: ch };
+  }
+  function encodeUploads(file) {
+    return createImageBitmap(file).then(function (bm) {
+      var d = drawScaled(bm);
+      var webpP = new Promise(function (res) { d.canvas.toBlob(res, 'image/webp', 0.82); });
+      var avifP = getAvifEncoder().then(function (enc) {
+        if (!enc) return null;
+        var data = d.ctx.getImageData(0, 0, d.w, d.h);
+        return Promise.resolve(enc(data, { quality: 55, speed: 8 }))
+          .then(function (buf) { return new Blob([buf], { type: 'image/avif' }); })
+          .catch(function () { return null; });
       });
-    }).then(function () { return '/' + path; });
+      return Promise.all([webpP, avifP]).then(function (r) { return { webpBlob: r[0], avifBlob: r[1] }; });
+    });
+  }
+  function putBlob(path, blob, msg) {
+    return fileToBase64(blob).then(function (b64) {
+      return getContent(path).then(function (ex) { return putFile(path, b64, msg, ex && ex.sha); });
+    });
+  }
+  // Upload an image as AVIF (+ WebP fallback) at a shared base path; returns the .webp path.
+  function uploadImage(file, slug) {
+    var base = 'images/' + slug + '/' + safeName(file.name).replace(/\.(png|jpe?g|webp|gif|avif)$/i, '');
+    return encodeUploads(file).then(function (out) {
+      if (!out.avifBlob) throw new Error('AVIF encoder failed to load (network?). Reconnect and retry.');
+      var webpPath = base + '.webp', avifPath = base + '.avif';
+      return putBlob(webpPath, out.webpBlob, 'Upload ' + webpPath + ' via admin')
+        .then(function () { return putBlob(avifPath, out.avifBlob, 'Upload ' + avifPath + ' via admin'); })
+        .then(function () { return '/' + webpPath; });
+    });
+  }
+  // Bespoke editor: point an <img> at the uploaded webp and keep/add its AVIF <source>.
+  function applyUploadedSrc(node, webpPath) {
+    node.setAttribute('src', webpPath);
+    var pic = node.parentNode;
+    if (pic && pic.tagName === 'PICTURE') {
+      var s = pic.querySelector('source[type="image/avif"]');
+      if (!s) { s = bespokeDoc.createElement('source'); s.setAttribute('type', 'image/avif'); pic.insertBefore(s, node); }
+      s.setAttribute('srcset', avifOf(webpPath));
+    } else if (node.parentNode) {
+      var p = bespokeDoc.createElement('picture');
+      var so = bespokeDoc.createElement('source'); so.setAttribute('type', 'image/avif'); so.setAttribute('srcset', avifOf(webpPath));
+      node.parentNode.insertBefore(p, node); p.appendChild(so); p.appendChild(node);
+    }
   }
 
   $('a-publish').addEventListener('click', function () {

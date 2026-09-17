@@ -13,6 +13,17 @@
       .replace(/"/g, '&quot;');
   }
 
+  // AVIF <picture> wrapping. Admin uploads an .avif twin next to each raster
+  // image, so published pages serve AVIF with the original as fallback.
+  // blob:/data:/http srcs (live preview) fall through to a plain <img>.
+  function isRasterSrc(s) { return /\.(webp|png|jpe?g)$/i.test(s || '') && !/^(blob:|data:|https?:)/i.test(s); }
+  function avifOf(s) { return s.replace(/\.(webp|png|jpe?g)$/i, '.avif').replace(/ /g, '%20'); }
+  function imgTag(src, attrs) {
+    var tag = '<img src="' + esc(src) + '"' + (attrs ? ' ' + attrs : '') + '>';
+    if (!isRasterSrc(src)) return tag;
+    return '<picture><source type="image/avif" srcset="' + esc(avifOf(src)) + '">' + tag + '</picture>';
+  }
+
   // Turn plain text with blank lines into <p> paragraphs
   function paras(text) {
     return String(text == null ? '' : text)
@@ -142,10 +153,10 @@
     switch (b.type) {
       case 'full':
         if (!b.img) return preview ? '    <section class="prm-full">\n      ' + ph('Full image') + '\n    </section>' : '';
-        return '    <section class="prm-full">\n      <img src="' + esc(b.img) + '" alt="" loading="lazy">\n    </section>';
+        return '    <section class="prm-full">\n      ' + imgTag(b.img, 'alt="" loading="lazy"') + '\n    </section>';
       case 'full-vh':
         if (!b.img) return preview ? '    <section class="prm-full prm-full--vh">\n      ' + ph('Full image (tall)', 'prm-ph--vh') + '\n    </section>' : '';
-        return '    <section class="prm-full prm-full--vh">\n      <img src="' + esc(b.img) + '" alt="">\n    </section>';
+        return '    <section class="prm-full prm-full--vh">\n      ' + imgTag(b.img, 'alt=""') + '\n    </section>';
       case 'split':
         var imgs = (b.imgs || []);
         if (!imgs.filter(Boolean).length && !preview) return '';
@@ -153,7 +164,7 @@
         return '    <section class="prm-split">\n' +
           cols.map(function (i) {
             var src = imgs[i];
-            return '      <div class="prm-split-col">' + (src ? '<img src="' + esc(src) + '" alt="" loading="lazy">' : ph('Image')) + '</div>';
+            return '      <div class="prm-split-col">' + (src ? imgTag(src, 'alt="" loading="lazy"') : ph('Image')) + '</div>';
           }).join('\n') + '\n    </section>';
       case 'text':
         var txt = lang === 'ru' ? (b.ru || b.en) : (b.en || b.ru);
@@ -208,7 +219,7 @@
 
     // Hero
     var hero = '    <section class="prm-hero">\n' +
-      (p.cover ? '      <img src="' + esc(p.cover) + '" alt="' + esc(title) + '">\n'
+      (p.cover ? '      ' + imgTag(p.cover, 'alt="' + esc(title) + '"') + '\n'
                : (preview ? '      <div class="prm-hero-ph">Cover image</div>\n' : '')) +
       '      <div class="prm-hero-inner">\n' +
       '        <h1 class="prm-hero-title">' + esc(title) + '</h1>\n' +
