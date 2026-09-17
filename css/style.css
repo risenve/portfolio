@@ -45,6 +45,9 @@ body{
 }
 
 /* ── FLAT NAV ── */
+/* <picture> is layout-transparent so AVIF+fallback wrapping never changes layout */
+picture{display:contents}
+
 .site-nav{
   position:fixed;
   top:0;left:0;right:0;

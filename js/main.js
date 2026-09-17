@@ -9,6 +9,20 @@ function loadProjects() {
     .catch(function () { PROJECTS = []; return PROJECTS; });
 }
 
+// ── AVIF helpers (serve AVIF, fall back to the original on old browsers) ──
+function isRaster(p) { return /\.(webp|png|jpe?g)$/i.test(p || '') && !/^https?:|^data:/i.test(p); }
+function avifOf(p) { return p.replace(/\.(webp|png|jpe?g)$/i, '.avif').replace(/ /g, '%20'); }
+// For images whose src is set from JS: try AVIF, fall back to original once.
+function setSmartSrc(el, path) {
+  if (!path) return;
+  if (isRaster(path)) {
+    el.onerror = function () { el.onerror = null; el.src = path; };
+    el.src = avifOf(path);
+  } else {
+    el.onerror = null; el.src = path;
+  }
+}
+
 // ── CUSTOM CURSOR ──
 (function () {
   var el = document.createElement('div');
@@ -71,10 +85,10 @@ function initShowreel() {
     currentImgs = imgs;
     cycleIdx = 0;
     if (!currentImgs.length) return;
-    ghostImg.src = currentImgs[0];
+    setSmartSrc(ghostImg, currentImgs[0]);
     cycleTimer = setInterval(function () {
       cycleIdx = (cycleIdx + 1) % currentImgs.length;
-      ghostImg.src = currentImgs[cycleIdx];
+      setSmartSrc(ghostImg, currentImgs[cycleIdx]);
     }, 220);
   }
 
@@ -126,7 +140,9 @@ function renderProjects(filter) {
       var inner = p.video
         ? '<video autoplay loop muted playsinline><source src="' + p.video + '" type="video/mp4"></video>'
         : p.cover
-        ? '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">'
+        ? (isRaster(p.cover)
+            ? '<picture><source type="image/avif" srcset="' + avifOf(p.cover) + '"><img src="' + p.cover + '" alt="' + p.title + '" loading="lazy"></picture>'
+            : '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">')
         : '<div class="card-placeholder"><span class="ph-num">' + p.id + '</span><span class="ph-title">' + p.title + '</span></div>';
       return '<' + tag + href + targetAttr + ' class="project-card"><div class="card-img-wrap">' + inner +
         '</div><div class="card-info"><span class="card-title">' + p.title +
@@ -202,12 +218,12 @@ function initFeatHover() {
       idx = 0;
       timer = setInterval(function () {
         idx = (idx + 1) % imgs.length;
-        imgEl.src = imgs[idx];
+        setSmartSrc(imgEl, imgs[idx]);
       }, 350);
     });
     card.addEventListener('mouseleave', function () {
       clearInterval(timer);
-      imgEl.src = imgs[0];
+      setSmartSrc(imgEl, imgs[0]);
     });
   });
 }
@@ -444,11 +460,11 @@ function initListHover() {
     clearInterval(cycleTimer);
     if (!imgs.length) return;
     cycleIdx = 0;
-    previewImg.src = imgs[0];
+    setSmartSrc(previewImg, imgs[0]);
     if (imgs.length > 1) {
       cycleTimer = setInterval(function () {
         cycleIdx = (cycleIdx + 1) % imgs.length;
-        previewImg.src = imgs[cycleIdx];
+        setSmartSrc(previewImg, imgs[cycleIdx]);
       }, 220);
     }
   }
@@ -490,7 +506,7 @@ function initServiceCards() {
   // Preload hover images so the first mouseenter shows instantly
   cards.forEach(function(c) {
     var src = c.getAttribute('data-img');
-    if (src) { var im = new Image(); im.src = src; }
+    if (src) { var im = new Image(); im.src = isRaster(src) ? avifOf(src) : src; }
   });
 
   // Default gradient (used when card has no custom gradient)
@@ -505,7 +521,7 @@ function initServiceCards() {
 
     // Photo
     if (src) {
-      procImg.src              = src;
+      setSmartSrc(procImg, src);
       procImg.style.display    = '';
       procImg.style.objectFit      = fit;
       procImg.style.objectPosition = pos;
