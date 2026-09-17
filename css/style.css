@@ -2145,37 +2145,33 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
    1+3) photos fill width at natural height (no forced crop/stretch),
    2)   tighter credit rows, 4) info = description | services+link. ── */
 @media(max-width:900px){
-  /* Every media column = one uniform, tall 3:4 box, image filled (cover).
-     Skaz's interior photos are 3:4, so they fill it with no crop; all
-     columns match height (no more uneven pairs). */
+  /* Skaz-only (.skp-m2): its interior photos are 3:4, so every media column
+     becomes one uniform 3:4 box, image filled (cover) — no crop, equal
+     heights, one per row. (Other cases' pairs are 16:9 and already fit the
+     default box, so they must NOT get this.) */
   .skp-m2 .skp-pair{gap:12px}
   .skp-m2 .skp-pcol{flex:none;height:auto;aspect-ratio:3/4}
   .skp-m2 .skp-pcol video{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;display:block}
-  /* Red logo plate: same box, but a prominent mark (not lost in the fill) */
   .skp-m2 .skp-red .skp-mark{width:36%;height:auto}
 
-  /* Credits: reduce the big gaps between name/role lines */
-  .skp-m2 .skp-cred-roles,
-  .skp-m2 .skp-cred-names{gap:8px}
-  .skp-m2 .skp-credits-wrap{gap:14px}
-  .skp-m2 .skp-credits p{line-height:1.2}
+  /* Shared across every case page: tighter credit rows.
+     (Full-width "See also" lives in the ebr @media block below so it wins
+     over the base .ebr-see-also padding, which is defined later in source.) */
+  .skp-cred-roles,.skp-cred-names{gap:8px}
+  .skp-credits-wrap{gap:14px}
 
-  /* Project info: description (left) + services & site link (right) */
-  .skp-m2 .skp-project-info-left{
+  /* Opt-in (.skp-m2-info): project info = description left, services+link
+     right. Only for pages whose left column is headline+services[+link]. */
+  .skp-m2-info .skp-project-info-left{
     display:grid;
     grid-template-columns:1fr 1fr;
     column-gap:20px;
     row-gap:14px;
     align-items:start;
   }
-  .skp-m2 .skp-info-headline{grid-column:1;grid-row:1 / span 2}
-  .skp-m2 .skp-project-services{grid-column:2;grid-row:1;margin-bottom:0}
-  .skp-m2 .skp-project-link{grid-column:2;grid-row:2;align-self:start}
-
-  /* "See also": full-width cards (drop the 90px side padding, one column) */
-  .skp-m2 .ebr-see-also{padding:48px 20px}
-  .skp-m2 .ebr-see-also-grid{grid-template-columns:1fr;gap:28px}
-  .skp-m2 .ebr-see-also-thumb{height:auto;aspect-ratio:4/3}
+  .skp-m2-info .skp-info-headline{grid-column:1;grid-row:1 / span 2}
+  .skp-m2-info .skp-project-services{grid-column:2;grid-row:1;margin-bottom:0}
+  .skp-m2-info .skp-project-link{grid-column:2;grid-row:2;align-self:start}
 }
 
 /* ── MOBILE OVERRIDES (must come last to win cascade) ── */
@@ -2364,8 +2360,11 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .ebr-gray-full{height:60vw!important}
   .ebr-colors{height:auto;flex-wrap:wrap}
   .ebr-swatch{flex:0 0 33.333%;min-height:120px}
-  .ebr-see-also-thumb{height:56vw}
   .ebr-see-also-label{font-size:28px}
+  /* Full-width "See also" cards on mobile (drop the 90px side padding) */
+  .ebr-see-also{padding:48px 20px}
+  .ebr-see-also-grid{grid-template-columns:1fr;gap:28px}
+  .ebr-see-also-thumb{height:auto;aspect-ratio:4/3}
 }
 @media(max-width:720px){
   .ebr-hero-frame{width:95%;border-radius:20px}
