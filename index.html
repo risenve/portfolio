@@ -21,134 +21,117 @@
   <link rel="stylesheet" href="/css/style.css">
   <style>
 
-    /* ── HERO: stays fixed, everything scrolls over it ── */
-    .ah-fixed {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 0;
-      background: #000;
-    }
+    /* ══ COVER (static, from Figma node 203:7277) ══ */
+    .site-side-label { display: none; } /* hide global side labels on home */
 
-    /* Photo: right 55%, full height */
-    .ah-photo-side {
-      position: absolute;
-      top: 0; right: 0;
-      width: 55%; height: 100%;
-      overflow: hidden;
-    }
-    .ah-photo-side img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center top;
-      filter: grayscale(100%) contrast(1.06);
-      display: block;
-    }
-    /* Black mask slides DOWN to reveal photo */
-    .ah-photo-side::before {
-      content: '';
-      position: absolute; inset: 0;
+    .cov {
+      --cov-x: clamp(18px, 2.57vw, 40px);
+      position: relative;
+      box-sizing: border-box;
+      min-height: 100vh;
       background: #000;
-      z-index: 1;
-      transform-origin: top;
-      transform: scaleY(1);
-      transition: transform 1.4s cubic-bezier(0.76,0,0.24,1) 0.1s;
-    }
-    .ah-photo-side.revealed::before { transform: scaleY(0); }
-
-    /* Role + Bio — bottom left of fixed hero */
-    .ah-hero-desc {
-      position: absolute;
-      bottom: 44px; left: var(--pad-x);
-      width: 42%;
-    }
-    .ah-role {
-      font-size: clamp(16px, 1.6vw, 22px);
-      font-weight: 500;
       color: #fff;
-      margin-bottom: 10px;
-    }
-    .ah-bio-text {
-      font-size: 13px;
-      line-height: 1.65;
-      color: rgba(255,255,255,0.45);
-    }
-
-    /* ── CENTERED NAME (absolute inside .ah-fixed, same stacking context as photo) ── */
-    /* Must be position:absolute (NOT fixed) and NO z-index so it doesn't create
-       its own stacking context. That way mix-blend-mode:difference on .ah-name-blend
-       blends with the photo inside .ah-fixed's stacking context — not with empty air. */
-    .ah-name-center {
-      position: absolute;
-      inset: 0;
+      overflow: hidden;
+      isolation: isolate;              /* own stacking context for the name blend */
+      padding: calc(var(--nav-h) + 8px) var(--cov-x) clamp(34px, 6vh, 60px);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      pointer-events: none;
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      justify-content: space-between;
+      gap: 24px;
     }
-    .ah-name-center.hide {
-      opacity: 0;
-      transform: scale(0.95);
+
+    /* Photo — right side, inset with a margin, flush to the bottom */
+    .cov-photo {
+      position: absolute;
+      top: calc(var(--nav-h) + 8px);
+      right: var(--cov-x);
+      bottom: 0;
+      width: 41.3%;
+      z-index: 0;
+      overflow: hidden;
     }
-    /* Blend mode only on the name line, not the role */
-    .ah-name-blend {
-      mix-blend-mode: difference;
-      pointer-events: none;
+    .cov-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 18%;
+      filter: grayscale(100%) contrast(1.04);
     }
-    .ah-role-center {
-      font-size: 42px;
+    /* "Digital designer" — sits on the photo, aligned to its left edge */
+    .cov-role {
+      position: absolute;
+      left: 4px; top: 64%;
+      font-size: clamp(24px, 2.78vw, 40px);
       font-weight: 400;
-      color: #fff;
-      letter-spacing: -0.01em;
-      opacity: 0;
-      transition: opacity 0.8s ease;
-      pointer-events: none;
-    }
-    .ah-role-center.show { opacity: 1; }
-    .ah-name-str {
-      font-size: clamp(48px, 10.5vw, 150px);
-      font-weight: 400;
-      letter-spacing: -0.035em;
       line-height: 1;
-      color: #FF2DC5;
-      display: inline;
-    }
-    /* Typewriter cursor */
-    .ah-cursor {
-      display: inline-block;
-      width: 3px;
-      height: 0.85em;
-      background: #FF2DC5;
-      vertical-align: middle;
-      margin-left: 4px;
-      animation: ahblink 0.7s step-end infinite;
-    }
-    @keyframes ahblink { 50% { opacity: 0; } }
-
-    /* ── SPLIT LABELS (fixed, horizontal) ── */
-    .site-side-label { display: none; } /* hide global labels on about — it has its own animation */
-    .ah-label-fixed {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 15px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.02em;
-      pointer-events: none;
+      color: #fff;
+      text-transform: capitalize;
+      letter-spacing: -0.01em;
       z-index: 2;
-      opacity: 0;
-      transition: opacity 0.5s ease 0.25s;
+      pointer-events: none;
     }
-    .ah-label-l { left: var(--pad-x); }
-    .ah-label-r { right: var(--pad-x); }
-    .ah-label-fixed.show { opacity: 1; }
 
-    /* ── SCROLL SPACER ── */
-    .ah-scroll-space { height: 100vh; position: relative; z-index: 1; }
+    /* Info blocks (Currently / Worked With / Worked As) */
+    .cov-info { display: flex; gap: 20px; align-items: flex-start; }
+    .cov-info-label {
+      flex: none; width: 100px;
+      font-size: 14px; line-height: 1.3;
+      text-transform: capitalize; color: #fff;
+    }
+    .cov-info-body {
+      font-size: 14px; line-height: 1.3;
+      text-transform: capitalize; color: #fff;
+    }
+    .cov-dim { color: rgba(255,255,255,0.5); }
 
-    /* ── SCROLLING CONTENT (goes over fixed hero) ── */
+    .cov-top { position: relative; z-index: 1; }
+
+    /* Lower group: name + columns fall to the bottom together */
+    .cov-lower { display: flex; flex-direction: column; gap: 10px; }
+
+    /* Big name — spans full width and blends over the photo */
+    .cov-name-wrap { position: relative; z-index: 1; }
+    .cov-name {
+      margin: 0;
+      font-size: clamp(40px, 12.5vw, 200px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: #ff00d0;
+      white-space: nowrap;
+      mix-blend-mode: difference;
+    }
+
+    .cov-bottom {
+      position: relative; z-index: 1;
+      display: flex;
+      gap: clamp(40px, 6vw, 88px);
+    }
+
+    @media (max-width: 720px) {
+      .cov {
+        justify-content: flex-start;
+        min-height: auto;
+        overflow: visible;
+        padding: calc(var(--nav-h) + 22px) var(--cov-x) 44px;
+        gap: 26px;
+      }
+      .cov-photo {
+        position: relative; order: 3;
+        top: auto; right: auto; bottom: auto;
+        width: 100%; height: clamp(360px, 66vh, 560px);
+      }
+      .cov-role { left: 12px; top: auto; bottom: 18px; }
+      .cov-lower { display: contents; }
+      .cov-top { order: 1; }
+      .cov-name-wrap { order: 2; }
+      .cov-name {
+        font-size: clamp(40px, 13.5vw, 96px);
+        white-space: normal; line-height: 0.98;
+      }
+      .cov-bottom { order: 4; flex-direction: column; gap: 22px; }
+      .cov-info-label { width: 92px; }
+    }
+
+    /* ── SCROLLING CONTENT ── */
     .ah-main {
       position: relative;
       z-index: 5;
@@ -449,13 +432,8 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 720px) {
-      .ah-photo-side { width: 100%; }
-      .ah-hero-desc { right: var(--pad-x); width: auto; }
       .ah-process-grid { grid-template-columns: 1fr; gap: 40px; }
       .site-side-label { display: none; }
-      .ah-label-fixed { font-size: 11px; }
-
-      .ah-role-center { font-size: clamp(20px, 4.5vw, 28px); }
 
       /* Process block: stack vertically */
       .ah-process-sticky {
@@ -599,28 +577,54 @@
     </div>
   </div>
 
-  <!-- ── FIXED HERO (stays behind everything) ── -->
-  <div class="ah-fixed">
-    <div class="ah-photo-side" id="ah-photo-side">
+  <!-- ── COVER (static, from Figma) ── -->
+  <section class="cov">
+
+    <!-- Photo: right side, inset -->
+    <div class="cov-photo">
       <picture><source type="image/avif" srcset="/images/ripsime-photo.avif"><img src="/images/ripsime-photo.webp" alt="Ripsime Sargsyan" fetchpriority="high" decoding="async"></picture>
+      <span class="cov-role">Digital designer</span>
     </div>
-    <!-- Name is INSIDE .ah-fixed so mix-blend-mode:difference blends with the photo -->
-    <div class="ah-name-center" id="ah-name-center">
-      <div class="ah-name-blend">
-        <p><span class="ah-name-str" id="ah-typed"></span><span class="ah-cursor" id="ah-cursor"></span></p>
+
+    <!-- Top-left: Currently -->
+    <div class="cov-top">
+      <div class="cov-info">
+        <span class="cov-info-label">Currently</span>
+        <p class="cov-info-body">
+          Bauns Agency [ <span class="cov-dim">Digital designer</span> ]<br>
+          Skaz po krayu [ <span class="cov-dim">cretive lead</span> ]<br>
+          scholotch [ <span class="cov-dim">lecturer &amp; publisher</span> ]
+        </p>
       </div>
-      <p class="ah-role-center" id="ah-role-center">Digital Designer &amp; Creative lead</p>
     </div>
-  </div>
 
-  <!-- ── SPLIT LABELS (appear after split) ── -->
-  <span class="ah-label-fixed ah-label-l" id="ah-label-l">Ripsime</span>
-  <span class="ah-label-fixed ah-label-r" id="ah-label-r">Sargsyan</span>
+    <!-- Lower block: big name sits just above the columns -->
+    <div class="cov-lower">
+    <!-- big name (blends over the photo) -->
+    <div class="cov-name-wrap">
+      <h1 class="cov-name">Ripsime Sargsyan</h1>
+    </div>
 
-  <!-- ── SCROLL SPACER (gives height for hero to show) ── -->
-  <div class="ah-scroll-space"></div>
+    <!-- Bottom-left: Worked With / Worked As -->
+    <div class="cov-bottom">
+      <div class="cov-info">
+        <span class="cov-info-label">Worked With</span>
+        <p class="cov-info-body">
+          YandexKids (‘26)<br>VK music (‘26)<br>YandexGo (‘26)<br>Pragmatica (‘26)<br>Tefal (‘26)<br>Skaz po krayu (‘25-6)<br>Aliance Altyn (‘26)<br>JetBrains (‘25)<br>Schelotch (‘25-6)<br>Unicorn Embaccy (‘25)<br>Charoit (‘26)<br>ESSE &amp; bOHEM (‘26)<br>Empty Date (‘24-5)<br>Premiumization (‘25)<br>...
+        </p>
+      </div>
+      <div class="cov-info">
+        <span class="cov-info-label">Worked As</span>
+        <p class="cov-info-body">
+          art director<br>creative director<br>UI/UX &amp; Product designer<br>Startegy &amp; consultant Designer<br>Graphic &amp; Brand designer<br>book designer<br>Lecturer<br>game developer<br>frontend developer<br>sales manager &amp; assistant<br>....
+        </p>
+      </div>
+    </div>
+    </div><!-- /.cov-lower -->
 
-  <!-- ── MAIN CONTENT (scrolls over fixed hero) ── -->
+  </section>
+
+  <!-- ── MAIN CONTENT ── -->
   <div class="ah-main">
 
     <!-- Process: scroll-pinned white zone -->
@@ -935,71 +939,15 @@
   <script src="/js/main.js"></script>
   <script>
   (function () {
-    var photoSide  = document.getElementById('ah-photo-side');
-    var nameCenter = document.getElementById('ah-name-center');
-    var typedEl    = document.getElementById('ah-typed');
-    var cursor     = document.getElementById('ah-cursor');
-    var labelL     = document.getElementById('ah-label-l');
-    var labelR     = document.getElementById('ah-label-r');
     var words      = document.querySelectorAll('.aw');
     var statNums   = document.querySelectorAll('.ah-stat-num[data-target]');
     var statsEl    = document.querySelector('.ah-stats');
 
-    var FULL_NAME  = 'Ripsime Sargsyan';
-    var typed      = false;
-    var split      = false;
-
-    // ── 1. PHOTO REVEAL ──
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        if (photoSide) photoSide.classList.add('revealed');
-      });
-    });
-
-    // ── 2. TYPEWRITER ──
-    setTimeout(function () {
-      var i = 0;
-      var speed = 60;
-      function tick() {
-        if (i <= FULL_NAME.length) {
-          typedEl.textContent = FULL_NAME.slice(0, i);
-          i++;
-          setTimeout(tick, speed);
-        } else {
-          // show role under name
-          var roleEl = document.getElementById('ah-role-center');
-          if (roleEl) setTimeout(function () { roleEl.classList.add('show'); }, 200);
-          // hide cursor after 1.5s
-          setTimeout(function () {
-            if (cursor) cursor.style.display = 'none';
-          }, 1500);
-        }
-      }
-      tick();
-    }, 400);
-
-    // ── 3. SCROLL: split name + scroll-pinned word reveal ──
+    // ── SCROLL: scroll-pinned word reveal ──
     var processZone = document.getElementById('ah-process-zone');
 
     function onScroll() {
-      var sy = window.scrollY;
       var vh = window.innerHeight;
-
-      // Split: when white zone enters viewport
-      var splitThreshold = vh * 0.12;
-      if (!split && sy > splitThreshold) {
-        split = true;
-        nameCenter.classList.add('hide');
-        setTimeout(function () {
-          if (labelL) labelL.classList.add('show');
-          if (labelR) labelR.classList.add('show');
-        }, 200);
-      } else if (split && sy <= splitThreshold) {
-        split = false;
-        nameCenter.classList.remove('hide');
-        if (labelL) labelL.classList.remove('show');
-        if (labelR) labelR.classList.remove('show');
-      }
 
       // Word reveal: scroll-linked to position within process zone
       if (processZone) {
@@ -1046,19 +994,11 @@
 
   })();
 
-  // ── STICKY PANEL: pin near viewport bottom so hero peeks above ──
+  // ── STICKY PANEL: pin cleanly to the top ──
   (function () {
     var sticky = document.getElementById('ah-process-sticky');
     if (!sticky) return;
-    function update() {
-      if (window.innerWidth <= 720) return; // mobile uses top:0 via CSS
-      var h = sticky.offsetHeight;
-      var top = Math.max(0, window.innerHeight - h);
-      sticky.style.top = top + 'px';
-    }
-    // Run after fonts/layout settle
-    requestAnimationFrame(function () { requestAnimationFrame(update); });
-    window.addEventListener('resize', update, { passive: true });
+    sticky.style.top = '0px';
   })();
 
   </script>
