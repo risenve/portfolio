@@ -37,16 +37,13 @@ body.museum-body{
    (matches the SVG: white rectangle frame + rounded pill inside)      */
 .mp-frame{
   display:inline-flex;
-  padding:3px;                       /* the thin white frame around the pill */
-  background:#fff;
-  border:none; border-radius:2px;    /* rectangle — near-sharp corners */
-  box-shadow:0 8px 26px rgba(0,0,0,0.10);
+  padding:0; background:none; border:none; border-radius:100px;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
-  transition:transform .18s var(--ease), box-shadow .18s var(--ease);
+  transition:transform .18s var(--ease);
 }
-.mp-frame:hover{ transform:translateY(-1px); box-shadow:0 12px 32px rgba(0,0,0,0.14); }
-.mp-frame:active{ transform:translateY(0); box-shadow:0 8px 26px rgba(0,0,0,0.10); }
+.mp-frame:hover{ transform:translateY(-1px); }
+.mp-frame:active{ transform:translateY(0); }
 .mp-pill{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
   padding:13px 26px; border-radius:100px;   /* full pill (SVG rx = half height) */
@@ -54,9 +51,10 @@ body.museum-body{
   font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size:14px; line-height:1; letter-spacing:.01em;
   white-space:nowrap;
-  transition:background .18s var(--ease);
+  box-shadow:0 8px 26px rgba(0,0,0,0.12);
+  transition:background .18s var(--ease), box-shadow .18s var(--ease);
 }
-.mp-frame:hover .mp-pill{ background:#222; }
+.mp-frame:hover .mp-pill{ background:#222; box-shadow:0 12px 32px rgba(0,0,0,0.16); }
 /* .leave-mark / .filter-btn keep their JS hooks; look comes from .mp-frame + .mp-pill */
 
 .mark-composer{
@@ -187,8 +185,8 @@ body.museum-body{
   position:relative;
 }
 .filter-btn{ padding:0; }   /* styling comes from .mp-frame + .mp-pill */
-.museum-filter.open .filter-btn{ transform:translateY(-1px); box-shadow:0 12px 32px rgba(0,0,0,0.14); }
-.museum-filter.open .filter-btn .mp-pill{ background:#000; }
+.museum-filter.open .filter-btn{ transform:translateY(-1px); }
+.museum-filter.open .filter-btn .mp-pill{ background:#000; box-shadow:0 12px 32px rgba(0,0,0,0.16); }
 
 .filter-menu{
   position:absolute;
@@ -244,7 +242,7 @@ body.museum-body{
 .museum-nav .nav-logo img{
   width:28px; height:28px;      /* circular badge logo, already dark on the light canvas */
 }
-.museum-contact{ margin-left:auto; padding:3px; }   /* frame; push to the right edge */
+.museum-contact{ margin-left:auto; padding:0; }   /* push to the right edge */
 /* pink CTA pill (cta.svg: #FF00D0, rx smaller than the black pills) */
 .mp-frame--cta .mp-pill{ background:#FF00D0; color:#fff; border-radius:18px; }
 .mp-frame--cta:hover .mp-pill{ background:#e800bd; }
