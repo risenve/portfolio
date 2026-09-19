@@ -165,49 +165,54 @@
       }
     }
 
-    /* ── Mobile: photo full-bleed behind, text + buttons stacked over it ── */
+    /* ── Mobile: photo lowered behind the text, buttons as a bottom card ── */
     @media (max-width: 720px) {
       .cov {
         display: flex; flex-direction: column;
         justify-content: flex-start;
-        min-height: 100vh;
+        min-height: 100vh; min-height: 100dvh;
         overflow: hidden;
-        padding: calc(var(--nav-h) + 18px) var(--cov-x) 22px;
-        gap: 18px;
+        padding: calc(var(--nav-h) + 16px) var(--cov-x) 16px;
+        gap: 14px;
       }
       .cov-left, .cov-right { display: contents; }
 
+      /* Photo lowered — anchored to the bottom, top area stays black for the name */
       .cov-photo {
-        position: absolute; inset: 0; order: 0;
-        width: 100%; height: 100%;
+        position: absolute; left: 0; right: 0; bottom: 0; top: auto;
+        order: 0; width: 100%; height: 76%;
         aspect-ratio: auto; align-self: auto;
         z-index: 0;
       }
-      .cov-photo img { object-position: center 8%; }
+      .cov-photo img { object-position: center 12%; }
+      /* Black darkening: strong at the top and bottom, plus the text (left) side */
       .cov-photo-overlay {
         display: block; position: absolute; inset: 0;
-        background: linear-gradient(180deg, #000 0%, rgba(0,0,0,0) 24%,
-                    rgba(0,0,0,0) 58%, rgba(0,0,0,0.35) 100%);
+        background:
+          linear-gradient(180deg, #000 0%, rgba(0,0,0,0) 22%,
+                          rgba(0,0,0,0) 52%, rgba(0,0,0,0.8) 100%),
+          linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.12) 52%,
+                          rgba(0,0,0,0) 100%);
       }
       .cov-clock { display: none; }
 
       .cov-name-wrap { order: 1; position: relative; z-index: 1; }
       .cov-cols      { order: 2; position: relative; z-index: 1;
-                       flex-direction: column; gap: 18px; }
+                       flex-direction: column; gap: 14px; }
       .cov-currently { order: 3; position: relative; z-index: 1; }
-      .cov-actions   { order: 4; position: relative; z-index: 1;
+      .cov-actions   { order: 4; position: relative; z-index: 2;
                        margin-top: auto; flex-direction: column;
                        width: 100%; max-width: none;
                        border-radius: 999px 999px 12px 12px; }
 
       .cov-name {
         display: block; white-space: normal;
-        font-size: clamp(44px, 20vw, 84px); line-height: 0.98;
+        font-size: clamp(42px, 18vw, 76px); line-height: 0.98;
       }
       .cov-info { flex-direction: column; gap: 8px; }
       .cov-info-label { width: auto; }
       .cov-tag { color: #ff00d0; }
-      .cov-btn { padding: 22px 20px; }
+      .cov-btn { padding: 18px 20px; }
 
       .cov-lg-only { display: none; }        /* trim long lists on mobile */
     }
@@ -675,7 +680,7 @@
         </div>
         <div class="cov-info">
           <span class="cov-info-label">Worked As</span>
-          <p class="cov-info-body">art director<br>creative director<br>UI/UX &amp; Product designer<br>Startegy &amp; consultant Designer<br>Graphic &amp; Brand designer<br>book designer<br>Lecturer<span class="cov-lg-only"><br>game developer<br>frontend developer<br>sales manager &amp; assistant</span><br>....</p>
+          <p class="cov-info-body">art director<br>creative director<br>UI/UX &amp; Product designer<br>Startegy &amp; consultant Designer<br>Graphic &amp; Brand designer<br>book designer<span class="cov-lg-only"><br>Lecturer<br>game developer<br>frontend developer<br>sales manager &amp; assistant</span><br>....</p>
         </div>
       </div>
 
