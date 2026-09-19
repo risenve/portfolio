@@ -112,41 +112,40 @@
     }
     .cov-clock span { display: block; }
 
-    /* Works / Connect buttons */
+    /* Works / Connect buttons — Works is a pill, Connect a rounded rectangle */
     .cov-actions {
       display: flex; gap: 4px;
       background: #313131; padding: 4px;
-      border-radius: 999px;
+      border-radius: 999px 12px 12px 999px;   /* hug pill on the left, rect on the right */
       width: 100%; max-width: 673px;
     }
     .cov-btn {
       flex: 1; min-width: 0;
       display: flex; align-items: center; justify-content: center;
       padding: 26px 20px;
-      border-radius: 999px;
       font-size: clamp(20px, 2.2vw, 32px);
       line-height: 1;
       text-transform: capitalize;
       text-decoration: none; white-space: nowrap;
       transition: filter 0.2s ease;
     }
-    .cov-btn-works   { background: #fff;     color: #000; }
-    .cov-btn-connect { background: #ff00d0;  color: #fff; }
+    .cov-btn-works   { background: #fff;     color: #000; border-radius: 999px; }
+    .cov-btn-connect { background: #ff00d0;  color: #fff; border-radius: 10px;  }
     .cov-btn:hover   { filter: brightness(1.06); }
 
-    /* ── Intro animation: photo → name → texts ── */
-    .cov-anim .cov-photo { opacity: 0; transition: opacity 0.9s ease; }
+    /* ── Intro animation: name → photo → texts ── */
     .cov-anim .cov-name  {
       opacity: 0; transform: translateY(24px);
-      transition: opacity 0.7s ease 0.6s,
-                  transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.6s;
+      transition: opacity 0.7s ease 0s,
+                  transform 0.8s cubic-bezier(0.22,1,0.36,1) 0s;
     }
+    .cov-anim .cov-photo { opacity: 0; transition: opacity 0.9s ease 0.75s; }
     .cov-anim .cov-cols,
     .cov-anim .cov-currently,
     .cov-anim .cov-actions,
     .cov-anim .cov-clock {
       opacity: 0; transform: translateY(12px);
-      transition: opacity 0.6s ease 1.15s, transform 0.6s ease 1.15s;
+      transition: opacity 0.6s ease 1.5s, transform 0.6s ease 1.5s;
     }
     .cov-anim.is-in .cov-photo,
     .cov-anim.is-in .cov-name,
@@ -198,7 +197,8 @@
       .cov-currently { order: 3; position: relative; z-index: 1; }
       .cov-actions   { order: 4; position: relative; z-index: 1;
                        margin-top: auto; flex-direction: column;
-                       width: 100%; max-width: none; }
+                       width: 100%; max-width: none;
+                       border-radius: 999px 999px 12px 12px; }
 
       .cov-name {
         display: block; white-space: normal;
