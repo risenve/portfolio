@@ -33,18 +33,31 @@ body.museum-body{
 }
 
 /* ── LEAVE A MARK (guestbook) ── */
-.leave-mark{
-  background:rgba(255,255,255,0.82);
-  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
-  border:1px solid rgba(0,0,0,0.08);
-  color:#111;
-  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-size:14px;
-  padding:12px 24px; border-radius:100px;
-  box-shadow:0 6px 24px rgba(0,0,0,0.06);
-  white-space:nowrap;
-  transition:background .18s var(--ease), transform .18s var(--ease);
+/* ── BUTTON COMPONENT: a pill wrapped in a sharp-cornered rectangle ──
+   (matches the SVG: white rectangle frame + rounded pill inside)      */
+.mp-frame{
+  display:inline-flex;
+  padding:3px;                       /* the thin white frame around the pill */
+  background:#fff;
+  border:none; border-radius:2px;    /* rectangle — near-sharp corners */
+  box-shadow:0 8px 26px rgba(0,0,0,0.10);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .18s var(--ease), box-shadow .18s var(--ease);
 }
-.leave-mark:hover{ background:#fff; transform:translateY(-1px); }
+.mp-frame:hover{ transform:translateY(-1px); box-shadow:0 12px 32px rgba(0,0,0,0.14); }
+.mp-frame:active{ transform:translateY(0); box-shadow:0 8px 26px rgba(0,0,0,0.10); }
+.mp-pill{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px 26px; border-radius:100px;   /* full pill (SVG rx = half height) */
+  background:#111; color:#fff;
+  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:14px; line-height:1; letter-spacing:.01em;
+  white-space:nowrap;
+  transition:background .18s var(--ease);
+}
+.mp-frame:hover .mp-pill{ background:#222; }
+/* .leave-mark / .filter-btn keep their JS hooks; look comes from .mp-frame + .mp-pill */
 
 .mark-composer{
   position:fixed;
@@ -173,18 +186,9 @@ body.museum-body{
 .museum-filter{
   position:relative;
 }
-.filter-btn{
-  background:rgba(255,255,255,0.82);
-  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
-  border:1px solid rgba(0,0,0,0.08);
-  color:#111;
-  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-size:14px;
-  padding:12px 26px; border-radius:100px;
-  box-shadow:0 6px 24px rgba(0,0,0,0.06);
-  transition:background .18s var(--ease), transform .18s var(--ease);
-}
-.filter-btn:hover{ background:#fff; transform:translateY(-1px); }
-.museum-filter.open .filter-btn{ background:#111; color:#fff; border-color:#111; }
+.filter-btn{ padding:0; }   /* styling comes from .mp-frame + .mp-pill */
+.museum-filter.open .filter-btn{ transform:translateY(-1px); box-shadow:0 12px 32px rgba(0,0,0,0.14); }
+.museum-filter.open .filter-btn .mp-pill{ background:#000; }
 
 .filter-menu{
   position:absolute;
@@ -240,18 +244,10 @@ body.museum-body{
 .museum-nav .nav-logo img{
   width:28px; height:28px;      /* circular badge logo, already dark on the light canvas */
 }
-.museum-contact{
-  margin-left:auto;             /* push to the right edge */
-  background:rgba(255,255,255,0.82);
-  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
-  border:1px solid rgba(0,0,0,0.08);
-  color:#111;
-  font-family:var(--font); font-size:14px;
-  padding:8px 18px; border-radius:100px;
-  box-shadow:0 6px 24px rgba(0,0,0,0.06);
-  transition:background .18s var(--ease), transform .18s var(--ease);
-}
-.museum-contact:hover{ background:#fff; transform:translateY(-1px); }
+.museum-contact{ margin-left:auto; padding:3px; }   /* frame; push to the right edge */
+/* pink CTA pill (cta.svg: #FF00D0, rx smaller than the black pills) */
+.mp-frame--cta .mp-pill{ background:#FF00D0; color:#fff; border-radius:18px; }
+.mp-frame--cta:hover .mp-pill{ background:#e800bd; }
 
 /* socials inside the overlay (this page has no footer) */
 .overlay-socials{ display:flex; flex-wrap:wrap; gap:18px; margin-top:26px; }
