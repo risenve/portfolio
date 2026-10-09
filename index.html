@@ -217,101 +217,6 @@
       .cov-lg-only { display: none; }        /* trim long lists on mobile */
     }
 
-    /* ══ CONTACT CARD (shared by the footer block and the popup) ══ */
-    .cc {
-      position: relative; background: #fff; color: #000;
-      border-radius: 40px; padding: 60px;
-      display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 40px; align-items: stretch;
-    }
-    .cc-lang {
-      position: absolute; top: 26px; right: 28px; z-index: 4;
-      display: flex; border: 1px solid rgba(0,0,0,0.25); border-radius: 4px; overflow: hidden;
-    }
-    .cc-lang-btn {
-      font-family: var(--font); font-size: 11px; font-weight: 500;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(0,0,0,0.4); padding: 6px 10px; background: transparent;
-      line-height: 1; cursor: pointer; transition: color .15s, background .15s;
-    }
-    .cc-lang-btn + .cc-lang-btn { border-left: 1px solid rgba(0,0,0,0.2); }
-    .cc-lang-btn.is-active { color: #fff; background: #000; pointer-events: none; }
-
-    .cc-ru { display: none; }
-    .cc.is-ru .cc-en { display: none; }
-    .cc.is-ru .cc-ru { display: revert; }
-
-    .cc-form-col { display: flex; flex-direction: column; min-width: 0; }
-    .cc-title {
-      font-family: var(--font); font-size: clamp(30px, 3.3vw, 54px);
-      font-weight: 500; line-height: 1.04; letter-spacing: -0.02em;
-      margin: 0 0 22px; color: #000;
-    }
-    .cc-sub { font-size: clamp(15px, 1.25vw, 19px); line-height: 1.35; color: #000; margin: 0; max-width: 34em; }
-    .cc-form { margin-top: auto; padding-top: 44px; }
-    /* fields turn pink on focus / once filled */
-    .cc-field { position: relative; padding: 14px 0; margin-bottom: 6px;
-                border-bottom: 1px solid #000; transition: border-color .18s; }
-    .cc-field:focus-within { border-bottom-color: #FF00D0; }
-    .cc-field.is-filled     { border-bottom-color: #FF00D0; }
-    .cc-field input {
-      width: 100%; border: none; background: none; outline: none;
-      font-family: var(--font); font-size: 19px; color: #000; padding-right: 40px;
-    }
-    .cc-field input::placeholder { color: #9a9a9a; }
-    .cc-arrow { position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-                color: #c2c2c2; font-size: 22px; line-height: 1; transition: color .18s; }
-    .cc-field:focus-within .cc-arrow { color: #FF00D0; }
-    .cc-field.is-filled .cc-arrow    { color: #FF00D0; }
-    .cc-consent { display: flex; align-items: center; gap: 12px; margin: 18px 0 22px;
-                  font-size: 14px; color: #000; cursor: pointer; }
-    .cc-consent input { -webkit-appearance: none; appearance: none; width: 22px; height: 22px;
-                        border-radius: 50%; background: #D9D9D9; flex: none; cursor: pointer; transition: background .15s; }
-    .cc-consent input:checked { background: #FF00D0; }
-    .cc-consent.consent-error input { outline: 2px solid #ff3b30; outline-offset: 2px; }
-    .cc-submit { width: 100%; background: #000; color: #fff; border-radius: 16px;
-                 padding: 24px; font-family: var(--font); font-size: 19px; cursor: pointer; text-align: center; }
-    .cc-form .form-status { margin-top: 12px; font-size: 14px; }
-    .cc-form .form-status.error { color: #d11; }
-    .cc-form .form-status.success { color: #0a7d0a; }
-    .cc-star-col { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .cc-star { width: 100%; max-width: 460px; height: auto; }
-    .cc-star image { filter: grayscale(1) contrast(1.03); }
-
-    /* Footer contact block — a normal, in-flow section */
-    .cc-section { background: #000; padding: 80px var(--pad-x) 96px; }
-    .cc-section .cc { max-width: 1180px; margin: 0 auto; }
-
-    /* Popup modal — blurred backdrop, centered card */
-    .cpop { position: fixed; inset: 0; z-index: 500; display: none;
-            align-items: center; justify-content: center; padding: 24px; }
-    .cpop.is-open { display: flex; }
-    .cpop-backdrop { position: absolute; inset: 0; background: rgba(10,10,10,0.35);
-                     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-    .cpop .cc {
-      position: relative; z-index: 1;
-      width: 100%; max-width: 1080px; max-height: calc(100dvh - 48px); overflow: auto;
-      animation: cpop-in 0.4s cubic-bezier(0.22,1,0.36,1);
-    }
-    @keyframes cpop-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } }
-    .cpop-close { position: absolute; top: 22px; right: 26px; z-index: 5;
-                  width: 40px; height: 40px; font-size: 30px; line-height: 1; color: #000;
-                  display: flex; align-items: center; justify-content: center; }
-    .cpop .cc-lang { right: 76px; }   /* leave room for the close button */
-    body.cpop-lock { overflow: hidden; }
-
-    @media (max-width: 760px) {
-      .cc { grid-template-columns: 1fr; border-radius: 26px; padding: 34px 22px 28px; gap: 22px; }
-      .cc-title { font-size: clamp(28px, 8vw, 40px); }
-      .cc-form { padding-top: 26px; margin-top: 0; }
-      .cc-star { max-width: 300px; }
-      .cc-lang { top: 16px; right: 18px; }
-      .cc-section { padding: 44px var(--pad-x) 56px; }
-      .cpop { padding: 0; }
-      .cpop .cc { border-radius: 26px; max-height: 100dvh; }
-      .cpop-close { top: 14px; right: 14px; }
-      .cpop .cc-lang { right: 58px; top: 16px; }
-    }
-
     /* ── SCROLLING CONTENT ── */
     .ah-main {
       position: relative;
@@ -1046,47 +951,35 @@
 
     </section>
 
-    <!-- Contact — normal in-flow block (same card as the popup) -->
-    <section class="cc-section" id="contact">
-      <div class="cc">
-        <div class="cc-lang">
-          <button class="cc-lang-btn is-active" type="button" data-lang="en">EN</button>
-          <button class="cc-lang-btn" type="button" data-lang="ru">RU</button>
-        </div>
-
-        <div class="cc-form-col">
-          <h2 class="cc-title"><span class="cc-en">Get in touch</span><span class="cc-ru">Есть идея или задача?</span></h2>
-          <p class="cc-sub"><span class="cc-en">Have an interesting project or struggling with design? Let's connect! I'm always open to talk, create, and collaborate.</span><span class="cc-ru">Есть интересный проект или сложности с дизайном? Давайте на связи — я всегда открыта поговорить, придумывать и сотрудничать.</span></p>
-
-          <form class="cc-form contact-form-ajax" novalidate>
-            <input type="hidden" name="access_key" value="262fc81b-9cb3-4ffb-bac3-c6d69a5b9200">
-            <input type="hidden" name="subject" value="Portfolio inquiry — ripsime.me">
-            <input type="hidden" name="from_name" value="ripsime.me contact form">
-            <div class="cc-field">
-              <input type="email" name="email" required placeholder="email">
-              <button type="submit" class="cc-arrow" aria-label="Send">&rarr;</button>
-            </div>
-            <div class="cc-field">
-              <input type="text" name="message" placeholder="comments">
-            </div>
-            <label class="cc-consent ol-consent">
-              <input type="checkbox" name="consent" required>
-              <span class="cc-en">I agree to the processing of personal data and to being contacted about my request.</span>
-              <span class="cc-ru">Я согласна на обработку персональных данных и на то, чтобы со мной связались по моему запросу.</span>
-            </label>
-            <button type="submit" class="cc-submit ol-submit"><span class="cc-en">Send</span><span class="cc-ru">Отправить</span></button>
-            <div class="form-status" aria-live="polite"></div>
-          </form>
-        </div>
-
-        <div class="cc-star-col">
-          <svg class="cc-star" viewBox="1030 70 993 803" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs><clipPath id="ccStarF"><path d="M1204.41 573.098L1196.99 571.111L1055.42 533.176L1173.67 440.729L1181.28 434.781L1175.6 426.97L1036.43 235.613L1175.4 290.977L1194.27 298.492L1188.72 278.956L1131.38 76.915L1186.76 142.536L1189.76 146.086H1592.4C1618.24 147.677 1659.86 156.569 1699.8 178.144C1739.77 199.733 1777.49 233.681 1796.65 285.173C1835.99 390.922 1812.92 495.471 1796.8 533.768L1790.96 547.646H1975L1911.07 622.989L1904.07 631.245L1912.86 637.573L1986.6 690.688V837.133L1989.49 840.056L2017.15 868H1578.33L1538.66 813.678L1520.59 788.921V868H1204.41V573.098Z"/></clipPath></defs>
-            <image href="/images/ripsime-photo.webp" x="1036" y="95" width="981" height="1471" clip-path="url(#ccStarF)"/>
-            <path d="M1204.41 573.098L1196.99 571.111L1055.42 533.176L1173.67 440.729L1181.28 434.781L1175.6 426.97L1036.43 235.613L1175.4 290.977L1194.27 298.492L1188.72 278.956L1131.38 76.915L1186.76 142.536L1189.76 146.086H1592.4C1618.24 147.677 1659.86 156.569 1699.8 178.144C1739.77 199.733 1777.49 233.681 1796.65 285.173C1835.99 390.922 1812.92 495.471 1796.8 533.768L1790.96 547.646H1975L1911.07 622.989L1904.07 631.245L1912.86 637.573L1986.6 690.688V837.133L1989.49 840.056L2017.15 868H1578.33L1538.66 813.678L1520.59 788.921V868H1204.41V573.098Z" fill="none" stroke="#FF00D0" stroke-width="20" stroke-linejoin="round"/>
-          </svg>
-        </div>
+    <!-- Contact -->
+    <section class="contact-form-section" id="contact">
+      <div>
+        <h2 class="contact-headline">Get in Touch</h2>
+        <p class="contact-body">Have an interesting project or struggling with design? Let's connect! I'm always open to talk, create, and collaborate.</p>
       </div>
+      <form class="ol-form contact-form-ajax" novalidate>
+        <input type="hidden" name="access_key" value="262fc81b-9cb3-4ffb-bac3-c6d69a5b9200">
+        <input type="hidden" name="subject" value="Portfolio inquiry — ripsime.me">
+        <input type="hidden" name="from_name" value="ripsime.me contact form">
+        <div class="ol-field">
+          <input type="text" name="name" required placeholder=" ">
+          <label class="ol-label">Name</label>
+        </div>
+        <div class="ol-field">
+          <input type="email" name="email" required placeholder=" ">
+          <label class="ol-label">Email</label>
+        </div>
+        <div class="ol-field">
+          <input type="text" name="message" required placeholder=" ">
+          <label class="ol-label">About project</label>
+        </div>
+        <label class="ol-consent">
+          <input type="checkbox" name="consent" required>
+          <span class="ol-consent-text">I agree to the processing of personal data.</span>
+        </label>
+        <button type="submit" class="ol-submit">Send →</button>
+        <div class="form-status" aria-live="polite"></div>
+      </form>
     </section>
 
   <footer class="site-footer">
@@ -1121,51 +1014,6 @@
 
   </div><!-- /.ah-main -->
 
-  <!-- ══ CONTACT POPUP ══ -->
-  <div class="cpop" id="cpop" aria-hidden="true">
-    <div class="cpop-backdrop" data-cpop-close></div>
-    <div class="cc" role="dialog" aria-modal="true" aria-label="Contact">
-      <button class="cpop-close" type="button" data-cpop-close aria-label="Close">&times;</button>
-      <div class="cc-lang">
-        <button class="cc-lang-btn is-active" type="button" data-lang="en">EN</button>
-        <button class="cc-lang-btn" type="button" data-lang="ru">RU</button>
-      </div>
-
-      <div class="cc-form-col">
-        <h2 class="cc-title"><span class="cc-en">Get in touch</span><span class="cc-ru">Есть идея или задача?</span></h2>
-        <p class="cc-sub"><span class="cc-en">Have an interesting project or struggling with design? Let's connect! I'm always open to talk, create, and collaborate.</span><span class="cc-ru">Есть интересный проект или сложности с дизайном? Давайте на связи — я всегда открыта поговорить, придумывать и сотрудничать.</span></p>
-
-        <form class="cc-form contact-form-ajax" novalidate>
-          <input type="hidden" name="access_key" value="262fc81b-9cb3-4ffb-bac3-c6d69a5b9200">
-          <input type="hidden" name="subject" value="Portfolio inquiry — ripsime.me (popup)">
-          <input type="hidden" name="from_name" value="ripsime.me contact popup">
-          <div class="cc-field">
-            <input type="email" name="email" required placeholder="email">
-            <button type="submit" class="cc-arrow" aria-label="Send">&rarr;</button>
-          </div>
-          <div class="cc-field">
-            <input type="text" name="message" placeholder="comments">
-          </div>
-          <label class="cc-consent ol-consent">
-            <input type="checkbox" name="consent" required>
-            <span class="cc-en">I agree to the processing of personal data and to being contacted about my request.</span>
-            <span class="cc-ru">Я согласна на обработку персональных данных и на то, чтобы со мной связались по моему запросу.</span>
-          </label>
-          <button type="submit" class="cc-submit ol-submit"><span class="cc-en">Send</span><span class="cc-ru">Отправить</span></button>
-          <div class="form-status" aria-live="polite"></div>
-        </form>
-      </div>
-
-      <div class="cc-star-col">
-        <svg class="cc-star" viewBox="1030 70 993 803" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs><clipPath id="ccStarM"><path d="M1204.41 573.098L1196.99 571.111L1055.42 533.176L1173.67 440.729L1181.28 434.781L1175.6 426.97L1036.43 235.613L1175.4 290.977L1194.27 298.492L1188.72 278.956L1131.38 76.915L1186.76 142.536L1189.76 146.086H1592.4C1618.24 147.677 1659.86 156.569 1699.8 178.144C1739.77 199.733 1777.49 233.681 1796.65 285.173C1835.99 390.922 1812.92 495.471 1796.8 533.768L1790.96 547.646H1975L1911.07 622.989L1904.07 631.245L1912.86 637.573L1986.6 690.688V837.133L1989.49 840.056L2017.15 868H1578.33L1538.66 813.678L1520.59 788.921V868H1204.41V573.098Z"/></clipPath></defs>
-          <image href="/images/ripsime-photo.webp" x="1036" y="95" width="981" height="1471" clip-path="url(#ccStarM)"/>
-          <path d="M1204.41 573.098L1196.99 571.111L1055.42 533.176L1173.67 440.729L1181.28 434.781L1175.6 426.97L1036.43 235.613L1175.4 290.977L1194.27 298.492L1188.72 278.956L1131.38 76.915L1186.76 142.536L1189.76 146.086H1592.4C1618.24 147.677 1659.86 156.569 1699.8 178.144C1739.77 199.733 1777.49 233.681 1796.65 285.173C1835.99 390.922 1812.92 495.471 1796.8 533.768L1790.96 547.646H1975L1911.07 622.989L1904.07 631.245L1912.86 637.573L1986.6 690.688V837.133L1989.49 840.056L2017.15 868H1578.33L1538.66 813.678L1520.59 788.921V868H1204.41V573.098Z" fill="none" stroke="#FF00D0" stroke-width="20" stroke-linejoin="round"/>
-        </svg>
-      </div>
-    </div>
-  </div>
-
   <div class="showreel-ghost" id="showreel-ghost">
     <img src="" alt="" id="showreel-ghost-img">
   </div>
@@ -1174,67 +1022,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="/js/main.js"></script>
   <script>
-  // ── CONTACT POPUP: open on "Contact" click and when reaching the page end ──
-  (function () {
-    var pop = document.getElementById('cpop');
-    if (!pop) return;
-    var lastFocus = null;
-
-    function open() {
-      if (pop.classList.contains('is-open')) return;
-      lastFocus = document.activeElement;
-      pop.classList.add('is-open');
-      pop.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('cpop-lock');
-      var f = pop.querySelector('input, button');
-      if (f) { try { f.focus({ preventScroll: true }); } catch (e) {} }
-    }
-    function close() {
-      if (!pop.classList.contains('is-open')) return;
-      pop.classList.remove('is-open');
-      pop.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('cpop-lock');
-      if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} }
-    }
-
-    // Close: X, backdrop click, Escape
-    pop.querySelectorAll('[data-cpop-close]').forEach(function (el) {
-      el.addEventListener('click', close);
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') close();
-    });
-
-    // "Contact" links open the popup in place (no scrolling down)
-    document.querySelectorAll('a[href="#contact"], a[href$="#contact"], [data-cpop-open]').forEach(function (a) {
-      a.addEventListener('click', function (e) { e.preventDefault(); open(); });
-    });
-  })();
-
-  // ── CONTACT CARD: EN / RU toggle + pink "filled" fields ──
-  (function () {
-    document.querySelectorAll('.cc').forEach(function (card) {
-      var toggle = card.querySelector('.cc-lang');
-      if (toggle) {
-        toggle.addEventListener('click', function (e) {
-          var btn = e.target.closest('.cc-lang-btn');
-          if (!btn) return;
-          card.classList.toggle('is-ru', btn.dataset.lang === 'ru');
-          toggle.querySelectorAll('.cc-lang-btn').forEach(function (b) {
-            b.classList.toggle('is-active', b === btn);
-          });
-        });
-      }
-    });
-    // field turns pink once it has text (focus is handled in CSS)
-    document.querySelectorAll('.cc-field input').forEach(function (inp) {
-      var f = inp.closest('.cc-field');
-      function upd() { f.classList.toggle('is-filled', !!inp.value.trim()); }
-      inp.addEventListener('input', upd);
-      upd();
-    });
-  })();
-
   // ── COVER: fit the name to the line + intro animation ──
   (function () {
     var cov  = document.querySelector('.cov');
