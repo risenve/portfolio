@@ -1,5 +1,93 @@
 [
   {
+    "id": 17,
+    "slug": "esse",
+    "template": false,
+    "title": "Esse",
+    "titleRu": "Esse",
+    "categories": [
+      "brand-design",
+      "graphics-ai"
+    ],
+    "type": "Communication & Branding",
+    "typeRu": "Коммуникация и брендинг",
+    "role": "Branding & Comms",
+    "roleRu": "Branding & Comms",
+    "year": "2025",
+    "cover": "/images/Works_Covers/Esse.webp",
+    "imgs": [
+      "/images/Works_Covers/Esse.webp"
+    ],
+    "href": "#",
+    "hrefRu": "#"
+  },
+  {
+    "id": 15,
+    "slug": "charoit",
+    "template": false,
+    "title": "Charoit",
+    "titleRu": "Charoit",
+    "categories": [
+      "brand-design",
+      "graphics-ai"
+    ],
+    "type": "Jewelry Branding",
+    "typeRu": "Брендинг украшений",
+    "role": "Branding",
+    "roleRu": "Branding",
+    "year": "2025",
+    "cover": "/images/Works_Covers/Charoit.webp",
+    "imgs": [
+      "/images/Works_Covers/Charoit.webp"
+    ],
+    "href": "#",
+    "hrefRu": "#"
+  },
+  {
+    "id": 16,
+    "slug": "bohem",
+    "template": false,
+    "title": "Bohem",
+    "titleRu": "Bohem",
+    "categories": [
+      "brand-design",
+      "graphics-ai"
+    ],
+    "type": "Communication & Motion",
+    "typeRu": "Коммуникация и моушен",
+    "role": "Motion & Comms",
+    "roleRu": "Motion & Comms",
+    "year": "2025",
+    "cover": "/images/Works_Covers/Bohem.webp",
+    "imgs": [
+      "/images/Works_Covers/Bohem.webp"
+    ],
+    "href": "#",
+    "hrefRu": "#"
+  },
+  {
+    "id": 14,
+    "slug": "hydro",
+    "template": false,
+    "title": "Hydro",
+    "titleRu": "Hydro",
+    "categories": [
+      "brand-design",
+      "graphics-ai"
+    ],
+    "type": "Branding for Hydropower",
+    "typeRu": "Брендинг для ГЭС",
+    "role": "Branding",
+    "roleRu": "Branding",
+    "year": "2025",
+    "cover": "/images/Works_Covers/Hydro.webp",
+    "imgs": [
+      "/images/Works_Covers/Hydro.webp"
+    ],
+    "href": "#",
+    "hrefRu": "#"
+  },
+  {
     "id": 1,
     "slug": "skazpokrayu",
     "template": false,
