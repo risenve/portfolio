@@ -28,6 +28,26 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=TASA+Orbiter:wght@400..800&display=swap">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/pieces.css?v=20260919b">
+  <style>
+    /* Back to website / Connect — same frame as the homepage cover buttons */
+    .pc-actions{
+      position:fixed; left:24px; bottom:24px; z-index:70;
+      display:flex; gap:4px; background:#313131; padding:4px;
+      border-radius:999px 12px 12px 999px;
+    }
+    .pc-btn{
+      display:flex; align-items:center; justify-content:center;
+      padding:14px 24px; font-family:var(--font); font-size:15px; line-height:1;
+      text-decoration:none; white-space:nowrap; transition:filter .2s ease;
+    }
+    .pc-btn-back{ background:#fff; color:#000; border-radius:999px; }
+    .pc-btn-connect{ background:#ff00d0; color:#fff; border-radius:10px; }
+    .pc-btn:hover{ filter:brightness(1.06); }
+    @media (max-width:720px){
+      .pc-actions{ left:12px; bottom:12px; }
+      .pc-btn{ padding:12px 16px; font-size:14px; }
+    }
+  </style>
 </head>
 <body class="museum-body">
 
@@ -146,6 +166,12 @@
     <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
     <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
     <div class="museum-zoom-pct" id="museum-zoom-pct">100%</div>
+  </div>
+
+  <!-- Back to website / Connect -->
+  <div class="pc-actions">
+    <a class="pc-btn pc-btn-back" href="/">Back to website</a>
+    <a class="pc-btn pc-btn-connect" href="/#contact">Connect</a>
   </div>
 
   <!-- ============ POPUP ============ -->

@@ -442,7 +442,7 @@ body.overlay-open{overflow:hidden}
 
 .row-thumbs{display:flex;gap:12px;flex:none}
 .row-thumb{
-  display:block;width:clamp(120px,15vw,230px);aspect-ratio:3/2;
+  display:block;width:clamp(130px,16.5vw,270px);aspect-ratio:3/2;
   overflow:hidden;background:#141414;flex:none;
 }
 .row-thumb--empty{background:#333}
