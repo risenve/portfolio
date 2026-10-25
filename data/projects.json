@@ -38,10 +38,12 @@
     "year": "2025",
     "cover": "/images/Works_Covers/Charoit.webp",
     "imgs": [
-      "/images/Works_Covers/Charoit.webp"
+      "/images/Works_Covers/Charoit.webp",
+      "/images/charoit/charoit_sreda_2.webp",
+      "/images/charoit/charoit_sreda_7.webp"
     ],
-    "href": "#",
-    "hrefRu": "#"
+    "href": "/charoit",
+    "hrefRu": "/charoit"
   },
   {
     "id": 16,

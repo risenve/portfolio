@@ -1827,6 +1827,9 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .skp-fullimg img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .skp-fh700{height:700px}
 .skp-fh780{height:780px}
+/* full-width image shown at its natural ratio (no crop) */
+.skp-fullimg.skp-natural{height:auto!important}
+.skp-fullimg.skp-natural img{height:auto}
 
 .skp-pair{display:flex;background:#fff;gap:20px;padding:0 20px}
 .skp-pair.skp-py60{padding:60px 20px}
