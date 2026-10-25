@@ -105,7 +105,9 @@
     "year": "2024",
     "cover": "/images/Works_Covers/skazpokrayu_cover.webp",
     "imgs": [
-      "/images/Works_Covers/skazpokrayu_cover.webp"
+      "/images/Works_Covers/skazpokrayu_cover.webp",
+      "/images/skazpokrayu/interior_photo1.webp",
+      "/images/skazpokrayu/interior_photo3.webp"
     ],
     "href": "/skazpokrayu",
     "hrefRu": "/skazpokrayu-ru"
@@ -128,9 +130,8 @@
     "video": "/images/eburet/eburet final 2.mp4",
     "imgs": [
       "/images/Works_Covers/eburet.webp",
-      "/images/eburet/проект.png",
-      "/images/eburet/мобилки.png",
-      "/images/eburet/проект-1.png"
+      "/images/eburet/img 1.webp",
+      "/images/eburet/img 3.webp"
     ],
     "href": "/eburet",
     "hrefRu": "/eburet"
@@ -152,7 +153,9 @@
     "year": "2023",
     "cover": "/images/Works_Covers/Re_Bank_cover.webp",
     "imgs": [
-      "/images/Works_Covers/Re_Bank_cover.webp"
+      "/images/Works_Covers/Re_Bank_cover.webp",
+      "/images/re_ds/image 1.png",
+      "/images/re_ds/image 3.png"
     ],
     "href": "/rebank",
     "hrefRu": "/rebank"
@@ -175,7 +178,9 @@
     "year": "2023",
     "cover": "/images/Works_Covers/premiumization.webp",
     "imgs": [
-      "/images/Works_Covers/premiumization.webp"
+      "/images/Works_Covers/premiumization.webp",
+      "/images/premiumization/photo1.webp",
+      "/images/premiumization/photo3.webp"
     ],
     "href": "/premiumization",
     "hrefRu": "/premiumization"
@@ -198,7 +203,6 @@
     "cover": "/images/Works_Covers/match.webp",
     "imgs": [
       "/images/Works_Covers/match.webp",
-      "/images/match/m_pair1a.webp",
       "/images/match/m_full1.webp",
       "/images/match/m_full2.webp"
     ],
@@ -223,32 +227,12 @@
     "year": "2024",
     "cover": "/images/drawstory/ds-block.webp",
     "imgs": [
-      "/images/drawstory/ds-block.webp"
+      "/images/drawstory/ds-block.webp",
+      "/images/drawstory/behavior-01.png",
+      "/images/drawstory/behavior-02.png"
     ],
     "href": "/drawstory",
     "hrefRu": "/drawstory-ru"
-  },
-  {
-    "id": 7,
-    "slug": "drawstory",
-    "template": false,
-    "title": "Drawstory",
-    "titleRu": "Drawstory",
-    "categories": [
-      "ui-ux",
-      "art-direction"
-    ],
-    "type": "UI/UX Design",
-    "typeRu": "UI/UX Дизайн",
-    "role": "UI/UX Designer",
-    "roleRu": "UI/UX Дизайнер",
-    "year": "2024",
-    "cover": "/images/Works_Covers/drawstory.webp",
-    "imgs": [
-      "/images/Works_Covers/drawstory.webp"
-    ],
-    "href": "https://drawstory.com",
-    "hrefRu": "https://drawstory.com"
   },
   {
     "id": 8,
@@ -272,28 +256,6 @@
     "hrefRu": "https://emptydate.com/"
   },
   {
-    "id": 11,
-    "slug": "open-control",
-    "template": false,
-    "title": "Open Control",
-    "titleRu": "Open Control",
-    "categories": [
-      "ui-ux",
-      "art-direction"
-    ],
-    "type": "AR/VR Product Design",
-    "typeRu": "AR/VR Продуктовый дизайн",
-    "role": "AR/VR Product Designer",
-    "roleRu": "AR/VR Продуктовый дизайнер",
-    "year": "2024",
-    "cover": "/images/Works_Covers/open-control.jpg",
-    "imgs": [
-      "/images/Works_Covers/open-control.jpg"
-    ],
-    "href": "/open-control",
-    "hrefRu": "/open-control-ru"
-  },
-  {
     "id": 12,
     "slug": "posters",
     "template": false,
@@ -312,8 +274,7 @@
     "imgs": [
       "/images/Works_Covers/posters.webp",
       "/images/posters/poster-1.webp",
-      "/images/posters/poster-2.webp",
-      "/images/posters/poster-3.webp"
+      "/images/posters/poster-2.webp"
     ],
     "href": "/posters",
     "hrefRu": "/posters-ru"
@@ -360,27 +321,5 @@
     ],
     "href": "/unicorn",
     "hrefRu": "/unicorn"
-  },
-  {
-    "id": 13,
-    "slug": "inhub",
-    "template": false,
-    "title": "InHub",
-    "titleRu": "InHub",
-    "categories": [
-      "art-direction",
-      "brand-design"
-    ],
-    "type": "Brand Design",
-    "typeRu": "Брендинг",
-    "role": "Brand Designer",
-    "roleRu": "Бренд-дизайнер",
-    "year": "2023",
-    "cover": "/images/Works_Covers/in hub.webp",
-    "imgs": [
-      "/images/Works_Covers/in hub.webp"
-    ],
-    "href": "#",
-    "hrefRu": "#"
   }
 ]

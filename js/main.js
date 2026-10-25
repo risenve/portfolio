@@ -155,10 +155,13 @@ function renderProjects(filter) {
       var tag = p.href && p.href !== '#' ? 'a' : 'div';
       var href = p.href && p.href !== '#' ? ' href="' + p.href + '"' : '';
       var targetAttr = isExternal ? ' target="_blank" rel="noopener"' : '';
-      var imgs = JSON.stringify(p.imgs || []);
-      return '<' + tag + href + targetAttr + ' class="project-row" data-imgs=\'' + imgs + '\'>' +
-        '<span class="row-title">' + p.title + '</span>' +
-        '<span class="row-cat">' + p.type + '</span>' +
+      var thumbs = (p.imgs || []).slice(0, 3).map(function (src) {
+        return '<span class="row-thumb"><img src="' + src + '" alt="" loading="lazy" decoding="async"></span>';
+      }).join('');
+      return '<' + tag + href + targetAttr + ' class="project-row">' +
+        '<span class="row-info"><span class="row-title">' + p.title + '</span>' +
+        '<span class="row-cat">' + p.type + '</span></span>' +
+        '<span class="row-thumbs">' + thumbs + '</span>' +
       '</' + tag + '>';
     }).join('');
   }
