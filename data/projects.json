@@ -40,7 +40,8 @@
     "imgs": [
       "/images/Works_Covers/Charoit.webp",
       "/images/charoit/charoit_sreda_2.webp",
-      "/images/charoit/charoit_sreda_7.webp"
+      "/images/charoit/charoit_sreda_7.webp",
+      "/images/charoit/charoit_sreda_8.webp"
     ],
     "href": "/charoit",
     "hrefRu": "/charoit"
@@ -109,7 +110,8 @@
     "imgs": [
       "/images/Works_Covers/skazpokrayu_cover.webp",
       "/images/skazpokrayu/interior_photo1.webp",
-      "/images/skazpokrayu/interior_photo3.webp"
+      "/images/skazpokrayu/interior_photo3.webp",
+      "/images/skazpokrayu/interior_photo5.webp"
     ],
     "href": "/skazpokrayu",
     "hrefRu": "/skazpokrayu-ru"
@@ -133,7 +135,8 @@
     "imgs": [
       "/images/Works_Covers/eburet.webp",
       "/images/eburet/img 1.webp",
-      "/images/eburet/img 3.webp"
+      "/images/eburet/img 3.webp",
+      "/images/eburet/img 5.webp"
     ],
     "href": "/eburet",
     "hrefRu": "/eburet"
@@ -157,7 +160,8 @@
     "imgs": [
       "/images/Works_Covers/Re_Bank_cover.webp",
       "/images/re_ds/image 1.png",
-      "/images/re_ds/image 3.png"
+      "/images/re_ds/image 3.png",
+      "/images/re_ds/image 5.png"
     ],
     "href": "/rebank",
     "hrefRu": "/rebank"
@@ -182,7 +186,8 @@
     "imgs": [
       "/images/Works_Covers/premiumization.webp",
       "/images/premiumization/photo1.webp",
-      "/images/premiumization/photo3.webp"
+      "/images/premiumization/photo3.webp",
+      "/images/premiumization/photo5.webp"
     ],
     "href": "/premiumization",
     "hrefRu": "/premiumization"
@@ -206,7 +211,8 @@
     "imgs": [
       "/images/Works_Covers/match.webp",
       "/images/match/m_full1.webp",
-      "/images/match/m_full2.webp"
+      "/images/match/m_full2.webp",
+      "/images/match/m_full3.webp"
     ],
     "href": "/match",
     "hrefRu": "/match"
@@ -231,7 +237,8 @@
     "imgs": [
       "/images/drawstory/ds-block.webp",
       "/images/drawstory/behavior-01.png",
-      "/images/drawstory/behavior-02.png"
+      "/images/drawstory/behavior-02.png",
+      "/images/drawstory/behavior-03.png"
     ],
     "href": "/drawstory",
     "hrefRu": "/drawstory-ru"
@@ -276,7 +283,8 @@
     "imgs": [
       "/images/Works_Covers/posters.webp",
       "/images/posters/poster-1.webp",
-      "/images/posters/poster-2.webp"
+      "/images/posters/poster-2.webp",
+      "/images/posters/poster-3.webp"
     ],
     "href": "/posters",
     "hrefRu": "/posters-ru"

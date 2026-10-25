@@ -282,6 +282,18 @@ body.overlay-open{overflow:hidden}
 .page-wrap.hero-top{padding-top:0}
 
 /* ── CONTROLS BAR ── */
+/* Work heading + filters on one bottom line */
+.work-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:28px;flex-wrap:wrap;
+  padding:calc(var(--nav-h) + 32px) var(--pad-x) 20px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.work-head .work-heading{padding:0;line-height:.8}
+.work-head .controls{padding:0;border:none;gap:24px;align-items:flex-end;flex:0 1 auto}
+
 .controls{
   display:flex;
   align-items:flex-start;
@@ -307,11 +319,10 @@ body.overlay-open{overflow:hidden}
 .filter-btn:hover{color:var(--fg)}
 .filter-btn.active{color:var(--fg)}
 
-.view-toggle{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.view-toggle{display:flex;align-items:flex-end;gap:14px;flex-shrink:0}
 .view-btn{
-  display:flex;align-items:center;justify-content:center;
-  width:34px;height:34px;
-  color:var(--muted);transition:color .2s;
+  font-family:var(--font);font-size:15px;font-weight:400;
+  color:var(--muted);transition:color .2s;line-height:1;padding:4px 0;
 }
 .view-btn.active,.view-btn:hover{color:var(--fg)}
 
@@ -431,7 +442,7 @@ body.overlay-open{overflow:hidden}
 
 .row-thumbs{display:flex;gap:12px;flex:none}
 .row-thumb{
-  display:block;width:clamp(120px,15vw,210px);aspect-ratio:3/2;
+  display:block;width:clamp(120px,15vw,230px);aspect-ratio:3/2;
   overflow:hidden;background:#141414;flex:none;
 }
 .row-thumb--empty{background:#333}

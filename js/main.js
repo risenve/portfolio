@@ -155,9 +155,9 @@ function renderProjects(filter) {
       var tag = p.href && p.href !== '#' ? 'a' : 'div';
       var href = p.href && p.href !== '#' ? ' href="' + p.href + '"' : '';
       var targetAttr = isExternal ? ' target="_blank" rel="noopener"' : '';
-      var real = (p.imgs || []).slice(0, 3);
+      var real = (p.imgs || []).slice(0, 4);
       var thumbs = '';
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < 4; i++) {
         thumbs += real[i]
           ? '<span class="row-thumb"><img src="' + real[i] + '" alt="" loading="lazy" decoding="async"></span>'
           : '<span class="row-thumb row-thumb--empty"></span>';
