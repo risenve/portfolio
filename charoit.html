@@ -31,6 +31,15 @@
     .skp-main-dark .ebr-see-also { background: #000; }
     .skp-main-dark .ebr-see-also-label { color: #fff; }
     .skp-main-dark .ebr-see-also-name { color: #fff; }
+    /* full-width video at its natural ratio */
+    .skp-fullimg.skp-natural video { width: 100%; height: auto; display: block; }
+    /* bauns.ru line under credits */
+    .cha-bauns { background: #000; text-align: center; padding: 0 24px 72px; }
+    .cha-bauns a {
+      font-family: var(--font); font-size: 18px; color: #fff; text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 2px; transition: border-color .2s;
+    }
+    .cha-bauns a:hover { border-bottom-color: #fff; }
   </style>
 </head>
 <body>
@@ -165,9 +174,25 @@
       </div>
     </section>
 
-    <!-- 3. Full-width images -->
+    <!-- 3. Media sequence (1,2,3,4,6,7,8,9,10,11) -->
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_1.mp4" type="video/mp4"></video>
+    </section>
+
     <section class="skp-fullimg skp-natural">
       <picture><source type="image/avif" srcset="/images/charoit/charoit_sreda_2.avif"><img src="/images/charoit/charoit_sreda_2.webp" alt="Чароит — визуальная система" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_3.mp4" type="video/mp4"></video>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_4.mp4" type="video/mp4"></video>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_6.mp4" type="video/mp4"></video>
     </section>
 
     <section class="skp-fullimg skp-natural">
@@ -209,6 +234,11 @@
         </div>
       </div>
     </section>
+
+    <!-- bauns.ru -->
+    <div class="cha-bauns">
+      <a href="https://bauns.ru" target="_blank" rel="noopener">bauns.ru</a>
+    </div>
 
     <!-- See also -->
     <section class="ebr-see-also">
