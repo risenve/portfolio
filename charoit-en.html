@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109758796', 'ym');
+    ym(109758796, 'init', {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109758796" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charoit — Ripsime Sargsyan</title>
+  <meta name="description" content="Charoit — identity and branding for a chain of jewelry stores, in collaboration with Bauns studio. Case study by Ripsime Sargsyan.">
+  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* Dark case overrides (match the black background) */
+    .cha-head { background: #000 !important; }
+    .cha-head h1, .cha-head p { color: #fff !important; }
+    .skp-main-dark .skp-credits { background: #000; }
+    .skp-main-dark .skp-cred-roles p { color: rgba(255,255,255,0.55); }
+    .skp-main-dark .skp-cred-names p { color: #fff; }
+    .skp-main-dark .skp-cred-names a { color: #fff; border-bottom-color: rgba(255,255,255,0.4); }
+    .skp-main-dark .skp-cred-names a:hover { border-bottom-color: #fff; }
+    .skp-main-dark .ebr-see-also { background: #000; }
+    .skp-main-dark .ebr-see-also-label { color: #fff; }
+    .skp-main-dark .ebr-see-also-name { color: #fff; }
+    .skp-hero video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .skp-fullimg.skp-natural video { width: 100%; height: auto; display: block; }
+    .cha-about { margin-top: 24px; }
+    .cha-about .skp-context-label { color: #555; }
+    .cha-about .skp-context-text { color: #ccc; }
+    .cha-bauns { background: #000; text-align: center; padding: 0 24px 72px; }
+    .cha-bauns a {
+      font-family: var(--font); font-size: 18px; color: #fff; text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 2px; transition: border-color .2s;
+    }
+    .cha-bauns a:hover { border-bottom-color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/work" class="nav-link active">Work</a>
+      <div class="nav-service-wrap">
+        <button class="nav-link nav-service-toggle">Service</button>
+        <div class="service-drop">
+          <a href="/service-branding" class="service-item">Branding</a>
+          <a href="/service-uiux" class="service-item">UI/UX</a>
+          <a href="/service-product-design" class="service-item">Product Design</a>
+          <a href="/service-art-direction" class="service-item">Art Direction</a>
+        </div>
+      </div>
+      <a href="/pieces" class="nav-link">Pieces</a>
+      <a href="/talks" class="nav-link">Talks</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- STAIRCASE HOVER PANEL -->
+  <div class="staircase-panel" id="staircase-panel">
+    <a href="/" class="stair-link">Home</a>
+    <a href="/work" class="stair-link">Work</a>
+    <a href="/pieces" class="stair-link">Pieces</a>
+    <a href="/talks" class="stair-link">Talks</a>
+    <a href="#contact" class="stair-link">Contact</a>
+  </div>
+
+  <!-- FULL OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+      <div>
+        <div class="overlay-stair-links">
+          <a href="/">Home</a>
+          <a href="/work">Work</a>
+          <button class="ol-service-toggle" type="button">Services <span class="ol-toggle-arrow">▾</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="/service-branding">Branding</a>
+            <a href="/service-uiux">UI/UX</a>
+            <a href="/service-product-design">Product Design</a>
+            <a href="/service-art-direction">Art Direction</a>
+          </div>
+          <a href="/pieces">Pieces</a>
+          <a href="/talks">Talks</a>
+          <a href="#contact">Contact</a>
+        </div></div>
+      <div class="overlay-form-wrap">
+        <form id="overlay-form" class="ol-form" novalidate>
+          <div class="ol-field">
+            <input type="text" name="ol-name" required placeholder=" ">
+            <label class="ol-label">Name</label>
+          </div>
+          <div class="ol-field">
+            <input type="email" name="ol-email" required placeholder=" ">
+            <label class="ol-label">Email</label>
+          </div>
+          <div class="ol-field">
+            <input type="text" name="ol-message" required placeholder=" ">
+            <label class="ol-label">About project</label>
+          </div>
+          <label class="ol-consent">
+            <input type="checkbox" name="ol-consent" required>
+            <span class="ol-consent-text">I agree to the processing of personal data.</span>
+          </label>
+          <button type="submit" class="ol-submit">Send →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Language toggle -->
+  <div class="lang-toggle">
+    <a href="/charoit" class="lang-btn">RU</a>
+    <span class="lang-btn lang-btn--active">EN</span>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-wrap">
+  <main class="skp-main skp-main-dark skp-m2 skp-m2-info">
+
+    <!-- 0. Project header -->
+    <section class="skp-project-header cha-head">
+      <h1>Charoit</h1>
+      <p>Identity and branding for a chain of jewelry stores</p>
+    </section>
+
+    <!-- 1. Hero video -->
+    <section class="skp-hero">
+      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_1.mp4" type="video/mp4"></video>
+    </section>
+
+    <!-- 2. Project info -->
+    <section class="skp-project-info">
+      <div class="skp-project-info-left">
+        <p class="skp-info-headline">Identity and branding for a jewelry store, in collaboration with Bauns studio.</p>
+        <div class="skp-context-block cha-about">
+          <span class="skp-context-label">About the brand</span>
+          <p class="skp-context-text">Charoit is a chain of jewelry stores from Surgut. The brand grew out of its founder-jeweler's craft — he worked with charoite stone and created jewelry from it. Over time the brand expanded — more stores opened, and the range of jewelry grew with them.</p>
+        </div>
+        <div class="skp-project-services">
+          <p>Brand &amp; graphic design</p>
+          <p>Motion design</p>
+          <p>Ai &amp; sound design</p>
+        </div>
+        <a href="https://bauns.ru" class="skp-project-link" target="_blank" rel="noopener">bauns.ru</a>
+      </div>
+      <div class="skp-project-info-right">
+        <div class="skp-context-blocks">
+          <div class="skp-context-block">
+            <span class="skp-context-label">Task</span>
+            <p class="skp-context-text">Refresh the identity and lay the groundwork for store design. Convey the brand's new role — helping customers pick jewelry to match their character, mood and occasion.</p>
+          </div>
+          <div class="skp-context-block">
+            <span class="skp-context-label">Solution</span>
+            <p class="skp-context-text">The idea of combinations, found inside the jewelry itself — in beads. The "bracelet of different beads" metaphor shaped the logo and a flexible visual system.</p>
+          </div>
+          <div class="skp-context-block">
+            <span class="skp-context-label">Result</span>
+            <p class="skp-context-text">A recognizable visual system that grows together with the brand's range and audience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Narrative + media -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>Our task was to refresh the identity and lay the foundation for the future design of the stores. It was important to convey Charoit's new role: helping customers choose jewelry to match their character, wardrobe, mood or a specific occasion.</p>
+      </div>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/charoit/charoit_sreda_2.avif"><img src="/images/charoit/charoit_sreda_2.webp" alt="Charoit — visual system" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_3.mp4" type="video/mp4"></video>
+    </section>
+
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>The redesign was built on the idea of combinations, which we found inside the jewelry itself — in beads. From a single set of beads you can assemble different combinations and create your own look.</p>
+      </div>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_4.mp4" type="video/mp4"></video>
+    </section>
+
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>The "bracelet of different beads" metaphor defined the new logo and the principle of the whole visual system. The beads became graphic containers for photos, jewelry and looks. They can be filled and combined, adapting the identity to collections, occasions and communication formats.</p>
+      </div>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_6.mp4" type="video/mp4"></video>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/charoit/charoit_sreda_7.avif"><img src="/images/charoit/charoit_sreda_7.webp" alt="Charoit — communication" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/charoit/charoit_sreda_8.avif"><img src="/images/charoit/charoit_sreda_8.webp" alt="Charoit — communication" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>As a result, the Charoit jewelry store gained a flexible visual system that preserves the brand's recognizability and can evolve together with its range and audience.</p>
+      </div>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/charoit/charoit_sreda_9.avif"><img src="/images/charoit/charoit_sreda_9.webp" alt="Charoit — communication" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/charoit/charoit_sreda_10.avif"><img src="/images/charoit/charoit_sreda_10.webp" alt="Charoit — communication" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/charoit/charoit_sreda_11.avif"><img src="/images/charoit/charoit_sreda_11.webp" alt="Charoit — communication" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- Credits -->
+    <section class="skp-credits">
+      <div class="skp-credits-wrap">
+        <div class="skp-cred-roles">
+          <p>Art Director</p>
+          <p>Graphic Designer</p>
+          <p>Digital Producer</p>
+          <p>Brand Designer</p>
+          <p>Motion Designer</p>
+        </div>
+        <div class="skp-cred-names">
+          <p>Alisa Grant</p>
+          <p><a href="/">Ripsime Sargsyan</a></p>
+          <p>Artyom Rulyov</p>
+          <p>Vladislav Chepchugov</p>
+          <p>Ekaterina Nikanorova</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- bauns.ru -->
+    <div class="cha-bauns">
+      <a href="https://bauns.ru" target="_blank" rel="noopener">bauns.ru</a>
+    </div>
+
+    <!-- See also -->
+    <section class="ebr-see-also">
+      <p class="ebr-see-also-label">See also</p>
+      <div class="ebr-see-also-grid">
+        <a href="/skazpokrayu-en" class="ebr-see-also-item">
+          <div class="ebr-see-also-thumb">
+            <picture><source type="image/avif" srcset="/images/Works_Covers/skazpokrayu_cover.avif"><img src="/images/Works_Covers/skazpokrayu_cover.webp" alt="Skaz po krayu" loading="lazy" decoding="async"></picture>
+          </div>
+          <p class="ebr-see-also-name">Skaz po krayu</p>
+        </a>
+        <a href="/eburet" class="ebr-see-also-item">
+          <div class="ebr-see-also-thumb">
+            <picture><source type="image/avif" srcset="/images/Works_Covers/eburet.avif"><img src="/images/Works_Covers/eburet.webp" alt="Eburet" loading="lazy" decoding="async"></picture>
+          </div>
+          <p class="ebr-see-also-name">Eburet</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+    <!-- Contact -->
+    <section class="contact-form-section" id="contact">
+      <div>
+        <h2 class="contact-headline">Get in Touch</h2>
+        <p class="contact-body">Have an interesting project or struggling with design? Let's connect! I'm always open to talk, create, and collaborate.</p>
+      </div>
+      <form class="ol-form contact-form-ajax" novalidate>
+        <input type="hidden" name="access_key" value="262fc81b-9cb3-4ffb-bac3-c6d69a5b9200">
+        <input type="hidden" name="subject" value="Portfolio inquiry — ripsime.me">
+        <input type="hidden" name="from_name" value="ripsime.me contact form">
+        <div class="ol-field">
+          <input type="text" name="name" required placeholder=" ">
+          <label class="ol-label">Name</label>
+        </div>
+        <div class="ol-field">
+          <input type="email" name="email" required placeholder=" ">
+          <label class="ol-label">Email</label>
+        </div>
+        <div class="ol-field">
+          <input type="text" name="message" required placeholder=" ">
+          <label class="ol-label">About project</label>
+        </div>
+        <label class="ol-consent">
+          <input type="checkbox" name="consent" required>
+          <span class="ol-consent-text">I agree to the processing of personal data.</span>
+        </label>
+        <button type="submit" class="ol-submit">Send →</button>
+        <div class="form-status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <footer class="site-footer">
+    <div class="footer-links-col">
+      <div>
+        <nav class="footer-col-links">
+          <a href="/">Home</a>
+          <a href="/work">Works</a>
+          <a href="/pieces">Pieces</a>
+          <a href="/talks">Talks</a>
+        </nav>
+      </div>
+      <div>        <div class="footer-col-links">
+          <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">@sargsyan.std</a>
+        </div>
+      </div>
+      <div>        <div class="footer-col-links">
+          <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
+        </div>
+      </div>
+      <div class="footer-col-right">
+        <p class="footer-copyright">All rights reserved</p>
+        <p class="footer-copyright">© 2026 Ripsime Sargsyan</p>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

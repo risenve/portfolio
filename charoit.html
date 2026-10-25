@@ -31,8 +31,14 @@
     .skp-main-dark .ebr-see-also { background: #000; }
     .skp-main-dark .ebr-see-also-label { color: #fff; }
     .skp-main-dark .ebr-see-also-name { color: #fff; }
+    /* hero video fills the hero area */
+    .skp-hero video { width: 100%; height: 100%; object-fit: cover; display: block; }
     /* full-width video at its natural ratio */
     .skp-fullimg.skp-natural video { width: 100%; height: auto; display: block; }
+    /* About block in the left column */
+    .cha-about { margin-top: 24px; }
+    .cha-about .skp-context-label { color: #555; }
+    .cha-about .skp-context-text { color: #ccc; }
     /* bauns.ru line under credits */
     .cha-bauns { background: #000; text-align: center; padding: 0 24px 72px; }
     .cha-bauns a {
@@ -61,6 +67,7 @@
           <a href="/service-art-direction" class="service-item">Art Direction</a>
         </div>
       </div>
+      <a href="/pieces" class="nav-link">Pieces</a>
       <a href="/talks" class="nav-link">Talks</a>
       <a href="#contact" class="nav-link">Contact</a>
     </div>
@@ -73,6 +80,7 @@
   <div class="staircase-panel" id="staircase-panel">
     <a href="/" class="stair-link">Home</a>
     <a href="/work" class="stair-link">Work</a>
+    <a href="/pieces" class="stair-link">Pieces</a>
     <a href="/talks" class="stair-link">Talks</a>
     <a href="#contact" class="stair-link">Contact</a>
   </div>
@@ -97,6 +105,7 @@
             <a href="/service-product-design">Product Design</a>
             <a href="/service-art-direction">Art Direction</a>
           </div>
+          <a href="/pieces">Pieces</a>
           <a href="/talks">Talks</a>
           <a href="#contact">Contact</a>
         </div></div>
@@ -124,6 +133,12 @@
     </div>
   </div>
 
+  <!-- Language toggle -->
+  <div class="lang-toggle">
+    <span class="lang-btn lang-btn--active">RU</span>
+    <a href="/charoit-en" class="lang-btn">EN</a>
+  </div>
+
   <!-- PAGE CONTENT -->
   <div class="page-wrap">
   <main class="skp-main skp-main-dark skp-m2 skp-m2-info">
@@ -134,49 +149,49 @@
       <p>Айдентика и брендинг для сети ювелирных магазинов</p>
     </section>
 
-    <!-- 1. Hero image -->
+    <!-- 1. Hero video -->
     <section class="skp-hero">
-      <picture><source type="image/avif" srcset="/images/Works_Covers/Charoit.avif"><img src="/images/Works_Covers/Charoit.webp" alt="Чароит — айдентика" fetchpriority="high" decoding="async"></picture>
+      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_1.mp4" type="video/mp4"></video>
     </section>
 
     <!-- 2. Project info -->
     <section class="skp-project-info">
       <div class="skp-project-info-left">
         <p class="skp-info-headline">Айдентика и брендинг для ювелирного магазина совместно со студией Bauns.</p>
+        <div class="skp-context-block cha-about">
+          <span class="skp-context-label">О бренде</span>
+          <p class="skp-context-text">«Чароит» — сеть ювелирных магазинов из Сургута. Бренд вырос из дела основателя-ювелира, который работал с камнем чароит и создавал из него украшения. Со временем бренд вырос — магазинов стало больше, а вместе с ними увеличился ассортимент украшений.</p>
+        </div>
         <div class="skp-project-services">
-          <p>Art direction</p>
-          <p>Brand Design</p>
-          <p>Identity</p>
-          <p>Motion</p>
+          <p>Brand &amp; graphic design</p>
+          <p>Motion design</p>
+          <p>Ai &amp; sound design</p>
         </div>
         <a href="https://bauns.ru" class="skp-project-link" target="_blank" rel="noopener">bauns.ru</a>
       </div>
       <div class="skp-project-info-right">
         <div class="skp-context-blocks">
           <div class="skp-context-block">
-            <span class="skp-context-label">О бренде</span>
-            <p class="skp-context-text">«Чароит» — сеть ювелирных магазинов из Сургута. Бренд вырос из дела основателя-ювелира, который работал с камнем чароит и создавал из него украшения. Со временем бренд вырос — магазинов стало больше, а вместе с ними увеличился ассортимент украшений.</p>
-          </div>
-          <div class="skp-context-block">
             <span class="skp-context-label">Задача</span>
-            <p class="skp-context-text">Перед нами стояла задача обновить айдентику и заложить основу для будущего оформления магазинов. Важно было передать новую роль «Чароита»: помогать покупателям подбирать украшения под их характер, гардероб, настроение или конкретный повод.</p>
+            <p class="skp-context-text">Обновить айдентику и заложить основу для оформления магазинов. Передать новую роль бренда — помогать подбирать украшения под характер, настроение и повод.</p>
           </div>
           <div class="skp-context-block">
             <span class="skp-context-label">Решение</span>
-            <p class="skp-context-text">В основу редизайна легла идея сочетаний, которую мы нашли внутри самих украшений — в бусинах. Из одного набора бусин можно собрать разные комбинации и создать собственный образ.</p>
-            <p class="skp-context-text">Метафора «браслет из разных бусин» определила новый логотип и принцип всей визуальной системы. Бусины стали графическими контейнерами для фотографий, украшений и образов. Их можно наполнять и комбинировать, адаптировать айдентику под коллекции, поводы и форматы коммуникации.</p>
+            <p class="skp-context-text">Идея сочетаний, найденная в самих украшениях — в бусинах. Метафора «браслет из разных бусин» легла в основу логотипа и гибкой визуальной системы.</p>
           </div>
           <div class="skp-context-block">
             <span class="skp-context-label">Результат</span>
-            <p class="skp-context-text">В результате ювелирный магазин «Чароит» получил гибкую визуальную систему, которая сохраняет узнаваемость бренда и может развиваться вместе с его ассортиментом и аудиторией.</p>
+            <p class="skp-context-text">Узнаваемая визуальная система, которая развивается вместе с ассортиментом и аудиторией бренда.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Media sequence (1,2,3,4,6,7,8,9,10,11) -->
-    <section class="skp-fullimg skp-natural">
-      <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_1.mp4" type="video/mp4"></video>
+    <!-- Narrative + media -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>Перед нами стояла задача обновить айдентику и заложить основу для будущего оформления магазинов. Важно было передать новую роль «Чароита»: помогать покупателям подбирать украшения под их характер, гардероб, настроение или конкретный повод.</p>
+      </div>
     </section>
 
     <section class="skp-fullimg skp-natural">
@@ -187,8 +202,20 @@
       <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_3.mp4" type="video/mp4"></video>
     </section>
 
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>В основу редизайна легла идея сочетаний, которую мы нашли внутри самих украшений — в бусинах. Из одного набора бусин можно собрать разные комбинации и создать собственный образ.</p>
+      </div>
+    </section>
+
     <section class="skp-fullimg skp-natural">
       <video autoplay loop muted playsinline><source src="/images/charoit/charoit_sreda_4.mp4" type="video/mp4"></video>
+    </section>
+
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>Метафора «браслет из разных бусин» определила новый логотип и принцип всей визуальной системы. Бусины стали графическими контейнерами для фотографий, украшений и образов. Их можно наполнять и комбинировать, адаптировать айдентику под коллекции, поводы и форматы коммуникации.</p>
+      </div>
     </section>
 
     <section class="skp-fullimg skp-natural">
@@ -201,6 +228,12 @@
 
     <section class="skp-fullimg skp-natural">
       <picture><source type="image/avif" srcset="/images/charoit/charoit_sreda_8.avif"><img src="/images/charoit/charoit_sreda_8.webp" alt="Чароит — коммуникация" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>В результате ювелирный магазин «Чароит» получил гибкую визуальную систему, которая сохраняет узнаваемость бренда и может развиваться вместе с его ассортиментом и аудиторией.</p>
+      </div>
     </section>
 
     <section class="skp-fullimg skp-natural">
@@ -250,11 +283,11 @@
           </div>
           <p class="ebr-see-also-name">Сказ по краю</p>
         </a>
-        <a href="/unicorn" class="ebr-see-also-item">
+        <a href="/eburet" class="ebr-see-also-item">
           <div class="ebr-see-also-thumb">
-            <picture><source type="image/avif" srcset="/images/Works_Covers/Unicorn Embassy.avif"><img src="/images/Works_Covers/Unicorn Embassy.webp" alt="Unicorn Embassy" loading="lazy" decoding="async"></picture>
+            <picture><source type="image/avif" srcset="/images/Works_Covers/eburet.avif"><img src="/images/Works_Covers/eburet.webp" alt="Eburet" loading="lazy" decoding="async"></picture>
           </div>
-          <p class="ebr-see-also-name">Unicorn Embassy</p>
+          <p class="ebr-see-also-name">Eburet</p>
         </a>
       </div>
     </section>
@@ -298,6 +331,7 @@
         <nav class="footer-col-links">
           <a href="/">Home</a>
           <a href="/work">Works</a>
+          <a href="/pieces">Pieces</a>
           <a href="/talks">Talks</a>
         </nav>
       </div>

@@ -383,5 +383,71 @@
     "img": "/images/eburet/img 2.webp",
     "w": 1440,
     "h": 843
+  },
+  {
+    "id": 38,
+    "title": "Charoit",
+    "story": "Айдентика и брендинг для сети ювелирных магазинов «Чароит» совместно со студией Bauns.",
+    "year": "2025",
+    "link": "https://bauns.ru",
+    "collection": "projects",
+    "img": "/images/charoit/charoit_sreda_2.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 39,
+    "title": "Charoit",
+    "story": "Айдентика и брендинг для сети ювелирных магазинов «Чароит» совместно со студией Bauns.",
+    "year": "2025",
+    "link": "https://bauns.ru",
+    "collection": "projects",
+    "img": "/images/charoit/charoit_sreda_7.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 40,
+    "title": "Charoit",
+    "story": "Айдентика и брендинг для сети ювелирных магазинов «Чароит» совместно со студией Bauns.",
+    "year": "2025",
+    "link": "https://bauns.ru",
+    "collection": "projects",
+    "img": "/images/charoit/charoit_sreda_8.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 41,
+    "title": "Charoit",
+    "story": "Айдентика и брендинг для сети ювелирных магазинов «Чароит» совместно со студией Bauns.",
+    "year": "2025",
+    "link": "https://bauns.ru",
+    "collection": "projects",
+    "img": "/images/charoit/charoit_sreda_9.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 42,
+    "title": "Charoit",
+    "story": "Айдентика и брендинг для сети ювелирных магазинов «Чароит» совместно со студией Bauns.",
+    "year": "2025",
+    "link": "https://bauns.ru",
+    "collection": "projects",
+    "img": "/images/charoit/charoit_sreda_10.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 43,
+    "title": "Charoit",
+    "story": "Айдентика и брендинг для сети ювелирных магазинов «Чароит» совместно со студией Bauns.",
+    "year": "2025",
+    "link": "https://bauns.ru",
+    "collection": "projects",
+    "img": "/images/charoit/charoit_sreda_11.webp",
+    "w": 1920,
+    "h": 1080
   }
 ]
