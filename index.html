@@ -90,6 +90,7 @@
     /* Photo — bottom of the right column */
     .cov-photo {
       align-self: flex-start;
+      margin-left: 120px;              /* align photo's left edge with the "Currently" text (label 100 + gap 20) */
       height: clamp(320px, 56vh, 528px);
       aspect-ratio: 394 / 525;
       width: auto;
@@ -180,7 +181,7 @@
       /* Photo lowered — anchored to the bottom, top area stays black for the name */
       .cov-photo {
         position: absolute; left: 0; right: 0; bottom: 0; top: auto;
-        order: 0; width: 100%; height: 76%;
+        order: 0; width: 100%; height: 76%; margin-left: 0;
         aspect-ratio: auto; align-self: auto;
         z-index: 0;
       }
