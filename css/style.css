@@ -321,7 +321,7 @@ body.overlay-open{overflow:hidden}
   align-items:flex-end;
   justify-content:space-between;
   gap:28px;flex-wrap:wrap;
-  padding:calc(var(--nav-h) + 32px) var(--pad-x) 20px;
+  padding:calc(var(--nav-h) + 48px) var(--pad-x) 20px;
   border-bottom:1px solid rgba(255,255,255,0.06);
 }
 .work-head .work-heading{padding:0;line-height:.8}
@@ -892,21 +892,25 @@ body.overlay-open{overflow:hidden}
   .talks-cards-grid{grid-template-columns:1fr;gap:28px}
   .talks-page-header{padding:calc(var(--nav-h)+24px) var(--pad-x) 32px}
   /* Work heading */
+  .work-head{padding:calc(var(--nav-h)+24px) var(--pad-x) 12px}
   .work-heading{padding:calc(var(--nav-h)+20px) var(--pad-x) 24px}
   /* Controls: filters row 1, grid/list row 2 */
   .controls{padding:12px var(--pad-x) 0;flex-wrap:wrap;gap:0;align-items:flex-start}
   .filters{width:100%;order:1;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:8px}
   .view-toggle{width:100%;order:2;justify-content:space-between;flex-shrink:unset;margin-left:0;padding:8px 0 12px}
   .filter-btn{font-size:17px;padding:4px 10px 4px 0}
-  /* Overlay mobile: links first, form after */
-  .overlay-body{grid-template-columns:1fr;gap:0;padding:0}
-  .ol-brand,.ol-main,.ol-aside{padding:24px var(--pad-x);border-left:none}
-  .ol-main,.ol-aside{border-top:1px solid rgba(255,255,255,0.12)}
-  .ol-brand{gap:14px}
-  .ol-brand-name{font-size:clamp(28px,8vw,40px)}
+  /* Overlay mobile: projects → (nav + socials on one row) → form */
+  .overlay-body{display:flex;flex-direction:row;flex-wrap:wrap;gap:0;padding:0;grid-template-columns:none;align-items:flex-start}
+  .ol-brand-name{display:none}                         /* hide the name on mobile */
+  .ol-brand{width:100%;order:1;padding:24px var(--pad-x) 4px;border-left:none;gap:0}
+  .ol-brand-projects{margin-top:0}
+  .ol-main{order:2;flex:1 1 58%;min-width:0;padding:22px var(--pad-x);border-left:none;border-top:1px solid rgba(255,255,255,0.12)}
+  .ol-aside{display:contents}                           /* let links + form flow as siblings */
+  .overlay-footer-info{order:3;flex:0 0 auto;padding:22px var(--pad-x) 22px 0;border-top:1px solid rgba(255,255,255,0.12);align-self:stretch}
+  .overlay-footer-info .ol-footer-col{align-items:flex-end;text-align:right}
+  .overlay-form-wrap{order:4;width:100%;padding:24px var(--pad-x);border-top:1px solid rgba(255,255,255,0.12)}
   .overlay-stair-links a,.ol-service-toggle{font-size:clamp(26px,7vw,38px)}
-  .ol-aside{gap:32px}
-  .overlay-form-wrap{padding-left:0}
+  .ol-submit{font-size:24px;padding:22px 0}
   /* Cursor */
   .cursor-x{display:none}
   *{cursor:auto!important}
