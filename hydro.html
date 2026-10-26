@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109758796', 'ym');
+    ym(109758796, 'init', {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109758796" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hydro — Ripsime Sargsyan</title>
+  <meta name="description" content="Hydro — айдентика и дизайн-система для гидроэлектростанции в Кыргызстане. Кейс Ripsime Sargsyan.">
+  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* hero video fills the hero area */
+    .skp-hero video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* full-width video at its natural ratio */
+    .skp-fullimg.skp-natural video { width: 100%; height: auto; display: block; }
+    /* 20px gap between media, same as photo-to-edge */
+    .skp-fullimg { margin-bottom: 20px; }
+    /* About block in the left column */
+    .hyd-about { margin-top: 24px; }
+    /* two project links stacked */
+    .hyd-links { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    /* bauns.ru line under credits (light) */
+    .hyd-bauns { background: #fff; text-align: center; padding: 0 24px 72px; }
+    .hyd-bauns a {
+      font-family: var(--font); font-size: 18px; color: #000; text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,0.3); padding-bottom: 2px; transition: border-color .2s;
+    }
+    .hyd-bauns a:hover { border-bottom-color: #000; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/work" class="nav-link active">Work</a>
+      <div class="nav-service-wrap">
+        <button class="nav-link nav-service-toggle">Service</button>
+        <div class="service-drop">
+          <a href="/service-branding" class="service-item">Branding</a>
+          <a href="/service-uiux" class="service-item">UI/UX</a>
+          <a href="/service-product-design" class="service-item">Product Design</a>
+          <a href="/service-art-direction" class="service-item">Art Direction</a>
+        </div>
+      </div>
+      <a href="/pieces" class="nav-link">Pieces</a>
+      <a href="/talks" class="nav-link">Talks</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- STAIRCASE HOVER PANEL -->
+  <div class="staircase-panel" id="staircase-panel">
+    <a href="/" class="stair-link">Home</a>
+    <a href="/work" class="stair-link">Work</a>
+    <a href="/pieces" class="stair-link">Pieces</a>
+    <a href="/talks" class="stair-link">Talks</a>
+    <a href="#contact" class="stair-link">Contact</a>
+  </div>
+
+  <!-- FULL OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+
+      <!-- left: name + featured projects -->
+      <div class="ol-brand">
+        <p class="ol-brand-name">Ripsime<br>Sargsyan</p>
+        <div class="ol-brand-projects">
+          <a class="ol-proj" href="/work">
+            <span class="ol-proj-img"><img src="/images/Works_Covers/Esse.webp" alt="Esse" loading="lazy"></span>
+            <span class="ol-proj-label">Esse</span>
+          </a>
+          <a class="ol-proj" href="/charoit">
+            <span class="ol-proj-img"><img src="/images/Works_Covers/Charoit.webp" alt="Charoit" loading="lazy"></span>
+            <span class="ol-proj-label">Charoit</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- middle: big nav -->
+      <div class="ol-main">
+        <div class="overlay-stair-links">
+          <a href="/">Home</a>
+          <a href="/work">Work</a>
+          <button class="ol-service-toggle" type="button">Service <span class="ol-toggle-arrow">▾</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="/service-branding">Branding</a>
+            <a href="/service-uiux">UI/UX</a>
+            <a href="/service-product-design">Product Design</a>
+            <a href="/service-art-direction">Art Direction</a>
+          </div>
+          <a href="/pieces">Pieces</a>
+          <a href="/talks">Talks</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <!-- right: links + contact form -->
+      <div class="ol-aside">
+        <div class="overlay-footer-info">
+          <div class="ol-footer-col">
+            <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          </div>
+        </div>
+        <div class="overlay-form-wrap">
+          <form id="overlay-form" class="ol-form" novalidate>
+            <div class="ol-field">
+              <input type="text" name="ol-name" required placeholder=" ">
+              <label class="ol-label">Name</label>
+            </div>
+            <div class="ol-field">
+              <input type="email" name="ol-email" required placeholder=" ">
+              <label class="ol-label">Email</label>
+            </div>
+            <div class="ol-field">
+              <input type="text" name="ol-message" required placeholder=" ">
+              <label class="ol-label">About project</label>
+            </div>
+            <label class="ol-consent">
+              <input type="checkbox" name="ol-consent" required>
+              <span class="ol-consent-text">I agree to the <a href="/privacy">processing of personal data</a>.</span>
+            </label>
+            <button type="submit" class="ol-submit">Send →</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-wrap">
+  <main class="skp-main skp-m2 skp-m2-info">
+
+    <!-- 0. Project header -->
+    <section class="skp-project-header">
+      <h1>Hydro</h1>
+      <p>Айдентика и дизайн-система для гидроэлектростанции</p>
+    </section>
+
+    <!-- 1. Hero video (слайд 1) -->
+    <section class="skp-hero">
+      <video autoplay loop muted playsinline><source src="/images/hydro/hydro_1.mp4" type="video/mp4"></video>
+    </section>
+
+    <!-- 2. Project info -->
+    <section class="skp-project-info">
+      <div class="skp-project-info-left">
+        <p class="skp-info-headline">Айдентика и дизайн-система для гидроэлектростанции в Кыргызстане.</p>
+        <div class="skp-context-block hyd-about">
+          <span class="skp-context-label">О проекте</span>
+          <p class="skp-context-text">Дочерняя компания золотодобывающей компании «Альянс Алтын».</p>
+        </div>
+        <div class="skp-project-services">
+          <p>Brand identity</p>
+          <p>Design system</p>
+        </div>
+        <div class="hyd-links">
+          <!-- TODO: заменить href на официальный сайт «Альянс Алтын» -->
+          <a href="#" class="skp-project-link" target="_blank" rel="noopener">Альянс Алтын</a>
+          <a href="https://bauns.ru" class="skp-project-link" target="_blank" rel="noopener">bauns.ru</a>
+        </div>
+      </div>
+      <div class="skp-project-info-right">
+        <div class="skp-context-blocks">
+          <div class="skp-context-block">
+            <span class="skp-context-label">Задача</span>
+            <p class="skp-context-text">[рыба] Здесь будет описание задачи проекта — заменим на финальный текст.</p>
+          </div>
+          <div class="skp-context-block">
+            <span class="skp-context-label">Решение</span>
+            <p class="skp-context-text">[рыба] Здесь будет описание решения — заменим на финальный текст.</p>
+          </div>
+          <div class="skp-context-block">
+            <span class="skp-context-label">Результат</span>
+            <p class="skp-context-text">[рыба] Здесь будет описание результата — заменим на финальный текст.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. слайд 2 (видео) -->
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/hydro/hydro_2.mp4" type="video/mp4"></video>
+    </section>
+
+    <!-- [рыба] текст между блоками -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>[рыба] Вводный абзац о проекте — заменим на финальный текст.</p>
+      </div>
+    </section>
+
+    <!-- 4. слайд 3 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_3.avif"><img src="/images/hydro/hydro_3.webp" alt="Hydro" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- 5. слайд 4 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_4.avif"><img src="/images/hydro/hydro_4.webp" alt="Hydro" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- [рыба] текст между блоками -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>[рыба] Абзац о решении и визуальной системе — заменим на финальный текст.</p>
+      </div>
+    </section>
+
+    <!-- 6. слайд 5 (видео) -->
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/hydro/hydro_5.mp4" type="video/mp4"></video>
+    </section>
+
+    <!-- 7. слайд 6 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_6.avif"><img src="/images/hydro/hydro_6.webp" alt="Hydro" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- 8. слайд 7 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_7.avif"><img src="/images/hydro/hydro_7.webp" alt="Hydro" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- 9. слайд 8 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_8.avif"><img src="/images/hydro/hydro_8.webp" alt="Hydro" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- [рыба] текст между блоками -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>[рыба] Абзац о дизайн-системе — заменим на финальный текст.</p>
+      </div>
+    </section>
+
+    <!-- 10. слайд 9 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_9.avif"><img src="/images/hydro/hydro_9.webp" alt="Hydro" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- 11. слайд 10 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_10.avif"><img src="/images/hydro/hydro_10.webp" alt="Hydro" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- 12. слайд 11 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_11.avif"><img src="/images/hydro/hydro_11.webp" alt="Hydro" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- Conclusion [рыба] -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>[рыба] Заключение — заменим на финальный текст.</p>
+      </div>
+    </section>
+
+    <!-- Credits -->
+    <section class="skp-credits">
+      <div class="skp-credits-wrap">
+        <div class="skp-cred-roles">
+          <p>Арт-директор</p>
+          <p>Креативный директор</p>
+          <p>Графический дизайнер</p>
+          <p>Digital-продюсер</p>
+          <p>Lead UX/UI дизайнер</p>
+          <p>UX/UI дизайнер</p>
+          <p>UX/UI дизайнер</p>
+        </div>
+        <div class="skp-cred-names">
+          <p>Алиса Грант</p>
+          <p>Филипп Грант</p>
+          <p><a href="/">Рипсиме Саргсян</a></p>
+          <p>Анна Пачганова</p>
+          <p>Алина Калистрина</p>
+          <p>Настя Данилкив</p>
+          <p>Катя Никанорова</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- bauns.ru -->
+    <div class="hyd-bauns">
+      <a href="https://bauns.ru" target="_blank" rel="noopener">bauns.ru</a>
+    </div>
+
+    <!-- See also -->
+    <section class="ebr-see-also">
+      <p class="ebr-see-also-label">Смотрите также</p>
+      <div class="ebr-see-also-grid">
+        <a href="/charoit" class="ebr-see-also-item">
+          <div class="ebr-see-also-thumb">
+            <picture><source type="image/avif" srcset="/images/Works_Covers/Charoit.avif"><img src="/images/Works_Covers/Charoit.webp" alt="Charoit" loading="lazy" decoding="async"></picture>
+          </div>
+          <p class="ebr-see-also-name">Charoit</p>
+        </a>
+        <a href="/skazpokrayu" class="ebr-see-also-item">
+          <div class="ebr-see-also-thumb">
+            <picture><source type="image/avif" srcset="/images/Works_Covers/skazpokrayu_cover.avif"><img src="/images/Works_Covers/skazpokrayu_cover.webp" alt="Сказ по краю" loading="lazy" decoding="async"></picture>
+          </div>
+          <p class="ebr-see-also-name">Сказ по краю</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+    <!-- Contact -->
+    <section class="contact-form-section" id="contact">
+      <div>
+        <h2 class="contact-headline">Get in Touch</h2>
+        <p class="contact-body">Have an interesting project or struggling with design? Let's connect! I'm always open to talk, create, and collaborate.</p>
+      </div>
+      <form class="ol-form contact-form-ajax" novalidate>
+        <input type="hidden" name="access_key" value="262fc81b-9cb3-4ffb-bac3-c6d69a5b9200">
+        <input type="hidden" name="subject" value="Portfolio inquiry — ripsime.me">
+        <input type="hidden" name="from_name" value="ripsime.me contact form">
+        <div class="ol-field">
+          <input type="text" name="name" required placeholder=" ">
+          <label class="ol-label">Name</label>
+        </div>
+        <div class="ol-field">
+          <input type="email" name="email" required placeholder=" ">
+          <label class="ol-label">Email</label>
+        </div>
+        <div class="ol-field">
+          <input type="text" name="message" required placeholder=" ">
+          <label class="ol-label">About project</label>
+        </div>
+        <label class="ol-consent">
+          <input type="checkbox" name="consent" required>
+          <span class="ol-consent-text">I agree to the <a href="/privacy">processing of personal data</a>.</span>
+        </label>
+        <button type="submit" class="ol-submit">Send →</button>
+        <div class="form-status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <footer class="site-footer">
+    <div class="footer-links-col">
+      <div>
+        <nav class="footer-col-links">
+          <a href="/">Home</a>
+          <a href="/work">Works</a>
+          <a href="/pieces">Pieces</a>
+          <a href="/talks">Talks</a>
+        </nav>
+      </div>
+      <div>        <div class="footer-col-links">
+          <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">@sargsyan.std</a>
+        </div>
+      </div>
+      <div>        <div class="footer-col-links">
+          <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
+        </div>
+      </div>
+      <div class="footer-col-right">
+        <p class="footer-copyright">All rights reserved</p>
+        <p class="footer-copyright">© 2026 Ripsime Sargsyan</p>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

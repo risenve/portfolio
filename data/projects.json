@@ -85,10 +85,13 @@
     "year": "2025",
     "cover": "/images/Works_Covers/Hydro.webp",
     "imgs": [
-      "/images/Works_Covers/Hydro.webp"
+      "/images/Works_Covers/Hydro.webp",
+      "/images/hydro/hydro_3.webp",
+      "/images/hydro/hydro_7.webp",
+      "/images/hydro/hydro_8.webp"
     ],
-    "href": "#",
-    "hrefRu": "#"
+    "href": "/hydro",
+    "hrefRu": "/hydro"
   },
   {
     "id": 1,
