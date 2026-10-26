@@ -321,10 +321,10 @@ body.overlay-open{overflow:hidden}
   align-items:flex-end;
   justify-content:space-between;
   gap:28px;flex-wrap:wrap;
-  padding:calc(var(--nav-h) + 48px) var(--pad-x) 20px;
+  padding:calc(var(--nav-h) + 144px) var(--pad-x) 20px;
   border-bottom:1px solid rgba(255,255,255,0.06);
 }
-.work-head .work-heading{padding:0;line-height:.8}
+.work-head .work-heading{padding:0;line-height:.8;margin:0}
 .work-head .controls{padding:0;border:none;gap:28px;align-items:baseline;flex:0 1 auto}
 .work-head .filters{align-items:baseline}
 .work-head .view-toggle{align-items:baseline}
@@ -890,10 +890,10 @@ body.overlay-open{overflow:hidden}
   .footer-col-right{text-align:left}
   /* Talks */
   .talks-cards-grid{grid-template-columns:1fr;gap:28px}
-  .talks-page-header{padding:calc(var(--nav-h)+24px) var(--pad-x) 32px}
+  .talks-page-header{padding:calc(var(--nav-h) + 24px) var(--pad-x) 32px}
   /* Work heading */
-  .work-head{padding:calc(var(--nav-h)+24px) var(--pad-x) 12px}
-  .work-heading{padding:calc(var(--nav-h)+20px) var(--pad-x) 24px}
+  .work-head{padding:calc(var(--nav-h) + 24px) var(--pad-x) 12px}
+  .work-heading{padding:calc(var(--nav-h) + 20px) var(--pad-x) 24px}
   /* Controls: filters row 1, grid/list row 2 */
   .controls{padding:12px var(--pad-x) 0;flex-wrap:wrap;gap:0;align-items:flex-start}
   .filters{width:100%;order:1;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:8px}
