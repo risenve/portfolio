@@ -138,13 +138,21 @@ body.overlay-open{overflow:hidden}
 .overlay-body{
   flex:1;
   display:grid;
-  grid-template-columns:0.8fr 1.35fr 1fr;
+  grid-template-columns:1fr 1fr 1fr;
   gap:0;
   padding:0;
 }
 .ol-brand,.ol-main,.ol-aside{ padding:48px var(--pad-x); min-width:0; }
 .ol-main,.ol-aside{ border-left:1px solid rgba(255,255,255,0.12); }
-.ol-brand{ display:flex;flex-direction:column;gap:22px; }
+.ol-brand{ display:flex;flex-direction:column;justify-content:space-between;gap:22px; }
+/* left-column featured project cards */
+.ol-brand-projects{ display:flex;gap:14px;margin-top:auto; }
+.ol-proj{ display:flex;flex-direction:column;gap:9px;text-decoration:none;flex:1;max-width:190px; }
+.ol-proj-img{ display:block;overflow:hidden;border-radius:10px;aspect-ratio:4/3;background:#1b1b1b; }
+.ol-proj-img img{ width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease; }
+.ol-proj:hover .ol-proj-img img{ transform:scale(1.05); }
+.ol-proj-label{ font-size:13px;color:rgba(255,255,255,0.6);transition:color .2s; }
+.ol-proj:hover .ol-proj-label{ color:#fff; }
 .ol-brand-logo img{ width:44px;height:44px;display:block; }
 .ol-brand-name{ font-size:clamp(26px,2.6vw,40px);font-weight:400;line-height:1.02;letter-spacing:-0.02em;color:#fff;margin:0; }
 .ol-brand-role{ font-size:14px;color:rgba(255,255,255,0.45);margin:0; }
