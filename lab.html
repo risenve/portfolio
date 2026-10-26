@@ -75,11 +75,20 @@
       <button class="overlay-close" id="overlay-close">×</button>
     </div>
     <div class="overlay-body">
-      <div>
+
+      <!-- left: logo + name -->
+      <div class="ol-brand">
+        <a href="/" class="ol-brand-logo"><img src="/images/logo_variants/logo white without bg.svg" width="44" height="44" alt="Ripsime Sargsyan"></a>
+        <p class="ol-brand-name">Ripsime<br>Sargsyan</p>
+        <p class="ol-brand-role">Designer &amp; Art Director</p>
+      </div>
+
+      <!-- middle: big nav -->
+      <div class="ol-main">
         <div class="overlay-stair-links">
           <a href="/">Home</a>
           <a href="/work">Work</a>
-          <button class="ol-service-toggle" type="button">Services <span class="ol-toggle-arrow">▾</span></button>
+          <button class="ol-service-toggle" type="button">Service <span class="ol-toggle-arrow">▾</span></button>
           <div class="ol-service-sub" id="ol-service-sub">
             <a href="/service-branding">Branding</a>
             <a href="/service-uiux">UI/UX</a>
@@ -89,28 +98,51 @@
           <a href="/pieces">Pieces</a>
           <a href="/talks">Talks</a>
           <a href="#contact">Contact</a>
-        </div></div>
-      <div class="overlay-form-wrap">
-        <form id="overlay-form" class="ol-form" novalidate>
-          <div class="ol-field">
-            <input type="text" name="ol-name" required placeholder=" ">
-            <label class="ol-label">Name</label>
-          </div>
-          <div class="ol-field">
-            <input type="email" name="ol-email" required placeholder=" ">
-            <label class="ol-label">Email</label>
-          </div>
-          <div class="ol-field">
-            <input type="text" name="ol-message" required placeholder=" ">
-            <label class="ol-label">About project</label>
-          </div>
-          <label class="ol-consent">
-            <input type="checkbox" name="ol-consent" required>
-            <span class="ol-consent-text">I agree to the processing of personal data.</span>
-          </label>
-          <button type="submit" class="ol-submit">Send →</button>
-        </form>
+        </div>
       </div>
+
+      <!-- right: links + contact form -->
+      <div class="ol-aside">
+        <div class="overlay-footer-info">
+          <div class="ol-footer-col">
+            <span class="ol-footer-label">Services</span>
+            <a href="/service-branding">Branding</a>
+            <a href="/service-uiux">UI/UX</a>
+            <a href="/service-product-design">Product Design</a>
+            <a href="/service-art-direction">Art Direction</a>
+          </div>
+          <div class="ol-footer-col">
+            <span class="ol-footer-label">Elsewhere</span>
+            <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          </div>
+        </div>
+        <div class="overlay-form-wrap">
+          <span class="ol-form-label">Get in touch</span>
+          <form id="overlay-form" class="ol-form" novalidate>
+            <div class="ol-field">
+              <input type="text" name="ol-name" required placeholder=" ">
+              <label class="ol-label">Name</label>
+            </div>
+            <div class="ol-field">
+              <input type="email" name="ol-email" required placeholder=" ">
+              <label class="ol-label">Email</label>
+            </div>
+            <div class="ol-field">
+              <input type="text" name="ol-message" required placeholder=" ">
+              <label class="ol-label">About project</label>
+            </div>
+            <label class="ol-consent">
+              <input type="checkbox" name="ol-consent" required>
+              <span class="ol-consent-text">I agree to the processing of personal data.</span>
+            </label>
+            <button type="submit" class="ol-submit">Send →</button>
+          </form>
+        </div>
+      </div>
+
     </div>
   </div>
 
