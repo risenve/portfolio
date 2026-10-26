@@ -31,7 +31,7 @@
   <style>
     /* Back to website / Connect — same frame as the homepage cover buttons */
     .pc-actions{
-      position:fixed; left:24px; bottom:24px; z-index:70;
+      position:fixed; right:24px; top:14px; z-index:250;
       display:flex; gap:4px; background:#313131; padding:4px;
       border-radius:999px 12px 12px 999px;
     }
@@ -44,8 +44,8 @@
     .pc-btn-connect{ background:#ff00d0; color:#fff; border-radius:10px; }
     .pc-btn:hover{ filter:brightness(1.06); }
     @media (max-width:720px){
-      .pc-actions{ left:12px; bottom:12px; }
-      .pc-btn{ padding:12px 16px; font-size:14px; }
+      .pc-actions{ right:12px; top:10px; }
+      .pc-btn{ padding:11px 14px; font-size:13px; }
     }
   </style>
 </head>
@@ -56,7 +56,6 @@
     <a href="/" class="nav-logo">
       <img src="/images/logo_variants/r logo black.svg" width="28" height="28" alt="Ripsime Sargsyan">
     </a>
-    <button class="museum-contact mp-frame mp-frame--cta" id="nav-toggle" type="button" aria-label="Open contact menu"><span class="mp-pill">Connect</span></button>
   </nav>
 
   <!-- FULL OVERLAY (opens on Contact) -->
