@@ -321,7 +321,7 @@ body.overlay-open{overflow:hidden}
   align-items:flex-end;
   justify-content:space-between;
   gap:28px;flex-wrap:wrap;
-  padding:calc(var(--nav-h) + 144px) var(--pad-x) 20px;
+  padding:calc(var(--nav-h) + 116px) var(--pad-x) 20px;   /* matches Talks title glyph position */
   border-bottom:1px solid rgba(255,255,255,0.06);
 }
 .work-head .work-heading{padding:0;line-height:.8;margin:0}

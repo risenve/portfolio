@@ -51,6 +51,23 @@ function initReveal() {
     });
   }, { threshold: 0.06 });
   document.querySelectorAll('.reveal:not(.visible)').forEach(function (el) { obs.observe(el); });
+
+  // Fallback: ensure elements already in the viewport reveal even if the
+  // observer doesn't fire (background tab / layout-timing quirks left the
+  // Work heading stuck invisible on mobile). Revealed on the next frames so
+  // the fade-in transition still plays; a timeout is the final safety net.
+  function revealInView() {
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    document.querySelectorAll('.reveal:not(.visible)').forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) {
+        el.classList.add('visible');
+        obs.unobserve(el);
+      }
+    });
+  }
+  requestAnimationFrame(function () { requestAnimationFrame(revealInView); });
+  setTimeout(revealInView, 1000);
 }
 
 // ── ALL PROJECTS LIST ──
