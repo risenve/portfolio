@@ -2256,6 +2256,10 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
   .skp-m2-info .skp-info-headline{grid-column:1;grid-row:1 / span 2}
   .skp-m2-info .skp-project-services{grid-column:2;grid-row:1;margin-bottom:0}
   .skp-m2-info .skp-project-link{grid-column:2;grid-row:2;align-self:start}
+  /* About/context paragraph in the left column goes full width — not squeezed
+     into a narrow half-column cell (charoit «О бренде», hydro about block). */
+  .skp-m2-info .skp-project-info-left .skp-context-block{grid-column:1 / -1}
+  .skp-m2-info .skp-project-info-left .hyd-links{grid-column:1 / -1}
 }
 
 /* ── MOBILE OVERRIDES (must come last to win cascade) ── */
