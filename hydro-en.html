@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109758796', 'ym');
+    ym(109758796, 'init', {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109758796" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hydro — Ripsime Sargsyan</title>
+  <meta name="description" content="Hydro — identity and design system for a hydropower plant in Kyrgyzstan. A case by Ripsime Sargsyan.">
+  <link rel="icon" href="/images/logo_variants/r logo black.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* hero video fills the hero area */
+    .skp-hero video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* full-width video at its natural ratio */
+    .skp-fullimg.skp-natural video { width: 100%; height: auto; display: block; }
+    /* 20px gap between media, same as photo-to-edge */
+    .skp-fullimg { margin-bottom: 20px; }
+    /* About block in the left column */
+    .hyd-about { margin-top: 24px; }
+    /* two project links stacked */
+    .hyd-links { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    /* bauns.ru line under credits (light) */
+    .hyd-bauns { background: #fff; text-align: center; padding: 0 24px 72px; }
+    .hyd-bauns a {
+      font-family: var(--font); font-size: 18px; color: #000; text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,0.3); padding-bottom: 2px; transition: border-color .2s;
+    }
+    .hyd-bauns a:hover { border-bottom-color: #000; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/work" class="nav-link active">Work</a>
+      <div class="nav-service-wrap">
+        <button class="nav-link nav-service-toggle">Service</button>
+        <div class="service-drop">
+          <a href="/service-branding" class="service-item">Branding</a>
+          <a href="/service-uiux" class="service-item">UI/UX</a>
+          <a href="/service-product-design" class="service-item">Product Design</a>
+          <a href="/service-art-direction" class="service-item">Art Direction</a>
+        </div>
+      </div>
+      <a href="/pieces" class="nav-link">Pieces</a>
+      <a href="/talks" class="nav-link">Talks</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- STAIRCASE HOVER PANEL -->
+  <div class="staircase-panel" id="staircase-panel">
+    <a href="/" class="stair-link">Home</a>
+    <a href="/work" class="stair-link">Work</a>
+    <a href="/pieces" class="stair-link">Pieces</a>
+    <a href="/talks" class="stair-link">Talks</a>
+    <a href="#contact" class="stair-link">Contact</a>
+  </div>
+
+  <!-- FULL OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="overlay-header">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo_variants/logo white without bg.svg" width="24" height="24" alt="Ripsime Sargsyan">
+      </a>
+      <button class="overlay-close" id="overlay-close">×</button>
+    </div>
+    <div class="overlay-body">
+
+      <!-- left: name + featured projects -->
+      <div class="ol-brand">
+        <p class="ol-brand-name">Ripsime<br>Sargsyan</p>
+        <div class="ol-brand-projects">
+          <a class="ol-proj" href="/work">
+            <span class="ol-proj-img"><img src="/images/Works_Covers/Esse.webp" alt="Esse" loading="lazy"></span>
+            <span class="ol-proj-label">Esse</span>
+          </a>
+          <a class="ol-proj" href="/charoit">
+            <span class="ol-proj-img"><img src="/images/Works_Covers/Charoit.webp" alt="Charoit" loading="lazy"></span>
+            <span class="ol-proj-label">Charoit</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- middle: big nav -->
+      <div class="ol-main">
+        <div class="overlay-stair-links">
+          <a href="/">Home</a>
+          <a href="/work">Work</a>
+          <button class="ol-service-toggle" type="button">Service <span class="ol-toggle-arrow">▾</span></button>
+          <div class="ol-service-sub" id="ol-service-sub">
+            <a href="/service-branding">Branding</a>
+            <a href="/service-uiux">UI/UX</a>
+            <a href="/service-product-design">Product Design</a>
+            <a href="/service-art-direction">Art Direction</a>
+          </div>
+          <a href="/pieces">Pieces</a>
+          <a href="/talks">Talks</a>
+        </div>
+      </div>
+
+      <!-- right: links + contact form -->
+      <div class="ol-aside">
+        <div class="overlay-footer-info">
+          <div class="ol-footer-col">
+            <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          </div>
+        </div>
+        <div class="overlay-form-wrap">
+          <form id="overlay-form" class="ol-form" novalidate>
+            <div class="ol-field">
+              <input type="text" name="ol-name" required placeholder=" ">
+              <label class="ol-label">Name</label>
+            </div>
+            <div class="ol-field">
+              <input type="email" name="ol-email" required placeholder=" ">
+              <label class="ol-label">Email</label>
+            </div>
+            <div class="ol-field">
+              <input type="text" name="ol-message" required placeholder=" ">
+              <label class="ol-label">About project</label>
+            </div>
+            <label class="ol-consent">
+              <input type="checkbox" name="ol-consent" required>
+              <span class="ol-consent-text">I agree to the <a href="/privacy">processing of personal data</a>.</span>
+            </label>
+            <button type="submit" class="ol-submit">Send →</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Language toggle -->
+  <div class="lang-toggle">
+    <a href="/hydro" class="lang-btn">RU</a>
+    <span class="lang-btn lang-btn--active">EN</span>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-wrap">
+  <main class="skp-main skp-m2 skp-m2-info">
+
+    <!-- 0. Project header -->
+    <section class="skp-project-header">
+      <h1>Hydro</h1>
+      <p>Identity and design system for a hydropower plant</p>
+    </section>
+
+    <!-- 1. Hero video (slide 1) -->
+    <section class="skp-hero">
+      <video autoplay loop muted playsinline><source src="/images/hydro/hydro_1.mp4" type="video/mp4"></video>
+    </section>
+
+    <!-- 2. Project info -->
+    <section class="skp-project-info">
+      <div class="skp-project-info-left">
+        <p class="skp-info-headline">Identity and design system for a hydropower plant in Kyrgyzstan.</p>
+        <div class="skp-context-block hyd-about">
+          <span class="skp-context-label">About</span>
+          <p class="skp-context-text">A subsidiary of the gold-mining company Alliance Altyn.</p>
+        </div>
+        <div class="skp-project-services">
+          <p>Brand identity</p>
+          <p>Design system</p>
+        </div>
+        <div class="hyd-links">
+          <a href="https://www.alliance-altyn.kg/" class="skp-project-link" target="_blank" rel="noopener">Alliance Altyn</a>
+          <a href="https://bauns.ru" class="skp-project-link" target="_blank" rel="noopener">bauns.ru</a>
+        </div>
+      </div>
+      <div class="skp-project-info-right">
+        <div class="skp-context-blocks">
+          <div class="skp-context-block">
+            <span class="skp-context-label">Task</span>
+            <p class="skp-context-text">Design a visual identity and recognition system for the subsidiary. Keep continuity with the parent brand Alliance Altyn while giving it its own, recognisable language.</p>
+          </div>
+          <div class="skp-context-block">
+            <span class="skp-context-label">Solution</span>
+            <p class="skp-context-text">We built on the parent company's design system and developed it for the new direction. We defined the brand's value system and its own visual solutions, and used them to create recognisable assets.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- slide 2 (video) -->
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/hydro/hydro_2.mp4" type="video/mp4"></video>
+    </section>
+
+    <!-- Text A -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>The new identity grew from the same modular grid as the parent brand, but we translated it from strict straight lines into softer, more dynamic forms — closer to nature and the water element. On that basis we designed custom bank cards for employees and premium clients.</p>
+      </div>
+    </section>
+
+    <!-- slide 3 (bank cards) -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_3.avif"><img src="/images/hydro/hydro_3.webp" alt="Hydro — bank cards" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- Text B -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>The wave became the identity's central symbol — born where water flows meet. From it grew the entire visual language: graphics, light, blurred forms and motion.</p>
+      </div>
+    </section>
+
+    <!-- slide 4 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_4.avif"><img src="/images/hydro/hydro_4.webp" alt="Hydro — flows of energy" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- slide 5 (blue video) + slide 6 (blur) — go together -->
+    <section class="skp-fullimg skp-natural">
+      <video autoplay loop muted playsinline><source src="/images/hydro/hydro_5.mp4" type="video/mp4"></video>
+    </section>
+
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_6.avif"><img src="/images/hydro/hydro_6.webp" alt="Hydro — visual system" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- slide 7 (SMM) -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_7.avif"><img src="/images/hydro/hydro_7.webp" alt="Hydro — social media" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- Text C -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>On the approved form we built the assets and a flexible system for social media — one that lets you quickly create different creatives, extend the style and apply it to any task.</p>
+      </div>
+    </section>
+
+    <!-- slide 8 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_8.avif"><img src="/images/hydro/hydro_8.webp" alt="Hydro — signage" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- slide 9 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_9.avif"><img src="/images/hydro/hydro_9.webp" alt="Hydro — access badge" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- slide 10 -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_10.avif"><img src="/images/hydro/hydro_10.webp" alt="Hydro — hydropower plant" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- slide 11 (SMM) -->
+    <section class="skp-fullimg skp-natural">
+      <picture><source type="image/avif" srcset="/images/hydro/hydro_11.avif"><img src="/images/hydro/hydro_11.webp" alt="Hydro — social media" loading="lazy" decoding="async"></picture>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="skp-text">
+      <div class="skp-inner-512">
+        <p>This way the parent brand's established style gained a new branch — one that keeps its connection to the main company yet stays fully independent, with its own character and a deep ethnic idea.</p>
+      </div>
+    </section>
+
+    <!-- Credits -->
+    <section class="skp-credits">
+      <div class="skp-credits-wrap">
+        <div class="skp-cred-roles">
+          <p>Art Director</p>
+          <p>Creative Director</p>
+          <p>Graphic Designer</p>
+          <p>Digital Producer</p>
+          <p>Lead UX/UI Designer</p>
+          <p>UX/UI Designer</p>
+          <p>UX/UI Designer</p>
+        </div>
+        <div class="skp-cred-names">
+          <p>Alisa Grant</p>
+          <p>Philipp Grant</p>
+          <p><a href="/">Ripsime Sargsyan</a></p>
+          <p>Anna Pachganova</p>
+          <p>Alina Kalistrina</p>
+          <p>Nastya Danilkiv</p>
+          <p>Katya Nikanorova</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- bauns.ru -->
+    <div class="hyd-bauns">
+      <a href="https://bauns.ru" target="_blank" rel="noopener">bauns.ru</a>
+    </div>
+
+    <!-- See also -->
+    <section class="ebr-see-also">
+      <p class="ebr-see-also-label">See also</p>
+      <div class="ebr-see-also-grid">
+        <a href="/charoit-en" class="ebr-see-also-item">
+          <div class="ebr-see-also-thumb">
+            <picture><source type="image/avif" srcset="/images/Works_Covers/Charoit.avif"><img src="/images/Works_Covers/Charoit.webp" alt="Charoit" loading="lazy" decoding="async"></picture>
+          </div>
+          <p class="ebr-see-also-name">Charoit</p>
+        </a>
+        <a href="/skazpokrayu-en" class="ebr-see-also-item">
+          <div class="ebr-see-also-thumb">
+            <picture><source type="image/avif" srcset="/images/Works_Covers/skazpokrayu_cover.avif"><img src="/images/Works_Covers/skazpokrayu_cover.webp" alt="Skaz po krayu" loading="lazy" decoding="async"></picture>
+          </div>
+          <p class="ebr-see-also-name">Skaz po krayu</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+    <!-- Contact -->
+    <section class="contact-form-section" id="contact">
+      <div>
+        <h2 class="contact-headline">Get in Touch</h2>
+        <p class="contact-body">Have an interesting project or struggling with design? Let's connect! I'm always open to talk, create, and collaborate.</p>
+      </div>
+      <form class="ol-form contact-form-ajax" novalidate>
+        <input type="hidden" name="access_key" value="262fc81b-9cb3-4ffb-bac3-c6d69a5b9200">
+        <input type="hidden" name="subject" value="Portfolio inquiry — ripsime.me">
+        <input type="hidden" name="from_name" value="ripsime.me contact form">
+        <div class="ol-field">
+          <input type="text" name="name" required placeholder=" ">
+          <label class="ol-label">Name</label>
+        </div>
+        <div class="ol-field">
+          <input type="email" name="email" required placeholder=" ">
+          <label class="ol-label">Email</label>
+        </div>
+        <div class="ol-field">
+          <input type="text" name="message" required placeholder=" ">
+          <label class="ol-label">About project</label>
+        </div>
+        <label class="ol-consent">
+          <input type="checkbox" name="consent" required>
+          <span class="ol-consent-text">I agree to the <a href="/privacy">processing of personal data</a>.</span>
+        </label>
+        <button type="submit" class="ol-submit">Send →</button>
+        <div class="form-status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <footer class="site-footer">
+    <div class="footer-links-col">
+      <div>
+        <nav class="footer-col-links">
+          <a href="/">Home</a>
+          <a href="/work">Works</a>
+          <a href="/pieces">Pieces</a>
+          <a href="/talks">Talks</a>
+        </nav>
+      </div>
+      <div>        <div class="footer-col-links">
+          <a href="https://linkedin.com/in/ripsime-sargsyan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://t.me/ripssimee" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">@sargsyan.std</a>
+        </div>
+      </div>
+      <div>        <div class="footer-col-links">
+          <a href="https://instagram.com/ripssimee/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://behance.net/gallery/214524539/Eburet-online-store-redesign" target="_blank" rel="noopener">Behance</a>
+          <a href="https://t.me/sargsyanstd" target="_blank" rel="noopener">My channel</a>
+        </div>
+      </div>
+      <div class="footer-col-right">
+        <p class="footer-copyright">All rights reserved</p>
+        <p class="footer-copyright">© 2026 Ripsime Sargsyan</p>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

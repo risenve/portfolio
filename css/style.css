@@ -2163,9 +2163,13 @@ a,button,[role="button"],label,input,textarea,select{cursor:pointer!important}
 .rds-see-also-item:hover .rds-see-also-img img{transform:scale(1.04)}
 .rds-see-also-title{font-size:20px;font-weight:400;color:#fff;font-family:var(--font);line-height:1.2}
 
-/* ── TABLET (901–1280px): prevent fixed-width overflow in case studies ── */
+/* ── TABLET (901–1280px): share the row as percentages so neither column
+   collapses (fixed 512px right used to grow to its content and crush the
+   left column to 0 → overlapping text). ── */
 @media(max-width:1280px){
-  .skp-project-info-right{flex-shrink:1;width:auto;min-width:200px}
+  .skp-project-info{gap:40px}
+  .skp-project-info-left{flex:1 1 40%;min-width:0}
+  .skp-project-info-right{flex:1 1 60%;width:auto;min-width:0;max-width:none}
   .rds-hero-left{width:50%;min-width:0}
 }
 
