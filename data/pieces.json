@@ -176,17 +176,6 @@
     "h": 1417
   },
   {
-    "id": 18,
-    "title": "InHub",
-    "story": "Brand identity design.",
-    "year": "2025",
-    "link": "",
-    "collection": "projects",
-    "img": "/images/Works_Covers/in hub.webp",
-    "w": 1822,
-    "h": 1417
-  },
-  {
     "id": 19,
     "title": "Match",
     "story": "",
@@ -447,6 +436,138 @@
     "link": "/charoit",
     "collection": "projects",
     "img": "/images/charoit/charoit_sreda_11.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 44,
+    "title": "Charoit",
+    "story": "Айдентика и брендинг для сети ювелирных магазинов «Чароит» совместно со студией Bauns.",
+    "year": "2026",
+    "link": "/charoit",
+    "collection": "projects",
+    "img": "/images/Works_Covers/Charoit.webp",
+    "w": 2560,
+    "h": 1991
+  },
+  {
+    "id": 45,
+    "title": "Hydro",
+    "story": "Брендинг и айдентика для ГЭС «Альянс Гидро».",
+    "year": "2026",
+    "link": "/hydro",
+    "collection": "projects",
+    "img": "/images/Works_Covers/Hydro.webp",
+    "w": 2560,
+    "h": 1991
+  },
+  {
+    "id": 46,
+    "title": "Esse",
+    "story": "Брендинг и коммуникация.",
+    "year": "2026",
+    "link": "/work",
+    "collection": "projects",
+    "img": "/images/Works_Covers/Esse.webp",
+    "w": 2560,
+    "h": 1991
+  },
+  {
+    "id": 47,
+    "title": "Bohem",
+    "story": "Моушен и коммуникация.",
+    "year": "2026",
+    "link": "/work",
+    "collection": "projects",
+    "img": "/images/Works_Covers/Bohem.webp",
+    "w": 2560,
+    "h": 1991
+  },
+  {
+    "id": 48,
+    "title": "Hydro",
+    "story": "Брендинг и айдентика для ГЭС «Альянс Гидро».",
+    "year": "2026",
+    "link": "/hydro",
+    "collection": "projects",
+    "img": "/images/hydro/hydro_3.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 49,
+    "title": "Hydro",
+    "story": "Брендинг и айдентика для ГЭС «Альянс Гидро».",
+    "year": "2026",
+    "link": "/hydro",
+    "collection": "projects",
+    "img": "/images/hydro/hydro_4.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 50,
+    "title": "Hydro",
+    "story": "Брендинг и айдентика для ГЭС «Альянс Гидро».",
+    "year": "2026",
+    "link": "/hydro",
+    "collection": "projects",
+    "img": "/images/hydro/hydro_6.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 51,
+    "title": "Hydro",
+    "story": "Брендинг и айдентика для ГЭС «Альянс Гидро».",
+    "year": "2026",
+    "link": "/hydro",
+    "collection": "projects",
+    "img": "/images/hydro/hydro_7.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 52,
+    "title": "Hydro",
+    "story": "Брендинг и айдентика для ГЭС «Альянс Гидро».",
+    "year": "2026",
+    "link": "/hydro",
+    "collection": "projects",
+    "img": "/images/hydro/hydro_8.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 53,
+    "title": "Hydro",
+    "story": "Брендинг и айдентика для ГЭС «Альянс Гидро».",
+    "year": "2026",
+    "link": "/hydro",
+    "collection": "projects",
+    "img": "/images/hydro/hydro_9.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 54,
+    "title": "Hydro",
+    "story": "Брендинг и айдентика для ГЭС «Альянс Гидро».",
+    "year": "2026",
+    "link": "/hydro",
+    "collection": "projects",
+    "img": "/images/hydro/hydro_10.webp",
+    "w": 1920,
+    "h": 1080
+  },
+  {
+    "id": 55,
+    "title": "Hydro",
+    "story": "Брендинг и айдентика для ГЭС «Альянс Гидро».",
+    "year": "2026",
+    "link": "/hydro",
+    "collection": "projects",
+    "img": "/images/hydro/hydro_11.webp",
     "w": 1920,
     "h": 1080
   }
